@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">jInventario</string>
+    <string name="s_login">Login</string>
+    <string name="s_email">E-mail</string>
+    <string name="s_senha">Senha</string>
+    <string name="s_esqueceusenha">Esqueceu a senha?</string>
+    <string name="s_lembrarlogin">Lembrar login</string>
+    <string name="s_loginsocial">Login Social</string>
+    <string name="s_entrargmail">Entrar com o Gmail</string>
+    <string name="s_naocadastrado">Não é cadastrado?</string>
+    <string name="s_cadastrese">Cadastre-se.</string>
 </resources>
