@@ -12,4 +12,7 @@
     <string name="s_t_cadastrar">Cadastrar Usuário</string>
     <string name="s_cadastrar">Cadastrar</string>
     <string name="s_voltar">Voltar</string>
+    <string name="s_t_esqueceusenha">Esqueceu a Senha</string>
+    <string name="s_m_esqueceusenha">Informe o seu e-mail cadastrado.</string>
+    <string name="s_novasenha">Enviar nova senha</string>
 </resources>
