@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegacao_login"
+    app:startDestination="@id/telaLogin">
+    <!-- app:startDestination= define qual tela sera exibida -->
+
+    <fragment
+        android:id="@+id/telaLogin"
+        android:name="br.com.ernanilima.jinventario.view.LoginActivity"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/telaCadastrar"
+        android:name="br.com.ernanilima.jinventario.view.CadastrarActivity"
+        android:label="fragment_cadastrar"
+        tools:layout="@layout/fragment_login_cadastrar"/>
+    <fragment
+        android:id="@+id/telaEsqueceuSenha"
+        android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaActivity"
+        android:label="fragment_esqueceu_senha"
+        tools:layout="@layout/fragment_login_esqueceu_senha" />
+
+</navigation>
