@@ -1,8 +1,10 @@
-package br.com.ernanilima.jinventario.validation;
+package br.com.ernanilima.jinventario.service.validation;
 
 import android.view.inputmethod.EditorInfo;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
 
 public class ValidarCampo {
 
@@ -54,7 +56,7 @@ public class ValidarCampo {
         if (stringDoCampo.length() < qtdMinima) {
             // com erro
             campo.setErrorEnabled(true);
-            campo.setError("NECESSÁRIO INFORMAR NO MÍNIMO " + qtdMinima + " CARACTERES");
+            campo.setError(MensagemAlerta.getMsgMinCaracteres(qtdMinima));
             campo.getEditText().requestFocus();
             return false;
         }

@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.nav;
+package br.com.ernanilima.jinventario.service.navcontroller;
 
 import android.view.View;
 

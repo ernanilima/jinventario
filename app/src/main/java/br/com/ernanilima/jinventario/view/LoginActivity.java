@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.nav.Navegacao;
+import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 
 public class LoginActivity extends Fragment {
 
