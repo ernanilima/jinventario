@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,9 @@ public class CadastrarActivity extends Fragment {
         campo_senha2 = view.findViewById(R.id.campo_senha2);
         btn_cadastrar = view.findViewById(R.id.btn_cadastrar);
         link_btn_voltar = view.findViewById(R.id.btn_voltar);
+
+        // ACAO DE BOTOES
+        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
 
     }
 }

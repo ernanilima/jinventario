@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,9 @@ public class EsqueceuSenhaActivity extends Fragment {
         campo_email = view.findViewById(R.id.campo_email);
         btn_novasenha = view.findViewById(R.id.btn_novasenha);
         link_btn_voltar = view.findViewById(R.id.btn_voltar);
+
+        // ACAO DE BOTOES
+        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
 
     }
 }

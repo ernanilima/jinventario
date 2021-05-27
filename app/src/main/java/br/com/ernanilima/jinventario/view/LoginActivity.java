@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.nav.Navegacao;
 
 public class LoginActivity extends Fragment {
 
@@ -44,6 +45,10 @@ public class LoginActivity extends Fragment {
         chbx_lembrar_login = view.findViewById(R.id.chbx_lembrar_login);
         btn_login = view.findViewById(R.id.btn_login);
         btn_login_gmail = view.findViewById(R.id.btn_login_gmail);
+
+        // ACAO DE BOTOES
+        link_btn_esqueceu_senha.setOnClickListener(Navegacao::abrirTelaEsqueceuSenha);
+        link_btn_cadastrar.setOnClickListener(Navegacao::abrirTelaCadastrar);
 
     }
 }
