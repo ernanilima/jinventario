@@ -9,7 +9,7 @@
     <string name="s_entrargmail">Entrar com o Gmail</string>
     <string name="s_naocadastrado">Não é cadastrado?</string>
     <string name="s_cadastrese">Cadastre-se.</string>
-    <string name="s_t_cadastrar">Cadastrar Usuário</string>
+    <string name="s_t_cadastro">Cadastrar Usuário</string>
     <string name="s_cadastrar">Cadastrar</string>
     <string name="s_voltar">Voltar</string>
     <string name="s_t_esqueceusenha">Esqueceu a Senha</string>

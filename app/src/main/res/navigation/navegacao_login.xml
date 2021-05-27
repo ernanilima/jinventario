@@ -12,14 +12,14 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
-        android:id="@+id/telaCadastrar"
-        android:name="br.com.ernanilima.jinventario.view.CadastrarActivity"
-        android:label="fragment_cadastrar"
-        tools:layout="@layout/fragment_login_cadastrar"/>
+        android:id="@+id/telaCadastro"
+        android:name="br.com.ernanilima.jinventario.view.CadastroActivity"
+        android:label="fragment_login_cadastro"
+        tools:layout="@layout/fragment_login_cadastro"/>
     <fragment
         android:id="@+id/telaEsqueceuSenha"
         android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaActivity"
-        android:label="fragment_esqueceu_senha"
+        android:label="fragment_login_esqueceu_senha"
         tools:layout="@layout/fragment_login_esqueceu_senha" />
 
 </navigation>
