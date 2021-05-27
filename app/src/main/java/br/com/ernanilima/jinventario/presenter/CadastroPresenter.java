@@ -2,6 +2,8 @@ package br.com.ernanilima.jinventario.presenter;
 
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
@@ -9,17 +11,26 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 public class CadastroPresenter implements ICadastro.CadastroPresenter {
 
     private ICadastro.CadastroView vCadastro;
+    private FirebaseAuth auth;
 
     /** Construtor
      * @param vCadastro ICadastro.CadastroView - view(activity) de cadastro */
     public CadastroPresenter(ICadastro.CadastroView vCadastro) {
         this.vCadastro = vCadastro;
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void cadastrar(View view) {
         if (validarCampos()) {
-            System.out.println("cadastrou");
+            String email = vCadastro.getCampoEmail().getEditText().getText().toString();
+            String senha = vCadastro.getCampoSenha1().getEditText().getText().toString();
+
+            auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(aut -> {
+                if (aut.isSuccessful()) {
+                    System.out.println("cadastrou");
+                }
+            });
         }
     }
 
