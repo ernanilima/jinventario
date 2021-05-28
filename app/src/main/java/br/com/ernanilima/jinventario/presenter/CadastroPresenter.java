@@ -26,7 +26,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
         if (validarCampos()) {
             String email = vCadastro.getCampoEmail().getEditText().getText().toString();
             String senha = vCadastro.getCampoSenha1().getEditText().getText().toString();
-            iFirebase.cadastrarUsuario(email, senha);
+            iFirebase.cadastrarUsuario(view.getContext(), email, senha);
         }
     }
 
