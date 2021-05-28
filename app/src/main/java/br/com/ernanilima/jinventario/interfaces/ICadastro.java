@@ -16,7 +16,7 @@ public interface ICadastro {
 
     /** Usado no presenter
      * {@link br.com.ernanilima.jinventario.presenter.CadastroPresenter} */
-    interface CadastroPresenter {
+    interface CadastroPresenter extends IResultadoFirebase {
         void cadastrar(View view);
     }
 }
