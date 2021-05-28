@@ -40,14 +40,28 @@ public class Firebase implements IFirebase {
     /** Envia e-mail de verificacao para usuario
      * confirmar que e-mail cadastrado existe */
     public void enviarEmailVerificacao() {
-        usuarioAtual.sendEmailVerification().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        usuarioAtual.sendEmailVerification().addOnCompleteListener(aut -> {
+            if (aut.isSuccessful()) {
                 iResFirebase.setResultado(TipoResultado.EMAIL_VERIFICACAO_ENVIADO);
 
             } else {
                 // erro no envio do e-mail de verificacao
                 System.out.println("ERRO NO ENVIO DE EMAIL DE VERIFICACAO, CODIGO: " +
-                        ((FirebaseAuthException) task.getException()).getErrorCode());
+                        ((FirebaseAuthException) aut.getException()).getErrorCode());
+            }
+        });
+    }
+
+    @Override
+    public void enviarEmailEsqueceuSenha(String email) {
+        autenticacao.sendPasswordResetEmail(email).addOnCompleteListener(aut -> {
+            if (aut.isSuccessful()) {
+                iResFirebase.setResultado(TipoResultado.EMAIL_NOVA_SENHA_ENVIADO);
+
+            } else {
+                // erro no envio do e-mail de esqueceu a senha
+                System.out.println("ERRO NO ENVIO DE EMAIL DE ESQUECEU A SENHA, CODIGO: " +
+                        ((FirebaseAuthException) aut.getException()).getErrorCode());
             }
         });
     }
