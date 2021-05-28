@@ -1,7 +1,8 @@
 package br.com.ernanilima.jinventario.firebase.validation;
 
 import android.content.Context;
-import android.widget.Toast;
+
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class ValidarFirebase {
 
@@ -12,7 +13,7 @@ public class ValidarFirebase {
         switch (codigoErro) {
             case "ERROR_EMAIL_ALREADY_IN_USE":
             case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                Toast.makeText(context, "E-mail já existe.", Toast.LENGTH_LONG).show();
+                ToastPersonalizado.erro(context, "E-mail já existe.");
         }
     }
 }
