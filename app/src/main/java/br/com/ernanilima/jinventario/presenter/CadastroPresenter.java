@@ -8,6 +8,7 @@ import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class CadastroPresenter implements ICadastro.CadastroPresenter {
 
@@ -50,7 +51,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
                 break;
 
             case EMAIL_VERIFICACAO_ENVIADO:
-                System.out.println("e-mail de verificacao enviado");
+                ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), "Cadastrado, verifique seu e-mail");
         }
     }
 }
