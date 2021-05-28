@@ -14,6 +14,13 @@ public class Navegacao {
 
     /** Navega para a tela solicitada utilizando o xml de navegacao
      * @param view View - view(tela) que esta solicitando */
+    public static void abrirTelaLogin(View view) {
+        navController = Navigation.findNavController(view);
+        navController.navigate(R.id.telaLogin);
+    }
+
+    /** Navega para a tela solicitada utilizando o xml de navegacao
+     * @param view View - view(tela) que esta solicitando */
     public static void abrirTelaCadastrar(View view) {
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.telaCadastro);

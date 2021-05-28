@@ -53,6 +53,7 @@ public class Firebase implements IFirebase {
     }
 
     @Override
+    /** Envia e-mail para redefinir a senha do usuario */
     public void enviarEmailEsqueceuSenha(String email) {
         autenticacao.sendPasswordResetEmail(email).addOnCompleteListener(aut -> {
             if (aut.isSuccessful()) {

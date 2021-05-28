@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:imeOptions="actionGo"
+                    android:imeOptions="actionDone"
                     android:inputType="numberPassword"
                     android:maxLength="15"
                     android:textColor="@color/black" />

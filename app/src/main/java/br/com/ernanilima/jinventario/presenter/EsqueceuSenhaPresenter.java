@@ -7,7 +7,9 @@ import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
+import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPresenter {
 
@@ -37,7 +39,8 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
             case EMAIL_NOVA_SENHA_ENVIADO:
-                System.out.println("e-mail esqueceu senha enviado");
+                ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), "As informações para \"Nova Senha\" foram enviadas no e-mail");
+                Navegacao.abrirTelaLogin(vEsqueceuSenha.getActivity().getCurrentFocus());
         }
     }
 }
