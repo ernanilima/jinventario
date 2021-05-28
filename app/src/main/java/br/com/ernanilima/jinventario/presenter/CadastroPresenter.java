@@ -42,8 +42,15 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
     @Override
     /** Resultado recebido do firebase */
     public void setResultado(TipoResultado resultado) {
-        if (resultado.equals(TipoResultado.CADASTRO_REALIZADO)) {
-            System.out.println("cadastro realizado");
+        switch (resultado) {
+            case CADASTRO_REALIZADO:
+                // cadastro realizado, envia o e-mail de verificacao
+                // para confirmar se e-mail realmente existe
+                iFirebase.enviarEmailVerificacao();
+                break;
+
+            case EMAIL_VERIFICACAO_ENVIADO:
+                System.out.println("e-mail de verificacao enviado");
         }
     }
 }
