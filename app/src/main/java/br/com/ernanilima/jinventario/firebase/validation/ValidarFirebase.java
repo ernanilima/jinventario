@@ -13,6 +13,7 @@ public class ValidarFirebase {
         switch (codigoErro) {
             case "ERROR_EMAIL_ALREADY_IN_USE":
             case "ERROR_CREDENTIAL_ALREADY_IN_USE":
+            case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
                 ToastPersonalizado.erro(context, "E-mail já existe.");
         }
     }
