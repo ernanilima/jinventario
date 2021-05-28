@@ -15,10 +15,13 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.ILogin;
+import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 
-public class LoginActivity extends Fragment {
+public class LoginActivity extends Fragment implements ILogin.LoginView {
 
+    private ILogin.LoginPresenter pLogin;
     private TextInputLayout campo_email, campo_senha;
     private TextView link_btn_esqueceu_senha, link_btn_cadastrar;
     private CheckBox chbx_lembrar_login;
@@ -36,6 +39,9 @@ public class LoginActivity extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // DEFINE PRESENTER DESSA ACTIVITY
+        pLogin = new LoginPresenter(this);
+
         // INICIALIZA
         // nome_local = nome_no_xml
         campo_email = view.findViewById(R.id.campo_email);
@@ -47,8 +53,21 @@ public class LoginActivity extends Fragment {
         btn_login_gmail = view.findViewById(R.id.btn_login_gmail);
 
         // ACAO DE BOTOES
+        campo_senha.getEditText().setOnClickListener(v -> pLogin.login()); // botao de teclado
+        btn_login.setOnClickListener(v -> pLogin.login());
+        btn_login_gmail.setOnClickListener(v -> pLogin.loginGmail());
         link_btn_esqueceu_senha.setOnClickListener(Navegacao::abrirTelaEsqueceuSenha);
         link_btn_cadastrar.setOnClickListener(Navegacao::abrirTelaCadastrar);
 
+    }
+
+    @Override
+    public TextInputLayout getCampoEmail() {
+        return campo_email;
+    }
+
+    @Override
+    public TextInputLayout getCampoSenha() {
+        return campo_senha;
     }
 }
