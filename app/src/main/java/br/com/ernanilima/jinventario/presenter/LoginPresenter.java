@@ -1,6 +1,9 @@
 package br.com.ernanilima.jinventario.presenter;
 
+import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
+import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
+import br.com.ernanilima.jinventario.service.social.Google;
 
 public class LoginPresenter implements ILogin.LoginPresenter {
 
@@ -17,6 +20,14 @@ public class LoginPresenter implements ILogin.LoginPresenter {
 
     @Override
     public void loginGmail() {
-        System.out.println("login gmail");
+        Google.getInstance().loginGoogle(vLogin.getServicoLoginGoogle(), this);
+    }
+
+    @Override
+    public void setResultado(TipoResultado resultado) {
+        switch (resultado) {
+            case LOGIN_GOOGLE:
+                Navegacao.abrirTelaActivityPrincipal(vLogin.getActivity());
+        }
     }
 }

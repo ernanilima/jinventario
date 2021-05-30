@@ -2,9 +2,11 @@ package br.com.ernanilima.jinventario.firebase;
 
 import android.content.Context;
 
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
@@ -65,5 +67,19 @@ public class Firebase implements IFirebase {
                         ((FirebaseAuthException) aut.getException()).getErrorCode());
             }
         });
+    }
+
+    @Override
+    /** Realiza login no firebase e cadastra credenciais de usuario que
+     * realizou login com o google */
+    public void loginUsuarioGoogle(String idTokenUsuario) {
+        AuthCredential credencial = GoogleAuthProvider.getCredential(idTokenUsuario, null);
+        autenticacao.signInWithCredential(credencial)
+                .addOnCompleteListener(aut -> {
+                    if (aut.isSuccessful()) {
+                        usuarioAtual = autenticacao.getCurrentUser();
+                        iResFirebase.setResultado(TipoResultado.LOGIN_GOOGLE);
+                    }
+                });
     }
 }

@@ -12,12 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
 import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
+import br.com.ernanilima.jinventario.service.social.Google;
 
 public class LoginActivity extends Fragment implements ILogin.LoginView {
 
@@ -26,6 +28,7 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
     private TextView link_btn_esqueceu_senha, link_btn_cadastrar;
     private CheckBox chbx_lembrar_login;
     private AppCompatButton btn_login, btn_login_gmail;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Nullable
     @Override
@@ -59,6 +62,10 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
         link_btn_esqueceu_senha.setOnClickListener(Navegacao::abrirTelaEsqueceuSenha);
         link_btn_cadastrar.setOnClickListener(Navegacao::abrirTelaCadastrar);
 
+        // GOOGLE
+        mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), getActivity());
+        Google.getInstance().setFragmentLogin(this);
+
     }
 
     @Override
@@ -69,5 +76,10 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
     @Override
     public TextInputLayout getCampoSenha() {
         return campo_senha;
+    }
+
+    @Override
+    public GoogleSignInClient getServicoLoginGoogle() {
+        return mGoogleSignInClient;
     }
 }
