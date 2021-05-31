@@ -37,7 +37,6 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -66,6 +65,12 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
         mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), getActivity());
         Google.getInstance().setFragmentLogin(this);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        pLogin.verificarSeUsuarioAutenticado();
     }
 
     @Override

@@ -21,5 +21,6 @@ public interface ILogin {
     interface LoginPresenter extends IResultadoFirebase {
         void login();
         void loginGmail();
+        void verificarSeUsuarioAutenticado();
     }
 }

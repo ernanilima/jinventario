@@ -22,6 +22,16 @@ public class Firebase implements IFirebase {
     public Firebase(IResultadoFirebase iResFirebase) {
         this.autenticacao = FirebaseAuth.getInstance();
         this.iResFirebase = iResFirebase;
+        this.usuarioAtual = autenticacao.getCurrentUser();
+    }
+
+    @Override
+    /** Verifica se o usuario estah autenticado/logado
+     * Se estiver, regista no resultado */
+    public void verificarSeUsuarioAutenticado() {
+        if (usuarioAtual != null) {
+            iResFirebase.setResultado(TipoResultado.LOGIN_GOOGLE);
+        }
     }
 
     @Override
