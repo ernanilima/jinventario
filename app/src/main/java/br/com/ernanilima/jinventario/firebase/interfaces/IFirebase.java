@@ -9,8 +9,8 @@ import br.com.ernanilima.jinventario.firebase.Firebase;
 public interface IFirebase {
     void verificarSeUsuarioAutenticado();
     void cadastrarUsuario(Context contextTelaDoErro, String email, String senha);
-    void enviarEmailVerificacao();
-    void enviarEmailEsqueceuSenha(String email);
+    void enviarEmailVerificacao(Context contextTelaDoErro);
+    void enviarEmailEsqueceuSenha(Context contextTelaDoErro, String email);
     void loginUsuarioGoogle(String idTokenUsuario);
     void loginUsuario(Context contextTelaDoErro, String email, String senha);
 }

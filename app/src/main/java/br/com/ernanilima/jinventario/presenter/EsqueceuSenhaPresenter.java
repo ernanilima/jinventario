@@ -27,7 +27,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
     public void gerarNovaSenha(View view) {
         if (validarCampo()) {
             String email = vEsqueceuSenha.getCampoEmail().getEditText().getText().toString();
-            iFirebase.enviarEmailEsqueceuSenha(email);
+            iFirebase.enviarEmailEsqueceuSenha(vEsqueceuSenha.getActivity(), email);
         }
     }
 

@@ -46,7 +46,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setTitle("E-mail não verificado!")
                 .setMessage("Reenviar e-mail de verificação?")
-                .setPositiveButton("Sim", (dialog, which) -> iFirebase.enviarEmailVerificacao())
+                .setPositiveButton("Sim", (dialog, which) -> iFirebase.enviarEmailVerificacao(vLogin.getActivity()))
                 .setNegativeButton("Não", (dialog, which) -> dialog.cancel())
                 .setCancelable(false);
 

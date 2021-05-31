@@ -48,7 +48,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
             case CADASTRO_REALIZADO:
                 // cadastro realizado, envia o e-mail de verificacao
                 // para confirmar se e-mail realmente existe
-                iFirebase.enviarEmailVerificacao();
+                iFirebase.enviarEmailVerificacao(vCadastro.getActivity());
                 break;
 
             case EMAIL_VERIFICACAO_ENVIADO:

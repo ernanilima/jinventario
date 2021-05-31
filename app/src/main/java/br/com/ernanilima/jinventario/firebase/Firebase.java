@@ -44,36 +44,34 @@ public class Firebase implements IFirebase {
             }
         }).addOnFailureListener(err -> {
             // erro no cadastro
-            ValidarFirebase.erroCadastro(contextTelaDoErro, ((FirebaseAuthException) err).getErrorCode());
+            ValidarFirebase.erroFirebase(contextTelaDoErro, ((FirebaseAuthException) err).getErrorCode());
         });
     }
 
     @Override
     /** Envia e-mail de verificacao para usuario
      * confirmar que e-mail cadastrado existe */
-    public void enviarEmailVerificacao() {
+    public void enviarEmailVerificacao(Context contextTelaDoErro) {
         usuarioAtual.sendEmailVerification().addOnCompleteListener(aut -> {
             if (aut.isSuccessful()) {
                 iResFirebase.setResultado(TipoResultado.EMAIL_VERIFICACAO_ENVIADO);
             }
         }).addOnFailureListener(err -> {
             // erro no envio do e-mail de verificacao
-            System.out.println("ERRO NO ENVIO DE EMAIL DE VERIFICACAO, CODIGO: " +
-                    ((FirebaseAuthException) err).getErrorCode());
+            ValidarFirebase.erroFirebase(contextTelaDoErro,  err.getClass().getSimpleName());
         });
     }
 
     @Override
     /** Envia e-mail para redefinir a senha do usuario */
-    public void enviarEmailEsqueceuSenha(String email) {
+    public void enviarEmailEsqueceuSenha(Context contextTelaDoErro, String email) {
         autenticacao.sendPasswordResetEmail(email).addOnCompleteListener(aut -> {
             if (aut.isSuccessful()) {
                 iResFirebase.setResultado(TipoResultado.EMAIL_NOVA_SENHA_ENVIADO);
             }
         }).addOnFailureListener(err -> {
             // erro no envio do e-mail de esqueceu a senha
-            System.out.println("ERRO NO ENVIO DE EMAIL DE ESQUECEU A SENHA, CODIGO: " +
-                    ((FirebaseAuthException) err).getErrorCode());
+            ValidarFirebase.erroFirebase(contextTelaDoErro, ((FirebaseAuthException) err).getErrorCode());
         });
     }
 
@@ -105,8 +103,7 @@ public class Firebase implements IFirebase {
             }
         }).addOnFailureListener(err -> {
             // erro no login de usuario
-            System.out.println("ERRO NO LOGIN DE USUARIO COM SENHA, CODIGO: " +
-                    ((FirebaseAuthException) err).getErrorCode());
+            ValidarFirebase.erroFirebase(contextTelaDoErro, ((FirebaseAuthException) err).getErrorCode());
         });
     }
 }
