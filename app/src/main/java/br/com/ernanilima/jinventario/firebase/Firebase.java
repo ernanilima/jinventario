@@ -29,7 +29,7 @@ public class Firebase implements IFirebase {
     /** Verifica se o usuario estah autenticado/logado
      * Se estiver, regista no resultado */
     public void verificarSeUsuarioAutenticado() {
-        if (usuarioAtual != null) {
+        if (usuarioAtual != null && usuarioAtual.isEmailVerified()) {
             iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
         }
     }
