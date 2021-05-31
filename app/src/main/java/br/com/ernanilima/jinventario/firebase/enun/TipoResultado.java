@@ -5,6 +5,7 @@ package br.com.ernanilima.jinventario.firebase.enun;
 public enum TipoResultado {
     CADASTRO_REALIZADO,
     EMAIL_VERIFICACAO_ENVIADO,
+    EMAIL_NAO_VERIFICADO,
     EMAIL_NOVA_SENHA_ENVIADO,
     LOGIN_REALIZADO
 }

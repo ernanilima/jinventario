@@ -1,5 +1,9 @@
 package br.com.ernanilima.jinventario.presenter;
 
+import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
+
 import br.com.ernanilima.jinventario.firebase.Firebase;
 import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
@@ -38,6 +42,18 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         Google.getInstance().loginGoogle(vLogin.getServicoLoginGoogle(), this);
     }
 
+    private void dialogEmailVerificacao(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("E-mail não verificado!")
+                .setMessage("Reenviar e-mail de verificação?")
+                .setPositiveButton("Sim", (dialog, which) -> iFirebase.enviarEmailVerificacao())
+                .setNegativeButton("Não", (dialog, which) -> dialog.cancel())
+                .setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     private boolean validarCampos() {
         return ValidarCampo.vazio(vLogin.getCampoEmail(), MensagemAlerta.EMAIL_INVALIDO) &&
                 ValidarCampo.vazio(vLogin.getCampoSenha(), MensagemAlerta.SENHA_INVALIDA) &&
@@ -49,6 +65,9 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         switch (resultado) {
             case LOGIN_REALIZADO:
                 Navegacao.abrirTelaActivityPrincipal(vLogin.getActivity());
+                break;
+            case EMAIL_NAO_VERIFICADO:
+                dialogEmailVerificacao(vLogin.getActivity().getCurrentFocus());
         }
     }
 }

@@ -94,9 +94,14 @@ public class Firebase implements IFirebase {
     @Override
     public void loginUsuario(Context contextTelaDoErro, String email, String senha) {
         autenticacao.signInWithEmailAndPassword(email, senha).addOnCompleteListener(aut -> {
-            if (aut.isSuccessful()) {
+            if (aut.isSuccessful() && aut.getResult().getUser().isEmailVerified()) {
+                // com e-mail verificado
                 usuarioAtual = autenticacao.getCurrentUser();
                 iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
+
+            } else if (aut.isSuccessful() && !aut.getResult().getUser().isEmailVerified()) {
+                // sem e-mail verificado
+                iResFirebase.setResultado(TipoResultado.EMAIL_NAO_VERIFICADO);
             }
         }).addOnFailureListener(err -> {
             // erro no login de usuario
