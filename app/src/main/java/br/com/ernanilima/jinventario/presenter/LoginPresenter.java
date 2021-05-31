@@ -4,8 +4,10 @@ import br.com.ernanilima.jinventario.firebase.Firebase;
 import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
+import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.social.Google;
+import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
 public class LoginPresenter implements ILogin.LoginPresenter {
 
@@ -24,7 +26,11 @@ public class LoginPresenter implements ILogin.LoginPresenter {
 
     @Override
     public void login() {
-        System.out.println("login normal");
+        if (validarCampos()) {
+            String email = vLogin.getCampoEmail().getEditText().getText().toString();
+            String senha = vLogin.getCampoSenha().getEditText().getText().toString();
+            iFirebase.loginUsuario(vLogin.getActivity().getBaseContext(), email, senha);
+        }
     }
 
     @Override
@@ -32,10 +38,16 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         Google.getInstance().loginGoogle(vLogin.getServicoLoginGoogle(), this);
     }
 
+    private boolean validarCampos() {
+        return ValidarCampo.vazio(vLogin.getCampoEmail(), MensagemAlerta.EMAIL_INVALIDO) &&
+                ValidarCampo.vazio(vLogin.getCampoSenha(), MensagemAlerta.SENHA_INVALIDA) &&
+                ValidarCampo.qtdCaracteres(vLogin.getCampoSenha(), 6);
+    }
+
     @Override
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
-            case LOGIN_GOOGLE:
+            case LOGIN_REALIZADO:
                 Navegacao.abrirTelaActivityPrincipal(vLogin.getActivity());
         }
     }

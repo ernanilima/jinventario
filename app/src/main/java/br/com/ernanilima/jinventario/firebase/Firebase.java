@@ -30,7 +30,7 @@ public class Firebase implements IFirebase {
      * Se estiver, regista no resultado */
     public void verificarSeUsuarioAutenticado() {
         if (usuarioAtual != null) {
-            iResFirebase.setResultado(TipoResultado.LOGIN_GOOGLE);
+            iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
         }
     }
 
@@ -88,8 +88,22 @@ public class Firebase implements IFirebase {
                 .addOnCompleteListener(aut -> {
                     if (aut.isSuccessful()) {
                         usuarioAtual = autenticacao.getCurrentUser();
-                        iResFirebase.setResultado(TipoResultado.LOGIN_GOOGLE);
+                        iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
                     }
                 });
+    }
+
+    @Override
+    public void loginUsuario(Context contextTelaDoErro, String email, String senha) {
+        autenticacao.signInWithEmailAndPassword(email, senha).addOnCompleteListener(aut -> {
+            if (aut.isSuccessful()) {
+                usuarioAtual = autenticacao.getCurrentUser();
+                iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
+            } else {
+                // erro no login de usuario
+                System.out.println("ERRO NO LOGIN DE USUARIO COM SENHA, CODIGO: " +
+                        ((FirebaseAuthException) aut.getException()).getErrorCode());
+            }
+        });
     }
 }

@@ -12,4 +12,5 @@ public interface IFirebase {
     void enviarEmailVerificacao();
     void enviarEmailEsqueceuSenha(String email);
     void loginUsuarioGoogle(String idTokenUsuario);
+    void loginUsuario(Context contextTelaDoErro, String email, String senha);
 }
