@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Inicio"
+            android:id="@+id/btn_menu_nav_inicio"
+            android:icon="@drawable/ic_inicio" />
+
+        <item android:title="Nova Coletagem"
+            android:id="@+id/btn_menu_nav_novacoletagem"
+            android:icon="@drawable/ic_novo" />
+    </group>
+
+    <item android:title="Outros">
+        <menu>
+            <item android:title="Sair"
+                android:id="@+id/btn_menu_nav_sair"
+                android:icon="@drawable/ic_sair" />
+        </menu>
+    </item>
+</menu>
