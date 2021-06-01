@@ -11,6 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
+import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 
 public class AppActivity extends AppCompatActivity {
 
@@ -52,7 +55,8 @@ public class AppActivity extends AppCompatActivity {
     }
 
     private boolean sair() {
-        System.out.println("SAIR DO APLICATIVO");
+        FirebaseAuth.getInstance().signOut();
+        Navegacao.abrirTelaActivityMain(this);
         return true;
     }
 }

@@ -9,12 +9,32 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import br.com.ernanilima.jinventario.AppActivity;
+import br.com.ernanilima.jinventario.MainActivity;
 import br.com.ernanilima.jinventario.R;
 
 /** Classe criada para agrupar as navegacoes */
 public class Navegacao {
 
     private static NavController navController;
+
+
+    /** Abre a tela {@link MainActivity}
+     * @param context Context - context(tela) que esta solicitando */
+    public static void abrirTelaActivityMain(Context context) {
+        Activity activity = (Activity)context;
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    /** Abre a tela {@link AppActivity}
+     * @param context Context - context(tela) que esta solicitando */
+    public static void abrirTelaActivityApp(Context context) {
+        Activity activity = (Activity)context;
+        Intent intent = new Intent(activity, AppActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
 
     /** Navega para a tela solicitada utilizando o xml de navegacao
      * @param view View - view(tela) que esta solicitando */
@@ -35,14 +55,5 @@ public class Navegacao {
     public static void abrirTelaEsqueceuSenha(View view) {
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.telaEsqueceuSenha);
-    }
-
-    /** Abre tela de activity principal
-     * @param context Context - context(tela) que esta solicitando */
-    public static void abrirTelaActivityPrincipal(Context context) {
-        Activity activity = (Activity)context;
-        Intent intent = new Intent(activity, AppActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
     }
 }

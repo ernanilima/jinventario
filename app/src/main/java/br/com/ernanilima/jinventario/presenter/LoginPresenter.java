@@ -64,7 +64,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
             case LOGIN_REALIZADO:
-                Navegacao.abrirTelaActivityPrincipal(vLogin.getActivity());
+                Navegacao.abrirTelaActivityApp(vLogin.getActivity());
                 break;
             case EMAIL_NAO_VERIFICADO:
                 dialogEmailVerificacao(vLogin.getActivity().getCurrentFocus());
