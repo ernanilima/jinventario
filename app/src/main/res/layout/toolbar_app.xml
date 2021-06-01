@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AppActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,5 +20,7 @@
             app:popupTheme="@style/Theme.PopupMenu" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_app" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

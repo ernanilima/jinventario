@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegacao_app"
+    app:startDestination="@id/btn_menu_nav_inicio">
+
+    <fragment
+        android:id="@+id/btn_menu_nav_inicio"
+        android:name="br.com.ernanilima.jinventario.view.InicioAppActivity"
+        android:label="Início"
+        tools:layout="@layout/fragment_inicio_app" />
+
+</navigation>
