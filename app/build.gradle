@@ -6,6 +6,9 @@ plugins {
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+// GREENDAO
+apply plugin: 'org.greenrobot.greendao'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -50,5 +53,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //GREENDAO
+    implementation 'org.greenrobot:greendao:3.3.0'
 
 }
