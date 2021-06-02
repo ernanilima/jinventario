@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailNovaSenha;
 import br.com.ernanilima.jinventario.model.EmailNovaSenhaDao;
-import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
@@ -63,13 +63,13 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
         else {
-            ToastPersonalizado.erro(vEsqueceuSenha.getActivity().getApplicationContext(),
-                    "Aguarde " + ValidarEmailEnviado.getTempoParaNovoEmail(mEmailNovaSenha.getDataEnvioNovaSenha()) + " minuto(s) para enviar o e-mail novamente");
+            ToastPersonalizado.erro(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.getMsgTempoEsperaEmail(
+                    ValidarEmailEnviado.getTempoParaNovoEmail(mEmailNovaSenha.getDataEnvioNovaSenha())));
         }
     }
 
     private boolean validarCampo() {
-        return ValidarCampo.vazio(vEsqueceuSenha.getCampoEmail(), MensagemAlerta.EMAIL_INVALIDO);
+        return ValidarCampo.vazio(vEsqueceuSenha.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
             case EMAIL_NOVA_SENHA_ENVIADO:
-                ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), "As informações para \"Nova Senha\" foram enviadas no e-mail");
+                ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
                 Navegacao.abrirTelaLogin(vEsqueceuSenha.getActivity().getCurrentFocus());
         }
     }

@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
-import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
@@ -46,12 +46,12 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
     }
 
     private boolean validarCampos() {
-        return ValidarCampo.vazio(vCadastro.getCampoEmail(), MensagemAlerta.EMAIL_INVALIDO) &&
-                ValidarCampo.vazio(vCadastro.getCampoSenha1(), MensagemAlerta.SENHA_INVALIDA) &&
-                ValidarCampo.vazio(vCadastro.getCampoSenha2(), MensagemAlerta.SENHA_INVALIDA) &&
+        return ValidarCampo.vazio(vCadastro.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg()) &&
+                ValidarCampo.vazio(vCadastro.getCampoSenha1(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
+                ValidarCampo.vazio(vCadastro.getCampoSenha2(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha1(), 6) &&
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha2(), 6) &&
-                ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagemAlerta.SENHAS_NAO_COMBINAM);
+                ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagensAlerta.SENHAS_NAO_COMBINAM.getMsg());
     }
 
     /** Grava no banco greendao o e-mail cadastrado e instante do envio do e-mail de verificacao
@@ -80,7 +80,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
 
             case EMAIL_VERIFICACAO_ENVIADO:
                 gravarEmailVerificacaoEnviado();
-                ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), "Cadastrado, verifique seu e-mail");
+                ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
                 Navegacao.abrirTelaLogin(vCadastro.getActivity().getCurrentFocus());
         }
     }

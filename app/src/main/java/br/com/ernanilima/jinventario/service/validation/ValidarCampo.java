@@ -4,7 +4,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 
 public class ValidarCampo {
 
@@ -56,7 +56,7 @@ public class ValidarCampo {
         if (stringDoCampo.length() < qtdMinima) {
             // com erro
             campo.setErrorEnabled(true);
-            campo.setError(MensagemAlerta.getMsgMinCaracteres(qtdMinima));
+            campo.setError(MensagensAlerta.getMsgMinCaracteres(qtdMinima));
             campo.getEditText().requestFocus();
             return false;
         }

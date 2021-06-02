@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.interfaces.ILogin;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
-import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.social.Google;
@@ -89,14 +89,14 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
         else {
-            ToastPersonalizado.erro(vLogin.getActivity().getApplicationContext(),
-                    "Aguarde " + ValidarEmailEnviado.getTempoParaNovoEmail(mEmailEnviado.getDataEnvioVerificacao()) + " minuto(s) para enviar o e-mail novamente");
+            ToastPersonalizado.erro(vLogin.getActivity().getApplicationContext(),MensagensAlerta.getMsgTempoEsperaEmail(
+                    ValidarEmailEnviado.getTempoParaNovoEmail(mEmailEnviado.getDataEnvioVerificacao())));
         }
     }
 
     private boolean validarCampos() {
-        return ValidarCampo.vazio(vLogin.getCampoEmail(), MensagemAlerta.EMAIL_INVALIDO) &&
-                ValidarCampo.vazio(vLogin.getCampoSenha(), MensagemAlerta.SENHA_INVALIDA) &&
+        return ValidarCampo.vazio(vLogin.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg()) &&
+                ValidarCampo.vazio(vLogin.getCampoSenha(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
                 ValidarCampo.qtdCaracteres(vLogin.getCampoSenha(), 6);
     }
 
@@ -111,7 +111,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
                 dialogEmailVerificacao();
                 break;
             case EMAIL_VERIFICACAO_ENVIADO:
-                ToastPersonalizado.sucesso(vLogin.getActivity().getApplicationContext(), "Novo e-mail de verificação foi enviado");
+                ToastPersonalizado.sucesso(vLogin.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.getMsg());
         }
     }
 }
