@@ -17,7 +17,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
 import br.com.ernanilima.jinventario.presenter.LoginPresenter;
-import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
 import br.com.ernanilima.jinventario.service.social.Google;
 
 public class LoginFragment extends Fragment implements ILogin.View {
@@ -55,8 +55,8 @@ public class LoginFragment extends Fragment implements ILogin.View {
         campo_senha.getEditText().setOnClickListener(v -> pLogin.login()); // botao de teclado
         btn_login.setOnClickListener(v -> pLogin.login());
         btn_login_gmail.setOnClickListener(v -> pLogin.loginGmail());
-        link_btn_esqueceu_senha.setOnClickListener(Navegacao::abrirTelaEsqueceuSenha);
-        link_btn_cadastrar.setOnClickListener(Navegacao::abrirTelaCadastrar);
+        link_btn_esqueceu_senha.setOnClickListener(NavegacaoMain::abrirTelaEsqueceuSenha);
+        link_btn_cadastrar.setOnClickListener(NavegacaoMain::abrirTelaCadastrar);
 
         // GOOGLE
         mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), getActivity());

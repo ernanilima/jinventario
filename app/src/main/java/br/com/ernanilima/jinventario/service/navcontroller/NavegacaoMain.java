@@ -8,30 +8,20 @@ import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import br.com.ernanilima.jinventario.AppActivity;
 import br.com.ernanilima.jinventario.MainActivity;
 import br.com.ernanilima.jinventario.R;
 
-/** Classe criada para agrupar as navegacoes */
-public class Navegacao {
+/** Navegacoes na activity main
+ * Activity das telas associadas ao login */
+public class NavegacaoMain {
 
     private static NavController navController;
-
 
     /** Abre o activity {@link MainActivity}
      * @param context Context - context(tela) que esta solicitando */
     public static void abrirTelaActivityMain(Context context) {
         Activity activity = (Activity)context;
         Intent intent = new Intent(activity, MainActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
-    }
-
-    /** Abre o activity {@link AppActivity}
-     * @param context Context - context(tela) que esta solicitando */
-    public static void abrirTelaActivityApp(Context context) {
-        Activity activity = (Activity)context;
-        Intent intent = new Intent(activity, AppActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

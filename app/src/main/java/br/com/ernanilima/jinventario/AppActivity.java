@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
 
 public class AppActivity extends AppCompatActivity {
     // exibe todos os fragment da tela do aplicativo
@@ -37,7 +37,7 @@ public class AppActivity extends AppCompatActivity {
 
         // informar os IDs dos itens de menus associados ao drawer Layout.
         // ao criar a navegacao, os IDs deves ser os mesmos IDs abaixo.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.btn_menu_nav_inicio, R.id.btn_menu_nav_novacoletagem)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_inicio, R.id.nav_contagem)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
@@ -46,7 +46,7 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // botao que nao tem fragment para navegacao
-        navigationView.getMenu().findItem(R.id.btn_menu_nav_sair).setOnMenuItemClickListener(item -> sair());
+        navigationView.getMenu().findItem(R.id.nav_sair).setOnMenuItemClickListener(item -> sair());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AppActivity extends AppCompatActivity {
 
     private boolean sair() {
         FirebaseAuth.getInstance().signOut();
-        Navegacao.abrirTelaActivityMain(this);
+        NavegacaoMain.abrirTelaActivityMain(this);
         return true;
     }
 }

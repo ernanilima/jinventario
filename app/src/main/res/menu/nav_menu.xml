@@ -5,18 +5,18 @@
 
     <group android:checkableBehavior="single">
         <item android:title="Inicio"
-            android:id="@+id/btn_menu_nav_inicio"
+            android:id="@+id/nav_inicio"
             android:icon="@drawable/ic_inicio" />
 
-        <item android:title="Nova Coletagem"
-            android:id="@+id/btn_menu_nav_novacoletagem"
+        <item android:title="Nova Contagem"
+            android:id="@+id/nav_contagem"
             android:icon="@drawable/ic_novo" />
     </group>
 
     <item android:title="Outros">
         <menu>
             <item android:title="Sair"
-                android:id="@+id/btn_menu_nav_sair"
+                android:id="@+id/nav_sair"
                 android:icon="@drawable/ic_sair" />
         </menu>
     </item>
