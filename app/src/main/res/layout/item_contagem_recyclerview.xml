@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="right"
+    tools:showIn="@layout/fragment_contagem" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tx_campo_codbarras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Código de Barras"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/tx_campo_qtd_pcaixa"
+            android:gravity="center"
+            android:text="Qtd De Cxs"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tx_campo_qtd_pcaixa"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/tx_campo_total"
+            android:gravity="center"
+            android:text="Qtd Por Cx"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tx_campo_total"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:layout_marginRight="30dp"
+            android:text="Qtd Total"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/campo_codbarras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="78901234567890" />
+
+        <TextView
+            android:id="@+id/campo_qtd_dcaixa"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:text="999"
+            android:layout_toStartOf="@+id/campo_qtd_pcaixa"/>
+
+        <TextView
+            android:id="@+id/campo_qtd_pcaixa"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:text="999"
+            android:layout_toStartOf="@+id/campo_qtd_total" />
+
+        <TextView
+            android:id="@+id/campo_qtd_total"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/btn_editar"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="9.999" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_editar"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_editar"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+</LinearLayout>
