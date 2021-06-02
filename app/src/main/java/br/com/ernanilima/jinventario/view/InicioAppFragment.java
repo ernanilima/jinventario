@@ -41,4 +41,12 @@ public class InicioAppFragment extends Fragment implements IInicioApp.View {
         btn_novacontagem.setOnClickListener(v -> pInicioApp.novaContagem());
 
     }
+
+    @Override
+    /** Recebe argumentos no parametro
+     * Usado principalmente para receber o codigo de uma
+     * nova contagem ou de uma contagem ja existente */
+    public void setArgumentoBundle(Bundle argumentoBundle) {
+        getParentFragmentManager().setFragmentResult(ContagemFragment.class.getCanonicalName(), argumentoBundle);
+    }
 }

@@ -1,6 +1,8 @@
 package br.com.ernanilima.jinventario.interfaces;
 
-import android.app.Activity;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
 import br.com.ernanilima.jinventario.view.InicioAppFragment;
@@ -10,7 +12,8 @@ public interface IInicioApp {
     /** Usado no fragment
      * {@link InicioAppFragment} */
     interface View {
-        Activity getActivity();
+        Fragment requireParentFragment();
+        void setArgumentoBundle(Bundle argumentoBundle);
     }
 
     /** Usado no presenter
