@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario.service.greendao;
 
+import br.com.ernanilima.jinventario.model.EmailNovaSenha;
+import br.com.ernanilima.jinventario.model.EmailNovaSenhaDao;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
 
@@ -36,5 +38,29 @@ public class EmailEnviado {
 
         // retorna o model criado que pode ou nao conter os dados buscados do greendao
         return mEmailVerificacao;
+    }
+
+    /** Model de {@link EmailNovaSenha} novo ou do banco greendao
+     * @param email String - e-mail para realizar busca
+     * @param dEmailNovaSenha EmailNovaSenhaDao - DAO para busca
+     * @return EmailNovaSenha - model novo ou do banco greendao, e-mail do parametro atribuido em ambos */
+    public EmailNovaSenha getEmailNovaSenha(String email, EmailNovaSenhaDao dEmailNovaSenha) {
+        // realiza busca no banco greendao para verificar se e-mail ja existe
+        EmailNovaSenha dbEmailNovaSenha = dEmailNovaSenha.queryBuilder().where(EmailNovaSenhaDao.Properties.Email.eq(email)).unique();
+
+        // cria um novo model
+        EmailNovaSenha mEmailNovaSenha = new EmailNovaSenha();
+
+        // verifica se busca no banco nao eh null
+        if (dbEmailNovaSenha != null) {
+            // se nao for null, atribui o model da busca no model criado
+            mEmailNovaSenha = dbEmailNovaSenha;
+        }
+
+        // se o if for null ou nao, atribui o e-mail recebido no parametro
+        mEmailNovaSenha.setEmail(email);
+
+        // retorna o model criado que pode ou nao conter os dados buscados do greendao
+        return mEmailNovaSenha;
     }
 }

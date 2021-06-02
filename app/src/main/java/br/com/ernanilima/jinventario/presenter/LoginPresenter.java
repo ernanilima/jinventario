@@ -63,7 +63,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
         AlertDialog.Builder builder = new AlertDialog.Builder(vLogin.getActivity().getCurrentFocus().getContext());
         builder.setTitle("E-mail não verificado!")
                 .setMessage("Reenviar e-mail de verificação?")
-                .setPositiveButton("Sim", (dialog, which) -> emailNaoVerificado())
+                .setPositiveButton("Sim", (dialog, which) -> enviarNovoEmailVerificado())
                 .setNegativeButton("Não", (dialog, which) -> dialog.cancel())
                 .setCancelable(false);
 
@@ -72,7 +72,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
     }
 
     /** Verifica se o usuario pode reenviar o e-mail de verificacao */
-    private void emailNaoVerificado() {
+    private void enviarNovoEmailVerificado() {
         String email = vLogin.getCampoEmail().getEditText().getText().toString();
 
         // realiza busca no banco greendao para verificar se cadastro ja existe com base no e-mail
@@ -81,7 +81,7 @@ public class LoginPresenter implements ILogin.LoginPresenter {
 
         // se o id for null, significa que a data/hora para o e-mail enviado como parametro nao costa gravado
         // como o cadastro nao existe, envia um e-mail de verificacao e realiza o cadastro do instante do envio realizado.
-        // se o id nao for null, verifica se um novo e-mail de verificacao pode ser reenviado
+        // se o id nao for null, verifica se um e-mail pode ser enviado
         if (mEmailEnviado.getId() == null || ValidarEmailEnviado.isEnviarNovoEmail(mEmailEnviado.getDataEnvioVerificacao())) {
             iFirebase.enviarEmailVerificacao(vLogin.getActivity()); // envia um novo e-mail de verificacao
             mEmailEnviado.setDataEnvioVerificacao(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
