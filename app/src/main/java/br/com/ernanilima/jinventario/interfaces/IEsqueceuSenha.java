@@ -1,24 +1,24 @@
 package br.com.ernanilima.jinventario.interfaces;
 
 import android.app.Activity;
-import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
 import br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment;
 
 public interface IEsqueceuSenha {
 
-    /** Usado na activity
+    /** Usado no fragment
      * {@link EsqueceuSenhaFragment} */
-    interface EsqueceuSenhaView {
+    interface View {
         Activity getActivity();
         TextInputLayout getCampoEmail();
     }
 
     /** Usado no presenter
-     * {@link br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter} */
-    interface EsqueceuSenhaPresenter extends IResultadoFirebase {
-        void gerarNovaSenha(View view);
+     * {@link EsqueceuSenhaPresenter} */
+    interface Presenter extends IResultadoFirebase {
+        void gerarNovaSenha(android.view.View view);
     }
 }

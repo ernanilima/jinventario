@@ -18,9 +18,9 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.presenter.CadastroPresenter;
 
-public class CadastroFragment extends Fragment implements ICadastro.CadastroView {
+public class CadastroFragment extends Fragment implements ICadastro.View {
 
-    private ICadastro.CadastroPresenter pCadastro;
+    private ICadastro.Presenter pCadastro;
     private TextInputLayout campo_email, campo_senha1, campo_senha2;
     private AppCompatButton btn_cadastrar;
     private TextView link_btn_voltar;

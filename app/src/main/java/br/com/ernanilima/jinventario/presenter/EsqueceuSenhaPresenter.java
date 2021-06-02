@@ -19,16 +19,16 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
-public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPresenter {
+public class EsqueceuSenhaPresenter implements IEsqueceuSenha.Presenter {
 
-    private IEsqueceuSenha.EsqueceuSenhaView vEsqueceuSenha;
+    private IEsqueceuSenha.View vEsqueceuSenha;
     private IFirebase iFirebase;
     private DaoSession daoSession;
     private EmailNovaSenhaDao dEmailNovaSenha;
 
     /** Construtor
-     * @param vEsqueceuSenha IEsqueceuSenha.EsqueceuSenhaView - view(fragment) de esqueceu senha */
-    public EsqueceuSenhaPresenter(IEsqueceuSenha.EsqueceuSenhaView vEsqueceuSenha) {
+     * @param vEsqueceuSenha IEsqueceuSenha.View - view(fragment) de esqueceu senha */
+    public EsqueceuSenhaPresenter(IEsqueceuSenha.View vEsqueceuSenha) {
         this.vEsqueceuSenha = vEsqueceuSenha;
         iFirebase = new Firebase(this);
 

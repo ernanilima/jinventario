@@ -2,13 +2,13 @@ package br.com.ernanilima.jinventario.presenter;
 
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 
-public class InicioAppPresenter implements IInicioApp.InicioAppPresenter {
+public class InicioAppPresenter implements IInicioApp.Presenter {
 
-    private IInicioApp.InicioAppView vInicioApp;
+    private IInicioApp.View vInicioApp;
 
     /** Construtor
-     * @param vInicioApp IInicioApp.InicioAppView - view(fragment) do inicio do app */
-    public InicioAppPresenter(IInicioApp.InicioAppView vInicioApp) {
+     * @param vInicioApp IInicioApp.View - view(fragment) do inicio do app */
+    public InicioAppPresenter(IInicioApp.View vInicioApp) {
         this.vInicioApp = vInicioApp;
     }
 

@@ -5,13 +5,14 @@ import android.app.Activity;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.view.LoginFragment;
 
 public interface ILogin {
 
-    /** Usado na activity
+    /** Usado no fragment
      * {@link LoginFragment} */
-    interface LoginView {
+    interface View {
         Activity getActivity();
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha();
@@ -19,8 +20,8 @@ public interface ILogin {
     }
 
     /** Usado no presenter
-     * {@link br.com.ernanilima.jinventario.presenter.LoginPresenter} */
-    interface LoginPresenter extends IResultadoFirebase {
+     * {@link LoginPresenter} */
+    interface Presenter extends IResultadoFirebase {
         void login();
         void loginGmail();
         void verificarSeUsuarioAutenticado();

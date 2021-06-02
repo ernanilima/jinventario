@@ -1,17 +1,17 @@
 package br.com.ernanilima.jinventario.interfaces;
 
 import android.app.Activity;
-import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.presenter.CadastroPresenter;
 import br.com.ernanilima.jinventario.view.CadastroFragment;
 
 public interface ICadastro {
 
-    /** Usado na activity
+    /** Usado no fragment
      * {@link CadastroFragment} */
-    interface CadastroView {
+    interface View {
         Activity getActivity();
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha1();
@@ -19,8 +19,8 @@ public interface ICadastro {
     }
 
     /** Usado no presenter
-     * {@link br.com.ernanilima.jinventario.presenter.CadastroPresenter} */
-    interface CadastroPresenter extends IResultadoFirebase {
-        void cadastrar(View view);
+     * {@link CadastroPresenter} */
+    interface Presenter extends IResultadoFirebase {
+        void cadastrar(android.view.View view);
     }
 }

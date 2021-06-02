@@ -18,16 +18,16 @@ import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
-public class CadastroPresenter implements ICadastro.CadastroPresenter {
+public class CadastroPresenter implements ICadastro.Presenter {
 
-    private ICadastro.CadastroView vCadastro;
+    private ICadastro.View vCadastro;
     private IFirebase iFirebase;
     private DaoSession daoSession;
     private EmailVerificacaoDao dEmailVerificacao;
 
     /** Construtor
-     * @param vCadastro ICadastro.CadastroView - view(fragment) de cadastro */
-    public CadastroPresenter(ICadastro.CadastroView vCadastro) {
+     * @param vCadastro ICadastro.View - view(fragment) de cadastro */
+    public CadastroPresenter(ICadastro.View vCadastro) {
         this.vCadastro = vCadastro;
         this.iFirebase = new Firebase(this);
 

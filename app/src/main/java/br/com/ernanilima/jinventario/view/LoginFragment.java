@@ -20,9 +20,9 @@ import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.social.Google;
 
-public class LoginFragment extends Fragment implements ILogin.LoginView {
+public class LoginFragment extends Fragment implements ILogin.View {
 
-    private ILogin.LoginPresenter pLogin;
+    private ILogin.Presenter pLogin;
     private TextInputLayout campo_email, campo_senha;
     private TextView link_btn_esqueceu_senha, link_btn_cadastrar;
     private AppCompatButton btn_login, btn_login_gmail;
