@@ -15,4 +15,6 @@
     <string name="s_t_esqueceusenha">Esqueceu a Senha</string>
     <string name="s_m_esqueceusenha">Informe o seu e-mail cadastrado.</string>
     <string name="s_novasenha">Enviar nova senha</string>
+
+    <string name="s_novacontagem">Nova Contagem</string>
 </resources>
