@@ -109,6 +109,9 @@ public class LoginPresenter implements ILogin.LoginPresenter {
                 break;
             case EMAIL_NAO_VERIFICADO:
                 dialogEmailVerificacao();
+                break;
+            case EMAIL_VERIFICACAO_ENVIADO:
+                ToastPersonalizado.sucesso(vLogin.getActivity().getApplicationContext(), "Novo e-mail de verificação foi enviado");
         }
     }
 }
