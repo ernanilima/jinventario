@@ -14,6 +14,9 @@ public abstract class ToastPersonalizado {
     private static Toast toast;
     private static TextView mensagem;
 
+    /** Exibe toast personalizado para sucesso
+     * @param context Context - context da tela para exibir o toast
+     * @param mensagemSucesso String - mensgem para exibir no toast */
     public static void sucesso(Context context, String mensagemSucesso) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.toast_sucesso, null);
@@ -27,8 +30,8 @@ public abstract class ToastPersonalizado {
     }
 
     /** Exibe toast personalizado para erro
-     * @param context Context - context da tela onde ocorreu o erro
-     * @param mensagemErro String - mensgem de erro para exibir no toast */
+     * @param context Context - context da tela para exibir o toast
+     * @param mensagemErro String - mensgem para exibir no toast */
     public static void erro(Context context, String mensagemErro) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.toast_erro, null);

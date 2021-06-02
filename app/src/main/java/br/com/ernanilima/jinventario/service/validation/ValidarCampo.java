@@ -9,7 +9,7 @@ import br.com.ernanilima.jinventario.service.constant.MensagemAlerta;
 public class ValidarCampo {
 
     /** Verifica se o campo eh vazio e invalido
-     * Invalido seria campo de email nao combinar com email
+     * Invalido seria campo de e-mail nao combinar com e-mail
      * @param campo TextInputLayout - campo a ser validado
      * @param mensagemErro String - mensagem para o erro
      * @return boolean - true se nenhum erro encontrado */

@@ -26,8 +26,7 @@ public class Google {
     private ActivityResultLauncher<Intent> abrirParaObterResultado;
     private IFirebase iFirebase;
 
-    /** Obtem uma instancia do google
-     * @return Google - instancia da classe {@link Google} */
+    /** @return Google - instancia da classe {@link Google} */
     public static Google getInstance() {
         if (GOOGLE == null) {
             GOOGLE = new Google();
@@ -36,7 +35,7 @@ public class Google {
 
     /** Servico de login do google
      * @param tokenAplicacao String - token da aplicacao
-     * @param activity Activity - activity de inicializacao do servico
+     * @param activity Activity - activity que inicializou o servico
      * @return GoogleSignInClient */
     public GoogleSignInClient servicoLoginGoogle(String tokenAplicacao, Activity activity) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -62,12 +61,12 @@ public class Google {
      * @param fragmentLogin Fragment - fragment da tela que inicializou o servico de login do google */
     public void setFragmentLogin(Fragment fragmentLogin) {
         this.fragmentLogin = fragmentLogin;
-        construirObterResultado();
+        construirExibirObterResultado();
     }
 
     /** Constroi um callback para exibir e obter o resultado de login com o google
      * Substitui startActivityForResult e onActivityResult */
-    private void construirObterResultado() {
+    private void construirExibirObterResultado() {
         // https://developer.android.com/training/basics/intents/result
         // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
         abrirParaObterResultado = fragmentLogin.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -78,7 +77,7 @@ public class Google {
                 });
     }
 
-    /** Define os dados do usuario que realizou o login com o google
+    /** Captura os dados do usuario que realizou o login com o google
      * @param data Intent - data recebido no callback de resultado */
     private void setUsuarioLoginGoogleRealizado(Intent data) {
         try {

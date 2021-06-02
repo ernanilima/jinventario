@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import br.com.ernanilima.jinventario.R;
 
-public class InicioAppActivity extends Fragment {
+public class InicioAppFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // inicia o xml
         return inflater.inflate(R.layout.fragment_inicio_app, container, false);
     }
 

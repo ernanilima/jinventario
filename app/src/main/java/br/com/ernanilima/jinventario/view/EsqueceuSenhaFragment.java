@@ -18,7 +18,7 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
 
-public class EsqueceuSenhaActivity extends Fragment implements IEsqueceuSenha.EsqueceuSenhaView {
+public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.EsqueceuSenhaView {
 
     private IEsqueceuSenha.EsqueceuSenhaPresenter pEsqueceuSenha;
     private TextInputLayout campo_email;

@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario;
+package br.com.ernanilima.jinventario.config;
 
 import android.app.Application;
 

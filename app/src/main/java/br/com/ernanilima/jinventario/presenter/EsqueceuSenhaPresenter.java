@@ -17,7 +17,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
     private IFirebase iFirebase;
 
     /** Construtor
-     * @param vEsqueceuSenha IEsqueceuSenha.EsqueceuSenhaView - view(activity) de esqueceu senha */
+     * @param vEsqueceuSenha IEsqueceuSenha.EsqueceuSenhaView - view(fragment) de esqueceu senha */
     public EsqueceuSenhaPresenter(IEsqueceuSenha.EsqueceuSenhaView vEsqueceuSenha) {
         this.vEsqueceuSenha = vEsqueceuSenha;
         iFirebase = new Firebase(this);
@@ -36,6 +36,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.EsqueceuSenhaPrese
     }
 
     @Override
+    /** Resultado recebido do firebase */
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
             case EMAIL_NOVA_SENHA_ENVIADO:

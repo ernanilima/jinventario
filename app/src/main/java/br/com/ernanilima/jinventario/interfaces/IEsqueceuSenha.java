@@ -5,10 +5,12 @@ import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment;
+
 public interface IEsqueceuSenha {
 
     /** Usado na activity
-     * {@link br.com.ernanilima.jinventario.view.EsqueceuSenhaActivity} */
+     * {@link EsqueceuSenhaFragment} */
     interface EsqueceuSenhaView {
         Activity getActivity();
         TextInputLayout getCampoEmail();

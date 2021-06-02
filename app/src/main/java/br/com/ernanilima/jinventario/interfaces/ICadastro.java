@@ -5,10 +5,12 @@ import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.view.CadastroFragment;
+
 public interface ICadastro {
 
     /** Usado na activity
-     * {@link br.com.ernanilima.jinventario.view.CadastroActivity} */
+     * {@link CadastroFragment} */
     interface CadastroView {
         Activity getActivity();
         TextInputLayout getCampoEmail();

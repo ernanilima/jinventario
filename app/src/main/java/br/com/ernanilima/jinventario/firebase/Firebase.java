@@ -27,7 +27,7 @@ public class Firebase implements IFirebase {
 
     @Override
     /** Verifica se o usuario estah autenticado/logado
-     * Se estiver, regista no resultado */
+     * Se estiver, registra no resultado */
     public void verificarSeUsuarioAutenticado() {
         if (usuarioAtual != null && usuarioAtual.isEmailVerified()) {
             iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
@@ -35,7 +35,7 @@ public class Firebase implements IFirebase {
     }
 
     @Override
-    /** Cadastra um novo usuario com email e senha */
+    /** Cadastra um novo usuario que utiliza e-mail e senha */
     public void cadastrarUsuario(Context contextTelaDoErro, String email, String senha) {
         autenticacao.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(aut -> {
             if (aut.isSuccessful()) {
@@ -49,7 +49,7 @@ public class Firebase implements IFirebase {
     }
 
     @Override
-    /** Envia e-mail de verificacao para usuario
+    /** Envia e-mail de verificacao para o usuario
      * confirmar que e-mail cadastrado existe */
     public void enviarEmailVerificacao(Context contextTelaDoErro) {
         usuarioAtual.sendEmailVerification().addOnCompleteListener(aut -> {
@@ -90,6 +90,8 @@ public class Firebase implements IFirebase {
     }
 
     @Override
+    /** Realiza login de usuario que utiliza e-mail e senha
+     * Verifica se o usuario ja confirmou e-mail de verificacao */
     public void loginUsuario(Context contextTelaDoErro, String email, String senha) {
         autenticacao.signInWithEmailAndPassword(email, senha).addOnCompleteListener(aut -> {
             if (aut.isSuccessful() && aut.getResult().getUser().isEmailVerified()) {

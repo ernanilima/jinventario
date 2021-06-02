@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 
 public class AppActivity extends AppCompatActivity {
+    // exibe todos os fragment da tela do aplicativo
+    // tudo configurado no xml
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -43,12 +45,12 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // botao nao tem fragment para navegacao
+        // botao que nao tem fragment para navegacao
         navigationView.getMenu().findItem(R.id.btn_menu_nav_sair).setOnMenuItemClickListener(item -> sair());
     }
 
     @Override
-    /** Usado para abrir drawer Layout ao pressionar o botao no toolbar */
+    /** Usado para abrir drawer layout ao pressionar o botao no toolbar */
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.fragment_app);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();

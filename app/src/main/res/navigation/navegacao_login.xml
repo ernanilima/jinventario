@@ -8,17 +8,17 @@
 
     <fragment
         android:id="@+id/telaLogin"
-        android:name="br.com.ernanilima.jinventario.view.LoginActivity"
+        android:name="br.com.ernanilima.jinventario.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/telaCadastro"
-        android:name="br.com.ernanilima.jinventario.view.CadastroActivity"
+        android:name="br.com.ernanilima.jinventario.view.CadastroFragment"
         android:label="fragment_login_cadastro"
         tools:layout="@layout/fragment_login_cadastro"/>
     <fragment
         android:id="@+id/telaEsqueceuSenha"
-        android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaActivity"
+        android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment"
         android:label="fragment_login_esqueceu_senha"
         tools:layout="@layout/fragment_login_esqueceu_senha" />
 

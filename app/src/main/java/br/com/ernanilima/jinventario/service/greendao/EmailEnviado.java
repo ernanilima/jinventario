@@ -7,18 +7,17 @@ public class EmailEnviado {
 
     private static EmailEnviado EMAIL;
 
-    /** Obtem uma instancia de email enviado
-     * @return EmailEnviado - instancia da classe {@link EmailEnviado} */
+    /** @return EmailEnviado - instancia da classe {@link EmailEnviado} */
     public static EmailEnviado getInstance() {
         if (EMAIL == null) {
             EMAIL = new EmailEnviado();
         } return EMAIL;
     }
 
-    /** Model de EmailVerificacao novo ou do banco greendao
+    /** Model de {@link EmailVerificacao} novo ou do banco greendao
      * @param email String - e-mail para realizar busca
      * @param dEmailVerificacao EmailVerificacaoDao - DAO para busca
-     * @return EmailVerificacao - se existir no banco greendao, retorna a busca, caso nao exista, retorna um novo */
+     * @return EmailVerificacao - model novo ou do banco greendao, e-mail do parametro atribuido em ambos */
     public EmailVerificacao getEmailVerificacao(String email, EmailVerificacaoDao dEmailVerificacao) {
         // realiza busca no banco greendao para verificar se e-mail ja existe
         EmailVerificacao dbEmailVerificacao = dEmailVerificacao.queryBuilder().where(EmailVerificacaoDao.Properties.Email.eq(email)).unique();

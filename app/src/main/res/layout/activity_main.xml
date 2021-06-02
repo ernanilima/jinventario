@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- exibe a tela de login,
-     possibilita navegacao -->
+    <!-- exibe a tela de login, possibilita navegacao -->
     <fragment
         android:id="@+id/fragment_login"
         app:navGraph="@navigation/navegacao_login"

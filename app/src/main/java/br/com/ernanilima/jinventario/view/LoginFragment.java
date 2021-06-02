@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,12 +20,11 @@ import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.service.navcontroller.Navegacao;
 import br.com.ernanilima.jinventario.service.social.Google;
 
-public class LoginActivity extends Fragment implements ILogin.LoginView {
+public class LoginFragment extends Fragment implements ILogin.LoginView {
 
     private ILogin.LoginPresenter pLogin;
     private TextInputLayout campo_email, campo_senha;
     private TextView link_btn_esqueceu_senha, link_btn_cadastrar;
-    private CheckBox chbx_lembrar_login;
     private AppCompatButton btn_login, btn_login_gmail;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -50,7 +48,6 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
         campo_senha = view.findViewById(R.id.campo_senha);
         link_btn_esqueceu_senha = view.findViewById(R.id.btn_esqueceu_senha);
         link_btn_cadastrar = view.findViewById(R.id.btn_cadastrar);
-        chbx_lembrar_login = view.findViewById(R.id.chbx_lembrar_login);
         btn_login = view.findViewById(R.id.btn_login);
         btn_login_gmail = view.findViewById(R.id.btn_login_gmail);
 
@@ -68,6 +65,7 @@ public class LoginActivity extends Fragment implements ILogin.LoginView {
     }
 
     @Override
+    /** Usado principalmente para verificar se existe um usuario autenticado */
     public void onStart() {
         super.onStart();
         pLogin.verificarSeUsuarioAutenticado();

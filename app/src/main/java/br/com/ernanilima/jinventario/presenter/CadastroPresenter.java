@@ -4,7 +4,7 @@ import android.view.View;
 
 import java.util.Date;
 
-import br.com.ernanilima.jinventario.DbGreenDao;
+import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.firebase.Firebase;
 import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
@@ -26,7 +26,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
     private EmailVerificacaoDao dEmailVerificacao;
 
     /** Construtor
-     * @param vCadastro ICadastro.CadastroView - view(activity) de cadastro */
+     * @param vCadastro ICadastro.CadastroView - view(fragment) de cadastro */
     public CadastroPresenter(ICadastro.CadastroView vCadastro) {
         this.vCadastro = vCadastro;
         this.iFirebase = new Firebase(this);
@@ -56,7 +56,7 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
 
     /** Grava no banco greendao o e-mail cadastrado e instante do envio do e-mail de verificacao
      * Se ja existir, atualiza */
-    private void emailVerificacaoEnviado() {
+    private void gravarEmailVerificacaoEnviado() {
         String email = vCadastro.getCampoEmail().getEditText().getText().toString();
 
         // realiza busca no banco greendao para verificar se cadastro ja existe com base no e-mail
@@ -74,12 +74,12 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
         switch (resultado) {
             case CADASTRO_REALIZADO:
                 // cadastro realizado, envia o e-mail de verificacao
-                // para confirmar se e-mail realmente existe
+                // para que o usuario confirme se o e-mail realmente existe
                 iFirebase.enviarEmailVerificacao(vCadastro.getActivity());
                 break;
 
             case EMAIL_VERIFICACAO_ENVIADO:
-                emailVerificacaoEnviado();
+                gravarEmailVerificacaoEnviado();
                 ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), "Cadastrado, verifique seu e-mail");
                 Navegacao.abrirTelaLogin(vCadastro.getActivity().getCurrentFocus());
         }

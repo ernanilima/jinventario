@@ -5,7 +5,7 @@ import android.content.Context;
 import br.com.ernanilima.jinventario.firebase.Firebase;
 
 /** Interface usada para realizar as autenticacoes do firebase
- * usadi na classe {@link Firebase} */
+ * usado na classe {@link Firebase} */
 public interface IFirebase {
     void verificarSeUsuarioAutenticado();
     void cadastrarUsuario(Context contextTelaDoErro, String email, String senha);

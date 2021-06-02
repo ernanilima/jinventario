@@ -5,10 +5,12 @@ import android.app.Activity;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.view.LoginFragment;
+
 public interface ILogin {
 
     /** Usado na activity
-     * {@link br.com.ernanilima.jinventario.view.LoginActivity} */
+     * {@link LoginFragment} */
     interface LoginView {
         Activity getActivity();
         TextInputLayout getCampoEmail();
