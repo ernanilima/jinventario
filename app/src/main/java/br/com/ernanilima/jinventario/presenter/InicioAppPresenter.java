@@ -14,15 +14,15 @@ import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 
-public class InicioAppPresenter implements IInicioApp.Presenter {
+public class InicioAppPresenter implements IInicioApp.IPresenter {
 
-    private IInicioApp.View vInicioApp;
+    private IInicioApp.IView vInicioApp;
     private DaoSession daoSession;
     private ContagemEstoqueDao dContagemEstoque;
 
     /** Construtor
-     * @param vInicioApp IInicioApp.View - view(fragment) do inicio do app */
-    public InicioAppPresenter(IInicioApp.View vInicioApp) {
+     * @param vInicioApp IInicioApp.IView - view(fragment) do inicio do app */
+    public InicioAppPresenter(IInicioApp.IView vInicioApp) {
         this.vInicioApp = vInicioApp;
 
         // GREENDAO

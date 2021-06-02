@@ -18,9 +18,9 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
 
-public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.View {
+public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IView {
 
-    private IEsqueceuSenha.Presenter pEsqueceuSenha;
+    private IEsqueceuSenha.IPresenter pEsqueceuSenha;
     private TextInputLayout campo_email;
     private AppCompatButton btn_novasenha;
     private TextView link_btn_voltar;

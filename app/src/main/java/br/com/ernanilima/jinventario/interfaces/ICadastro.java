@@ -11,7 +11,7 @@ public interface ICadastro {
 
     /** Usado no fragment
      * {@link CadastroFragment} */
-    interface View {
+    interface IView {
         Activity getActivity();
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha1();
@@ -20,7 +20,7 @@ public interface ICadastro {
 
     /** Usado no presenter
      * {@link CadastroPresenter} */
-    interface Presenter extends IResultadoFirebase {
+    interface IPresenter extends IResultadoFirebase {
         void cadastrar(android.view.View view);
     }
 }

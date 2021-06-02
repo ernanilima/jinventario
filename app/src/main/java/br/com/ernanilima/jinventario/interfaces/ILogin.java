@@ -12,7 +12,7 @@ public interface ILogin {
 
     /** Usado no fragment
      * {@link LoginFragment} */
-    interface View {
+    interface IView {
         Activity getActivity();
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha();
@@ -21,7 +21,7 @@ public interface ILogin {
 
     /** Usado no presenter
      * {@link LoginPresenter} */
-    interface Presenter extends IResultadoFirebase {
+    interface IPresenter extends IResultadoFirebase {
         void login();
         void loginGmail();
         void verificarSeUsuarioAutenticado();

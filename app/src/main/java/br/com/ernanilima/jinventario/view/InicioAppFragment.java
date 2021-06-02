@@ -14,9 +14,9 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
 
-public class InicioAppFragment extends Fragment implements IInicioApp.View {
+public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
-    private IInicioApp.Presenter pInicioApp;
+    private IInicioApp.IPresenter pInicioApp;
     private AppCompatButton btn_novacontagem;
 
     @Nullable

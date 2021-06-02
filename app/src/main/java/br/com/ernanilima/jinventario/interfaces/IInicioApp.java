@@ -11,14 +11,14 @@ public interface IInicioApp {
 
     /** Usado no fragment
      * {@link InicioAppFragment} */
-    interface View {
+    interface IView {
         Fragment requireParentFragment();
         void setArgumentoBundle(Bundle argumentoBundle);
     }
 
     /** Usado no presenter
      * {@link InicioAppPresenter} */
-    interface Presenter {
+    interface IPresenter {
         void novaContagem();
     }
 }

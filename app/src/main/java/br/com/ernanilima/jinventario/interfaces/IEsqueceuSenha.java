@@ -11,14 +11,14 @@ public interface IEsqueceuSenha {
 
     /** Usado no fragment
      * {@link EsqueceuSenhaFragment} */
-    interface View {
+    interface IView {
         Activity getActivity();
         TextInputLayout getCampoEmail();
     }
 
     /** Usado no presenter
      * {@link EsqueceuSenhaPresenter} */
-    interface Presenter extends IResultadoFirebase {
+    interface IPresenter extends IResultadoFirebase {
         void gerarNovaSenha(android.view.View view);
     }
 }

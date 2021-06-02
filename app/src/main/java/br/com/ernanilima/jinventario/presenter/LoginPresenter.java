@@ -20,16 +20,16 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
-public class LoginPresenter implements ILogin.Presenter {
+public class LoginPresenter implements ILogin.IPresenter {
 
-    private ILogin.View vLogin;
+    private ILogin.IView vLogin;
     private IFirebase iFirebase;
     private DaoSession daoSession;
     private EmailVerificacaoDao dEmailVerificacao;
 
     /** Construtor
-     * @param vLogin ILogin.View - view(fragment) de login */
-    public LoginPresenter(ILogin.View vLogin) {
+     * @param vLogin ILogin.IView - view(fragment) de login */
+    public LoginPresenter(ILogin.IView vLogin) {
         this.vLogin = vLogin;
         iFirebase = new Firebase(this);
 
