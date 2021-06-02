@@ -7,10 +7,9 @@ import org.greenrobot.greendao.annotation.Property;
 
 import java.util.Date;
 
-@Entity(nameInDb = "EMAIL_ENVIADO")
-public class EmailEnviado {
-    // construtores, gets e sets sao gerados automaticamente
-    // ao executar o projeto
+@Entity(nameInDb = "EMAIL_VERIFICACAO")
+public class EmailVerificacao {
+    // construtores, gets e sets sao gerados automaticamente ao executar o projeto
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
@@ -20,11 +19,11 @@ public class EmailEnviado {
     @Property(nameInDb = "DATA_ENVIO_VERIFICACAO")
     private Date dataEnvioVerificacao;
 
-    @Generated(hash = 750296506)
-    public EmailEnviado() {}
+    @Generated(hash = 1338542374)
+    public EmailVerificacao() {}
 
-    @Generated(hash = 1126840305)
-    public EmailEnviado(Long id, String email, Date dataEnvioVerificacao) {
+    @Generated(hash = 2083797060)
+    public EmailVerificacao(Long id, String email, Date dataEnvioVerificacao) {
         this.id = id;
         this.email = email;
         this.dataEnvioVerificacao = dataEnvioVerificacao;
