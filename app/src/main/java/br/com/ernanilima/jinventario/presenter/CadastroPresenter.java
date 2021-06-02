@@ -53,14 +53,27 @@ public class CadastroPresenter implements ICadastro.CadastroPresenter {
                 ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagemAlerta.SENHAS_NAO_COMBINAM);
     }
 
-    /** Grava no banco o e-mail cadastrado e momento do envio da verificacao */
+    /** Grava no banco greendao o e-mail cadastrado e momento do envio da verificacao
+     * Se ja existir, atualiza */
     private void emailVerificacaoEnviado() {
-        EmailEnviado mEmailEnviado = new EmailEnviado(
-                null,
-                vCadastro.getCampoEmail().getEditText().getText().toString(),
-                new Date(System.currentTimeMillis())
-        );
+        // realiza busca no banco greendao para verificar se e-mail ja existe
+        String email = vCadastro.getCampoEmail().getEditText().getText().toString();
+        EmailEnviado dbEmailEnviado = dEmailEnviado.queryBuilder().where(EmailEnviadoDao.Properties.Email.eq(email)).unique();
 
+        // cria uma instancia de um novo e-mail
+        EmailEnviado mEmailEnviado = new EmailEnviado();
+
+        // verifica se busca no banco nao eh null
+        if (dbEmailEnviado != null) {
+            // se nao for null, atribui o id obtido para que o mesmo seja apenas atualizado
+            mEmailEnviado.setId(dbEmailEnviado.getId());
+        }
+
+        // se o if for null ou nao, atribui o e-mail e o instante da solicitacao de envio
+        mEmailEnviado.setEmail(email);
+        mEmailEnviado.setDataEnvioVerificacao(new Date(System.currentTimeMillis()));
+
+        // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
         dEmailEnviado.save(mEmailEnviado);
     }
 
