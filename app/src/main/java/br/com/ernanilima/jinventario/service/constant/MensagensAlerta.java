@@ -20,7 +20,10 @@ public enum MensagensAlerta {
     ERRO_DESCONHECIDO("Ocorreu um erro desconhecido."),
     USUARIO_CADASTRADO("Usuário cadastrado, foi enviado uma verificação para seu e-mail."),
     EMAIL_NOVA_SENHA_ENVIADA("As informações para \"Nova Senha\" foram enviadas no e-mail"),
-    EMAIL_VERIFICACAO_ENVIADO("Novo e-mail de verificação foi enviado");
+    EMAIL_VERIFICACAO_ENVIADO("Novo e-mail de verificação foi enviado"),
+    CODBARRAS_INVALIDO("Código de barras inválido"),
+    QUANTIDADE_DE_CAIXA_INVALIDO("Qtd de caixa(s) inválido"),
+    QUANTIDADE_POR_CAIXA_INVALIDO("Qtd por caixa(s) inválido");
 
     private final String msg;
 

@@ -47,11 +47,11 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
         Date dataAtual = new Date(System.currentTimeMillis());
         ContagemEstoque mContagemEstoque = new ContagemEstoque(null, dataAtual, dataAtual, "0");
 
-        dContagemEstoque.save(mContagemEstoque);
+        dContagemEstoque.save(mContagemEstoque); // grava uma nova contagem antes de usa-la
 
         Bundle argumento = new Bundle();
-        argumento.putLong(ContagemFragment.CODIGO_CONTAGEM, mContagemEstoque.getId());
-        vInicioApp.setArgumentoBundle(argumento);
+        argumento.putLong(ContagemFragment.CODIGO_CONTAGEM, mContagemEstoque.getId()); // registra no parametro o id da nova contagem
+        vInicioApp.setArgumentoBundle(argumento); // envia o argumento
 
         NavegacaoApp.abrirTelaContagem(vInicioApp.requireParentFragment().getView());
     }
