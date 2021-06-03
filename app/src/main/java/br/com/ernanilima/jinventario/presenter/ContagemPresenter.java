@@ -1,5 +1,8 @@
 package br.com.ernanilima.jinventario.presenter;
 
+import java.util.Date;
+import java.util.List;
+
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
@@ -18,6 +21,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     private DaoSession daoSession;
     private ContagemEstoqueDao dContagemEstoque;
     private ItemContagemDao dItemContagem;
+    private List<ItemContagem> lsItensContagem;
 
     /** Construtor
      * @param vContagem IContagem.IView - view(fragment) de contagem */
@@ -35,6 +39,8 @@ public class ContagemPresenter implements IContagem.IPresenter {
     public void setCodigoContagem(Long idContagem) {
         // busca contagem pelo id e atribui o resultado ao model criado
         mContagemEstoque = dContagemEstoque.load(idContagem);
+        // envia a lista de itens para o recycle adapter que sera utilizado no recycle view
+        vContagem.setRecycleAdapter(getLsItensContagem());
         System.out.println("CODIGO RECEBIDO NO PARAMETRO " + idContagem);
     }
 
@@ -51,11 +57,35 @@ public class ContagemPresenter implements IContagem.IPresenter {
             );
 
             dItemContagem.save(mItemContagem); // grava o item coletado
+            lsItensContagem.add(0, mItemContagem); // adiciona o item coletado no inicio da lista
+
+            atualizarContagem();
 
             Utils.limparCampo(vContagem.getCampoCodbarras().getEditText(), vContagem.getCampoQtdDeCaixa().getEditText(),
                     vContagem.getCampoQtdPorCaixa().getEditText());
             vContagem.getCampoCodbarras().getEditText().requestFocus();
         }
+    }
+
+    /** Busca/Registra a lista de itens buscando no banco greendao
+     * @return List<ItemContagem> - lista de itens da contagem */
+    private List<ItemContagem> getLsItensContagem() {
+        return lsItensContagem = dItemContagem.queryBuilder().orderDesc(ItemContagemDao.Properties.Id)
+                .where(ItemContagemDao.Properties.IdContagem.eq(mContagemEstoque.getId())).list();
+    }
+
+    /** Atualiza o item coletado
+     * Atualiza os dados da contagem */
+    private void atualizarContagem() {
+        vContagem.atualizarRecycleView(); // atualiza o recycle view no fragment
+        mContagemEstoque.setDataAlteracao(new Date(System.currentTimeMillis())); // atualiza a contagem com a data/hora alterada
+        double quantidade = 0;
+        for (ItemContagem mItemContagem : lsItensContagem) {
+            // registra o total de todos os itens coletados
+            quantidade += Double.parseDouble(mItemContagem.getQtdTotal());
+        }
+        mContagemEstoque.setQtdTotalItens(String.valueOf(quantidade)); // atualiza a contagem com o total de itens ja coletados
+        dContagemEstoque.update(mContagemEstoque); // atualiza a contagem
     }
 
     private boolean validarCampos() {

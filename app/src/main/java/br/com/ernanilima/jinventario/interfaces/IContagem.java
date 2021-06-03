@@ -4,6 +4,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
+import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 
@@ -13,6 +16,8 @@ public interface IContagem {
      * {@link ContagemFragment} */
     interface IView {
         Fragment requireParentFragment();
+        void setRecycleAdapter(List<ItemContagem> lsItensContagem);
+        void atualizarRecycleView();
         TextInputLayout getCampoCodbarras();
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();

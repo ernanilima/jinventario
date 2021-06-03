@@ -4,17 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.adapter.ItemContagemRecycleAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
+import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
@@ -25,6 +31,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
     private RecyclerView recycle_view;
+    private ItemContagemRecycleAdapter raItemContagem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // inicia o xml
         return inflater.inflate(R.layout.fragment_contagem, container, false);
     }
 
@@ -59,6 +67,22 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
+    }
+
+    @Override
+    /** Regista o Recycle Adapter com a lista de itens do parametro
+     * Define o Recycle Adapter no Recycle View do xml de contagem */
+    public void setRecycleAdapter(List<ItemContagem> lsItensContagem) {
+        raItemContagem = new ItemContagemRecycleAdapter(lsItensContagem);
+        recycle_view.setHasFixedSize(true);
+        recycle_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
+        recycle_view.setAdapter(raItemContagem);
+    }
+
+    @Override
+    /** Usado para atualizar o Recycle Adapter apos um item ser adicionado ou alterado */
+    public void atualizarRecycleView() {
+        raItemContagem.notifyDataSetChanged();
     }
 
     @Override

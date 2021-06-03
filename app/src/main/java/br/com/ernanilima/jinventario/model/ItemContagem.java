@@ -75,6 +75,10 @@ public class ItemContagem {
     public void setQtdPorCaixa(String qtdPorCaixa) {
         this.qtdPorCaixa = qtdPorCaixa;
     }
+    public String getQtdTotal() {
+        // CRIADO MANUALMENTE, NAO APAGAR
+        return String.valueOf(Long.parseLong(getQtdDeCaixas()) * Long.parseLong(getQtdPorCaixa()));
+    }
     @Generated(hash = 54977339)
     private transient Long mContagem__resolvedKey;
     /** To-one relationship, resolved on first access. */
