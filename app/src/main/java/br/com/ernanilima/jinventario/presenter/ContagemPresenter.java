@@ -44,7 +44,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         mContagemEstoque = dContagemEstoque.load(idContagem);
         // envia a lista de itens para o recycle adapter que sera utilizado no recycle view
         vContagem.setRecycleAdapter(getLsItensContagem());
-        System.out.println("CODIGO RECEBIDO NO PARAMETRO " + idContagem);
+        vContagem.setIdParaExibirNoTitulo(idContagem);
     }
 
     @Override

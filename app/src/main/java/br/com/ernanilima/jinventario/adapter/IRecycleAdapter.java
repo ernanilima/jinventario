@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.adapter.interfaces;
+package br.com.ernanilima.jinventario.adapter;
 
 import br.com.ernanilima.jinventario.model.ItemContagem;
 

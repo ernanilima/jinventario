@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -18,8 +20,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.adapter.IRecycleAdapter;
 import br.com.ernanilima.jinventario.adapter.ItemContagemRecycleAdapter;
-import br.com.ernanilima.jinventario.adapter.interfaces.IRecycleAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
@@ -68,6 +70,15 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
+    }
+
+    @Override
+    /** Exibe o titulo com o numero(id) da contagem */
+    public void setIdParaExibirNoTitulo(long idContagem) {
+        final ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        CharSequence tituloAtual = actionBar.getTitle();
+        String tituloNovo = tituloAtual + " N˚ " + idContagem;
+        actionBar.setTitle(tituloNovo);
     }
 
     @Override

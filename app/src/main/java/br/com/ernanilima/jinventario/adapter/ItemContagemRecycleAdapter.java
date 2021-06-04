@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.adapter.interfaces.IRecycleAdapter;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
 public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContagemRecycleAdapter.ItemViewHolder> {
