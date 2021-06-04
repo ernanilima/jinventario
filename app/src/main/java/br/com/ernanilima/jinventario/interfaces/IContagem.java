@@ -19,7 +19,8 @@ public interface IContagem {
     interface IView {
         Fragment requireParentFragment();
         void setRecycleAdapter(List<ItemContagem> lsItensContagem);
-        void atualizarRecycleView();
+        void atualizarRecycleAdapter();
+        void setItemAlterado(ItemContagem mItemContagem);
         TextInputLayout getCampoCodbarras();
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();

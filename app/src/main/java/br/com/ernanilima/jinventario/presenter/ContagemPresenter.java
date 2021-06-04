@@ -89,10 +89,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
                 .where(ItemContagemDao.Properties.IdContagem.eq(mContagemEstoque.getId())).list();
     }
 
-    /** Atualiza o Recycle Adapter com o item coletado/alterado
-     * Atualiza os dados da contagem */
+    /** Atualiza o Recycle Adapter apos um item ser coletado/alterado
+     * Atualiza os dados da contagem e grava seus dados no banco greendao */
     private void atualizarContagem() {
-        vContagem.atualizarRecycleView(); // atualiza o recycle view no fragment
+        vContagem.atualizarRecycleAdapter(); // atualiza o recycle adapter no fragment
         mContagemEstoque.setDataAlteracao(new Date(System.currentTimeMillis())); // atualiza a contagem com a data/hora alterada
         double quantidade = 0;
         for (ItemContagem mItemContagem : lsItensContagem) {
@@ -100,7 +100,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
             quantidade += Double.parseDouble(mItemContagem.getQtdTotal());
         }
         mContagemEstoque.setQtdTotalItens(String.valueOf(quantidade)); // atualiza a contagem com o total de itens ja coletados
-        dContagemEstoque.update(mContagemEstoque); // atualiza a contagem
+        dContagemEstoque.update(mContagemEstoque); // grava a atualizacao da contagem no banco greendao
     }
 
     private boolean validarCampos() {
@@ -110,7 +110,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     @Override
-    public void resultadoItemAlteradoDialog() {
-        System.out.println("RESULTADO DO DIALOG DE ALTERACAO");
+    /** Recebe o resultado do item alterado no dialog {@link AlteracaoDialogFragment},
+     * Atualiza o Recycle Adapter com o item alterado que foi recebido no parametro */
+    public void resultadoItemAlteradoDialog(ItemContagem mItemContagem) {
+        vContagem.setItemAlterado(mItemContagem); // envia o item alterado para atualiza o recycle adapter
+        dItemContagem.update(mItemContagem); // grava a atualizacao no banco greendao
+        atualizarContagem();
     }
 }

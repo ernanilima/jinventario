@@ -83,8 +83,14 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
 
     @Override
     /** Usado para atualizar o Recycle Adapter apos um item ser adicionado ou alterado */
-    public void atualizarRecycleView() {
+    public void atualizarRecycleAdapter() {
         raItemContagem.notifyDataSetChanged();
+    }
+
+    @Override
+    /** Usado para alterar um item no recycle adapter */
+    public void setItemAlterado(ItemContagem mItemContagem) {
+        raItemContagem.setItemAlterado(mItemContagem);
     }
 
     @Override

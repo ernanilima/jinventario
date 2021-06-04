@@ -66,7 +66,10 @@ public class AlteracaoDialogFragment extends DialogFragment {
     /** Confirma a alteracao realizada no dialog */
     private void confirmar() {
         if (validarCampos()) {
-            iDialog.resultadoItemAlteradoDialog();
+            mItemContagem.setCodigoBarras(campo_codbarras.getEditText().getText().toString());
+            mItemContagem.setQtdDeCaixas(campo_qtd_dcaixa.getEditText().getText().toString());
+            mItemContagem.setQtdPorCaixa(campo_qtd_pcaixa.getEditText().getText().toString());
+            iDialog.resultadoItemAlteradoDialog(mItemContagem);
         }
     }
 

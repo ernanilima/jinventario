@@ -19,6 +19,7 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
 
     private IRecycleAdapter iRecycleAdapter;
     private List<ItemContagem> lsItensContagem;
+    private int LINHA_ALTERACAO = -1;
 
     /** Construtor
      * @param lsItensContagem List<ItemContagem> - lista de itens */
@@ -43,7 +44,10 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         holder.campo_qtd_dcaixa.setText(mItemContagem.getQtdDeCaixas());
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
-        holder.btn_editar.setOnClickListener(v -> iRecycleAdapter.alterarItemColetado(mItemContagem));
+        holder.btn_editar.setOnClickListener(v -> {
+            LINHA_ALTERACAO = position;
+            iRecycleAdapter.alterarItemColetado(mItemContagem);
+        });
     }
 
     /** Usado para que a interface seja atribuida e seu metodo possa ser utilizado
@@ -57,6 +61,14 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
      * Usado para obter o tamanho da lista de itens */
     public int getItemCount() {
         return lsItensContagem.size();
+    }
+
+    /** Atualiza a lista de itens com o item alterado que foi recebido no parametro
+     * @param mItemContagem ItemContagem - item alterado
+     * @return ItemContagem - */
+    public void setItemAlterado(ItemContagem mItemContagem) {
+        lsItensContagem.set(LINHA_ALTERACAO, mItemContagem);
+        LINHA_ALTERACAO = -1;
     }
 
     /** Class ViewHolder usada para extender no RecycleAdapter */
