@@ -74,12 +74,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Exibe um dialog para alterar o item selecionado */
     public void alterarItemColetado(ItemContagem mItemContagem) {
         AlteracaoDialogFragment dAlteracaoFragment = new AlteracaoDialogFragment(this);
-        Bundle args = new Bundle();
-        args.putLong(AlteracaoDialogFragment.CODIGO_CONTAGEM, mItemContagem.getIdContagem());
-        args.putString(AlteracaoDialogFragment.CODIGO_BARRAS, mItemContagem.getCodigoBarras());
-        args.putString(AlteracaoDialogFragment.QTD_DE_CAIXAS, mItemContagem.getQtdDeCaixas());
-        args.putString(AlteracaoDialogFragment.QTD_POR_CAIXA, mItemContagem.getQtdPorCaixa());
-        dAlteracaoFragment.setArguments(args);
+        Bundle argumento = new Bundle();
+        // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
+        argumento.putSerializable(AlteracaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
+        dAlteracaoFragment.setArguments(argumento);
         dAlteracaoFragment.setCancelable(false);
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
     }

@@ -21,10 +21,7 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 public class AlteracaoDialogFragment extends DialogFragment {
 
     private ItemContagem mItemContagem;
-    public static final String CODIGO_CONTAGEM = "CodigoContagem";
-    public static final String CODIGO_BARRAS = "CodigoBarras";
-    public static final String QTD_DE_CAIXAS = "QtdDeCaixas";
-    public static final String QTD_POR_CAIXA = "QtdProCaixa";
+    public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
 
     private IDialog iDialog;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
@@ -59,12 +56,7 @@ public class AlteracaoDialogFragment extends DialogFragment {
 
     /** Abre o Dialog com os dados do item que vai ser alterado */
     private void alterarItem() {
-        mItemContagem = new ItemContagem(
-                null,
-                getArguments().getLong(CODIGO_CONTAGEM),
-                getArguments().getString(CODIGO_BARRAS),
-                getArguments().getString(QTD_DE_CAIXAS),
-                getArguments().getString(QTD_POR_CAIXA));
+        mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
 
         campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
         campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());

@@ -7,8 +7,11 @@ import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
+import java.io.Serializable;
+
 @Entity(nameInDb = "ITEM_CONTAGEM")
-public class ItemContagem {
+public class ItemContagem implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
