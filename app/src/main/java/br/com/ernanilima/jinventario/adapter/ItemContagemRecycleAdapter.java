@@ -19,7 +19,6 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
 
     private IRecycleAdapter iRecycleAdapter;
     private List<ItemContagem> lsItensContagem;
-    private int LINHA_ALTERACAO = -1;
 
     /** Construtor
      * @param lsItensContagem List<ItemContagem> - lista de itens */
@@ -45,7 +44,7 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
         holder.btn_editar.setOnClickListener(v -> {
-            LINHA_ALTERACAO = position;
+            mItemContagem.setPosicaoItem(position);
             iRecycleAdapter.alterarItemColetado(mItemContagem);
         });
     }
@@ -67,8 +66,7 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
      * @param mItemContagem ItemContagem - item alterado
      * @return ItemContagem - */
     public void setItemAlterado(ItemContagem mItemContagem) {
-        lsItensContagem.set(LINHA_ALTERACAO, mItemContagem);
-        LINHA_ALTERACAO = -1;
+        lsItensContagem.set(mItemContagem.getPosicaoItem(), mItemContagem);
     }
 
     /** Class ViewHolder usada para extender no RecycleAdapter */

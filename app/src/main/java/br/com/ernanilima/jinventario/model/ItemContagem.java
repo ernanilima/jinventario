@@ -6,6 +6,7 @@ import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Transient;
 
 import java.io.Serializable;
 
@@ -26,6 +27,18 @@ public class ItemContagem implements Serializable {
     private String qtdPorCaixa;
     @ToOne(joinProperty = "idContagem")
     private ContagemEstoque mContagem;
+    @Transient // indica que este campo não será gravado no banco de dados.
+    private int posicaoItem;
+
+    public String getQtdTotal() {
+        return String.valueOf(Long.parseLong(qtdDeCaixas) * Long.parseLong(qtdPorCaixa));
+    }
+    public int getPosicaoItem() {
+        return posicaoItem;
+    }
+    public void setPosicaoItem(int posicaoItem) {
+        this.posicaoItem = posicaoItem;
+    }
 
     // tudo abaixo eh construido automaticamente ao executar o projeto
 
@@ -78,10 +91,7 @@ public class ItemContagem implements Serializable {
     public void setQtdPorCaixa(String qtdPorCaixa) {
         this.qtdPorCaixa = qtdPorCaixa;
     }
-    public String getQtdTotal() {
-        // CRIADO MANUALMENTE, NAO APAGAR
-        return String.valueOf(Long.parseLong(getQtdDeCaixas()) * Long.parseLong(getQtdPorCaixa()));
-    }
+
     @Generated(hash = 54977339)
     private transient Long mContagem__resolvedKey;
     /** To-one relationship, resolved on first access. */
@@ -151,5 +161,4 @@ public class ItemContagem implements Serializable {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getItemContagemDao() : null;
     }
-
 }
