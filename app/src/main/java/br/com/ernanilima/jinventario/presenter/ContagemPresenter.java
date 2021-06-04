@@ -13,6 +13,7 @@ import br.com.ernanilima.jinventario.model.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
+import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -67,6 +68,14 @@ public class ContagemPresenter implements IContagem.IPresenter {
         }
     }
 
+    @Override
+    /** Exibe um dialog para alterar o item selecionado */
+    public void alterarItemColetado() {
+        AlteracaoDialogFragment dAlteracaoFragment = new AlteracaoDialogFragment(this);
+        dAlteracaoFragment.setCancelable(false);
+        dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
+    }
+
     /** Busca/Registra a lista de itens buscando no banco greendao
      * @return List<ItemContagem> - lista de itens da contagem */
     private List<ItemContagem> getLsItensContagem() {
@@ -74,7 +83,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
                 .where(ItemContagemDao.Properties.IdContagem.eq(mContagemEstoque.getId())).list();
     }
 
-    /** Atualiza o item coletado
+    /** Atualiza o Recycle Adapter com o item coletado/alterado
      * Atualiza os dados da contagem */
     private void atualizarContagem() {
         vContagem.atualizarRecycleView(); // atualiza o recycle view no fragment
@@ -92,5 +101,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
         return ValidarCampo.vazio(vContagem.getCampoCodbarras(), MensagensAlerta.CODBARRAS_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(vContagem.getCampoQtdDeCaixa(), MensagensAlerta.QUANTIDADE_DE_CAIXA_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(vContagem.getCampoQtdPorCaixa(), MensagensAlerta.QUANTIDADE_POR_CAIXA_INVALIDO.getMsg());
+    }
+
+    @Override
+    public void resultadoItemAlteradoDialog() {
+        System.out.println("RESULTADO DO DIALOG DE ALTERACAO");
     }
 }

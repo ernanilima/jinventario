@@ -6,9 +6,11 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
+import br.com.ernanilima.jinventario.adapter.interfaces.IRecycleAdapter;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
+import br.com.ernanilima.jinventario.view.dialog.IDialog;
 
 public interface IContagem {
 
@@ -25,7 +27,7 @@ public interface IContagem {
 
     /** Usado no presenter
      * {@link ContagemPresenter} */
-    interface IPresenter {
+    interface IPresenter extends IDialog, IRecycleAdapter {
         void setCodigoContagem(Long idContagem);
         void adicionarItemColetado();
     }

@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.adapter.interfaces.IRecycleAdapter;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
 public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContagemRecycleAdapter.ItemViewHolder> {
 
+    private IRecycleAdapter iRecycleAdapter;
     private List<ItemContagem> lsItensContagem;
 
     /** Construtor
@@ -41,6 +43,13 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         holder.campo_qtd_dcaixa.setText(mItemContagem.getQtdDeCaixas());
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
+        holder.btn_editar.setOnClickListener(v -> iRecycleAdapter.alterarItemColetado());
+    }
+
+    /** Usado para que a interface seja atribuida e seu metodo possa ser utilizado
+     * @param iRecycleAdapter IRecycleAdapter */
+    public void setIRecycleAdapter(IRecycleAdapter iRecycleAdapter) {
+        this.iRecycleAdapter = iRecycleAdapter;
     }
 
     @Override
