@@ -43,7 +43,7 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         holder.campo_qtd_dcaixa.setText(mItemContagem.getQtdDeCaixas());
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
-        holder.btn_editar.setOnClickListener(v -> iRecycleAdapter.alterarItemColetado());
+        holder.btn_editar.setOnClickListener(v -> iRecycleAdapter.alterarItemColetado(mItemContagem));
     }
 
     /** Usado para que a interface seja atribuida e seu metodo possa ser utilizado

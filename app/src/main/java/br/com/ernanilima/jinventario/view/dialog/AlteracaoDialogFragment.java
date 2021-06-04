@@ -14,10 +14,17 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
 public class AlteracaoDialogFragment extends DialogFragment {
+
+    private ItemContagem mItemContagem;
+    public static final String CODIGO_CONTAGEM = "CodigoContagem";
+    public static final String CODIGO_BARRAS = "CodigoBarras";
+    public static final String QTD_DE_CAIXAS = "QtdDeCaixas";
+    public static final String QTD_POR_CAIXA = "QtdProCaixa";
 
     private IDialog iDialog;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
@@ -45,7 +52,23 @@ public class AlteracaoDialogFragment extends DialogFragment {
         btn_ok = view.findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.INVISIBLE);
 
+        alterarItem();
+
         return builder.create();
+    }
+
+    /** Abre o Dialog com os dados do item que vai ser alterado */
+    private void alterarItem() {
+        mItemContagem = new ItemContagem(
+                null,
+                getArguments().getLong(CODIGO_CONTAGEM),
+                getArguments().getString(CODIGO_BARRAS),
+                getArguments().getString(QTD_DE_CAIXAS),
+                getArguments().getString(QTD_POR_CAIXA));
+
+        campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
+        campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
+        campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
     }
 
     /** Confirma a alteracao realizada no dialog */

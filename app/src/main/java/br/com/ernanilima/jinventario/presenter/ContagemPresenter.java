@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario.presenter;
 
+import android.os.Bundle;
+
 import java.util.Date;
 import java.util.List;
 
@@ -70,8 +72,14 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
     @Override
     /** Exibe um dialog para alterar o item selecionado */
-    public void alterarItemColetado() {
+    public void alterarItemColetado(ItemContagem mItemContagem) {
         AlteracaoDialogFragment dAlteracaoFragment = new AlteracaoDialogFragment(this);
+        Bundle args = new Bundle();
+        args.putLong(AlteracaoDialogFragment.CODIGO_CONTAGEM, mItemContagem.getIdContagem());
+        args.putString(AlteracaoDialogFragment.CODIGO_BARRAS, mItemContagem.getCodigoBarras());
+        args.putString(AlteracaoDialogFragment.QTD_DE_CAIXAS, mItemContagem.getQtdDeCaixas());
+        args.putString(AlteracaoDialogFragment.QTD_POR_CAIXA, mItemContagem.getQtdPorCaixa());
+        dAlteracaoFragment.setArguments(args);
         dAlteracaoFragment.setCancelable(false);
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
     }
