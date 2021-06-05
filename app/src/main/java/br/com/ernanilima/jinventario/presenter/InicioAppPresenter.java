@@ -48,7 +48,7 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
     /** Busca a lista de contagens buscando no banco greendao
      * @return List<ItemContagem> - lista de itens de contagens */
     public List<ContagemEstoque> getLsContagensEstoque() {
-        return dContagemEstoque.queryBuilder().list();
+        return dContagemEstoque.queryBuilder().orderDesc(ContagemEstoqueDao.Properties.DataAlteracao).list();
     }
 
     private void criarNovaContagem() {

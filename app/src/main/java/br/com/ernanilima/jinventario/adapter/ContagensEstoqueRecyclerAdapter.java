@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
+import br.com.ernanilima.jinventario.util.Formatar;
 
 /** Recycler Adapter de contagens de estoque */
 public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> {
@@ -39,8 +40,8 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
     public void onBindViewHolder(@NonNull ContagensViewHolder holder, int position) {
         ContagemEstoque mContagemEstoque = lsContagensEstoque.get(position);
         holder.campo_numero_contagem.setText(String.valueOf(mContagemEstoque.getId()));
-        holder.campo_data_criacao.setText(String.valueOf(mContagemEstoque.getDataCriacao()));
-        holder.campo_data_hora_alteracao.setText(String.valueOf(mContagemEstoque.getDataAlteracao()));
+        holder.campo_data_criacao.setText(Formatar.DATA.format(mContagemEstoque.getDataCriacao()));
+        holder.campo_data_hora_alteracao.setText(Formatar.DATA_HORA.format(mContagemEstoque.getDataAlteracao()));
         holder.campo_total_itens.setText(String.format("%.0f", Double.parseDouble(mContagemEstoque.getQtdTotalItens())));
     }
 
