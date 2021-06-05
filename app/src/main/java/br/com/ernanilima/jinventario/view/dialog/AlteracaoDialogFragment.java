@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;

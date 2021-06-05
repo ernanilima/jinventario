@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.adapter.ItemContagemRecycleAdapter;
+import br.com.ernanilima.jinventario.adapter.ItemContagemRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
@@ -33,8 +33,8 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private IContagem.IPresenter pContagem;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
-    private RecyclerView recycle_view;
-    private ItemContagemRecycleAdapter raItemContagem;
+    private RecyclerView recycler_view;
+    private ItemContagemRecyclerAdapter raItemContagem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
         btn_ok = view.findViewById(R.id.btn_ok);
-        recycle_view = view.findViewById(R.id.recycle_view);
+        recycler_view = view.findViewById(R.id.recycler_view);
 
         // ACAO DE BOTOES
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
@@ -82,32 +82,32 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
-    /** Regista o Recycle Adapter com a lista de itens do parametro
-     * Define o Recycle Adapter no Recycle View do xml de contagem */
-    public void setRecycleAdapter(List<ItemContagem> lsItensContagem) {
-        raItemContagem = new ItemContagemRecycleAdapter(lsItensContagem);
+    /** Regista o Recycler Adapter com a lista de itens do parametro
+     * Define o Recycler Adapter no Recycler View do xml de contagem */
+    public void setRecyclerAdapter(List<ItemContagem> lsItensContagem) {
+        raItemContagem = new ItemContagemRecyclerAdapter(lsItensContagem);
         raItemContagem.setContagemPresenter(pContagem);
-        recycle_view.setHasFixedSize(true);
-        recycle_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
-        recycle_view.setAdapter(raItemContagem);
+        recycler_view.setHasFixedSize(true);
+        recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
+        recycler_view.setAdapter(raItemContagem);
         SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
-        swipeHelper.setRecycleView(recycle_view);
+        swipeHelper.setRecyclerView(recycler_view);
     }
 
     @Override
-    /** Usado para atualizar o Recycle Adapter apos um item ser adicionado ou alterado */
-    public void atualizarRecycleAdapter() {
+    /** Usado para atualizar o Recycler Adapter apos um item ser adicionado ou alterado */
+    public void atualizarRecyclerAdapter() {
         raItemContagem.notifyDataSetChanged();
     }
 
     @Override
-    /** Usado para alterar um item na lista de itens atribuida ao recycle adapter */
+    /** Usado para alterar um item na lista de itens atribuida ao recycler adapter */
     public void setItemAlterado(ItemContagem mItemContagem) {
         raItemContagem.setItemAlterado(mItemContagem);
     }
 
     @Override
-    /** Usado para excluir um item na lista de itens atribuida ao recycle adapter */
+    /** Usado para excluir um item na lista de itens atribuida ao recycler adapter */
     public void setItemExcluido(ItemContagem mItemContagem) {
         raItemContagem.setItemExcluido(mItemContagem);
     }

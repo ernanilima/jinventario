@@ -11,23 +11,23 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.adapter.IRecycleAdapter;
+import br.com.ernanilima.jinventario.adapter.IRecyclerAdapter;
 
-/** Configura a opcao de deslizar o item no recycle view */
+/** Configura a opcao de deslizar o item no recycler view */
 public class SwipeHelper extends ItemTouchHelper.Callback {
 
     private ItemTouchHelper itemTouchHelper;
     private ColorDrawable background;
     private Drawable icone;
-    private IRecycleAdapter iRecycleAdapter;
+    private IRecyclerAdapter iRecyclerAdapter;
 
-    /** @param recycle_view RecyclerView - recycle view onde essa classe vai ser utilizada */
-    public void setRecycleView(RecyclerView recycle_view) {
+    /** @param recycler_view RecyclerView - recycler view onde essa classe vai ser utilizada */
+    public void setRecyclerView(RecyclerView recycler_view) {
         this.itemTouchHelper = new ItemTouchHelper(this);
-        this.itemTouchHelper.attachToRecyclerView(recycle_view);
-        this.iRecycleAdapter = (IRecycleAdapter) recycle_view.getAdapter();
+        this.itemTouchHelper.attachToRecyclerView(recycler_view);
+        this.iRecyclerAdapter = (IRecyclerAdapter) recycler_view.getAdapter();
         this.background = new ColorDrawable(Color.RED); // cor do background no item deslizado
-        this.icone =  ContextCompat.getDrawable(recycle_view.getContext(), R.drawable.ic_excluir); // icone no item deslizado
+        this.icone =  ContextCompat.getDrawable(recycler_view.getContext(), R.drawable.ic_excluir); // icone no item deslizado
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SwipeHelper extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         // ao executar o slider totalmente
-        iRecycleAdapter.setPosicaoParaExcluir(viewHolder.getAdapterPosition());
+        iRecyclerAdapter.setPosicaoParaExcluir(viewHolder.getAdapterPosition());
     }
 
     @Override

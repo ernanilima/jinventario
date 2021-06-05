@@ -9,7 +9,6 @@ import java.util.List;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
-import br.com.ernanilima.jinventario.view.dialog.IResultadoDialog;
 
 public interface IContagem {
 
@@ -18,8 +17,8 @@ public interface IContagem {
     interface IView {
         Fragment requireParentFragment();
         void setIdParaExibirNoTitulo(long idContagem);
-        void setRecycleAdapter(List<ItemContagem> lsItensContagem);
-        void atualizarRecycleAdapter();
+        void setRecyclerAdapter(List<ItemContagem> lsItensContagem);
+        void atualizarRecyclerAdapter();
         void setItemAlterado(ItemContagem mItemContagem);
         void setItemExcluido(ItemContagem mItemContagem);
         TextInputLayout getCampoCodbarras();

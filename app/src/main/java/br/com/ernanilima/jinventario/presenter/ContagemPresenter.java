@@ -43,8 +43,8 @@ public class ContagemPresenter implements IContagem.IPresenter {
     public void setCodigoContagem(Long idContagem) {
         // busca contagem pelo id e atribui o resultado ao model criado
         mContagemEstoque = dContagemEstoque.load(idContagem);
-        // envia a lista de itens para o recycle adapter que sera utilizado no recycle view
-        vContagem.setRecycleAdapter(getLsItensContagem());
+        // envia a lista de itens para o recycler adapter que sera utilizado no recycler view
+        vContagem.setRecyclerAdapter(getLsItensContagem());
         vContagem.setIdParaExibirNoTitulo(idContagem);
     }
 
@@ -101,10 +101,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
                 .where(ItemContagemDao.Properties.IdContagem.eq(mContagemEstoque.getId())).list();
     }
 
-    /** Atualiza o Recycle Adapter apos um item ser coletado/alterado
+    /** Atualiza o Recycler Adapter apos um item ser coletado/alterado
      * Atualiza os dados da contagem e grava seus dados no banco greendao */
     private void atualizarContagem() {
-        vContagem.atualizarRecycleAdapter(); // atualiza o recycle adapter no fragment
+        vContagem.atualizarRecyclerAdapter(); // atualiza o recycler adapter no fragment
         mContagemEstoque.setDataAlteracao(new Date(System.currentTimeMillis())); // atualiza a contagem com a data/hora alterada
         double quantidade = 0;
         for (ItemContagem mItemContagem : lsItensContagem) {
@@ -123,16 +123,16 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
     @Override
     /** Recebe o resultado do item alterado no dialog {@link AlteracaoDialogFragment},
-     * Atualiza o Recycle Adapter com o item alterado que foi recebido no parametro */
+     * Atualiza o Recycler Adapter com o item alterado que foi recebido no parametro */
     public void resultadoItemAlteradoDialog(ItemContagem mItemContagem) {
-        vContagem.setItemAlterado(mItemContagem); // envia o item alterado para atualiza o recycle adapter
+        vContagem.setItemAlterado(mItemContagem); // envia o item alterado para atualiza o recycler adapter
         dItemContagem.update(mItemContagem); // grava a atualizacao no banco greendao
         atualizarContagem();
     }
 
     @Override
     /** Recebe o resultado do item excluido ou nao no dialog {@link ExclusaoDialogFragment},
-     * Atualiza o Recycle Adapter com o resultado recebido no parametro */
+     * Atualiza o Recycler Adapter com o resultado recebido no parametro */
     public void resultadoItemExcluidoDialog(boolean confirmarCancelar, ItemContagem mItemContagem) {
         if (confirmarCancelar) {
             // exclusao confirmada
@@ -141,7 +141,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
             atualizarContagem();
         } else {
             // exclusao cancelada
-            vContagem.atualizarRecycleAdapter();
+            vContagem.atualizarRecyclerAdapter();
         }
     }
 }

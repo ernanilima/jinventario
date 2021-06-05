@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.view.dialog;
+package br.com.ernanilima.jinventario.interfaces;
 
 import br.com.ernanilima.jinventario.model.ItemContagem;
 

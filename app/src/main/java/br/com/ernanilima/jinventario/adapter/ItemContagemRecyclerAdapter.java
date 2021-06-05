@@ -15,14 +15,14 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
-public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContagemRecycleAdapter.ItemViewHolder> implements IRecycleAdapter {
+public class ItemContagemRecyclerAdapter extends RecyclerView.Adapter<ItemContagemRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
 
     private IContagem.IPresenter pContagem;
     private List<ItemContagem> lsItensContagem;
 
     /** Construtor
      * @param lsItensContagem List<ItemContagem> - lista de itens */
-    public ItemContagemRecycleAdapter(List<ItemContagem> lsItensContagem) {
+    public ItemContagemRecyclerAdapter(List<ItemContagem> lsItensContagem) {
         this.lsItensContagem = lsItensContagem;
     }
 
@@ -83,7 +83,7 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         pContagem.excluirItemColetado(mItemContagem);
     }
 
-    /** Class ViewHolder usada para extender no RecycleAdapter */
+    /** Class ViewHolder usada para extender no RecyclerAdapter */
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total;

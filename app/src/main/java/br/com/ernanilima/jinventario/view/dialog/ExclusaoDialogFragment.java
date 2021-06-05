@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
 public class ExclusaoDialogFragment extends DialogFragment {
