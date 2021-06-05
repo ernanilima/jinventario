@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.util.Formatar;
 
 /** Recycler Adapter de contagens de estoque */
 public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> {
 
+    private IInicioApp.IPresenter pInicioApp;
     private List<ContagemEstoque> lsContagensEstoque;
 
     /** Construtor
@@ -43,6 +45,15 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
         holder.campo_data_criacao.setText(Formatar.DATA.format(mContagemEstoque.getDataCriacao()));
         holder.campo_data_hora_alteracao.setText(Formatar.DATA_HORA.format(mContagemEstoque.getDataAlteracao()));
         holder.campo_total_itens.setText(String.format("%.0f", Double.parseDouble(mContagemEstoque.getQtdTotalItens())));
+        holder.btn_editar.setOnClickListener(v -> {
+            pInicioApp.alterarContagem(mContagemEstoque);
+        });
+    }
+
+    /** Usado para que a interface seja atribuida e seus metodos possam ser utilizados
+     * @param pInicioApp IInicioApp.IPresenter */
+    public void setInicioAppPresenter(IInicioApp.IPresenter pInicioApp) {
+        this.pInicioApp = pInicioApp;
     }
 
     @Override

@@ -20,6 +20,8 @@ public class ContagemEstoque {
     @Property(nameInDb = "QTD_TOTAL_ITENS")
     private String qtdTotalItens;
 
+    // tudo abaixo eh construido automaticamente ao executar o projeto
+
     @Generated(hash = 20048010)
     public ContagemEstoque() {}
 

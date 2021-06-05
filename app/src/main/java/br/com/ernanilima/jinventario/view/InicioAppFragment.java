@@ -49,6 +49,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
         //SETs
         raContagens = new ContagensEstoqueRecyclerAdapter(pInicioApp.getLsContagensEstoque());
+        raContagens.setInicioAppPresenter(pInicioApp);
         recycler_view.setHasFixedSize(true);
         recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
         recycler_view.setAdapter(raContagens);

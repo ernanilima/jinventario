@@ -51,6 +51,15 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
         return dContagemEstoque.queryBuilder().orderDesc(ContagemEstoqueDao.Properties.DataAlteracao).list();
     }
 
+    @Override
+    public void alterarContagem(ContagemEstoque mContagemEstoque) {
+        Bundle argumento = new Bundle();
+        argumento.putLong(ContagemFragment.CODIGO_CONTAGEM, mContagemEstoque.getId());
+        vInicioApp.setArgumentoBundle(argumento);
+
+        NavegacaoApp.abrirTelaContagem(vInicioApp.requireParentFragment().getView());
+    }
+
     private void criarNovaContagem() {
         Date dataAtual = new Date(System.currentTimeMillis());
         ContagemEstoque mContagemEstoque = new ContagemEstoque(null, dataAtual, dataAtual, "0");

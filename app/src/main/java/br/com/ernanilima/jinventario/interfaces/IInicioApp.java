@@ -24,5 +24,6 @@ public interface IInicioApp {
     interface IPresenter {
         void novaContagem();
         List<ContagemEstoque> getLsContagensEstoque();
+        void alterarContagem(ContagemEstoque mContagemEstoque);
     }
 }
