@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="right"
+    tools:showIn="@layout/fragment_inicio_app" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tx_numero_contagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Contagem de estoque número:" />
+
+        <TextView
+            android:id="@+id/campo_numero_contagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tx_numero_contagem"
+            android:text="9999"
+            android:layout_marginLeft="16dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tx_data_criacao"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
+            android:text="Data de Criação"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tx_data_hora_alteracao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/tx_total_itens"
+            android:layout_toEndOf="@+id/tx_data_criacao"
+            android:gravity="center"
+            android:text="Data e Hora da Alteração"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tx_total_itens"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="right"
+            android:layout_marginRight="30dp"
+            android:text="Total Itens"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/campo_data_criacao"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
+            android:gravity="left"
+            android:text="99/99/99" />
+
+        <TextView
+            android:id="@+id/campo_data_hora_alteracao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="99/99/99 99:99"
+            android:layout_toEndOf="@+id/campo_data_criacao"
+            android:layout_toStartOf="@+id/campo_total_itens"/>
+
+        <TextView
+            android:id="@+id/campo_total_itens"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/btn_editar"
+            android:gravity="right"
+            android:text="99.999" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_editar"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_editar"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</LinearLayout>
