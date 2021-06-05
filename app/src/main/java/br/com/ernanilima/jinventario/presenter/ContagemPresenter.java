@@ -16,6 +16,7 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -84,7 +85,13 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
     @Override
     public void excluirItemColetado(ItemContagem mItemContagem) {
-        System.out.println("SOLICITACAO DE EXCLUSAO NO ITEM " + mItemContagem.getPosicaoItem());
+        ExclusaoDialogFragment dExclusaoFragment = new ExclusaoDialogFragment(this);
+        Bundle argumento = new Bundle();
+        // armazena o model como argumento para que possa ser receptado pelo dialog de exclusao
+        argumento.putSerializable(ExclusaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
+        dExclusaoFragment.setArguments(argumento);
+        dExclusaoFragment.setCancelable(false);
+        dExclusaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
     }
 
     /** Busca/Registra a lista de itens buscando no banco greendao
@@ -121,5 +128,20 @@ public class ContagemPresenter implements IContagem.IPresenter {
         vContagem.setItemAlterado(mItemContagem); // envia o item alterado para atualiza o recycle adapter
         dItemContagem.update(mItemContagem); // grava a atualizacao no banco greendao
         atualizarContagem();
+    }
+
+    @Override
+    /** Recebe o resultado do item excluido ou nao no dialog {@link ExclusaoDialogFragment},
+     * Atualiza o Recycle Adapter com o resultado recebido no parametro */
+    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, ItemContagem mItemContagem) {
+        if (confirmarCancelar) {
+            // exclusao confirmada
+            vContagem.setItemExcluido(mItemContagem);
+            dItemContagem.delete(mItemContagem);
+            atualizarContagem();
+        } else {
+            // exclusao cancelada
+            vContagem.atualizarRecycleAdapter();
+        }
     }
 }

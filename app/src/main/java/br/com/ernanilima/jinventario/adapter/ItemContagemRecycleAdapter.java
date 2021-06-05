@@ -68,6 +68,11 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         lsItensContagem.set(mItemContagem.getPosicaoItem(), mItemContagem);
     }
 
+    /** Atualiza a lista de itens com o item excluido que foi recebido no parametro
+     * @param mItemContagem ItemContagem - item excluido */
+    public void setItemExcluido(ItemContagem mItemContagem) {
+        lsItensContagem.remove(mItemContagem.getPosicaoItem());
+    }
     @Override
     /** Recebe a posicao do item que deseja excluir
      * Busca o model com base na posicao recebida

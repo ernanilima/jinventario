@@ -23,13 +23,20 @@ public class AlteracaoDialogFragment extends DialogFragment {
     private ItemContagem mItemContagem;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
 
-    private IDialog iDialog;
+    private IResultadoDialog iResultadoDialog;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
 
-    // CONSTRUTOR
-    public AlteracaoDialogFragment(IDialog iDialog) {
-        this.iDialog = iDialog;
+    /** Construtor
+     * @param iResultadoDialog IResultadoDialog */
+    public AlteracaoDialogFragment(IResultadoDialog iResultadoDialog) {
+        this.iResultadoDialog = iResultadoDialog;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
     }
 
     @NonNull
@@ -49,15 +56,13 @@ public class AlteracaoDialogFragment extends DialogFragment {
         btn_ok = view.findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.INVISIBLE);
 
-        alterarItem();
+        atualizarParaAlteracao();
 
         return builder.create();
     }
 
     /** Abre o Dialog com os dados do item que vai ser alterado */
-    private void alterarItem() {
-        mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
-
+    private void atualizarParaAlteracao() {
         campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
         campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
         campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
@@ -69,7 +74,7 @@ public class AlteracaoDialogFragment extends DialogFragment {
             mItemContagem.setCodigoBarras(campo_codbarras.getEditText().getText().toString());
             mItemContagem.setQtdDeCaixas(campo_qtd_dcaixa.getEditText().getText().toString());
             mItemContagem.setQtdPorCaixa(campo_qtd_pcaixa.getEditText().getText().toString());
-            iDialog.resultadoItemAlteradoDialog(mItemContagem);
+            iResultadoDialog.resultadoItemAlteradoDialog(mItemContagem);
         }
     }
 

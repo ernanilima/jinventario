@@ -9,7 +9,7 @@ import java.util.List;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
-import br.com.ernanilima.jinventario.view.dialog.IDialog;
+import br.com.ernanilima.jinventario.view.dialog.IResultadoDialog;
 
 public interface IContagem {
 
@@ -21,6 +21,7 @@ public interface IContagem {
         void setRecycleAdapter(List<ItemContagem> lsItensContagem);
         void atualizarRecycleAdapter();
         void setItemAlterado(ItemContagem mItemContagem);
+        void setItemExcluido(ItemContagem mItemContagem);
         TextInputLayout getCampoCodbarras();
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();
@@ -28,7 +29,7 @@ public interface IContagem {
 
     /** Usado no presenter
      * {@link ContagemPresenter} */
-    interface IPresenter extends IDialog {
+    interface IPresenter extends IResultadoDialog {
         void setCodigoContagem(Long idContagem);
         void adicionarItemColetado();
         void alterarItemColetado(ItemContagem mItemContagem);

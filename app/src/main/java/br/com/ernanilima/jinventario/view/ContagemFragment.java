@@ -101,9 +101,15 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
-    /** Usado para alterar um item no recycle adapter */
+    /** Usado para alterar um item na lista de itens atribuida ao recycle adapter */
     public void setItemAlterado(ItemContagem mItemContagem) {
         raItemContagem.setItemAlterado(mItemContagem);
+    }
+
+    @Override
+    /** Usado para excluir um item na lista de itens atribuida ao recycle adapter */
+    public void setItemExcluido(ItemContagem mItemContagem) {
+        raItemContagem.setItemExcluido(mItemContagem);
     }
 
     @Override
