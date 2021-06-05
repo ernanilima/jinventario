@@ -31,6 +31,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_contagens_recyclerview" />
+        tools:listitem="@layout/itens_contagens_recyclerview" />
 
 </RelativeLayout>

@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
 
@@ -18,6 +22,8 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
     private IInicioApp.IPresenter pInicioApp;
     private AppCompatButton btn_novacontagem;
+    private RecyclerView recycler_view;
+    private ContagensEstoqueRecyclerAdapter raContagens;
 
     @Nullable
     @Override
@@ -36,9 +42,16 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         //INICIALIZA
         // nome_local = nome_no_xml
         btn_novacontagem = view.findViewById(R.id.btn_novacontagem);
+        recycler_view = view.findViewById(R.id.recycler_view);
 
         // ACAO DE BOTOES
         btn_novacontagem.setOnClickListener(v -> pInicioApp.novaContagem());
+
+        //SETs
+        raContagens = new ContagensEstoqueRecyclerAdapter(pInicioApp.getLsContagensEstoque());
+        recycler_view.setHasFixedSize(true);
+        recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
+        recycler_view.setAdapter(raContagens);
 
     }
 

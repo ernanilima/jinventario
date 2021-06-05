@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 
 import java.util.Date;
+import java.util.List;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
@@ -41,6 +42,13 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    /** Busca a lista de contagens buscando no banco greendao
+     * @return List<ItemContagem> - lista de itens de contagens */
+    public List<ContagemEstoque> getLsContagensEstoque() {
+        return dContagemEstoque.queryBuilder().list();
     }
 
     private void criarNovaContagem() {

@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.adapter.ItemContagemRecyclerAdapter;
+import br.com.ernanilima.jinventario.adapter.ContagemEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
@@ -34,7 +34,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
     private RecyclerView recycler_view;
-    private ItemContagemRecyclerAdapter raItemContagem;
+    private ContagemEstoqueRecyclerAdapter raItemContagem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     /** Regista o Recycler Adapter com a lista de itens do parametro
      * Define o Recycler Adapter no Recycler View do xml de contagem */
     public void setRecyclerAdapter(List<ItemContagem> lsItensContagem) {
-        raItemContagem = new ItemContagemRecyclerAdapter(lsItensContagem);
+        raItemContagem = new ContagemEstoqueRecyclerAdapter(lsItensContagem);
         raItemContagem.setContagemPresenter(pContagem);
         recycler_view.setHasFixedSize(true);
         recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));

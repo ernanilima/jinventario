@@ -15,14 +15,15 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
-public class ItemContagemRecyclerAdapter extends RecyclerView.Adapter<ItemContagemRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
+/** Recycler Adapter de contagem de estoque */
+public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IContagemEstoqueRecyclerAdapter {
 
     private IContagem.IPresenter pContagem;
     private List<ItemContagem> lsItensContagem;
 
     /** Construtor
      * @param lsItensContagem List<ItemContagem> - lista de itens */
-    public ItemContagemRecyclerAdapter(List<ItemContagem> lsItensContagem) {
+    public ContagemEstoqueRecyclerAdapter(List<ItemContagem> lsItensContagem) {
         this.lsItensContagem = lsItensContagem;
     }
 
@@ -30,13 +31,13 @@ public class ItemContagemRecyclerAdapter extends RecyclerView.Adapter<ItemContag
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inicia o xml
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contagem_recyclerview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itens_contagem_recyclerview, parent, false);
         return new ItemViewHolder(view);
     }
 
     @Override
     /** Obtido automaticamente na utilizacao do adapter
-     * Usado para adicionar os dados no item que for exibido */
+     * Usado para adicionar os dados no item exibido no recycler view */
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         ItemContagem mItemContagem = lsItensContagem.get(position);
         holder.campo_codbarras.setText(mItemContagem.getCodigoBarras());
@@ -83,7 +84,7 @@ public class ItemContagemRecyclerAdapter extends RecyclerView.Adapter<ItemContag
         pContagem.excluirItemColetado(mItemContagem);
     }
 
-    /** Class ViewHolder usada para extender no RecyclerAdapter */
+    /** Class ViewHolder usada para extender na classe {@link ContagemEstoqueRecyclerAdapter} */
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total;
