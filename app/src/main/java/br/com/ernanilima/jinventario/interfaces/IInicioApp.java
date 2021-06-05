@@ -21,9 +21,10 @@ public interface IInicioApp {
 
     /** Usado no presenter
      * {@link InicioAppPresenter} */
-    interface IPresenter {
+    interface IPresenter extends IResultadoDialog {
         void novaContagem();
         List<ContagemEstoque> getLsContagensEstoque();
         void alterarContagem(ContagemEstoque mContagemEstoque);
+        void excluirContagemEstoque(ContagemEstoque mContagemEstoque);
     }
 }

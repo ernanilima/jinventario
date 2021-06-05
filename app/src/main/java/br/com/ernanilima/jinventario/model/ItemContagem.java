@@ -11,7 +11,7 @@ import org.greenrobot.greendao.annotation.Transient;
 import java.io.Serializable;
 
 @Entity(nameInDb = "ITEM_CONTAGEM")
-public class ItemContagem implements Serializable {
+public class ItemContagem implements Serializable, IModel {
     private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)

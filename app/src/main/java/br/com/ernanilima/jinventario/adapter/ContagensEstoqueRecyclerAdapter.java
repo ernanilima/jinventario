@@ -17,7 +17,7 @@ import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.util.Formatar;
 
 /** Recycler Adapter de contagens de estoque */
-public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> {
+public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> implements IRecyclerAdapter {
 
     private IInicioApp.IPresenter pInicioApp;
     private List<ContagemEstoque> lsContagensEstoque;
@@ -61,6 +61,16 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
      * Usado para obter o tamanho da lista de itens */
     public int getItemCount() {
         return lsContagensEstoque.size();
+    }
+
+    @Override
+    /** Recebe a posicao do item que deseja excluir
+     * Busca o model com base na posicao recebida
+     * Envia o model para que sua exclusao possar ser comfirmada pelo usuario */
+    public void setPosicaoParaExcluir(int posicaoDoItem) {
+        ContagemEstoque mContagemEstoque = lsContagensEstoque.get(posicaoDoItem);
+        mContagemEstoque.setPosicaoItem(posicaoDoItem);
+        pInicioApp.excluirContagemEstoque(mContagemEstoque);
     }
 
     /** Class ViewHolder usada para extender na classe {@link ContagensEstoqueRecyclerAdapter} */

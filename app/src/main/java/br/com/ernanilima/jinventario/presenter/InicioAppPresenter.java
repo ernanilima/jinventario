@@ -12,8 +12,11 @@ import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.model.IModel;
+import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
+import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 
 public class InicioAppPresenter implements IInicioApp.IPresenter {
 
@@ -60,6 +63,17 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
         NavegacaoApp.abrirTelaContagem(vInicioApp.requireParentFragment().getView());
     }
 
+    @Override
+    public void excluirContagemEstoque(ContagemEstoque mContagemEstoque) {
+        ExclusaoDialogFragment dExclusaoFragment = new ExclusaoDialogFragment(this);
+        Bundle argumento = new Bundle();
+        // armazena o model como argumento para que possa ser receptado pelo dialog de exclusao
+        argumento.putSerializable(ExclusaoDialogFragment.MODEL_ITEM_CONTAGEM, mContagemEstoque);
+        dExclusaoFragment.setArguments(argumento);
+        dExclusaoFragment.setCancelable(false);
+        dExclusaoFragment.show(vInicioApp.requireParentFragment().getParentFragmentManager(),"tag");
+    }
+
     private void criarNovaContagem() {
         Date dataAtual = new Date(System.currentTimeMillis());
         ContagemEstoque mContagemEstoque = new ContagemEstoque(null, dataAtual, dataAtual, "0");
@@ -71,5 +85,15 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
         vInicioApp.setArgumentoBundle(argumento); // envia o argumento
 
         NavegacaoApp.abrirTelaContagem(vInicioApp.requireParentFragment().getView());
+    }
+
+    @Override
+    public void resultadoItemAlteradoDialog(ItemContagem mItemContagem) {
+
+    }
+
+    @Override
+    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, IModel iModel) {
+
     }
 }

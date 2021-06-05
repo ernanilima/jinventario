@@ -16,7 +16,7 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
 /** Recycler Adapter de contagem de estoque */
-public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IContagemEstoqueRecyclerAdapter {
+public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
 
     private IContagem.IPresenter pContagem;
     private List<ItemContagem> lsItensContagem;
@@ -74,6 +74,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
     public void setItemExcluido(ItemContagem mItemContagem) {
         lsItensContagem.remove(mItemContagem.getPosicaoItem());
     }
+
     @Override
     /** Recebe a posicao do item que deseja excluir
      * Busca o model com base na posicao recebida

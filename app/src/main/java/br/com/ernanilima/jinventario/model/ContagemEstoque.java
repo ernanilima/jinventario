@@ -4,11 +4,14 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Transient;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(nameInDb = "CONTAGEM_ESTOQUE")
-public class ContagemEstoque {
+public class ContagemEstoque implements Serializable, IModel {
+    private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
@@ -19,6 +22,15 @@ public class ContagemEstoque {
     private Date dataAlteracao;
     @Property(nameInDb = "QTD_TOTAL_ITENS")
     private String qtdTotalItens;
+    @Transient // indica que este campo não será gravado no banco de dados.
+    private int posicaoItem;
+
+    public int getPosicaoItem() {
+        return posicaoItem;
+    }
+    public void setPosicaoItem(int posicaoItem) {
+        this.posicaoItem = posicaoItem;
+    }
 
     // tudo abaixo eh construido automaticamente ao executar o projeto
 

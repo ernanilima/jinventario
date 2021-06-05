@@ -17,6 +17,7 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
+import br.com.ernanilima.jinventario.service.componente.SwipeHelper;
 
 public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
@@ -53,6 +54,8 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         recycler_view.setHasFixedSize(true);
         recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
         recycler_view.setAdapter(raContagens);
+        SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
+        swipeHelper.setRecyclerView(recycler_view);
 
     }
 

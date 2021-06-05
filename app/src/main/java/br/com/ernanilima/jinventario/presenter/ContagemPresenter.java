@@ -10,6 +10,7 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.model.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
@@ -133,11 +134,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
     @Override
     /** Recebe o resultado do item excluido ou nao no dialog {@link ExclusaoDialogFragment},
      * Atualiza o Recycler Adapter com o resultado recebido no parametro */
-    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, ItemContagem mItemContagem) {
+    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, IModel iModel) {
         if (confirmarCancelar) {
             // exclusao confirmada
-            vContagem.setItemExcluido(mItemContagem);
-            dItemContagem.delete(mItemContagem);
+            vContagem.setItemExcluido((ItemContagem) iModel);
+            dItemContagem.delete((ItemContagem) iModel);
             atualizarContagem();
         } else {
             // exclusao cancelada
