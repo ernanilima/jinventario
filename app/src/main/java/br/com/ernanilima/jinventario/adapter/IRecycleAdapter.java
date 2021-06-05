@@ -1,8 +1,7 @@
 package br.com.ernanilima.jinventario.adapter;
 
-import br.com.ernanilima.jinventario.model.ItemContagem;
-
-/** Interface usada para alterar item coletado */
+/** Interface para RecycleAdapter */
 public interface IRecycleAdapter {
-    void alterarItemColetado(ItemContagem mItemContagem);
+    // posicao para exclusao solicitaca no swipe
+    void setPosicaoParaExcluir(int posicaoDoItem);
 }

@@ -20,11 +20,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.adapter.IRecycleAdapter;
 import br.com.ernanilima.jinventario.adapter.ItemContagemRecycleAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
+import br.com.ernanilima.jinventario.service.componente.SwipeHelper;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
@@ -86,10 +86,12 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
      * Define o Recycle Adapter no Recycle View do xml de contagem */
     public void setRecycleAdapter(List<ItemContagem> lsItensContagem) {
         raItemContagem = new ItemContagemRecycleAdapter(lsItensContagem);
-        raItemContagem.setIRecycleAdapter((IRecycleAdapter) pContagem);
+        raItemContagem.setContagemPresenter(pContagem);
         recycle_view.setHasFixedSize(true);
         recycle_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
         recycle_view.setAdapter(raItemContagem);
+        SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
+        swipeHelper.setRecycleView(recycle_view);
     }
 
     @Override

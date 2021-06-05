@@ -82,6 +82,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
     }
 
+    @Override
+    public void excluirItemColetado(ItemContagem mItemContagem) {
+        System.out.println("SOLICITACAO DE EXCLUSAO NO ITEM " + mItemContagem.getPosicaoItem());
+    }
+
     /** Busca/Registra a lista de itens buscando no banco greendao
      * @return List<ItemContagem> - lista de itens da contagem */
     private List<ItemContagem> getLsItensContagem() {

@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 
-public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContagemRecycleAdapter.ItemViewHolder> {
+public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContagemRecycleAdapter.ItemViewHolder> implements IRecycleAdapter {
 
-    private IRecycleAdapter iRecycleAdapter;
+    private IContagem.IPresenter pContagem;
     private List<ItemContagem> lsItensContagem;
 
     /** Construtor
@@ -44,14 +45,14 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
         holder.btn_editar.setOnClickListener(v -> {
             mItemContagem.setPosicaoItem(position);
-            iRecycleAdapter.alterarItemColetado(mItemContagem);
+            pContagem.alterarItemColetado(mItemContagem);
         });
     }
 
-    /** Usado para que a interface seja atribuida e seu metodo possa ser utilizado
-     * @param iRecycleAdapter IRecycleAdapter */
-    public void setIRecycleAdapter(IRecycleAdapter iRecycleAdapter) {
-        this.iRecycleAdapter = iRecycleAdapter;
+    /** Usado para que a interface seja atribuida e seus metodos possam ser utilizados
+     * @param pContagem IContagem.IPresenter */
+    public void setContagemPresenter(IContagem.IPresenter pContagem) {
+        this.pContagem = pContagem;
     }
 
     @Override
@@ -62,10 +63,19 @@ public class ItemContagemRecycleAdapter extends RecyclerView.Adapter<ItemContage
     }
 
     /** Atualiza a lista de itens com o item alterado que foi recebido no parametro
-     * @param mItemContagem ItemContagem - item alterado
-     * @return ItemContagem - */
+     * @param mItemContagem ItemContagem - item alterado */
     public void setItemAlterado(ItemContagem mItemContagem) {
         lsItensContagem.set(mItemContagem.getPosicaoItem(), mItemContagem);
+    }
+
+    @Override
+    /** Recebe a posicao do item que deseja excluir
+     * Busca o model com base na posicao recebida
+     * Envia o model para que sua exclusao possar ser comfirmada pelo usuario */
+    public void setPosicaoParaExcluir(int posicaoDoItem) {
+        ItemContagem mItemContagem = lsItensContagem.get(posicaoDoItem);
+        mItemContagem.setPosicaoItem(posicaoDoItem);
+        pContagem.excluirItemColetado(mItemContagem);
     }
 
     /** Class ViewHolder usada para extender no RecycleAdapter */
