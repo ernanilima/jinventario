@@ -75,7 +75,7 @@ public class AlteracaoDialogFragment extends DialogFragment {
             mItemContagem.setCodigoBarras(campo_codbarras.getEditText().getText().toString());
             mItemContagem.setQtdDeCaixas(campo_qtd_dcaixa.getEditText().getText().toString());
             mItemContagem.setQtdPorCaixa(campo_qtd_pcaixa.getEditText().getText().toString());
-            iResultadoDialog.resultadoItemAlteradoDialog(mItemContagem);
+            iResultadoDialog.setResultadoDialog(TipoResultado.CONFIRMAR_ALTERACAO, mItemContagem);
         }
     }
 

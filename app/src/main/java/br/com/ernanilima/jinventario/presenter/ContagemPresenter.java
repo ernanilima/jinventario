@@ -18,6 +18,7 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -123,26 +124,25 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     @Override
-    /** Recebe o resultado do item alterado no dialog {@link AlteracaoDialogFragment},
-     * Atualiza o Recycler Adapter com o item alterado que foi recebido no parametro */
-    public void resultadoItemAlteradoDialog(ItemContagem mItemContagem) {
-        vContagem.setItemAlterado(mItemContagem); // envia o item alterado para atualiza o recycler adapter
-        dItemContagem.update(mItemContagem); // grava a atualizacao no banco greendao
-        atualizarContagem();
-    }
+    /** Resultado recebido do dialog
+     * @param tipoResultado TipoResultado - tipo de resultado obtido no dialog
+     * @param iModel IModel - model do item alterado ou excluido */
+    public void setResultadoDialog(TipoResultado tipoResultado, IModel iModel) {
+        switch (tipoResultado) {
+            case CONFIRMAR_ALTERACAO: // alteracao de item coletado
+                vContagem.setItemAlterado((ItemContagem) iModel); // envia o item alterado para atualiza o recycler adapter
+                dItemContagem.update((ItemContagem) iModel); // grava a atualizacao no banco greendao
+                atualizarContagem();
+                break;
 
-    @Override
-    /** Recebe o resultado do item excluido ou nao no dialog {@link ExclusaoDialogFragment},
-     * Atualiza o Recycler Adapter com o resultado recebido no parametro */
-    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, IModel iModel) {
-        if (confirmarCancelar) {
-            // exclusao confirmada
-            vContagem.setItemExcluido((ItemContagem) iModel);
-            dItemContagem.delete((ItemContagem) iModel);
-            atualizarContagem();
-        } else {
-            // exclusao cancelada
-            vContagem.atualizarRecyclerAdapter();
+            case CONFIRMAR_EXCLUSAO: // excluir item coletado
+                vContagem.setItemExcluido((ItemContagem) iModel);
+                dItemContagem.delete((ItemContagem) iModel);
+                atualizarContagem();
+                break;
+
+            case CANCELAR_EXCLUSAO: // cancelar exclusao de item coletado
+                vContagem.atualizarRecyclerAdapter();
         }
     }
 }

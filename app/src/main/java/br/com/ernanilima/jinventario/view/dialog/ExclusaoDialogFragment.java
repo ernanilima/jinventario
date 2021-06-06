@@ -44,11 +44,11 @@ public class ExclusaoDialogFragment extends DialogFragment {
 
     /** Cancela a exclusao */
     private void cancelar() {
-        iResultadoDialog.resultadoItemExcluidoDialog(false, iModel);
+        iResultadoDialog.setResultadoDialog(TipoResultado.CANCELAR_EXCLUSAO, iModel);
     }
 
     /** Confirma a exclusao realizada no dialog */
     private void confirmar() {
-        iResultadoDialog.resultadoItemExcluidoDialog(true, iModel);
+        iResultadoDialog.setResultadoDialog(TipoResultado.CONFIRMAR_EXCLUSAO, iModel);
     }
 }

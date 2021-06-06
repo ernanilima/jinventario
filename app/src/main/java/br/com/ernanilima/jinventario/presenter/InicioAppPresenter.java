@@ -13,10 +13,10 @@ import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
-import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 
 public class InicioAppPresenter implements IInicioApp.IPresenter {
 
@@ -88,12 +88,17 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
     }
 
     @Override
-    public void resultadoItemAlteradoDialog(ItemContagem mItemContagem) {
+    /** Resultado recebido do dialog
+     * @param tipoResultado TipoResultado - tipo de resultado obtido no dialog
+     * @param iModel IModel - model do item alterado ou excluido */
+    public void setResultadoDialog(TipoResultado tipoResultado, IModel iModel) {
+        switch (tipoResultado) {
+            case CONFIRMAR_EXCLUSAO:
+                System.out.println("EXCLUIR CONTAGEM");
+                break;
 
-    }
-
-    @Override
-    public void resultadoItemExcluidoDialog(boolean confirmarCancelar, IModel iModel) {
-
+            case CANCELAR_EXCLUSAO:
+                System.out.println("CANCELAR EXCLUSAO CONTAGEM");
+        }
     }
 }
