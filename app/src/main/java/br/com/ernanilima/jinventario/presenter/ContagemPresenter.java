@@ -13,6 +13,7 @@ import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.model.ItemContagemDao;
+import br.com.ernanilima.jinventario.service.componente.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
@@ -118,8 +119,9 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     @Override
+    /** Compartilha a contagem em formato csv */
     public void toolbarCompartilhar() {
-        System.out.println("TOOLBAR MENU COMPARTILHAR");
+        CompartilharArquivo.csv(vContagem, mContagemEstoque.getId(), lsItensContagem);
     }
 
     private boolean validarCampos() {
