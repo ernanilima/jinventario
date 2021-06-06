@@ -117,6 +117,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
         dContagemEstoque.update(mContagemEstoque); // grava a atualizacao da contagem no banco greendao
     }
 
+    @Override
+    public void toolbarCompartilhar() {
+        System.out.println("TOOLBAR MENU COMPARTILHAR");
+    }
+
     private boolean validarCampos() {
         return ValidarCampo.vazio(vContagem.getCampoCodbarras(), MensagensAlerta.CODBARRAS_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(vContagem.getCampoQtdDeCaixa(), MensagensAlerta.QUANTIDADE_DE_CAIXA_INVALIDO.getMsg()) &&

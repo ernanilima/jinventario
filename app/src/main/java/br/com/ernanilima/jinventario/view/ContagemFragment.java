@@ -2,6 +2,9 @@ package br.com.ernanilima.jinventario.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -126,5 +129,24 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     @Override
     public TextInputLayout getCampoQtdPorCaixa() {
         return campo_qtd_pcaixa;
+    }
+
+    @Override
+    /** Cronstroi o menu */
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_menu_contagem, menu);
+    }
+
+    @Override
+    /** Opcao de menu selecionada */
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.compartilhar:
+                pContagem.toolbarCompartilhar();
+                return true;
+        }
+        return false;
     }
 }

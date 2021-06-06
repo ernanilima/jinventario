@@ -33,5 +33,6 @@ public interface IContagem {
         void adicionarItemColetado();
         void alterarItemColetado(ItemContagem mItemContagem);
         void excluirItemColetado(ItemContagem mItemContagem);
+        void toolbarCompartilhar();
     }
 }
