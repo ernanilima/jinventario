@@ -93,12 +93,14 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
      * @param iModel IModel - model do item alterado ou excluido */
     public void setResultadoDialog(TipoResultado tipoResultado, IModel iModel) {
         switch (tipoResultado) {
-            case CONFIRMAR_EXCLUSAO:
-                System.out.println("EXCLUIR CONTAGEM");
+            case CONFIRMAR_EXCLUSAO: // excluir contagem de estoque
+                vInicioApp.setContagemExcluida((ContagemEstoque) iModel);
+                dContagemEstoque.delete((ContagemEstoque) iModel);
+                vInicioApp.atualizarRecyclerAdapter();
                 break;
 
-            case CANCELAR_EXCLUSAO:
-                System.out.println("CANCELAR EXCLUSAO CONTAGEM");
+            case CANCELAR_EXCLUSAO: // cancelar exclusao de contagem de estoque
+                vInicioApp.atualizarRecyclerAdapter();
         }
     }
 }

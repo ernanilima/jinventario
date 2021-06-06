@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
+import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
 import br.com.ernanilima.jinventario.service.componente.SwipeHelper;
 
@@ -24,7 +25,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     private IInicioApp.IPresenter pInicioApp;
     private AppCompatButton btn_novacontagem;
     private RecyclerView recycler_view;
-    private ContagensEstoqueRecyclerAdapter raContagens;
+    private ContagensEstoqueRecyclerAdapter raContagensEstoque;
 
     @Nullable
     @Override
@@ -49,11 +50,11 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         btn_novacontagem.setOnClickListener(v -> pInicioApp.novaContagem());
 
         //SETs
-        raContagens = new ContagensEstoqueRecyclerAdapter(pInicioApp.getLsContagensEstoque());
-        raContagens.setInicioAppPresenter(pInicioApp);
+        raContagensEstoque = new ContagensEstoqueRecyclerAdapter(pInicioApp.getLsContagensEstoque());
+        raContagensEstoque.setInicioAppPresenter(pInicioApp);
         recycler_view.setHasFixedSize(true);
         recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
-        recycler_view.setAdapter(raContagens);
+        recycler_view.setAdapter(raContagensEstoque);
         SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
         swipeHelper.setRecyclerView(recycler_view);
 
@@ -65,5 +66,17 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
      * nova contagem ou de uma contagem ja existente */
     public void setArgumentoBundle(Bundle argumentoBundle) {
         getParentFragmentManager().setFragmentResult(ContagemFragment.class.getCanonicalName(), argumentoBundle);
+    }
+
+    @Override
+    public void setContagemExcluida(ContagemEstoque mContagemExcluida) {
+        raContagensEstoque.setContagemExcluida(mContagemExcluida);
+    }
+
+    @Override
+    /** Usado para atualizar o Recycler Adapter apos a contagem de estoque
+     * ser adicionado, alterado ou excluida */
+    public void atualizarRecyclerAdapter() {
+        raContagensEstoque.notifyDataSetChanged();
     }
 }

@@ -95,7 +95,8 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
-    /** Usado para atualizar o Recycler Adapter apos um item ser adicionado ou alterado */
+    /** Usado para atualizar o Recycler Adapter apos o item ser
+     * adicionado, alterado ou excluido */
     public void atualizarRecyclerAdapter() {
         raItemContagem.notifyDataSetChanged();
     }

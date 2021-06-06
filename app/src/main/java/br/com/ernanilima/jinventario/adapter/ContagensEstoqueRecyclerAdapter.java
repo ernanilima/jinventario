@@ -73,6 +73,12 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
         pInicioApp.excluirContagemEstoque(mContagemEstoque);
     }
 
+    /** Atualiza a lista de contagens com o contagem excluida que foi recebido no parametro
+     * @param mContagemEstoque ContagemEstoque - contagem excluida */
+    public void setContagemExcluida(ContagemEstoque mContagemEstoque) {
+        lsContagensEstoque.remove(mContagemEstoque.getPosicaoItem());
+    }
+
     /** Class ViewHolder usada para extender na classe {@link ContagensEstoqueRecyclerAdapter} */
     static class ContagensViewHolder extends RecyclerView.ViewHolder {
 

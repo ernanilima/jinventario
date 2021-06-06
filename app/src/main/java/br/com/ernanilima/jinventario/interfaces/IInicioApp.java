@@ -17,6 +17,8 @@ public interface IInicioApp {
     interface IView {
         Fragment requireParentFragment();
         void setArgumentoBundle(Bundle argumentoBundle);
+        void setContagemExcluida(ContagemEstoque mContagemExcluida);
+        void atualizarRecyclerAdapter();
     }
 
     /** Usado no presenter
