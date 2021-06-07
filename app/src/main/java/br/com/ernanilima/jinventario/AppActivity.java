@@ -32,7 +32,7 @@ public class AppActivity extends AppCompatActivity {
         //INICIALIZA
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_Layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
         // informar os IDs dos itens de menus associados ao drawer Layout.

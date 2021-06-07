@@ -9,9 +9,12 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
@@ -26,6 +29,8 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     private AppCompatButton btn_novacontagem;
     private RecyclerView recycler_view;
     private ContagensEstoqueRecyclerAdapter raContagensEstoque;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Nullable
     @Override
@@ -58,6 +63,18 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
         swipeHelper.setRecyclerView(recycler_view);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout); // captura o drawer layout
+        navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
+        navigationView.getMenu().findItem(R.id.nav_contagem).setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
+            drawerLayout.closeDrawers(); // fecha o drawer layout
+            pInicioApp.novaContagem(); // abre o dialog para criar nova contagem ou nao
+            return true;
+        });
     }
 
     @Override
