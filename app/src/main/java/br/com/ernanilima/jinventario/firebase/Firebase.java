@@ -101,6 +101,7 @@ public class Firebase implements IFirebase {
 
             } else if (aut.isSuccessful() && !aut.getResult().getUser().isEmailVerified()) {
                 // sem e-mail verificado
+                usuarioAtual = autenticacao.getCurrentUser();
                 iResFirebase.setResultado(TipoResultado.EMAIL_NAO_VERIFICADO);
             }
         }).addOnFailureListener(err -> {
