@@ -14,10 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
@@ -34,10 +36,14 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     public static final String CODIGO_CONTAGEM = "CodigoContagem";
 
     private IContagem.IPresenter pContagem;
+    private long idContagem;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
     private RecyclerView recycler_view;
     private ContagemEstoqueRecyclerAdapter raItemContagem;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private MenuItem menuItem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,11 +82,29 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
-    /** Exibe o titulo com o numero(id) da contagem */
+    public void onStart() {
+        super.onStart();
+        drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout); // captura o drawer layout
+        navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
+        menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
+        menuItem.setIcon(R.drawable.ic_contagem); // icone no item de menu
+        menuItem.setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
+            drawerLayout.closeDrawers(); // fecha o drawer layout
+            return true;
+        });
+    }
+
+    @Override
+    /** Exibe o titulo com base no parametro recebido
+     * Item de menu no drawer layout e no toolbar */
     public void setIdParaExibirNoTitulo(long idContagem) {
-        final ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        CharSequence tituloAtual = actionBar.getTitle();
-        String tituloNovo = tituloAtual + " N˚ " + idContagem;
+        String tituloNovo = "Contagem N˚ " + idContagem;
+
+        // titulo item de menu no drawer layout
+        menuItem.setTitle(tituloNovo);
+
+        // titulo da aplicacao no toolbar
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle(tituloNovo);
     }
 

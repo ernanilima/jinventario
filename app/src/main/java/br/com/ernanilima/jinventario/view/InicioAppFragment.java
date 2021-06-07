@@ -2,6 +2,7 @@ package br.com.ernanilima.jinventario.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -31,6 +32,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     private ContagensEstoqueRecyclerAdapter raContagensEstoque;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private MenuItem menuItem;
 
     @Nullable
     @Override
@@ -70,7 +72,10 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         super.onStart();
         drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout); // captura o drawer layout
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
-        navigationView.getMenu().findItem(R.id.nav_contagem).setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
+        menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
+        menuItem.setIcon(R.drawable.ic_novo); // icone no item de menu
+        menuItem.setTitle(btn_novacontagem.getText()); // atribui no item de menu o mesmo texto do botao
+        menuItem.setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
             drawerLayout.closeDrawers(); // fecha o drawer layout
             pInicioApp.novaContagem(); // abre o dialog para criar nova contagem ou nao
             return true;
