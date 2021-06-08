@@ -14,6 +14,7 @@ public interface INomeAparelho {
     interface IView {
         Application getApplication();
         TextInputLayout getCampoNomeAparelho();
+        void finish();
     }
 
     /** Usado no presenter

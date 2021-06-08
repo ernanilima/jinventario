@@ -1,6 +1,5 @@
 package br.com.ernanilima.jinventario.service.navcontroller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -20,10 +19,10 @@ public class NavegacaoApp {
     /** Abre a activity {@link AppActivity}
      * @param context Context - context(tela) que esta solicitando */
     public static void abrirTelaActivityApp(Context context) {
-        Activity activity = (Activity)context;
-        Intent intent = new Intent(activity, AppActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
+        //Activity activity = (Activity)context;
+        Intent intent = new Intent(context, AppActivity.class);
+        context.startActivity(intent);
+        //activity.finish(); executado na solicitacao da navegacao
     }
 
     /** Navega para a tela solicitada utilizando o xml de navegacao

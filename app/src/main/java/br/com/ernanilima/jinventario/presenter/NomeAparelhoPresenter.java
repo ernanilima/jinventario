@@ -3,8 +3,10 @@ package br.com.ernanilima.jinventario.presenter;
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
 import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.model.NomeAparelho;
 import br.com.ernanilima.jinventario.model.NomeAparelhoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
 public class NomeAparelhoPresenter implements INomeAparelho.IPresenter {
@@ -26,11 +28,22 @@ public class NomeAparelhoPresenter implements INomeAparelho.IPresenter {
     @Override
     public void gravarNomeDoAparelho() {
         if (validarCampo()) {
-            System.out.println("GRAVAR NOME DO APARELHO");
+            // gera um model com o nome do aparelho
+            NomeAparelho mNomeAparelho = new NomeAparelho(null, vNomeAparelho.getCampoNomeAparelho().getEditText().getText().toString());
+
+            // grava o model
+            dNomeAparelho.save(mNomeAparelho);
+
+            // navega para a tela de login
+            NavegacaoApp.abrirTelaActivityApp(vNomeAparelho.getApplication().getBaseContext());
+
+            // finaliza a view para informar o nome do aparelho
+            vNomeAparelho.finish();
         }
     }
 
     private boolean validarCampo() {
-        return ValidarCampo.vazio(vNomeAparelho.getCampoNomeAparelho(), MensagensAlerta.NOME_APARELHO_INVALIDO.getMsg());
+        return ValidarCampo.vazio(vNomeAparelho.getCampoNomeAparelho(), MensagensAlerta.NOME_APARELHO_INVALIDO.getMsg()) &&
+                ValidarCampo.qtdCaracteres(vNomeAparelho.getCampoNomeAparelho(), 3);
     }
 }
