@@ -24,6 +24,11 @@
         </activity>
 
         <activity
+            android:name=".NomeAparelhoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+
+        <activity
             android:name=".AppActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />

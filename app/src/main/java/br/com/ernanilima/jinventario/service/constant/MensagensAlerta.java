@@ -23,7 +23,8 @@ public enum MensagensAlerta {
     EMAIL_VERIFICACAO_ENVIADO("Novo e-mail de verificação foi enviado"),
     CODBARRAS_INVALIDO("Código de barras inválido"),
     QUANTIDADE_DE_CAIXA_INVALIDO("Qtd de caixa(s) inválido"),
-    QUANTIDADE_POR_CAIXA_INVALIDO("Qtd por caixa(s) inválido");
+    QUANTIDADE_POR_CAIXA_INVALIDO("Qtd por caixa(s) inválido"),
+    NOME_APARELHO_INVALIDO("Informe um nome válido para o aparelho");
 
     private final String msg;
 

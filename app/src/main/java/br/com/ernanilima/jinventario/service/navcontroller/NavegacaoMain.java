@@ -17,7 +17,7 @@ public class NavegacaoMain {
 
     private static NavController navController;
 
-    /** Abre o activity {@link MainActivity}
+    /** Abre a activity {@link MainActivity}
      * @param context Context - context(tela) que esta solicitando */
     public static void abrirTelaActivityMain(Context context) {
         Activity activity = (Activity)context;

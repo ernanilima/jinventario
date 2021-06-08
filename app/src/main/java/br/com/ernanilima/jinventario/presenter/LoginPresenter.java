@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho;
 import br.com.ernanilima.jinventario.service.social.Google;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
@@ -105,7 +105,7 @@ public class LoginPresenter implements ILogin.IPresenter {
     public void setResultado(TipoResultado resultado) {
         switch (resultado) {
             case LOGIN_REALIZADO:
-                NavegacaoApp.abrirTelaActivityApp(vLogin.getActivity());
+                NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(vLogin.getActivity());
                 break;
             case EMAIL_NAO_VERIFICADO:
                 dialogEmailVerificacao();
