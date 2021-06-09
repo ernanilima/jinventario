@@ -35,6 +35,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     private NavigationView navigationView;
     private MenuItem menuItem;
     private AppCompatTextView campo_nome_aparelho, campo_email_usuario;
+    private String nomeAparelho, emailUsuario;
 
     @Nullable
     @Override
@@ -77,10 +78,10 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
         // header do drawer layout
         View view = navigationView.getHeaderView(0);
-        campo_email_usuario = view.findViewById(R.id.campo_nav_email);
         campo_nome_aparelho = view.findViewById(R.id.campo_nav_nomeaparelho);
-        campo_nome_aparelho.setText("coletor_loja_01");
-        campo_email_usuario.setText("email.logado@gmail.com");
+        campo_email_usuario = view.findViewById(R.id.campo_nav_email);
+        campo_nome_aparelho.setText(nomeAparelho);
+        campo_email_usuario.setText(emailUsuario);
 
         // itens de menu do drawer layout
         menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
@@ -113,5 +114,15 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
      * ser adicionado, alterado ou excluida */
     public void atualizarRecyclerAdapter() {
         raContagensEstoque.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setNomeAparelho(String nomeAparelho) {
+        this.nomeAparelho = nomeAparelho;
+    }
+
+    @Override
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
     }
 }

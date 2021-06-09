@@ -8,6 +8,7 @@ import br.com.ernanilima.jinventario.firebase.Firebase;
  * usado na classe {@link Firebase} */
 public interface IFirebase {
     void verificarSeUsuarioAutenticado();
+    String getEmailUsuario();
     void cadastrarUsuario(Context contextTelaDoErro, String email, String senha);
     void enviarEmailVerificacao(Context contextTelaDoErro);
     void enviarEmailEsqueceuSenha(Context contextTelaDoErro, String email);

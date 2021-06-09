@@ -19,6 +19,8 @@ public interface IInicioApp {
         void setArgumentoBundle(Bundle argumentoBundle);
         void setContagemExcluida(ContagemEstoque mContagemExcluida);
         void atualizarRecyclerAdapter();
+        void setNomeAparelho(String nomeAparelho);
+        void setEmailUsuario(String emailUsuario);
     }
 
     /** Usado no presenter

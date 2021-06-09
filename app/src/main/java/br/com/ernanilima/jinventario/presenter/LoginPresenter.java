@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.interfaces.ILogin;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
-import br.com.ernanilima.jinventario.service.componente.NomeAparelho;
+import br.com.ernanilima.jinventario.service.componente.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
@@ -108,7 +108,7 @@ public class LoginPresenter implements ILogin.IPresenter {
         switch (resultado) {
             case LOGIN_REALIZADO:
                 // se nome do aparelho ja existir, abre a tela inicial do app com as contagens
-                if (NomeAparelho.getInstance(daoSession).getNomeExiste()) {NavegacaoApp.abrirTelaActivityApp(vLogin.getActivity());}
+                if (NomeAparelhoAutenticacao.getInstance(daoSession).getNomeExiste()) {NavegacaoApp.abrirTelaActivityApp(vLogin.getActivity());}
 
                 // se o nome do aparelho nao existir, abre a tela para criar um nome
                 else {NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(vLogin.getActivity());}

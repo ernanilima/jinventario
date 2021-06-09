@@ -19,6 +19,19 @@ public class Firebase implements IFirebase {
     private FirebaseUser usuarioAtual;
     private IResultadoFirebase iResFirebase;
 
+    /** Construtor
+     * Usado para obter o e-mail do usuario */
+    public Firebase() {
+        this.autenticacao = FirebaseAuth.getInstance();
+        this.usuarioAtual = autenticacao.getCurrentUser();
+    }
+
+    /** Construtor
+     * Usado para as validacoes e suas respostas
+     * O presenter que estiver solicitando a validacao (ex. login), deve ter
+     * a interface de resposta atribuida no presenter, o resultado dessa validacao
+     * sera enviada para esse presenter
+     * @param iResFirebase IResultadoFirebase - interface de respostas */
     public Firebase(IResultadoFirebase iResFirebase) {
         this.autenticacao = FirebaseAuth.getInstance();
         this.iResFirebase = iResFirebase;
@@ -32,6 +45,14 @@ public class Firebase implements IFirebase {
         if (usuarioAtual != null && usuarioAtual.isEmailVerified()) {
             iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
         }
+    }
+
+    @Override
+    /** Obter o e-mail do usuario logado
+     * Nao existe validacoes nesse metodo pois ele deve ser
+     * usado apenas em telas que o usuario ja realizou login */
+    public String getEmailUsuario() {
+        return usuarioAtual.getEmail();
     }
 
     @Override
