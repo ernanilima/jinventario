@@ -16,6 +16,12 @@
         android:src="@drawable/ic_usuario_padrao" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/campo_nav_nomeaparelho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NomeAparelho" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/campo_nav_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

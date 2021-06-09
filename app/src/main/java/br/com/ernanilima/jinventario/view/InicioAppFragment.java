@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -33,6 +34,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private MenuItem menuItem;
+    private AppCompatTextView campo_nome_aparelho, campo_email_usuario;
 
     @Nullable
     @Override
@@ -72,9 +74,20 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
         super.onStart();
         drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout); // captura o drawer layout
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
+
+        // header do drawer layout
+        View view = navigationView.getHeaderView(0);
+        campo_email_usuario = view.findViewById(R.id.campo_nav_email);
+        campo_nome_aparelho = view.findViewById(R.id.campo_nav_nomeaparelho);
+        campo_nome_aparelho.setText("coletor_loja_01");
+        campo_email_usuario.setText("email.logado@gmail.com");
+
+        // itens de menu do drawer layout
         menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
         menuItem.setIcon(R.drawable.ic_novo); // icone no item de menu
         menuItem.setTitle(btn_novacontagem.getText()); // atribui no item de menu o mesmo texto do botao
+
+        // acao do clicar
         menuItem.setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
             drawerLayout.closeDrawers(); // fecha o drawer layout
             pInicioApp.novaContagem(); // abre o dialog para criar nova contagem ou nao
