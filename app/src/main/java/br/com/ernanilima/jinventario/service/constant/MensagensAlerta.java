@@ -24,7 +24,8 @@ public enum MensagensAlerta {
     CODBARRAS_INVALIDO("Código de barras inválido"),
     QUANTIDADE_DE_CAIXA_INVALIDO("Qtd de caixa(s) inválido"),
     QUANTIDADE_POR_CAIXA_INVALIDO("Qtd por caixa(s) inválido"),
-    NOME_APARELHO_INVALIDO("Informe um nome válido para o aparelho");
+    NOME_APARELHO_INVALIDO("Informe um nome válido para o aparelho"),
+    COMPARTILHAMENTO_VAZIO("Nenhum item para compartilhar");
 
     private final String msg;
 

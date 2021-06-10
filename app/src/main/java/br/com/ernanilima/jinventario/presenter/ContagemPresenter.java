@@ -21,6 +21,7 @@ import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -129,7 +130,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
     @Override
     /** Compartilha a contagem em formato csv */
     public void toolbarCompartilhar() {
-        CompartilharArquivo.csv(vContagem, mContagemEstoque.getId(), lsItensContagem);
+        if (lsItensContagem.isEmpty()) {
+            ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
+        } else {
+            CompartilharArquivo.csv(vContagem, mContagemEstoque.getId(), lsItensContagem);
+        }
     }
 
     private boolean validarCampos() {
