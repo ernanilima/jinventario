@@ -120,8 +120,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
         dContagemEstoque.update(mContagemEstoque); // grava a atualizacao da contagem no banco greendao
     }
 
+    /** Atualiza a lista de itens de contagem no firebase */
     private void atualizarContagemFirebase() {
-        FirebaseBancoDados.getInstance().setListaItensAlteradosColetados(daoSession, lsItensContagem);
+        // caso um itens seja apagado, essa atualizacao tambem eh realizada no firebase
+        FirebaseBancoDados.getInstance().gravarListaItensAlteradosColetados(daoSession, mContagemEstoque, lsItensContagem);
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
@@ -89,6 +90,8 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
 
         dContagemEstoque.save(mContagemEstoque); // grava uma nova contagem antes de usa-la
 
+        FirebaseBancoDados.getInstance().gravarContagem(daoSession, mContagemEstoque); // grava uma contagem no firebase
+
         Bundle argumento = new Bundle();
         argumento.putLong(ContagemFragment.CODIGO_CONTAGEM, mContagemEstoque.getId()); // registra no parametro o id da nova contagem
         vInicioApp.setArgumentoBundle(argumento); // envia o argumento
@@ -106,6 +109,7 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
                 vInicioApp.setContagemExcluida((ContagemEstoque) iModel);
                 dContagemEstoque.delete((ContagemEstoque) iModel);
                 vInicioApp.atualizarRecyclerAdapter();
+                FirebaseBancoDados.getInstance().removerContagem(daoSession, (ContagemEstoque) iModel);
                 break;
 
             case CANCELAR_EXCLUSAO: // cancelar exclusao de contagem de estoque
