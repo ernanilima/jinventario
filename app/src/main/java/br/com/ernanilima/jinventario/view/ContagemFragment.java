@@ -29,7 +29,7 @@ import br.com.ernanilima.jinventario.adapter.ContagemEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
-import br.com.ernanilima.jinventario.service.componente.SwipeHelper;
+import br.com.ernanilima.jinventario.service.component.SwipeHelper;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 

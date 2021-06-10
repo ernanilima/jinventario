@@ -1,12 +1,10 @@
-package br.com.ernanilima.jinventario.firebase.interfaces;
+package br.com.ernanilima.jinventario.firebase;
 
 import android.content.Context;
 
-import br.com.ernanilima.jinventario.firebase.Firebase;
-
 /** Interface usada para realizar as autenticacoes do firebase
- * usado na classe {@link Firebase} */
-public interface IFirebase {
+ * usado na classe {@link FirebaseAutenticacao} */
+public interface IFirebaseAutenticacao {
     void verificarSeUsuarioAutenticado();
     String getEmailUsuario();
     void cadastrarUsuario(Context contextTelaDoErro, String email, String senha);

@@ -7,16 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.dto.ItemContagemDTO;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.ItemContagem;
-import br.com.ernanilima.jinventario.service.componente.NomeAparelhoAutenticacao;
+import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.util.Utils;
 
 public class FirebaseBancoDados {
 
     private static FirebaseBancoDados FIREBASE_DB;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
     private DatabaseReference referencia;
 
     /** @return FirebaseDb - instancia da classe {@link FirebaseBancoDados} */
@@ -29,7 +28,7 @@ public class FirebaseBancoDados {
     /** Construtor */
     public FirebaseBancoDados() {
         this.referencia = FirebaseDatabase.getInstance().getReference();
-        this.iFirebase = new Firebase();
+        this.iFirebaseAutenticacao = new FirebaseAutenticacao();
     }
 
     /** Grava no firebase a lista de itens
@@ -48,7 +47,7 @@ public class FirebaseBancoDados {
         // grava a lista no firebase
         referencia
                 // e-mail do usuario
-                .child(Utils.converter(iFirebase.getEmailUsuario()))
+                .child(Utils.converter(iFirebaseAutenticacao.getEmailUsuario()))
                     // nome do aparelho
                     .child(NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho())
                         // id da contagem

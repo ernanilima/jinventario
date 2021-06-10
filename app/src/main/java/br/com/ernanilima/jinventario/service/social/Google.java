@@ -14,8 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import br.com.ernanilima.jinventario.firebase.Firebase;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
 
@@ -24,7 +24,7 @@ public class Google {
     private static Google GOOGLE;
     private Fragment fragmentLogin;
     private ActivityResultLauncher<Intent> abrirParaObterResultado;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
 
     /** @return Google - instancia da classe {@link Google} */
     public static Google getInstance() {
@@ -51,7 +51,7 @@ public class Google {
      * @param mGoogleSignInClient GoogleSignInClient - servico de login do google
      * @param iResultadoFirebase IResultadoFirebase -  interface que recebera o resultado */
     public void loginGoogle(GoogleSignInClient mGoogleSignInClient, IResultadoFirebase iResultadoFirebase) {
-        iFirebase = new Firebase(iResultadoFirebase);
+        iFirebaseAutenticacao = new FirebaseAutenticacao(iResultadoFirebase);
         Intent intent = mGoogleSignInClient.getSignInIntent();
         abrirParaObterResultado.launch(intent);
     }
@@ -83,7 +83,7 @@ public class Google {
         try {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             GoogleSignInAccount contaUsuario = task.getResult(ApiException.class);
-            iFirebase.loginUsuarioGoogle(contaUsuario.getIdToken());
+            iFirebaseAutenticacao.loginUsuarioGoogle(contaUsuario.getIdToken());
         } catch (ApiException e) { e.printStackTrace(); }
     }
 }

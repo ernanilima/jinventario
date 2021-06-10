@@ -5,14 +5,14 @@ import androidx.appcompat.app.AlertDialog;
 import java.util.Date;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.firebase.Firebase;
-import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
-import br.com.ernanilima.jinventario.service.componente.NomeAparelhoAutenticacao;
+import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
@@ -25,7 +25,7 @@ import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 public class LoginPresenter implements ILogin.IPresenter {
 
     private ILogin.IView vLogin;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
     private DaoSession daoSession;
     private EmailVerificacaoDao dEmailVerificacao;
 
@@ -33,7 +33,7 @@ public class LoginPresenter implements ILogin.IPresenter {
      * @param vLogin ILogin.IView - view(fragment) de login */
     public LoginPresenter(ILogin.IView vLogin) {
         this.vLogin = vLogin;
-        iFirebase = new Firebase(this);
+        iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
         this.daoSession = ((DbGreenDao) this.vLogin.getActivity().getApplication()).getSessao();
@@ -43,7 +43,7 @@ public class LoginPresenter implements ILogin.IPresenter {
     @Override
     /** Antes de exibir a tela, eh verificado se o usuario ja esta autenticado */
     public void verificarSeUsuarioAutenticado() {
-        iFirebase.verificarSeUsuarioAutenticado();
+        iFirebaseAutenticacao.verificarSeUsuarioAutenticado();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class LoginPresenter implements ILogin.IPresenter {
         if (validarCampos()) {
             String email = vLogin.getCampoEmail().getEditText().getText().toString();
             String senha = vLogin.getCampoSenha().getEditText().getText().toString();
-            iFirebase.loginUsuario(vLogin.getActivity().getBaseContext(), email, senha);
+            iFirebaseAutenticacao.loginUsuario(vLogin.getActivity().getBaseContext(), email, senha);
         }
     }
 
@@ -85,7 +85,7 @@ public class LoginPresenter implements ILogin.IPresenter {
         // como o cadastro nao existe, envia um e-mail de verificacao e realiza o cadastro do instante do envio realizado.
         // se o id nao for null, verifica se um e-mail pode ser enviado
         if (mEmailEnviado.getId() == null || ValidarEmailEnviado.isEnviarNovoEmail(mEmailEnviado.getDataEnvioVerificacao())) {
-            iFirebase.enviarEmailVerificacao(vLogin.getActivity()); // envia um novo e-mail de verificacao
+            iFirebaseAutenticacao.enviarEmailVerificacao(vLogin.getActivity()); // envia um novo e-mail de verificacao
             mEmailEnviado.setDataEnvioVerificacao(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
             dEmailVerificacao.save(mEmailEnviado); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
         }

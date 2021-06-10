@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.service.componente;
+package br.com.ernanilima.jinventario.service.component;
 
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.NomeAparelho;

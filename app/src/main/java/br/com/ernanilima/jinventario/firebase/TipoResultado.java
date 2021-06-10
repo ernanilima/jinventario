@@ -1,7 +1,7 @@
-package br.com.ernanilima.jinventario.firebase.enun;
+package br.com.ernanilima.jinventario.firebase;
 
 /** Enum com o tipo de resultado obtido no firebase
- * {@link br.com.ernanilima.jinventario.firebase.Firebase} */
+ * {@link FirebaseAutenticacao} */
 public enum TipoResultado {
     CADASTRO_REALIZADO,
     EMAIL_VERIFICACAO_ENVIADO,

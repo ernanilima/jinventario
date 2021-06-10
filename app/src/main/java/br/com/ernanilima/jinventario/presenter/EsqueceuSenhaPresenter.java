@@ -5,9 +5,9 @@ import android.view.View;
 import java.util.Date;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.firebase.Firebase;
-import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailNovaSenha;
@@ -22,7 +22,7 @@ import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
 
     private IEsqueceuSenha.IView vEsqueceuSenha;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
     private DaoSession daoSession;
     private EmailNovaSenhaDao dEmailNovaSenha;
 
@@ -30,7 +30,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
      * @param vEsqueceuSenha IEsqueceuSenha.IView - view(fragment) de esqueceu senha */
     public EsqueceuSenhaPresenter(IEsqueceuSenha.IView vEsqueceuSenha) {
         this.vEsqueceuSenha = vEsqueceuSenha;
-        iFirebase = new Firebase(this);
+        iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
         this.daoSession = ((DbGreenDao) this.vEsqueceuSenha.getActivity().getApplication()).getSessao();
@@ -57,7 +57,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         // como o cadastro nao existe, envia um e-mail de verificacao e realiza o cadastro do instante do envio realizado.
         // se o id nao for null, verifica se um e-mail pode ser enviado
         if (mEmailNovaSenha.getId() == null || ValidarEmailEnviado.isEnviarNovoEmail(mEmailNovaSenha.getDataEnvioNovaSenha())) {
-            iFirebase.enviarEmailEsqueceuSenha(vEsqueceuSenha.getActivity(), email); // envia um e-mail
+            iFirebaseAutenticacao.enviarEmailEsqueceuSenha(vEsqueceuSenha.getActivity(), email); // envia um e-mail
             mEmailNovaSenha.setDataEnvioNovaSenha(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail enviado
             dEmailNovaSenha.save(mEmailNovaSenha); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
         }

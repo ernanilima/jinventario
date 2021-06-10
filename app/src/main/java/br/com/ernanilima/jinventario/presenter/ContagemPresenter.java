@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.model.ItemContagemDao;
-import br.com.ernanilima.jinventario.service.componente.CompartilharArquivo;
+import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;

@@ -23,7 +23,7 @@ import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
-import br.com.ernanilima.jinventario.service.componente.SwipeHelper;
+import br.com.ernanilima.jinventario.service.component.SwipeHelper;
 
 public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 

@@ -5,9 +5,9 @@ import android.view.View;
 import java.util.Date;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.firebase.Firebase;
-import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
@@ -21,7 +21,7 @@ import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 public class CadastroPresenter implements ICadastro.IPresenter {
 
     private ICadastro.IView vCadastro;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
     private DaoSession daoSession;
     private EmailVerificacaoDao dEmailVerificacao;
 
@@ -29,7 +29,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
      * @param vCadastro ICadastro.IView - view(fragment) de cadastro */
     public CadastroPresenter(ICadastro.IView vCadastro) {
         this.vCadastro = vCadastro;
-        this.iFirebase = new Firebase(this);
+        this.iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
         this.daoSession = ((DbGreenDao) this.vCadastro.getActivity().getApplication()).getSessao();
@@ -41,7 +41,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
         if (validarCampos()) {
             String email = vCadastro.getCampoEmail().getEditText().getText().toString();
             String senha = vCadastro.getCampoSenha1().getEditText().getText().toString();
-            iFirebase.cadastrarUsuario(view.getContext(), email, senha);
+            iFirebaseAutenticacao.cadastrarUsuario(view.getContext(), email, senha);
         }
     }
 
@@ -75,7 +75,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
             case CADASTRO_REALIZADO:
                 // cadastro realizado, envia o e-mail de verificacao
                 // para que o usuario confirme se o e-mail realmente existe
-                iFirebase.enviarEmailVerificacao(vCadastro.getActivity());
+                iFirebaseAutenticacao.enviarEmailVerificacao(vCadastro.getActivity());
                 break;
 
             case EMAIL_VERIFICACAO_ENVIADO:

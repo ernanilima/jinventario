@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.service.componente;
+package br.com.ernanilima.jinventario.service.component;
 
 import android.content.Intent;
 import android.net.Uri;

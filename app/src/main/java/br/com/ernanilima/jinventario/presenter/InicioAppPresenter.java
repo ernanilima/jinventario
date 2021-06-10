@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.firebase.Firebase;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
-import br.com.ernanilima.jinventario.service.componente.NomeAparelhoAutenticacao;
+import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
@@ -24,7 +24,7 @@ import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 public class InicioAppPresenter implements IInicioApp.IPresenter {
 
     private IInicioApp.IView vInicioApp;
-    private IFirebase iFirebase;
+    private IFirebaseAutenticacao iFirebaseAutenticacao;
     private DaoSession daoSession;
     private ContagemEstoqueDao dContagemEstoque;
 
@@ -32,7 +32,7 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
      * @param vInicioApp IInicioApp.IView - view(fragment) do inicio do app */
     public InicioAppPresenter(IInicioApp.IView vInicioApp) {
         this.vInicioApp = vInicioApp;
-        iFirebase = new Firebase();
+        iFirebaseAutenticacao = new FirebaseAutenticacao();
 
         // GREENDAO
         this.daoSession = ((DbGreenDao) this.vInicioApp.requireParentFragment().getActivity().getApplication()).getSessao();
@@ -40,7 +40,7 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
 
         // envia o conteudo para utilizacao no header do drawer layout
         vInicioApp.setNomeAparelho(NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho());
-        vInicioApp.setEmailUsuario(iFirebase.getEmailUsuario());
+        vInicioApp.setEmailUsuario(iFirebaseAutenticacao.getEmailUsuario());
     }
 
     @Override

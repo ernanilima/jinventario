@@ -8,12 +8,10 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import br.com.ernanilima.jinventario.firebase.enun.TipoResultado;
-import br.com.ernanilima.jinventario.firebase.interfaces.IFirebase;
 import br.com.ernanilima.jinventario.firebase.validation.ValidarFirebase;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
-public class Firebase implements IFirebase {
+public class FirebaseAutenticacao implements IFirebaseAutenticacao {
 
     private FirebaseAuth autenticacao;
     private FirebaseUser usuarioAtual;
@@ -21,7 +19,7 @@ public class Firebase implements IFirebase {
 
     /** Construtor
      * Usado para obter o e-mail do usuario */
-    public Firebase() {
+    public FirebaseAutenticacao() {
         this.autenticacao = FirebaseAuth.getInstance();
         this.usuarioAtual = autenticacao.getCurrentUser();
     }
@@ -32,7 +30,7 @@ public class Firebase implements IFirebase {
      * a interface de resposta atribuida no presenter, o resultado dessa validacao
      * sera enviada para esse presenter
      * @param iResFirebase IResultadoFirebase - interface de respostas */
-    public Firebase(IResultadoFirebase iResFirebase) {
+    public FirebaseAutenticacao(IResultadoFirebase iResFirebase) {
         this.autenticacao = FirebaseAuth.getInstance();
         this.iResFirebase = iResFirebase;
         this.usuarioAtual = autenticacao.getCurrentUser();
