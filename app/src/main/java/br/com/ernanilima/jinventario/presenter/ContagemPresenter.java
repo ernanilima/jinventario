@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
@@ -107,6 +108,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Atualiza o Recycler Adapter apos um item ser coletado/alterado
      * Atualiza os dados da contagem e grava seus dados no banco greendao */
     private void atualizarContagem() {
+        atualizarContagemFirebase();
         vContagem.atualizarRecyclerAdapter(); // atualiza o recycler adapter no fragment
         mContagemEstoque.setDataAlteracao(new Date(System.currentTimeMillis())); // atualiza a contagem com a data/hora alterada
         double quantidade = 0;
@@ -116,6 +118,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
         }
         mContagemEstoque.setQtdTotalItens(String.valueOf(quantidade)); // atualiza a contagem com o total de itens ja coletados
         dContagemEstoque.update(mContagemEstoque); // grava a atualizacao da contagem no banco greendao
+    }
+
+    private void atualizarContagemFirebase() {
+        FirebaseBancoDados.getInstance().setListaItensAlteradosColetados(daoSession, lsItensContagem);
     }
 
     @Override
