@@ -17,6 +17,7 @@ import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
+import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
@@ -39,7 +40,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
 
     @Override
     public void gerarNovaSenha(View view) {
-        if (validarCampo()) {
+        if (validarCampo() && validarInternet()) {
             // verificacoes para saber se pode enviar um e-mail de nova senha
             enviarEmailNovaSenha();
         }
@@ -70,6 +71,15 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
 
     private boolean validarCampo() {
         return ValidarCampo.vazio(vEsqueceuSenha.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg());
+    }
+
+    private boolean validarInternet() {
+        boolean internet = ValidarInternet.conexao(vEsqueceuSenha.getActivity());
+        if (!internet) {
+            ToastPersonalizado.erro(vEsqueceuSenha.getActivity(), MensagensAlerta.SEM_INTERNET.getMsg());
+        }
+
+        return internet;
     }
 
     @Override

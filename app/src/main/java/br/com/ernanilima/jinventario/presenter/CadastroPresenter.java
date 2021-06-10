@@ -16,6 +16,7 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class CadastroPresenter implements ICadastro.IPresenter {
@@ -38,7 +39,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
 
     @Override
     public void cadastrar(View view) {
-        if (validarCampos()) {
+        if (validarCampos() && validarInternet()) {
             String email = vCadastro.getCampoEmail().getEditText().getText().toString();
             String senha = vCadastro.getCampoSenha1().getEditText().getText().toString();
             iFirebaseAutenticacao.cadastrarUsuario(view.getContext(), email, senha);
@@ -52,6 +53,15 @@ public class CadastroPresenter implements ICadastro.IPresenter {
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha1(), 6) &&
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha2(), 6) &&
                 ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagensAlerta.SENHAS_NAO_COMBINAM.getMsg());
+    }
+
+    private boolean validarInternet() {
+        boolean internet = ValidarInternet.conexao(vCadastro.getActivity());
+        if (!internet) {
+            ToastPersonalizado.erro(vCadastro.getActivity(), MensagensAlerta.SEM_INTERNET.getMsg());
+        }
+
+        return internet;
     }
 
     /** Grava no banco greendao o e-mail cadastrado e instante do envio do e-mail de verificacao

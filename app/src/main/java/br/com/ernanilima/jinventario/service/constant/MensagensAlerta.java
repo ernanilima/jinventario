@@ -25,7 +25,8 @@ public enum MensagensAlerta {
     QUANTIDADE_DE_CAIXA_INVALIDO("Qtd de caixa(s) inválido"),
     QUANTIDADE_POR_CAIXA_INVALIDO("Qtd por caixa(s) inválido"),
     NOME_APARELHO_INVALIDO("Informe um nome válido para o aparelho"),
-    COMPARTILHAMENTO_VAZIO("Nenhum item para compartilhar");
+    COMPARTILHAMENTO_VAZIO("Nenhum item para compartilhar"),
+    SEM_INTERNET("Aparelho sem internet");
 
     private final String msg;
 

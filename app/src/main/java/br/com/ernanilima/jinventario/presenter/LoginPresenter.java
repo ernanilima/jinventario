@@ -20,6 +20,7 @@ import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.social.Google;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
+import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class LoginPresenter implements ILogin.IPresenter {
@@ -48,7 +49,7 @@ public class LoginPresenter implements ILogin.IPresenter {
 
     @Override
     public void login() {
-        if (validarCampos()) {
+        if (validarCampos() && validarInternet()) {
             String email = vLogin.getCampoEmail().getEditText().getText().toString();
             String senha = vLogin.getCampoSenha().getEditText().getText().toString();
             iFirebaseAutenticacao.loginUsuario(vLogin.getActivity().getBaseContext(), email, senha);
@@ -57,7 +58,9 @@ public class LoginPresenter implements ILogin.IPresenter {
 
     @Override
     public void loginGmail() {
-        Google.getInstance().loginGoogle(vLogin.getServicoLoginGoogle(), this);
+        if (validarInternet()) {
+            Google.getInstance().loginGoogle(vLogin.getServicoLoginGoogle(), this);
+        }
     }
 
     /** Exibe o dialog apenas para o usuario que fez o login e nao teve o seu e-mail confirmado */
@@ -100,6 +103,15 @@ public class LoginPresenter implements ILogin.IPresenter {
         return ValidarCampo.vazio(vLogin.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(vLogin.getCampoSenha(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
                 ValidarCampo.qtdCaracteres(vLogin.getCampoSenha(), 6);
+    }
+
+    private boolean validarInternet() {
+        boolean internet = ValidarInternet.conexao(vLogin.getActivity());
+        if (!internet) {
+            ToastPersonalizado.erro(vLogin.getActivity(), MensagensAlerta.SEM_INTERNET.getMsg());
+        }
+
+        return internet;
     }
 
     @Override
