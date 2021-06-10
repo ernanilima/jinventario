@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +57,13 @@ public class AlteracaoDialogFragment extends DialogFragment {
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
         btn_ok = view.findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.INVISIBLE);
+
+        // largura do botao, nao pode ser 0(zero)
+        btn_ok.getLayoutParams().width = 1;
+
+        // margem do botao
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
+        params.leftMargin = 0; params.rightMargin = 0;
 
         atualizarParaAlteracao();
 
