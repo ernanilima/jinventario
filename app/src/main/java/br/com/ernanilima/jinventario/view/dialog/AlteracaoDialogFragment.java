@@ -31,7 +31,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     private IResultadoDialog iResultadoDialog;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
-    private AppCompatImageButton btn_scanner_camera;
+    private AppCompatImageButton btn_camera_scanner;
 
     /** Construtor
      * @param iResultadoDialog IResultadoDialog */
@@ -60,18 +60,18 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
-        btn_scanner_camera = view.findViewById(R.id.btn_scannercamera);
+        btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
         btn_ok = view.findViewById(R.id.btn_ok);
 
-        btn_scanner_camera.setVisibility(View.INVISIBLE);
+        btn_camera_scanner.setVisibility(View.INVISIBLE);
         btn_ok.setVisibility(View.INVISIBLE);
 
         // largura do botao, nao pode ser 0(zero)
-        btn_scanner_camera.getLayoutParams().width = 1;
+        btn_camera_scanner.getLayoutParams().width = 1;
         btn_ok.getLayoutParams().width = 1;
 
         // margem do botao
-        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_scanner_camera.getLayoutParams();
+        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_camera_scanner.getLayoutParams();
         paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
         ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
         paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;

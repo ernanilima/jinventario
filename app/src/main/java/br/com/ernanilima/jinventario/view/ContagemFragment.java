@@ -39,7 +39,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private IContagem.IPresenter pContagem;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
-    private AppCompatImageButton btn_scanner_camera;
+    private AppCompatImageButton btn_camera_scanner;
     private RecyclerView recycler_view;
     private ContagemEstoqueRecyclerAdapter raItemContagem;
     private DrawerLayout drawerLayout;
@@ -73,13 +73,13 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
-        btn_scanner_camera = view.findViewById(R.id.btn_scannercamera);
+        btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
         btn_ok = view.findViewById(R.id.btn_ok);
         recycler_view = view.findViewById(R.id.recycler_view);
 
         // ACAO DE BOTOES
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
-        btn_scanner_camera.setOnClickListener(v -> pContagem.abrirCameraScanner());
+        btn_camera_scanner.setOnClickListener(v -> pContagem.abrirCameraScanner());
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
     }
