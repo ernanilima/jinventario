@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +53,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         View view = inflater.inflate(R.layout.fragment_contagem_inserir, null);
         builder.setView(view)
                 .setTitle("Alteração")
+                .setNeutralButton("Camera Código Barras", null)
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel())
                 .setPositiveButton("Confirmar", (dialog, which) -> confirmar());
 
@@ -61,21 +63,33 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         btn_scanner_camera = view.findViewById(R.id.btn_scannercamera);
         btn_ok = view.findViewById(R.id.btn_ok);
 
-        // ACAO DE BOTOES
-        btn_scanner_camera.setOnClickListener(v -> abrirCameraScanner());
-
+        btn_scanner_camera.setVisibility(View.INVISIBLE);
         btn_ok.setVisibility(View.INVISIBLE);
 
         // largura do botao, nao pode ser 0(zero)
+        btn_scanner_camera.getLayoutParams().width = 1;
         btn_ok.getLayoutParams().width = 1;
 
         // margem do botao
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
-        params.leftMargin = 0; params.rightMargin = 0;
+        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_scanner_camera.getLayoutParams();
+        paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
+        ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
+        paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;
 
         atualizarParaAlteracao();
 
         return builder.create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final AlertDialog alertDialog = (AlertDialog) getDialog();
+        if(alertDialog != null) {
+            // botao neutro, abre a camera scanner
+            Button botaoNeutro = alertDialog.getButton(Dialog.BUTTON_NEUTRAL);
+            botaoNeutro.setOnClickListener(v -> abrirCameraScanner());
+        }
     }
 
     /** Abre a camera scanner
