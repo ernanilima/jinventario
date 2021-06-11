@@ -16,11 +16,10 @@ import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.model.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
-import br.com.ernanilima.jinventario.view.CameraScannerFragment;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.CameraDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
@@ -56,14 +55,16 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     @Override
-    /** Abre a camera scanner enviando o presenter para que a resposta da camera seja exido aqui */
+    /** Abre a camera scanner
+     * Envia esse presenter para obter a resposta da camera */
     public void abrirCameraScanner() {
+        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
         Bundle argumento = new Bundle();
-        // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
-        argumento.putSerializable(CameraScannerFragment.IRESULTADO_CAMERA, this);
-        vContagem.setArgumentoBundle(argumento);
-
-        NavegacaoApp.abrirTelaCameraScanner(vContagem.requireParentFragment().getView());
+        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
+        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
+        dCameraFragment.setArguments(argumento);
+        dCameraFragment.setCancelable(false);
+        dCameraFragment.show(vContagem.requireParentFragment().getParentFragmentManager(), "tag");
     }
 
     @Override
@@ -182,6 +183,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     @Override
     /** Resultado recebido da camera scanner */
     public void setResultadoCameraScanner(String codigoBarras) {
-        System.out.println("RESULTADO DA CAMERA NO PRESENTER DE CONNTAGEM " + codigoBarras);
+        vContagem.getCampoCodbarras().getEditText().setText(codigoBarras);
+        vContagem.getCampoQtdDeCaixa().requestFocus();
     }
 }

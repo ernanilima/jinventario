@@ -1,10 +1,11 @@
-package br.com.ernanilima.jinventario.view;
+package br.com.ernanilima.jinventario.view.dialog;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +16,7 @@ import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -27,11 +28,10 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.service.component.CameraScannerAnalyzer;
 
-public class CameraScannerFragment extends Fragment {
+public class CameraDialogFragment extends DialogFragment {
     // https://developer.android.com/training/camerax/preview
 
     public static final String IRESULTADO_CAMERA = "ResultadoCameraScanner";
-
     private IResultadoCameraScanner iResultadoCameraScanner;
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
@@ -39,24 +39,20 @@ public class CameraScannerFragment extends Fragment {
     private PreviewView previewView;
     private CameraScannerAnalyzer cameraScannerAnalyzer;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // argumento recebido de outro fragment, basicamente recebe a interface para obter a resposta da camera scanner
-        getParentFragmentManager().setFragmentResultListener(this.getClass().getCanonicalName(), this,
-                (requestKey, result) -> setInterfaceResultado((IResultadoCameraScanner) result.getSerializable(IRESULTADO_CAMERA)));
+    /** Construtor
+     * @param iResultadoCameraScanner IResultadoCameraScanner - interface que obtera a resposta */
+    public CameraDialogFragment(IResultadoCameraScanner iResultadoCameraScanner) {
+        this.iResultadoCameraScanner = iResultadoCameraScanner;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // inicia o xml
-        return inflater.inflate(R.layout.fragment_camera_scanner, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_camera_scanner, null);
+        builder.setView(view)
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
 
         // INICIALIZA
         previewView = view.findViewById(R.id.textureview);
@@ -65,13 +61,8 @@ public class CameraScannerFragment extends Fragment {
         cameraExecutor = Executors.newSingleThreadExecutor();
 
         cameraProviderFuture.addListener(this::criarCameraProvider, ContextCompat.getMainExecutor(getActivity()));
-    }
 
-    /** Recebe a interface de resultado
-     * Interface usada para exibir o resultado da camera scanner
-     * @param iResultadoCameraScanner IResultadoCameraScanner */
-    private void setInterfaceResultado(IResultadoCameraScanner iResultadoCameraScanner) {
-        this.iResultadoCameraScanner = iResultadoCameraScanner;
+        return builder.create();
     }
 
     /** Verificar a disponibilidade do CameraProvider */
@@ -109,9 +100,10 @@ public class CameraScannerFragment extends Fragment {
     }
 
     /** Recebe o codigo de barras obtido na cameta
+     * Fecha o dialog
      * @param codigo String - codigo de barras obtido pela camera */
     public void codigoColetado(String codigo) {
         iResultadoCameraScanner.setResultadoCameraScanner(codigo);
-        //((Activity) requireParentFragment().getContext()).onBackPressed();
+        dismiss();
     }
 }

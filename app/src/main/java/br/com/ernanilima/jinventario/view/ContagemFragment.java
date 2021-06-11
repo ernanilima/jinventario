@@ -98,13 +98,6 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
-    /** Recebe argumentos no parametro
-     * Usado para enviar a interface de resposta da camera scanner */
-    public void setArgumentoBundle(Bundle argumentoBundle) {
-        getParentFragmentManager().setFragmentResult(CameraScannerFragment.class.getCanonicalName(), argumentoBundle);
-    }
-
-    @Override
     /** Exibe o titulo com base no parametro recebido
      * Item de menu no drawer layout e no toolbar */
     public void setIdParaExibirNoTitulo(long idContagem) {

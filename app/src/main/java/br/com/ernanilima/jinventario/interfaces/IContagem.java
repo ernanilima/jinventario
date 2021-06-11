@@ -1,7 +1,5 @@
 package br.com.ernanilima.jinventario.interfaces;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,7 +16,6 @@ public interface IContagem {
      * {@link ContagemFragment} */
     interface IView {
         Fragment requireParentFragment();
-        void setArgumentoBundle(Bundle argumentoBundle);
         void setIdParaExibirNoTitulo(long idContagem);
         void setRecyclerAdapter(List<ItemContagem> lsItensContagem);
         void atualizarRecyclerAdapter();

@@ -50,11 +50,4 @@ public class NavegacaoApp {
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.nav_contagem);
     }
-
-    /** Navega para a tela solicitada utilizando o xml de navegacao
-     * @param view View - view(tela) que esta solicitando */
-    public static void abrirTelaCameraScanner(View view) {
-        navController = Navigation.findNavController(view);
-        navController.navigate(R.id.nav_camera_scanner);
-    }
 }
