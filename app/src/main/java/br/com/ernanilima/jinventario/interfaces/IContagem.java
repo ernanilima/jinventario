@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario.interfaces;
 
+import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -16,6 +18,7 @@ public interface IContagem {
      * {@link ContagemFragment} */
     interface IView {
         Fragment requireParentFragment();
+        void setArgumentoBundle(Bundle argumentoBundle);
         void setIdParaExibirNoTitulo(long idContagem);
         void setRecyclerAdapter(List<ItemContagem> lsItensContagem);
         void atualizarRecyclerAdapter();
@@ -28,9 +31,10 @@ public interface IContagem {
 
     /** Usado no presenter
      * {@link ContagemPresenter} */
-    interface IPresenter extends IResultadoDialog {
+    interface IPresenter extends IResultadoDialog, IResultadoCameraScanner {
         void setCodigoContagem(Long idContagem);
         void adicionarItemColetado();
+        void abrirCameraScanner();
         void alterarItemColetado(ItemContagem mItemContagem);
         void excluirItemColetado(ItemContagem mItemContagem);
         void toolbarCompartilhar();

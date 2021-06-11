@@ -24,16 +24,28 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.service.component.CameraScannerAnalyzer;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class CameraScannerFragment extends Fragment {
     // https://developer.android.com/training/camerax/preview
+
+    public static final String IRESULTADO_CAMERA = "ResultadoCameraScanner";
+
+    private IResultadoCameraScanner iResultadoCameraScanner;
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ExecutorService cameraExecutor;
     private PreviewView previewView;
     private CameraScannerAnalyzer cameraScannerAnalyzer;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // argumento recebido de outro fragment, basicamente recebe a interface para obter a resposta da camera scanner
+        getParentFragmentManager().setFragmentResultListener(this.getClass().getCanonicalName(), this,
+                (requestKey, result) -> setInterfaceResultado((IResultadoCameraScanner) result.getSerializable(IRESULTADO_CAMERA)));
+    }
 
     @Nullable
     @Override
@@ -53,6 +65,13 @@ public class CameraScannerFragment extends Fragment {
         cameraExecutor = Executors.newSingleThreadExecutor();
 
         cameraProviderFuture.addListener(this::criarCameraProvider, ContextCompat.getMainExecutor(getActivity()));
+    }
+
+    /** Recebe a interface de resultado
+     * Interface usada para exibir o resultado da camera scanner
+     * @param iResultadoCameraScanner IResultadoCameraScanner */
+    private void setInterfaceResultado(IResultadoCameraScanner iResultadoCameraScanner) {
+        this.iResultadoCameraScanner = iResultadoCameraScanner;
     }
 
     /** Verificar a disponibilidade do CameraProvider */
@@ -92,7 +111,7 @@ public class CameraScannerFragment extends Fragment {
     /** Recebe o codigo de barras obtido na cameta
      * @param codigo String - codigo de barras obtido pela camera */
     public void codigoColetado(String codigo) {
-        System.out.println(codigo);
-        NavegacaoApp.abrirTelaInicioApp(requireParentFragment().getView());
+        iResultadoCameraScanner.setResultadoCameraScanner(codigo);
+        //((Activity) requireParentFragment().getContext()).onBackPressed();
     }
 }

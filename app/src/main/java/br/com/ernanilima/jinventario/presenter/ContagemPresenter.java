@@ -16,8 +16,10 @@ import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.model.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
+import br.com.ernanilima.jinventario.view.CameraScannerFragment;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
@@ -51,6 +53,17 @@ public class ContagemPresenter implements IContagem.IPresenter {
         // envia a lista de itens para o recycler adapter que sera utilizado no recycler view
         vContagem.setRecyclerAdapter(getLsItensContagem());
         vContagem.setIdParaExibirNoTitulo(idContagem);
+    }
+
+    @Override
+    /** Abre a camera scanner enviando o presenter para que a resposta da camera seja exido aqui */
+    public void abrirCameraScanner() {
+        Bundle argumento = new Bundle();
+        // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
+        argumento.putSerializable(CameraScannerFragment.IRESULTADO_CAMERA, this);
+        vContagem.setArgumentoBundle(argumento);
+
+        NavegacaoApp.abrirTelaCameraScanner(vContagem.requireParentFragment().getView());
     }
 
     @Override
@@ -164,5 +177,11 @@ public class ContagemPresenter implements IContagem.IPresenter {
             case CANCELAR_EXCLUSAO: // cancelar exclusao de item coletado
                 vContagem.atualizarRecyclerAdapter();
         }
+    }
+
+    @Override
+    /** Resultado recebido da camera scanner */
+    public void setResultadoCameraScanner(String codigoBarras) {
+        System.out.println("RESULTADO DA CAMERA NO PRESENTER DE CONNTAGEM " + codigoBarras);
     }
 }

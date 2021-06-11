@@ -31,7 +31,6 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
@@ -80,7 +79,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
 
         // ACAO DE BOTOES
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
-        btn_scanner_camera.setOnClickListener(NavegacaoApp::abrirTelaCameraScanner);
+        btn_scanner_camera.setOnClickListener(v -> pContagem.abrirCameraScanner());
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
     }
@@ -96,6 +95,13 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
             drawerLayout.closeDrawers(); // fecha o drawer layout
             return true;
         });
+    }
+
+    @Override
+    /** Recebe argumentos no parametro
+     * Usado para enviar a interface de resposta da camera scanner */
+    public void setArgumentoBundle(Bundle argumentoBundle) {
+        getParentFragmentManager().setFragmentResult(CameraScannerFragment.class.getCanonicalName(), argumentoBundle);
     }
 
     @Override
