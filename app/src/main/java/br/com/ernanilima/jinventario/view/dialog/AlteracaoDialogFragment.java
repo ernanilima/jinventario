@@ -10,17 +10,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.R;
+import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
-public class AlteracaoDialogFragment extends DialogFragment {
+public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner {
 
     private ItemContagem mItemContagem;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
@@ -28,6 +30,7 @@ public class AlteracaoDialogFragment extends DialogFragment {
     private IResultadoDialog iResultadoDialog;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
+    private AppCompatImageButton btn_scanner_camera;
 
     /** Construtor
      * @param iResultadoDialog IResultadoDialog */
@@ -55,7 +58,12 @@ public class AlteracaoDialogFragment extends DialogFragment {
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
+        btn_scanner_camera = view.findViewById(R.id.btn_scannercamera);
         btn_ok = view.findViewById(R.id.btn_ok);
+
+        // ACAO DE BOTOES
+        btn_scanner_camera.setOnClickListener(v -> abrirCameraScanner());
+
         btn_ok.setVisibility(View.INVISIBLE);
 
         // largura do botao, nao pode ser 0(zero)
@@ -68,6 +76,18 @@ public class AlteracaoDialogFragment extends DialogFragment {
         atualizarParaAlteracao();
 
         return builder.create();
+    }
+
+    /** Abre a camera scanner
+     * Envia esse dialog para obter a resposta da camera */
+    private void abrirCameraScanner() {
+        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
+        Bundle argumento = new Bundle();
+        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
+        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
+        dCameraFragment.setArguments(argumento);
+        dCameraFragment.setCancelable(false);
+        dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
     }
 
     /** Abre o Dialog com os dados do item que vai ser alterado */
@@ -91,5 +111,12 @@ public class AlteracaoDialogFragment extends DialogFragment {
         return ValidarCampo.vazio(campo_codbarras, MensagensAlerta.CODBARRAS_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(campo_qtd_dcaixa, MensagensAlerta.QUANTIDADE_DE_CAIXA_INVALIDO.getMsg()) &&
                 ValidarCampo.vazio(campo_qtd_pcaixa, MensagensAlerta.QUANTIDADE_POR_CAIXA_INVALIDO.getMsg());
+    }
+
+    @Override
+    /** Resultado recebido da camera scanner */
+    public void setResultadoCameraScanner(String codigoBarras) {
+        campo_codbarras.getEditText().setText(codigoBarras);
+        campo_qtd_dcaixa.requestFocus();
     }
 }
