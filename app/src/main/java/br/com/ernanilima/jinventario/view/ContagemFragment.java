@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -30,15 +31,16 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
     public static final String CODIGO_CONTAGEM = "CodigoContagem";
 
     private IContagem.IPresenter pContagem;
-    private long idContagem;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
+    private AppCompatImageButton btn_scanner_camera;
     private RecyclerView recycler_view;
     private ContagemEstoqueRecyclerAdapter raItemContagem;
     private DrawerLayout drawerLayout;
@@ -72,11 +74,13 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
+        btn_scanner_camera = view.findViewById(R.id.btn_scannercamera);
         btn_ok = view.findViewById(R.id.btn_ok);
         recycler_view = view.findViewById(R.id.recycler_view);
 
         // ACAO DE BOTOES
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
+        btn_scanner_camera.setOnClickListener(NavegacaoApp::abrirTelaCameraScanner);
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
     }
