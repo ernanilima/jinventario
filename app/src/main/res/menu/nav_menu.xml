@@ -15,6 +15,10 @@
 
     <item android:title="Outros">
         <menu>
+            <item android:title="Política de Privacidade"
+                android:id="@+id/nav_politica_privacidade"
+                android:icon="@drawable/ic_politica_privacidade" />
+
             <item android:title="Sair"
                 android:id="@+id/nav_sair"
                 android:icon="@drawable/ic_sair" />

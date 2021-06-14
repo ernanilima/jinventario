@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +48,7 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // botao que nao tem fragment para navegacao
+        navigationView.getMenu().findItem(R.id.nav_politica_privacidade).setOnMenuItemClickListener(item -> abrirPoliticaPrivacidade());
         navigationView.getMenu().findItem(R.id.nav_sair).setOnMenuItemClickListener(item -> sair());
     }
 
@@ -54,6 +57,15 @@ public class AppActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.fragment_app);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    /** Abri a pagina de politica de privacidade */
+    private boolean abrirPoliticaPrivacidade() {
+        drawerLayout.closeDrawers(); // fecha o drawer layout
+        Uri uri = Uri.parse(getString(R.string.site_politica_privacidade));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+        return true;
     }
 
     private boolean sair() {
