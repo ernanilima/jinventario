@@ -55,7 +55,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
                 .setTitle("Alteração")
                 .setNeutralButton("Camera Código Barras", null)
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel())
-                .setPositiveButton("Confirmar", (dialog, which) -> confirmar());
+                .setPositiveButton("Confirmar", null);
 
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
@@ -89,6 +89,9 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             // botao neutro, abre a camera scanner
             Button botaoNeutro = alertDialog.getButton(Dialog.BUTTON_NEUTRAL);
             botaoNeutro.setOnClickListener(v -> abrirCameraScanner());
+            // botao positivo
+            Button botaoConfirmar = alertDialog.getButton(Dialog.BUTTON_POSITIVE);
+            botaoConfirmar.setOnClickListener(v -> confirmar());
         }
     }
 
@@ -118,6 +121,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             mItemContagem.setQtdDeCaixas(campo_qtd_dcaixa.getEditText().getText().toString());
             mItemContagem.setQtdPorCaixa(campo_qtd_pcaixa.getEditText().getText().toString());
             iResultadoDialog.setResultadoDialog(TipoResultado.CONFIRMAR_ALTERACAO, mItemContagem);
+            dismiss(); // fecha o dialog
         }
     }
 
