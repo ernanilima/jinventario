@@ -1,10 +1,13 @@
 package br.com.ernanilima.jinventario.view;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +26,8 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
     private ICadastro.IPresenter pCadastro;
     private TextInputLayout campo_email, campo_senha1, campo_senha2;
     private AppCompatButton btn_cadastrar;
-    private TextView link_btn_voltar;
+    private CheckBox chbx_politica_privacidade;
+    private TextView link_btn_voltar, link_btn_politica_privacidade;
 
     @Nullable
     @Override
@@ -45,14 +49,24 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
         campo_email = view.findViewById(R.id.campo_email);
         campo_senha1 = view.findViewById(R.id.campo_senha1);
         campo_senha2 = view.findViewById(R.id.campo_senha2);
+        chbx_politica_privacidade = view.findViewById(R.id.chbx_politica_privacidade);
+        link_btn_politica_privacidade = view.findViewById(R.id.btn_politica_privacidade);
         btn_cadastrar = view.findViewById(R.id.btn_cadastrar);
         link_btn_voltar = view.findViewById(R.id.btn_voltar);
 
         // ACAO DE BOTOES
         campo_senha2.getEditText().setOnClickListener(pCadastro::cadastrar); // botao de teclado
+        link_btn_politica_privacidade.setOnClickListener(v -> abrirPoliticaPrivacidade());
         btn_cadastrar.setOnClickListener(pCadastro::cadastrar);
         link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
 
+    }
+
+    /** Abri a pagina de politica de privacidade */
+    private void abrirPoliticaPrivacidade() {
+        Uri uri = Uri.parse(getString(R.string.site_politica_privacidade));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     @Override
@@ -68,5 +82,10 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
     @Override
     public TextInputLayout getCampoSenha2() {
         return campo_senha2;
+    }
+
+    @Override
+    public boolean getChbxPoliticaPrivacidadeSelecionado() {
+        return chbx_politica_privacidade.isChecked();
     }
 }

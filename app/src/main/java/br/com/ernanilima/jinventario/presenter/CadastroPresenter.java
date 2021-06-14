@@ -39,7 +39,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
 
     @Override
     public void cadastrar(View view) {
-        if (validarCampos() && validarInternet()) {
+        if (validarCampos() && validarPoliticaPrivacidade() && validarInternet()) {
             String email = vCadastro.getCampoEmail().getEditText().getText().toString();
             String senha = vCadastro.getCampoSenha1().getEditText().getText().toString();
             iFirebaseAutenticacao.cadastrarUsuario(view.getContext(), email, senha);
@@ -53,6 +53,15 @@ public class CadastroPresenter implements ICadastro.IPresenter {
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha1(), 6) &&
                 ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha2(), 6) &&
                 ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagensAlerta.SENHAS_NAO_COMBINAM.getMsg());
+    }
+
+    private boolean validarPoliticaPrivacidade() {
+        boolean politicaPrivacidade = vCadastro.getChbxPoliticaPrivacidadeSelecionado();
+        if (!politicaPrivacidade) {
+            ToastPersonalizado.erro(vCadastro.getActivity(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
+        }
+
+        return politicaPrivacidade;
     }
 
     private boolean validarInternet() {

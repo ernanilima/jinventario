@@ -16,6 +16,7 @@ public interface ICadastro {
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha1();
         TextInputLayout getCampoSenha2();
+        boolean getChbxPoliticaPrivacidadeSelecionado();
     }
 
     /** Usado no presenter
