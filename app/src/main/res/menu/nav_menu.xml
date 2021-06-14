@@ -19,6 +19,10 @@
                 android:id="@+id/nav_politica_privacidade"
                 android:icon="@drawable/ic_politica_privacidade" />
 
+            <item android:title="Configuração"
+                android:id="@+id/nav_configuracao"
+                android:icon="@drawable/ic_configuracao" />
+
             <item android:title="Sair"
                 android:id="@+id/nav_sair"
                 android:icon="@drawable/ic_sair" />

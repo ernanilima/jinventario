@@ -17,4 +17,10 @@
         android:label="Contagem"
         tools:layout="@layout/fragment_contagem" />
 
+    <fragment
+        android:id="@+id/nav_configuracao"
+        android:name="br.com.ernanilima.jinventario.view.ConfiguracaoFragment"
+        android:label="Configuração"
+        tools:layout="@layout/fragment_configuracao" />
+
 </navigation>
