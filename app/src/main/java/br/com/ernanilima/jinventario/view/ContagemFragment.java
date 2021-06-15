@@ -82,6 +82,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         btn_camera_scanner.setOnClickListener(v -> pContagem.abrirCameraScanner());
         btn_ok.setOnClickListener(v -> pContagem.adicionarItemColetado());
 
+        pContagem.popularDadosConfiguracao();
     }
 
     @Override
@@ -156,6 +157,17 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     @Override
     public TextInputLayout getCampoQtdPorCaixa() {
         return campo_qtd_pcaixa;
+    }
+
+    @Override
+    /** Usado caso o uso da camera seja desativado nas configuracoes */
+    public void desativarUsoDaCamera() {
+        btn_camera_scanner.setVisibility(View.INVISIBLE);
+        // largura do botao, nao pode ser 0(zero)
+        btn_camera_scanner.getLayoutParams().width = 1;
+        // margem do botao
+        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_camera_scanner.getLayoutParams();
+        paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
     }
 
     @Override

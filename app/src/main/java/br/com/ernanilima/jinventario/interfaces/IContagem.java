@@ -24,6 +24,7 @@ public interface IContagem {
         TextInputLayout getCampoCodbarras();
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();
+        void desativarUsoDaCamera();
     }
 
     /** Usado no presenter
@@ -35,5 +36,6 @@ public interface IContagem {
         void alterarItemColetado(ItemContagem mItemContagem);
         void excluirItemColetado(ItemContagem mItemContagem);
         void toolbarCompartilhar();
+        void popularDadosConfiguracao();
     }
 }

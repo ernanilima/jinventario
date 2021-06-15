@@ -8,6 +8,8 @@ import java.util.List;
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
+import br.com.ernanilima.jinventario.model.Configuracao;
+import br.com.ernanilima.jinventario.model.ConfiguracaoDao;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
@@ -31,7 +33,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
     private DaoSession daoSession;
     private ContagemEstoqueDao dContagemEstoque;
     private ItemContagemDao dItemContagem;
+    private ConfiguracaoDao dConfiguracao;
     private List<ItemContagem> lsItensContagem;
+
+    private Configuracao mConfiguracao;
 
     /** Construtor
      * @param vContagem IContagem.IView - view(fragment) de contagem */
@@ -42,6 +47,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         this.daoSession = ((DbGreenDao) this.vContagem.requireParentFragment().getActivity().getApplication()).getSessao();
         this.dContagemEstoque = daoSession.getContagemEstoqueDao();
         this.dItemContagem = daoSession.getItemContagemDao();
+        this.dConfiguracao = daoSession.getConfiguracaoDao();
     }
 
     @Override
@@ -97,6 +103,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
         argumento.putSerializable(AlteracaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
+        argumento.putBoolean(AlteracaoDialogFragment.CAMERA_SCANNER, mConfiguracao == null || mConfiguracao.getCameraScanner());
         dAlteracaoFragment.setArguments(argumento);
         dAlteracaoFragment.setCancelable(false);
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
@@ -148,6 +155,16 @@ public class ContagemPresenter implements IContagem.IPresenter {
             ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
         } else {
             CompartilharArquivo.csv(vContagem, mContagemEstoque.getId(), lsItensContagem);
+        }
+    }
+
+    @Override
+    /** Carregado ao iniciar o view de contagem */
+    public void popularDadosConfiguracao() {
+        mConfiguracao = dConfiguracao.load(1L);
+        if (mConfiguracao != null && !mConfiguracao.getCameraScanner()) {
+            // desativa o botao de usar camera como scanner
+            vContagem.desativarUsoDaCamera();
         }
     }
 

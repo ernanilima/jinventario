@@ -27,8 +27,11 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
 
     private ItemContagem mItemContagem;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
+    public static final String CAMERA_SCANNER = "UsarCameraComoScanner";
+    private Boolean cameraScanner;
 
     private IResultadoDialog iResultadoDialog;
+    private AlertDialog.Builder builder;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
@@ -43,17 +46,17 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
+        cameraScanner = getArguments().getBoolean(CAMERA_SCANNER);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_contagem_inserir, null);
         builder.setView(view)
                 .setTitle("Alteração")
-                .setNeutralButton("Camera Código Barras", null)
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel())
                 .setPositiveButton("Confirmar", null);
 
@@ -79,6 +82,14 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         atualizarParaAlteracao();
 
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (cameraScanner) { // se na configuracao o uso for habilitado, exibe o botao de usar camera como scanner
+            builder.setNeutralButton("Camera Código Barras", null);
+        }
     }
 
     @Override
