@@ -43,11 +43,18 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
         // ACAO DE BOTOES
         btn_gravar.setOnClickListener(v -> pConfiguracao.gravarConfiguracao());
 
+        pConfiguracao.popularDados();
     }
 
     @Override
     /** Retorna se configuracao foi selecionada */
     public boolean getConfigCameraScanner() {
         return swch_ativar_camera.isChecked();
+    }
+
+    @Override
+    /** Recebe a configuracao do campo */
+    public void setConfigCameraScanner(boolean b) {
+        swch_ativar_camera.setChecked(b);
     }
 }

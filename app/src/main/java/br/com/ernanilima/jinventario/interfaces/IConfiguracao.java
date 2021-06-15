@@ -12,11 +12,13 @@ public interface IConfiguracao {
     interface IView {
         Fragment requireParentFragment();
         boolean getConfigCameraScanner();
+        void setConfigCameraScanner(boolean b);
     }
 
     /** Usado no presenter
      * {@link ConfiguracaoPresenter} */
     interface IPresenter {
         void gravarConfiguracao();
+        void popularDados();
     }
 }

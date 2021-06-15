@@ -31,4 +31,13 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
         dConfiguracao.save(mConfiguracao); // grava a configuracao
         NavegacaoApp.abrirTelaInicioApp(vConfiguracao.requireParentFragment().getView()); // abre a tela inicial do app
     }
+
+    @Override
+    /** Usado para buscar a configuracao no banco greendao e atribuir essa configuracao no campo */
+    public void popularDados() {
+        Configuracao dbConfiguracao = dConfiguracao.load(1L); // busca configuracao no banco greendao
+        if (dbConfiguracao != null) {
+            vConfiguracao.setConfigCameraScanner(dbConfiguracao.getCameraScanner());
+        }
+    }
 }
