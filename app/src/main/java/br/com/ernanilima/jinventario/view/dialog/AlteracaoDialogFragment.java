@@ -79,14 +79,13 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
         paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;
 
+        validarConfiguracao();
         atualizarParaAlteracao();
 
         return builder.create();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void validarConfiguracao() {
         if (cameraScanner) { // se na configuracao o uso for habilitado, exibe o botao de usar camera como scanner
             builder.setNeutralButton("Camera Código Barras", null);
         }
