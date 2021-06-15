@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario.interfaces;
 
+import androidx.fragment.app.Fragment;
+
 import br.com.ernanilima.jinventario.presenter.ConfiguracaoPresenter;
 import br.com.ernanilima.jinventario.view.ConfiguracaoFragment;
 
@@ -8,6 +10,7 @@ public interface IConfiguracao {
     /** Usado no fragment
      * {@link ConfiguracaoFragment} */
     interface IView {
+        Fragment requireParentFragment();
         boolean getConfigCameraScanner();
     }
 
