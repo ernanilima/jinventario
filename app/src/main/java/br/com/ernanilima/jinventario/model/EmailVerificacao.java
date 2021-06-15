@@ -19,6 +19,8 @@ public class EmailVerificacao {
     @Property(nameInDb = "DATA_ENVIO_VERIFICACAO")
     private Date dataEnvioVerificacao;
 
+    // tudo abaixo eh construido automaticamente ao executar o projeto
+
     @Generated(hash = 1338542374)
     public EmailVerificacao() {}
 

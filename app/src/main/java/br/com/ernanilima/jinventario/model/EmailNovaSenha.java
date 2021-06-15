@@ -19,6 +19,7 @@ public class EmailNovaSenha {
     @Property(nameInDb = "DATA_ENVIO_NOVA_SENHA")
     private Date dataEnvioNovaSenha;
 
+    // tudo abaixo eh construido automaticamente ao executar o projeto
 
     @Generated(hash = 1234936148)
     public EmailNovaSenha() {}

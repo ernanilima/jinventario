@@ -5,25 +5,25 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
-@Entity(nameInDb = "NOME_APARELHO")
-public class NomeAparelho {
+@Entity(nameInDb = "CONFIGURACAO")
+public class Configuracao {
     // construtores, gets e sets sao gerados automaticamente ao executar o projeto
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
     private Long id;
-    @Property(nameInDb = "NOME")
-    private String nome;
+    @Property(nameInDb = "ATIVAR_CAMERA")
+    private boolean cameraScanner;
 
     // tudo abaixo eh construido automaticamente ao executar o projeto
 
-    @Generated(hash = 226785605)
-    public NomeAparelho() {}
+    @Generated(hash = 647547117)
+    public Configuracao() {}
 
-    @Generated(hash = 690834848)
-    public NomeAparelho(Long id, String nome) {
+    @Generated(hash = 1181914871)
+    public Configuracao(Long id, boolean cameraScanner) {
         this.id = id;
-        this.nome = nome;
+        this.cameraScanner = cameraScanner;
     }
 
     public Long getId() {
@@ -32,10 +32,11 @@ public class NomeAparelho {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getNome() {
-        return this.nome;
+    public boolean getCameraScanner() {
+        return this.cameraScanner;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCameraScanner(boolean cameraScanner) {
+        this.cameraScanner = cameraScanner;
     }
+    
 }
