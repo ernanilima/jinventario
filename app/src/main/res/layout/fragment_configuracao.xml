@@ -28,10 +28,12 @@
             android:layout_height="match_parent"
             android:gravity="end">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/swch_ativar_camera"
+            <CheckBox
+                android:id="@+id/chbx_ativar_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                 android:checked="true" />
         </LinearLayout>
 

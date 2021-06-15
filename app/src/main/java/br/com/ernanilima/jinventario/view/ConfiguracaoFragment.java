@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import br.com.ernanilima.jinventario.R;
@@ -18,7 +18,7 @@ import br.com.ernanilima.jinventario.presenter.ConfiguracaoPresenter;
 public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IView {
 
     private IConfiguracao.IPresenter pConfiguracao;
-    private SwitchCompat swch_ativar_camera;
+    private CheckBox chbx_ativar_camera;
     private AppCompatButton btn_gravar;
 
     @Nullable
@@ -37,7 +37,7 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
 
         // INICIALIZA
         // nome_local = nome_no_xml
-        swch_ativar_camera = view.findViewById(R.id.swch_ativar_camera);
+        chbx_ativar_camera = view.findViewById(R.id.chbx_ativar_camera);
         btn_gravar = view.findViewById(R.id.btn_gravar);
 
         // ACAO DE BOTOES
@@ -49,12 +49,12 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
     @Override
     /** Retorna se configuracao foi selecionada */
     public boolean getConfigCameraScanner() {
-        return swch_ativar_camera.isChecked();
+        return chbx_ativar_camera.isChecked();
     }
 
     @Override
     /** Recebe a configuracao do campo */
     public void setConfigCameraScanner(boolean b) {
-        swch_ativar_camera.setChecked(b);
+        chbx_ativar_camera.setChecked(b);
     }
 }
