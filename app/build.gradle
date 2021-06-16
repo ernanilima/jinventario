@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "br.com.ernanilima.jinventario"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 3
         versionName "0.11"
@@ -68,5 +68,9 @@ dependencies {
     // ML KIT PARA SCANNER COM A CAMERA
     implementation 'com.google.mlkit:barcode-scanning:16.1.2'
     implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:16.1.5'
+
+    // ZXING PARA SCANNER COM A CAMERA
+    // https://github.com/journeyapps/zxing-android-embedded
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 
 }

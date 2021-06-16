@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] permissoes = new String[] {
             Manifest.permission.CAMERA
-//            Manifest.permission.RECORD_AUDIO,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            //Manifest.permission.RECORD_AUDIO,
+            //Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     @Override

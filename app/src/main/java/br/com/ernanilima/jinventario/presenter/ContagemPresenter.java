@@ -2,6 +2,8 @@ package br.com.ernanilima.jinventario.presenter;
 
 import android.os.Bundle;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +23,6 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
-import br.com.ernanilima.jinventario.view.dialog.CameraDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
@@ -64,13 +65,15 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Abre a camera scanner
      * Envia esse presenter para obter a resposta da camera */
     public void abrirCameraScanner() {
-        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
-        Bundle argumento = new Bundle();
-        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
-        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
-        dCameraFragment.setArguments(argumento);
-        dCameraFragment.setCancelable(false);
-        dCameraFragment.show(vContagem.requireParentFragment().getParentFragmentManager(), "tag");
+
+        IntentIntegrator integrator = new IntentIntegrator(vContagem.requireParentFragment().getActivity());
+        integrator.forSupportFragment(vContagem.requireParentFragment());
+        integrator.setPrompt("SCANNER");
+        integrator.setBeepEnabled(true);
+        integrator.setOrientationLocked(true);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+        integrator.initiateScan();
+
     }
 
     @Override
