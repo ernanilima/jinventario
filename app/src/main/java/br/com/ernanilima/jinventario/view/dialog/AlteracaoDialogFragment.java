@@ -2,12 +2,15 @@ package br.com.ernanilima.jinventario.view.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -15,6 +18,8 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
@@ -32,6 +37,8 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
 
     private IResultadoDialog iResultadoDialog;
     private AlertDialog.Builder builder;
+    private ActivityResultLauncher<Intent> abrirParaObterResultado;
+    private IntentIntegrator integrator;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
@@ -47,6 +54,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         super.onCreate(savedInstanceState);
         mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
         cameraScanner = getArguments().getBoolean(CAMERA_SCANNER);
+        construirExibirObterResultado();
     }
 
     @NonNull
@@ -91,6 +99,18 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         }
     }
 
+    private void construirExibirObterResultado() {
+        // https://developer.android.com/training/basics/intents/result
+        // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
+        abrirParaObterResultado = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    IntentResult resultado = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
+                    if (resultado != null) {
+                        setResultadoCameraScanner(resultado.getContents());
+                    }
+                });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -108,13 +128,20 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     /** Abre a camera scanner
      * Envia esse dialog para obter a resposta da camera */
     private void abrirCameraScanner() {
-        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
-        Bundle argumento = new Bundle();
-        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
-        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
-        dCameraFragment.setArguments(argumento);
-        dCameraFragment.setCancelable(false);
-        dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
+        integrator = new IntentIntegrator(getActivity());
+        integrator.setPrompt("SCANNER");
+        integrator.setBeepEnabled(true);
+        integrator.setOrientationLocked(true);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+        abrirParaObterResultado.launch(integrator.createScanIntent());
+
+//        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
+//        Bundle argumento = new Bundle();
+//        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
+//        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
+//        dCameraFragment.setArguments(argumento);
+//        dCameraFragment.setCancelable(false);
+//        dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
     }
 
     /** Abre o Dialog com os dados do item que vai ser alterado */
