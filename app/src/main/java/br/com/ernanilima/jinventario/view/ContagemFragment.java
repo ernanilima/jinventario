@@ -31,6 +31,7 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
+import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
@@ -68,6 +69,9 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
 
         // DEFINE PRESENTER DESSA ACTIVITY
         pContagem = new ContagemPresenter(this);
+
+        // CAMERA TIPO ZXING
+        CameraZXingDialogFragment.getInstance().setFragment(this, pContagem);
 
         //INICIALIZA
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
