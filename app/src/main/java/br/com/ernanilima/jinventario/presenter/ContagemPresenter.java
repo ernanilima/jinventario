@@ -21,7 +21,7 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
-import br.com.ernanilima.jinventario.view.dialog.CameraDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
@@ -72,13 +72,8 @@ public class ContagemPresenter implements IContagem.IPresenter {
             // por padrao essa eh a camera usada mesmo que o
             // usuario nunca tenha gravado nenhuma configuracao
 
-            CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
-            Bundle argumento = new Bundle();
-            // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
-            argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
-            dCameraFragment.setArguments(argumento);
-            dCameraFragment.setCancelable(false);
-            dCameraFragment.show(vContagem.requireParentFragment().getParentFragmentManager(), "tag");
+            CameraMLKitDialogFragment.novoDialog(this)
+                    .show(vContagem.requireParentFragment().getParentFragmentManager());
 
         } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes

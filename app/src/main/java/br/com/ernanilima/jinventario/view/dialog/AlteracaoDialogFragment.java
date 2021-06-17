@@ -24,6 +24,7 @@ import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner {
@@ -48,6 +49,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     public static AlteracaoDialogFragment novoDialog(IResultadoDialog iResultadoDialog, Bundle argumentos) {
         DIALOG_FRAGMENT = new AlteracaoDialogFragment(iResultadoDialog);
         DIALOG_FRAGMENT.setArguments(argumentos);
+        DIALOG_FRAGMENT.setCancelable(false);
         return DIALOG_FRAGMENT;
     }
 
@@ -154,13 +156,8 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             // por padrao essa eh a camera usada mesmo que o
             // usuario nunca tenha gravado nenhuma configuracao
 
-            CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
-            Bundle argumento = new Bundle();
-            // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
-            argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
-            dCameraFragment.setArguments(argumento);
-            dCameraFragment.setCancelable(false);
-            dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
+            CameraMLKitDialogFragment.novoDialog(this)
+                    .show(getParentFragmentManager());
 
         } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes

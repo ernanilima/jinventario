@@ -1,6 +1,5 @@
-package br.com.ernanilima.jinventario.view.dialog;
+package br.com.ernanilima.jinventario.view.dialog.camera;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Size;
@@ -9,6 +8,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
@@ -17,6 +17,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -28,30 +29,50 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.service.component.CameraScannerAnalyzer;
 
-public class CameraDialogFragment extends DialogFragment {
+public class CameraMLKitDialogFragment extends DialogFragment {
     // https://developer.android.com/training/camerax/preview
 
-    public static final String IRESULTADO_CAMERA = "ResultadoCameraScanner";
+    private static CameraMLKitDialogFragment DIALOG_FRAGMENT;
+
     private IResultadoCameraScanner iResultadoCameraScanner;
+    private AlertDialog.Builder aDialog;
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ExecutorService cameraExecutor;
     private PreviewView previewView;
     private CameraScannerAnalyzer cameraScannerAnalyzer;
 
+    /** Cria um dialog para camera
+     * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido
+     * @return CameraMLKitDialogFragment - nova instancia do dialog */
+    public static CameraMLKitDialogFragment novoDialog(IResultadoCameraScanner iResultadoCameraScanner) {
+        DIALOG_FRAGMENT = new CameraMLKitDialogFragment(iResultadoCameraScanner);
+        DIALOG_FRAGMENT.setCancelable(false);
+        return DIALOG_FRAGMENT;
+    }
+
     /** Construtor
-     * @param iResultadoCameraScanner IResultadoCameraScanner - interface que obtera a resposta */
-    public CameraDialogFragment(IResultadoCameraScanner iResultadoCameraScanner) {
+     * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido */
+    private CameraMLKitDialogFragment(IResultadoCameraScanner iResultadoCameraScanner) {
         this.iResultadoCameraScanner = iResultadoCameraScanner;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // cria o dialog
+        aDialog = new AlertDialog.Builder(getActivity());
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_camera_scanner, null);
-        builder.setView(view)
+
+        aDialog.setView(view)
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
 
         // INICIALIZA
@@ -60,9 +81,14 @@ public class CameraDialogFragment extends DialogFragment {
         cameraScannerAnalyzer = new CameraScannerAnalyzer(this);
         cameraExecutor = Executors.newSingleThreadExecutor();
 
-        cameraProviderFuture.addListener(this::criarCameraProvider, ContextCompat.getMainExecutor(getActivity()));
+        return aDialog.create();
+    }
 
-        return builder.create();
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        cameraProviderFuture.addListener(this::criarCameraProvider, ContextCompat.getMainExecutor(getActivity()));
     }
 
     /** Verificar a disponibilidade do CameraProvider */
@@ -75,7 +101,7 @@ public class CameraDialogFragment extends DialogFragment {
         }
     }
 
-    /** Selecionar uma câmera e vincular o ciclo de vida e casos de uso
+    /** Selecionar uma câmera e vincula o ciclo de vida e casos de uso
      * @param cameraProvider ProcessCameraProvider */
     private void criarCamera(@NonNull ProcessCameraProvider cameraProvider) {
         Preview preview = new Preview.Builder()
@@ -99,7 +125,13 @@ public class CameraDialogFragment extends DialogFragment {
         cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture, imageAnalysis);
     }
 
-    /** Recebe o codigo de barras obtido na cameta
+    /** Exibe o dialog
+     * @param fragmentManager FragmentManager - tela que o dialog sera exibido */
+    public void show(FragmentManager fragmentManager) {
+        DIALOG_FRAGMENT.show(fragmentManager, "camera_mlkit");
+    }
+
+    /** Recebe o codigo de barras obtido pela camera
      * Fecha o dialog
      * @param codigo String - codigo de barras obtido pela camera */
     public void codigoColetado(String codigo) {
