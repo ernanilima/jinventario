@@ -23,18 +23,19 @@ public class CameraZXingDialogFragment extends DialogFragment {
 
     /** Cria um dialog para camera
      * @return CameraZXingDialogFragment - instancia da camera */
-    public static CameraZXingDialogFragment getInstance() {
-        if (DIALOG_FRAGMENT == null) {
-            DIALOG_FRAGMENT = new CameraZXingDialogFragment();
-        } return DIALOG_FRAGMENT;
+    public static CameraZXingDialogFragment novoDialog() {
+        DIALOG_FRAGMENT = new CameraZXingDialogFragment();
+        return DIALOG_FRAGMENT;
     }
 
     /** Defina o fragmento
-     * Usado para construir novo startActivityForResult e onActivityResult
-     * @param fragment Fragment - fragment da tela que vai usar essa classe */
-    public void setFragment(Fragment fragment) {
+     * Exemplo CameraZXingDialogFragment.novoDialog().setFragment(this).exibir();
+     * @param fragment Fragment - fragment da tela que vai usar essa classe
+     * @return CameraZXingDialogFragment */
+    public CameraZXingDialogFragment setFragment(Fragment fragment) {
         this.fragment = fragment;
         construirExibirObterResultado();
+        return this;
     }
 
     /** Constroi um callback para exibir e obter o resultado
@@ -52,7 +53,7 @@ public class CameraZXingDialogFragment extends DialogFragment {
     }
 
     /** Usado antes do metodo {@link CameraZXingDialogFragment#exibir()}
-     * Exemplo CameraZXingDialogFragment.getInstance().setReceberResposta(this).exibir();
+     * Exemplo CameraZXingDialogFragment.novoDialog().setReceberResposta(this).exibir();
      * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido
      * @return CameraZXingDialogFragment */
     public CameraZXingDialogFragment setReceberResposta(IResultadoCameraScanner iResultadoCameraScanner) {

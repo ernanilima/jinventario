@@ -21,10 +21,9 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
-import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
-import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
 public class ContagemPresenter implements IContagem.IPresenter {
@@ -77,8 +76,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
         } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes
-            //CameraZXingDialogFragment.getInstance().criar();
-            CameraZXingDialogFragment.getInstance().setReceberResposta(this).exibir();
+            vContagem.getCameraZXingDialogFragment().setReceberResposta(this).exibir();
         }
     }
 

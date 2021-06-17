@@ -38,6 +38,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     private IResultadoDialog iResultadoDialog;
     private AlertDialog.Builder aDialog;
 
+    private CameraZXingDialogFragment dfCameraZXing;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
@@ -71,7 +72,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         mConfiguracao = (Configuracao) getArguments().getSerializable(MODEL_CONFIGURACAO);
 
         // CAMERA TIPO ZXING
-        CameraZXingDialogFragment.getInstance().setFragment(this);
+        dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this);
     }
 
     @NonNull
@@ -126,11 +127,11 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
         ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
         paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        // exibe os dados que devem ser editados
+        campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
+        campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
+        campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
 
         final AlertDialog alertDialog = (AlertDialog) getDialog();
         if(alertDialog != null) {
@@ -142,11 +143,6 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             Button botaoConfirmar = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             botaoConfirmar.setOnClickListener(v -> confirmar());
         }
-
-        // exibe os dados que devem ser editados
-        campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
-        campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
-        campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
     }
 
     /** Abre a camera scanner
@@ -161,7 +157,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
 
         } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes
-            CameraZXingDialogFragment.getInstance().setReceberResposta(this).exibir();
+            dfCameraZXing.setReceberResposta(this).exibir();
         }
     }
 

@@ -38,6 +38,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     public static final String CODIGO_CONTAGEM = "CodigoContagem";
 
     private IContagem.IPresenter pContagem;
+    private CameraZXingDialogFragment dfCameraZXing;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
@@ -71,7 +72,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         pContagem = new ContagemPresenter(this);
 
         // CAMERA TIPO ZXING
-        CameraZXingDialogFragment.getInstance().setFragment(this);
+        dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this);
 
         //INICIALIZA
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
@@ -146,6 +147,11 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     /** Usado para excluir um item na lista de itens atribuida ao recycler adapter */
     public void setItemExcluido(ItemContagem mItemContagem) {
         raItemContagem.setItemExcluido(mItemContagem);
+    }
+
+    @Override
+    public CameraZXingDialogFragment getCameraZXingDialogFragment() {
+        return dfCameraZXing;
     }
 
     @Override
