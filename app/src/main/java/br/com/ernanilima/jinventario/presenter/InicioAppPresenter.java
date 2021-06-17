@@ -75,13 +75,12 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
 
     @Override
     public void excluirContagemEstoque(ContagemEstoque mContagemEstoque) {
-        ExclusaoDialogFragment dExclusaoFragment = new ExclusaoDialogFragment(this);
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de exclusao
         argumento.putSerializable(ExclusaoDialogFragment.MODEL_ITEM_CONTAGEM, mContagemEstoque);
-        dExclusaoFragment.setArguments(argumento);
-        dExclusaoFragment.setCancelable(false);
-        dExclusaoFragment.show(vInicioApp.requireParentFragment().getParentFragmentManager(),"tag");
+
+        ExclusaoDialogFragment.novoDialog(this, argumento)
+                .show(vInicioApp.requireParentFragment().getParentFragmentManager());
     }
 
     private void criarNovaContagem() {

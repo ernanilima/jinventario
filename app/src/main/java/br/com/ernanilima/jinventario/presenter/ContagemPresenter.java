@@ -118,13 +118,12 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
     @Override
     public void excluirItemColetado(ItemContagem mItemContagem) {
-        ExclusaoDialogFragment dExclusaoFragment = new ExclusaoDialogFragment(this);
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de exclusao
         argumento.putSerializable(ExclusaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
-        dExclusaoFragment.setArguments(argumento);
-        dExclusaoFragment.setCancelable(false);
-        dExclusaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
+
+        ExclusaoDialogFragment.novoDialog(this, argumento)
+                .show(vContagem.requireParentFragment().getParentFragmentManager());
     }
 
     /** Busca/Registra a lista de itens buscando no banco greendao
