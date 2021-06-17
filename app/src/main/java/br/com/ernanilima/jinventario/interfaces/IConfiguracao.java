@@ -13,6 +13,8 @@ public interface IConfiguracao {
         Fragment requireParentFragment();
         boolean getConfigCameraScanner();
         void setConfigCameraScanner(boolean b);
+        boolean getConfigUsarCameraMlkit();
+        boolean getConfigUsarCameraZxing();
     }
 
     /** Usado no presenter

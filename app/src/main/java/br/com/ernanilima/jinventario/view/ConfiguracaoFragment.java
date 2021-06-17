@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +20,9 @@ import br.com.ernanilima.jinventario.presenter.ConfiguracaoPresenter;
 public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IView {
 
     private IConfiguracao.IPresenter pConfiguracao;
-    private CheckBox chbx_ativar_camera;
+    private CheckBox chbx_camera_scanner;
+    private RadioGroup radio_group;
+    private RadioButton radio_camera_mlkit, radio_camera_zxing;
     private AppCompatButton btn_gravar;
 
     @Nullable
@@ -37,24 +41,45 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
 
         // INICIALIZA
         // nome_local = nome_no_xml
-        chbx_ativar_camera = view.findViewById(R.id.chbx_ativar_camera);
+        chbx_camera_scanner = view.findViewById(R.id.chbx_camera_scanner);
+        radio_group = view.findViewById(R.id.radio_group);
+        radio_camera_mlkit = view.findViewById(R.id.radio_camera_mlkit);
+        radio_camera_zxing = view.findViewById(R.id.radio_camera_zxing);
         btn_gravar = view.findViewById(R.id.btn_gravar);
 
         // ACAO DE BOTOES
+        chbx_camera_scanner.setOnCheckedChangeListener((buttonView, isChecked) -> usarCameraScanner(isChecked));
         btn_gravar.setOnClickListener(v -> pConfiguracao.gravarConfiguracao());
 
         pConfiguracao.popularDados();
     }
 
+    /** Usado para ativar/desativar radio button de tipo de camera
+     * @param isChecked boolean - checkbox de usar camera ativado/desativado */
+    private void usarCameraScanner(boolean isChecked) {
+        radio_camera_mlkit.setEnabled(isChecked);
+        radio_camera_zxing.setEnabled(isChecked);
+    }
+
     @Override
     /** Retorna se configuracao foi selecionada */
     public boolean getConfigCameraScanner() {
-        return chbx_ativar_camera.isChecked();
+        return chbx_camera_scanner.isChecked();
     }
 
     @Override
     /** Recebe a configuracao do campo */
     public void setConfigCameraScanner(boolean b) {
-        chbx_ativar_camera.setChecked(b);
+        chbx_camera_scanner.setChecked(b);
+    }
+
+    @Override
+    public boolean getConfigUsarCameraMlkit() {
+        return radio_camera_mlkit.isChecked();
+    }
+
+    @Override
+    public boolean getConfigUsarCameraZxing() {
+        return radio_camera_zxing.isChecked();
     }
 }

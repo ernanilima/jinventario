@@ -5,7 +5,6 @@ import br.com.ernanilima.jinventario.interfaces.IConfiguracao;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ConfiguracaoDao;
 import br.com.ernanilima.jinventario.model.DaoSession;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
 
@@ -25,11 +24,13 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
 
     @Override
     public void gravarConfiguracao() {
-        Configuracao dbConfiguracao = dConfiguracao.load(1L); // busca configuracao no banco greendao
-        Configuracao mConfiguracao = (dbConfiguracao != null) ? dbConfiguracao : new Configuracao(); // verifica se busca eh null
-        mConfiguracao.setCameraScanner(vConfiguracao.getConfigCameraScanner()); // atribui boolean da opcao de configuracao
-        dConfiguracao.save(mConfiguracao); // grava a configuracao
-        NavegacaoApp.abrirTelaInicioApp(vConfiguracao.requireParentFragment().getView()); // abre a tela inicial do app
+        System.out.println("USAR CAMERA SCANNER MLKIT " + vConfiguracao.getConfigUsarCameraMlkit());
+        System.out.println("USAR CAMERA SCANNER ZXING " + vConfiguracao.getConfigUsarCameraZxing());
+//        Configuracao dbConfiguracao = dConfiguracao.load(1L); // busca configuracao no banco greendao
+//        Configuracao mConfiguracao = (dbConfiguracao != null) ? dbConfiguracao : new Configuracao(); // verifica se busca eh null
+//        mConfiguracao.setCameraScanner(vConfiguracao.getConfigCameraScanner()); // atribui boolean da opcao de configuracao
+//        dConfiguracao.save(mConfiguracao); // grava a configuracao
+//        NavegacaoApp.abrirTelaInicioApp(vConfiguracao.requireParentFragment().getView()); // abre a tela inicial do app
     }
 
     @Override
