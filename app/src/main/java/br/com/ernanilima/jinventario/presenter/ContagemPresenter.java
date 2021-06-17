@@ -116,7 +116,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
         argumento.putSerializable(AlteracaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
-        argumento.putBoolean(AlteracaoDialogFragment.CAMERA_SCANNER, dbConfiguracao == null || dbConfiguracao.getCameraScanner());
+        argumento.putSerializable(AlteracaoDialogFragment.MODEL_CONFIGURACAO, dbConfiguracao);
         dAlteracaoFragment.setArguments(argumento);
         dAlteracaoFragment.setCancelable(false);
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");

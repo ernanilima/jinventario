@@ -5,8 +5,11 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 @Entity(nameInDb = "CONFIGURACAO")
-public class Configuracao {
+public class Configuracao implements Serializable {
+    private static final long serialVersionUID = 1L;
     // construtores, gets e sets sao gerados automaticamente ao executar o projeto
 
     @Id(autoincrement = true)

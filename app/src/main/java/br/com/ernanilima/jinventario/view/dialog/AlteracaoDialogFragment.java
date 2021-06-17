@@ -24,16 +24,17 @@ import com.google.zxing.integration.android.IntentResult;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
+import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
 public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner {
 
-    private ItemContagem mItemContagem;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
-    public static final String CAMERA_SCANNER = "UsarCameraComoScanner";
-    private Boolean cameraScanner;
+    public static final String MODEL_CONFIGURACAO = "UsarCameraComoScanner";
+    private ItemContagem mItemContagem;
+    private Configuracao mConfiguracao;
 
     private IResultadoDialog iResultadoDialog;
     private AlertDialog.Builder builder;
@@ -52,8 +53,11 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // argumentos recebidos
         mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
-        cameraScanner = getArguments().getBoolean(CAMERA_SCANNER);
+        mConfiguracao = (Configuracao) getArguments().getSerializable(MODEL_CONFIGURACAO);
+
+        // construcao de metodo
         construirExibirObterResultado();
     }
 
@@ -87,14 +91,14 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
         paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;
 
-        validarConfiguracao();
+        usarCameraScanner();
         atualizarParaAlteracao();
 
         return builder.create();
     }
 
-    private void validarConfiguracao() {
-        if (cameraScanner) { // se na configuracao o uso for habilitado, exibe o botao de usar camera como scanner
+    private void usarCameraScanner() {
+        if (mConfiguracao == null || mConfiguracao.getCameraScanner()) { // se na configuracao o uso for habilitado, exibe o botao de usar camera como scanner
             builder.setNeutralButton("Camera Código Barras", null);
         }
     }
@@ -128,20 +132,22 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     /** Abre a camera scanner
      * Envia esse dialog para obter a resposta da camera */
     private void abrirCameraScanner() {
-        integrator = new IntentIntegrator(getActivity());
-        integrator.setPrompt("SCANNER");
-        integrator.setBeepEnabled(true);
-        integrator.setOrientationLocked(true);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
-        abrirParaObterResultado.launch(integrator.createScanIntent());
-
-//        CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
-//        Bundle argumento = new Bundle();
-//        // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
-//        argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
-//        dCameraFragment.setArguments(argumento);
-//        dCameraFragment.setCancelable(false);
-//        dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
+        if (mConfiguracao == null || mConfiguracao.getCameraScannerMlkit()) {
+            CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
+            Bundle argumento = new Bundle();
+            // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
+            argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
+            dCameraFragment.setArguments(argumento);
+            dCameraFragment.setCancelable(false);
+            dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
+        } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
+            integrator = new IntentIntegrator(getActivity());
+            integrator.setPrompt("SCANNER");
+            integrator.setBeepEnabled(true);
+            integrator.setOrientationLocked(true);
+            integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+            abrirParaObterResultado.launch(integrator.createScanIntent());
+        }
     }
 
     /** Abre o Dialog com os dados do item que vai ser alterado */
