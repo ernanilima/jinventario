@@ -4,8 +4,8 @@ import android.app.Application;
 
 import org.greenrobot.greendao.database.Database;
 
-import br.com.ernanilima.jinventario.model.DaoMaster;
-import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.dao.DaoMaster;
+import br.com.ernanilima.jinventario.dao.DaoSession;
 
 /** Classe criada para obter a sessao do banco de dados criado pelo greendao */
 public class DbGreenDao extends Application {

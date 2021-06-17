@@ -35,6 +35,21 @@ android {
     }
 }
 
+greendao {
+    // https://greenrobot.org/greendao/documentation/modelling-entities/
+
+    // a versao dever ser alterada sempre que alterar/criar um model
+    // os dados ja gravados serao apagados
+    // futuramente deve ser verificado/implementado o schema sem apagar dados
+    // https://stackoverflow.com/questions/16154113/greendao-schema-upgrade
+    schemaVersion 2
+
+    // pasta foi criada, projeto limpado e construido
+    // dados criados automaticamente na pasta criada
+    // atualizado os imports para buscar os daos na pasta criada
+    daoPackage 'br.com.ernanilima.jinventario.dao'
+}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.0'

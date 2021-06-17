@@ -1,8 +1,8 @@
 package br.com.ernanilima.jinventario.service.component;
 
-import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.NomeAparelho;
-import br.com.ernanilima.jinventario.model.NomeAparelhoDao;
+import br.com.ernanilima.jinventario.dao.NomeAparelhoDao;
 
 public class NomeAparelhoAutenticacao {
 

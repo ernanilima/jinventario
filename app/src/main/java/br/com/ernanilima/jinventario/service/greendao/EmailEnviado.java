@@ -1,9 +1,9 @@
 package br.com.ernanilima.jinventario.service.greendao;
 
 import br.com.ernanilima.jinventario.model.EmailNovaSenha;
-import br.com.ernanilima.jinventario.model.EmailNovaSenhaDao;
+import br.com.ernanilima.jinventario.dao.EmailNovaSenhaDao;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
-import br.com.ernanilima.jinventario.model.EmailVerificacaoDao;
+import br.com.ernanilima.jinventario.dao.EmailVerificacaoDao;
 
 public class EmailEnviado {
 

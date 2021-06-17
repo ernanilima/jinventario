@@ -2,9 +2,9 @@ package br.com.ernanilima.jinventario.presenter;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
-import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.NomeAparelho;
-import br.com.ernanilima.jinventario.model.NomeAparelhoDao;
+import br.com.ernanilima.jinventario.dao.NomeAparelhoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;

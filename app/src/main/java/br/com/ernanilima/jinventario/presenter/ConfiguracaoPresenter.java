@@ -3,8 +3,8 @@ package br.com.ernanilima.jinventario.presenter;
 import br.com.ernanilima.jinventario.config.DbGreenDao;
 import br.com.ernanilima.jinventario.interfaces.IConfiguracao;
 import br.com.ernanilima.jinventario.model.Configuracao;
-import br.com.ernanilima.jinventario.model.ConfiguracaoDao;
-import br.com.ernanilima.jinventario.model.DaoSession;
+import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
+import br.com.ernanilima.jinventario.dao.DaoSession;
 
 public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
 
