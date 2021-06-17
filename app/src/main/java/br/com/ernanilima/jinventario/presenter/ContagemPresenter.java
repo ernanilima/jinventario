@@ -6,21 +6,22 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
+import br.com.ernanilima.jinventario.dao.ContagemEstoqueDao;
+import br.com.ernanilima.jinventario.dao.DaoSession;
+import br.com.ernanilima.jinventario.dao.ItemContagemDao;
 import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.Configuracao;
-import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
-import br.com.ernanilima.jinventario.dao.ContagemEstoqueDao;
-import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
-import br.com.ernanilima.jinventario.dao.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
+import br.com.ernanilima.jinventario.view.dialog.CameraDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
@@ -36,7 +37,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     private ConfiguracaoDao dConfiguracao;
     private List<ItemContagem> lsItensContagem;
 
-    private Configuracao mConfiguracao;
+    private Configuracao dbConfiguracao;
 
     /** Construtor
      * @param vContagem IContagem.IView - view(fragment) de contagem */
@@ -48,6 +49,9 @@ public class ContagemPresenter implements IContagem.IPresenter {
         this.dContagemEstoque = daoSession.getContagemEstoqueDao();
         this.dItemContagem = daoSession.getItemContagemDao();
         this.dConfiguracao = daoSession.getConfiguracaoDao();
+
+        // BUSCA CONFIGURACAO GRAVADA NO BANCO
+        dbConfiguracao = dConfiguracao.load(1L);
     }
 
     @Override
@@ -62,11 +66,24 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
     @Override
     /** Abre a camera scanner
-     * Envia esse presenter para obter a resposta da camera */
+     * Exibe a camera padrao (ml kit google) ou a escolhida nas configuracoes */
     public void abrirCameraScanner() {
+        if (dbConfiguracao == null || dbConfiguracao.getCameraScannerMlkit()) {
+            // por padrao essa eh a camera usada, entao essa camera eh exibida mesmo se o
+            // usuario nunca tenha gravado nenhuma configuracao
 
-        CameraZXingDialogFragment.getInstance().criar();
+            CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
+            Bundle argumento = new Bundle();
+            // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
+            argumento.putSerializable(CameraDialogFragment.IRESULTADO_CAMERA, this);
+            dCameraFragment.setArguments(argumento);
+            dCameraFragment.setCancelable(false);
+            dCameraFragment.show(vContagem.requireParentFragment().getParentFragmentManager(), "tag");
 
+        } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
+            // para usar essa camera, o usuario precisa escolher nas configuracoes
+            CameraZXingDialogFragment.getInstance().criar();
+        }
     }
 
     @Override
@@ -99,7 +116,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
         argumento.putSerializable(AlteracaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
-        argumento.putBoolean(AlteracaoDialogFragment.CAMERA_SCANNER, mConfiguracao == null || mConfiguracao.getCameraScanner());
+        argumento.putBoolean(AlteracaoDialogFragment.CAMERA_SCANNER, dbConfiguracao == null || dbConfiguracao.getCameraScanner());
         dAlteracaoFragment.setArguments(argumento);
         dAlteracaoFragment.setCancelable(false);
         dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
@@ -157,8 +174,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     @Override
     /** Carregado ao iniciar o view de contagem */
     public void popularDadosConfiguracao() {
-        mConfiguracao = dConfiguracao.load(1L);
-        if (mConfiguracao != null && !mConfiguracao.getCameraScanner()) {
+        if (dbConfiguracao != null && !dbConfiguracao.getCameraScanner()) {
             // desativa o botao de usar camera como scanner
             vContagem.desativarUsoDaCamera();
         }
