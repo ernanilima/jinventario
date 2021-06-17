@@ -71,7 +71,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         mConfiguracao = (Configuracao) getArguments().getSerializable(MODEL_CONFIGURACAO);
 
         // CAMERA TIPO ZXING
-        CameraZXingDialogFragment.getInstance().setFragment(this, this);
+        CameraZXingDialogFragment.getInstance().setFragment(this);
     }
 
     @NonNull
@@ -161,7 +161,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
 
         } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes
-            CameraZXingDialogFragment.getInstance().criar();
+            CameraZXingDialogFragment.getInstance().setReceberResposta(this).exibir();
         }
     }
 

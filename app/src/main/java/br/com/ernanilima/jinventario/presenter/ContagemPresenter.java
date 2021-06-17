@@ -77,7 +77,8 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
         } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes
-            CameraZXingDialogFragment.getInstance().criar();
+            //CameraZXingDialogFragment.getInstance().criar();
+            CameraZXingDialogFragment.getInstance().setReceberResposta(this).exibir();
         }
     }
 

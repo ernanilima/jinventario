@@ -71,7 +71,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         pContagem = new ContagemPresenter(this);
 
         // CAMERA TIPO ZXING
-        CameraZXingDialogFragment.getInstance().setFragment(this, pContagem);
+        CameraZXingDialogFragment.getInstance().setFragment(this);
 
         //INICIALIZA
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
