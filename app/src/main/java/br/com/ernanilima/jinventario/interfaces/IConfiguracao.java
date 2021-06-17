@@ -14,13 +14,15 @@ public interface IConfiguracao {
         boolean getConfigCameraScanner();
         void setConfigCameraScanner(boolean b);
         boolean getConfigUsarCameraMlkit();
+        void setConfigUsarCameraMlkit(boolean b);
         boolean getConfigUsarCameraZxing();
+        void setConfigUsarCameraZxing(boolean b);
     }
 
     /** Usado no presenter
      * {@link ConfiguracaoPresenter} */
     interface IPresenter {
         void gravarConfiguracao();
-        void popularDados();
+        void popularDadosConfiguracao();
     }
 }

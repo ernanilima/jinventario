@@ -51,7 +51,7 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
         chbx_camera_scanner.setOnCheckedChangeListener((buttonView, isChecked) -> usarCameraScanner(isChecked));
         btn_gravar.setOnClickListener(v -> pConfiguracao.gravarConfiguracao());
 
-        pConfiguracao.popularDados();
+        pConfiguracao.popularDadosConfiguracao();
     }
 
     /** Usado para ativar/desativar radio button de tipo de camera
@@ -79,7 +79,17 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
     }
 
     @Override
+    public void setConfigUsarCameraMlkit(boolean b) {
+        radio_camera_mlkit.setChecked(b);
+    }
+
+    @Override
     public boolean getConfigUsarCameraZxing() {
         return radio_camera_zxing.isChecked();
+    }
+
+    @Override
+    public void setConfigUsarCameraZxing(boolean b) {
+        radio_camera_zxing.setChecked(b);
     }
 }

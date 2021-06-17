@@ -1,16 +1,18 @@
 package br.com.ernanilima.jinventario.presenter;
 
 import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.interfaces.IConfiguracao;
-import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
 import br.com.ernanilima.jinventario.dao.DaoSession;
+import br.com.ernanilima.jinventario.interfaces.IConfiguracao;
+import br.com.ernanilima.jinventario.model.Configuracao;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
 
     private IConfiguracao.IView vConfiguracao;
     private DaoSession daoSession;
     private ConfiguracaoDao dConfiguracao;
+    private Configuracao dbConfiguracao;
 
     /** Construtor
      * @param vConfiguracao IConfiguracao.IView - view(fragment) de configuracao */
@@ -20,25 +22,38 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
         // GREENDAO
         this.daoSession = ((DbGreenDao) this.vConfiguracao.requireParentFragment().getActivity().getApplication()).getSessao();
         this.dConfiguracao = daoSession.getConfiguracaoDao();
+
+        // BUSCA CONFIGURACAO GRAVADA NO BANCO
+         dbConfiguracao = dConfiguracao.load(1L);
     }
 
     @Override
+    /** Grava as configuracoes */
     public void gravarConfiguracao() {
-        System.out.println("USAR CAMERA SCANNER MLKIT " + vConfiguracao.getConfigUsarCameraMlkit());
-        System.out.println("USAR CAMERA SCANNER ZXING " + vConfiguracao.getConfigUsarCameraZxing());
-//        Configuracao dbConfiguracao = dConfiguracao.load(1L); // busca configuracao no banco greendao
-//        Configuracao mConfiguracao = (dbConfiguracao != null) ? dbConfiguracao : new Configuracao(); // verifica se busca eh null
-//        mConfiguracao.setCameraScanner(vConfiguracao.getConfigCameraScanner()); // atribui boolean da opcao de configuracao
-//        dConfiguracao.save(mConfiguracao); // grava a configuracao
-//        NavegacaoApp.abrirTelaInicioApp(vConfiguracao.requireParentFragment().getView()); // abre a tela inicial do app
+        // atribui na configuracao criada, uma configuracao do banco ou um nova
+        Configuracao mConfiguracao = (dbConfiguracao != null) ? dbConfiguracao : new Configuracao();
+
+        // atribui boolean para usar camera como scanner
+        mConfiguracao.setCameraScanner(vConfiguracao.getConfigCameraScanner());
+        // atribui boolean para usar o tipo de camera ml kit (google)
+        mConfiguracao.setCameraScannerMlkit(vConfiguracao.getConfigUsarCameraMlkit());
+        // atribui boolean para usar o tipo de camera zxing
+        mConfiguracao.setCameraScannerZxing(vConfiguracao.getConfigUsarCameraZxing());
+
+        // grava a configuracao
+        dConfiguracao.save(mConfiguracao);
+
+        // abre a tela inicial do app
+        NavegacaoApp.abrirTelaInicioApp(vConfiguracao.requireParentFragment().getView());
     }
 
     @Override
-    /** Usado para buscar a configuracao no banco greendao e atribuir essa configuracao no campo */
-    public void popularDados() {
-        Configuracao dbConfiguracao = dConfiguracao.load(1L); // busca configuracao no banco greendao
+    /** Atribui no campo as configuracoes gravadas no banco */
+    public void popularDadosConfiguracao() {
         if (dbConfiguracao != null) {
             vConfiguracao.setConfigCameraScanner(dbConfiguracao.getCameraScanner());
+            vConfiguracao.setConfigUsarCameraMlkit(dbConfiguracao.getCameraScannerMlkit());
+            vConfiguracao.setConfigUsarCameraZxing(dbConfiguracao.getCameraScannerZxing());
         }
     }
 }
