@@ -69,7 +69,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
      * Exibe a camera padrao (ml kit google) ou a escolhida nas configuracoes */
     public void abrirCameraScanner() {
         if (dbConfiguracao == null || dbConfiguracao.getCameraScannerMlkit()) {
-            // por padrao essa eh a camera usada, entao essa camera eh exibida mesmo se o
+            // por padrao essa eh a camera usada mesmo que o
             // usuario nunca tenha gravado nenhuma configuracao
 
             CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
@@ -112,14 +112,13 @@ public class ContagemPresenter implements IContagem.IPresenter {
     @Override
     /** Exibe um dialog para alterar o item selecionado */
     public void alterarItemColetado(ItemContagem mItemContagem) {
-        AlteracaoDialogFragment dAlteracaoFragment = new AlteracaoDialogFragment(this);
         Bundle argumento = new Bundle();
         // armazena o model como argumento para que possa ser receptado pelo dialog de alteracao
         argumento.putSerializable(AlteracaoDialogFragment.MODEL_ITEM_CONTAGEM, mItemContagem);
         argumento.putSerializable(AlteracaoDialogFragment.MODEL_CONFIGURACAO, dbConfiguracao);
-        dAlteracaoFragment.setArguments(argumento);
-        dAlteracaoFragment.setCancelable(false);
-        dAlteracaoFragment.show(vContagem.requireParentFragment().getParentFragmentManager(),"tag");
+
+        AlteracaoDialogFragment.novoDialog(this, argumento)
+                .show(vContagem.requireParentFragment().getParentFragmentManager());
     }
 
     @Override

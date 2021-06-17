@@ -1,25 +1,21 @@
 package br.com.ernanilima.jinventario.view.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
@@ -28,56 +24,94 @@ import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner {
 
+    private static AlteracaoDialogFragment DIALOG_FRAGMENT;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
     public static final String MODEL_CONFIGURACAO = "UsarCameraComoScanner";
     private ItemContagem mItemContagem;
     private Configuracao mConfiguracao;
 
     private IResultadoDialog iResultadoDialog;
-    private AlertDialog.Builder builder;
-    private ActivityResultLauncher<Intent> abrirParaObterResultado;
-    private IntentIntegrator integrator;
+    private AlertDialog.Builder aDialog;
+
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
 
+    /** Cria um dialog de alteracao
+     * @param iResultadoDialog IResultadoDialog - onde o resultado sera exibido
+     * @param argumentos Bundle - argumentos para o dialog
+     * @return AlteracaoDialogFragment - nova instancia do dialog */
+    public static AlteracaoDialogFragment novoDialog(IResultadoDialog iResultadoDialog, Bundle argumentos) {
+        DIALOG_FRAGMENT = new AlteracaoDialogFragment(iResultadoDialog);
+        DIALOG_FRAGMENT.setArguments(argumentos);
+        return DIALOG_FRAGMENT;
+    }
+
     /** Construtor
-     * @param iResultadoDialog IResultadoDialog */
-    public AlteracaoDialogFragment(IResultadoDialog iResultadoDialog) {
+     * @param iResultadoDialog IResultadoDialog - onde o resultado sera exibido */
+    private AlteracaoDialogFragment(IResultadoDialog iResultadoDialog) {
         this.iResultadoDialog = iResultadoDialog;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // cria o dialog
+        aDialog = new AlertDialog.Builder(getActivity());
+
         // argumentos recebidos
         mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
         mConfiguracao = (Configuracao) getArguments().getSerializable(MODEL_CONFIGURACAO);
 
-        // construcao de metodo
-        construirExibirObterResultado();
+        // CAMERA TIPO ZXING
+        CameraZXingDialogFragment.getInstance().setFragment(this, this);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        builder = new AlertDialog.Builder(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_contagem_inserir, null);
-        builder.setView(view)
+
+        aDialog.setView(view)
                 .setTitle("Alteração")
+                // ira verificar se o botao neutro sera exibido
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel())
+                // botao confirmar implementado em outro metodo
+                // dessa forma o botao nao fecha o dialog sem fazer as validados de campo
                 .setPositiveButton("Confirmar", null);
 
+        //INICIALIZA
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
         btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
         btn_ok = view.findViewById(R.id.btn_ok);
 
+        validarConfigUsarCamera();
+
+        return aDialog.create();
+    }
+
+    private void validarConfigUsarCamera() {
+        // verifica se a camera pode ser usada como scanner
+        // por padrao a camera eh exibida mesmo que o usuario nunca tenha gravado nenhuma configuracao
+        if (mConfiguracao == null || mConfiguracao.getCameraScanner()) {
+            aDialog.setNeutralButton("Camera Como Scanner", null);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // botao invisivel
         btn_camera_scanner.setVisibility(View.INVISIBLE);
         btn_ok.setVisibility(View.INVISIBLE);
 
@@ -90,49 +124,36 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
         ViewGroup.MarginLayoutParams paramsOk = (ViewGroup.MarginLayoutParams) btn_ok.getLayoutParams();
         paramsOk.leftMargin = 0; paramsOk.rightMargin = 0;
-
-        usarCameraScanner();
-        atualizarParaAlteracao();
-
-        return builder.create();
-    }
-
-    private void usarCameraScanner() {
-        if (mConfiguracao == null || mConfiguracao.getCameraScanner()) { // se na configuracao o uso for habilitado, exibe o botao de usar camera como scanner
-            builder.setNeutralButton("Camera Código Barras", null);
-        }
-    }
-
-    private void construirExibirObterResultado() {
-        // https://developer.android.com/training/basics/intents/result
-        // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
-        abrirParaObterResultado = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    IntentResult resultado = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
-                    if (resultado != null) {
-                        setResultadoCameraScanner(resultado.getContents());
-                    }
-                });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         final AlertDialog alertDialog = (AlertDialog) getDialog();
         if(alertDialog != null) {
             // botao neutro, abre a camera scanner
-            Button botaoNeutro = alertDialog.getButton(Dialog.BUTTON_NEUTRAL);
+            Button botaoNeutro = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
             botaoNeutro.setOnClickListener(v -> abrirCameraScanner());
+
             // botao positivo
-            Button botaoConfirmar = alertDialog.getButton(Dialog.BUTTON_POSITIVE);
+            Button botaoConfirmar = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             botaoConfirmar.setOnClickListener(v -> confirmar());
         }
+
+        // exibe os dados que devem ser editados
+        campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
+        campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
+        campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
     }
 
     /** Abre a camera scanner
      * Envia esse dialog para obter a resposta da camera */
     private void abrirCameraScanner() {
         if (mConfiguracao == null || mConfiguracao.getCameraScannerMlkit()) {
+            // por padrao essa eh a camera usada mesmo que o
+            // usuario nunca tenha gravado nenhuma configuracao
+
             CameraDialogFragment dCameraFragment = new CameraDialogFragment(this);
             Bundle argumento = new Bundle();
             // armazena a interface como argumento para que possa ser receptado pelo dialog de scanner com a canera
@@ -140,21 +161,17 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             dCameraFragment.setArguments(argumento);
             dCameraFragment.setCancelable(false);
             dCameraFragment.show(getActivity().getSupportFragmentManager(), "tag");
+
         } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
-            integrator = new IntentIntegrator(getActivity());
-            integrator.setPrompt("SCANNER");
-            integrator.setBeepEnabled(true);
-            integrator.setOrientationLocked(true);
-            integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
-            abrirParaObterResultado.launch(integrator.createScanIntent());
+            // para usar essa camera, o usuario precisa escolher nas configuracoes
+            CameraZXingDialogFragment.getInstance().criar();
         }
     }
 
-    /** Abre o Dialog com os dados do item que vai ser alterado */
-    private void atualizarParaAlteracao() {
-        campo_codbarras.getEditText().setText(mItemContagem.getCodigoBarras());
-        campo_qtd_dcaixa.getEditText().setText(mItemContagem.getQtdDeCaixas());
-        campo_qtd_pcaixa.getEditText().setText(mItemContagem.getQtdPorCaixa());
+    /** Exibe o dialog
+     * @param fragmentManager FragmentManager - tela que o dialog sera exibido */
+    public void show(FragmentManager fragmentManager) {
+        DIALOG_FRAGMENT.show(fragmentManager, "alterar_item");
     }
 
     /** Confirma a alteracao realizada no dialog */
