@@ -75,8 +75,8 @@ public class AppActivity extends AppCompatActivity {
         drawerLayout.closeDrawers(); // fecha o drawer layout
         // antes de abrir a configuracao, a tela inicial eh aberta para que o retorno
         // da configuracao seja a tela inicial caso seja pressionado o botao voltar
-        NavegacaoApp.abrirTelaInicioApp(getCurrentFocus());
-        NavegacaoApp.abrirTelaConfiguracao(getCurrentFocus());
+        NavegacaoApp.abrirTelaInicioApp(findViewById(R.id.fragment_app));
+        NavegacaoApp.abrirTelaConfiguracao(findViewById(R.id.fragment_app));
         return true;
     }
 
