@@ -35,6 +35,7 @@ public class CameraMLKitDialogFragment extends DialogFragment {
     private static CameraMLKitDialogFragment DIALOG_FRAGMENT;
 
     private IResultadoCameraScanner iResultadoCameraScanner;
+    private FragmentManager fragmentManager;
     private AlertDialog.Builder aDialog;
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
@@ -43,18 +44,29 @@ public class CameraMLKitDialogFragment extends DialogFragment {
     private CameraScannerAnalyzer cameraScannerAnalyzer;
 
     /** Cria um dialog para camera
-     * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido
      * @return CameraMLKitDialogFragment - nova instancia do dialog */
-    public static CameraMLKitDialogFragment novoDialog(IResultadoCameraScanner iResultadoCameraScanner) {
-        DIALOG_FRAGMENT = new CameraMLKitDialogFragment(iResultadoCameraScanner);
+    public static CameraMLKitDialogFragment novoDialog() {
+        DIALOG_FRAGMENT = new CameraMLKitDialogFragment();
         DIALOG_FRAGMENT.setCancelable(false);
         return DIALOG_FRAGMENT;
     }
 
-    /** Construtor
-     * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido */
-    private CameraMLKitDialogFragment(IResultadoCameraScanner iResultadoCameraScanner) {
+    /** Usado antes do metodo {@link CameraMLKitDialogFragment#exibir()}
+     * Exemplo CameraMLKitDialogFragment.novoDialog().setFragmentManager(getParentFragmentManager()).exibir();
+     * @param fragmentManager FragmentManager - tela que o dialog sera exibido
+     * @return CameraMLKitDialogFragment */
+    public CameraMLKitDialogFragment setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+        return this;
+    }
+
+    /** Usado antes do metodo {@link CameraMLKitDialogFragment#exibir()}
+     * Exemplo CameraMLKitDialogFragment.novoDialog().setReceberResposta(this).exibir();
+     * @param iResultadoCameraScanner IResultadoCameraScanner - onde o resultado sera exibido
+     * @return CameraMLKitDialogFragment */
+    public CameraMLKitDialogFragment setReceberResposta(IResultadoCameraScanner iResultadoCameraScanner) {
         this.iResultadoCameraScanner = iResultadoCameraScanner;
+        return this;
     }
 
     @Override
@@ -125,9 +137,8 @@ public class CameraMLKitDialogFragment extends DialogFragment {
         cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture, imageAnalysis);
     }
 
-    /** Exibe o dialog
-     * @param fragmentManager FragmentManager - tela que o dialog sera exibido */
-    public void show(FragmentManager fragmentManager) {
+    /** Usado para exibir a camera */
+    public void exibir() {
         DIALOG_FRAGMENT.show(fragmentManager, "camera_mlkit");
     }
 

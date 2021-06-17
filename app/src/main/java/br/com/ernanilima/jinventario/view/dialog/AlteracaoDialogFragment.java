@@ -152,8 +152,10 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
             // por padrao essa eh a camera usada mesmo que o
             // usuario nunca tenha gravado nenhuma configuracao
 
-            CameraMLKitDialogFragment.novoDialog(this)
-                    .show(getParentFragmentManager());
+            CameraMLKitDialogFragment.novoDialog()
+                    .setFragmentManager(getParentFragmentManager())
+                    .setReceberResposta(this)
+                    .exibir();
 
         } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes

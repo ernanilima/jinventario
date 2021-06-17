@@ -71,8 +71,10 @@ public class ContagemPresenter implements IContagem.IPresenter {
             // por padrao essa eh a camera usada mesmo que o
             // usuario nunca tenha gravado nenhuma configuracao
 
-            CameraMLKitDialogFragment.novoDialog(this)
-                    .show(vContagem.requireParentFragment().getParentFragmentManager());
+            CameraMLKitDialogFragment.novoDialog()
+                    .setFragmentManager(vContagem.requireParentFragment().getParentFragmentManager())
+                    .setReceberResposta(this)
+                    .exibir();
 
         } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
             // para usar essa camera, o usuario precisa escolher nas configuracoes
