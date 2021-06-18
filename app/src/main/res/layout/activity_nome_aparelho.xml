@@ -55,7 +55,7 @@
                     android:imeOptions="actionDone"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-1234567890"
                     android:inputType="textFilter"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/primaryTextColor" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -65,11 +65,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="#0044F0"
+        android:background="@color/primaryColor"
         android:text="@string/s_gravar"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:textColor="@color/white"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />

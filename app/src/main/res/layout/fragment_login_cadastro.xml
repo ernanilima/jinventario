@@ -43,8 +43,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -63,8 +62,7 @@
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
                     android:inputType="numberPassword"
-                    android:maxLength="15"
-                    android:textColor="@color/black" />
+                    android:maxLength="15" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,8 +81,7 @@
                     android:background="@android:color/transparent"
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword"
-                    android:maxLength="15"
-                    android:textColor="@color/black" />
+                    android:maxLength="15" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -101,27 +98,24 @@
 
                 <TextView
                     android:id="@+id/btn_politica_privacidade"
-                    android:layout_width="wrap_content"
+                    style="@style/Theme.JInventario.Link"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Confirmo que li a Política de Privacidade"
-                    android:textColor="#1E88E5" />
-
+                    android:text="@string/s_chbx_politica_privacidade" />
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cadastrar"
+        style="@style/Theme.JInventario.Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="#0044F0"
         android:text="@string/s_cadastrar"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -132,7 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/s_voltar"
-        android:textColor="#1E88E5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

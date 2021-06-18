@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.LoginFragment">
 
-
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,8 +43,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,20 +62,19 @@
                     android:background="@android:color/transparent"
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword"
-                    android:maxLength="15"
-                    android:textColor="@color/black" />
+                    android:maxLength="15" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/btn_esqueceu_senha"
+                style="@style/Theme.JInventario.Link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/s_esqueceusenha"
-                android:textColor="#1E88E5"
                 android:textSize="16sp" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -93,7 +90,7 @@
             android:id="@+id/chbx_lembrar_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:enabled="false"
             android:checked="true"
             android:text="@string/s_lembrarlogin" />
@@ -103,15 +100,14 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
+            style="@style/Theme.JInventario.Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:background="@color/cardview_dark_background"
+            android:layout_marginEnd="15dp"
             android:text="@string/s_t_login"
             android:textAllCaps="false"
-            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,62 +115,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login_gmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="#1A000000" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/s_loginsocial"
-            android:textColor="#80000000"
-            android:textSize="12dp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#1A000000" />
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login_gmail"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:drawableStart="@drawable/ic_gmail"
-        android:text="@string/s_entrargmail"
-        android:textAllCaps="false"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -185,12 +132,61 @@
 
         <TextView
             android:id="@+id/btn_cadastrar"
+            style="@style/Theme.JInventario.Link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/s_cadastrese"
-            android:textColor="#1E88E5" />
+            android:text="@string/s_cadastrese" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_margin="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login_gmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            style="@style/Theme.JInventario.Separator"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/s_loginsocial"
+            android:textSize="12sp" />
+
+        <View
+            style="@style/Theme.JInventario.Separator"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login_gmail"
+        style="@style/Theme.JInventario.Google"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16sp"
+        android:text="@string/s_entrargmail"
+        android:textAllCaps="false"
+        app:cornerRadius="25dp"
+        app:icon="@drawable/ic_gmail"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
