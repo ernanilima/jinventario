@@ -31,6 +31,11 @@
         <item name="android:textColor">@color/linkColor</item>
     </style>
 
+    <style name="Theme.JInventario.HeaderDrawerLayout">
+        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
     <style name="Theme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.PopupMenu" parent="Theme.MaterialComponents.Light" />

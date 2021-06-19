@@ -15,15 +15,20 @@
     </style>
 
     <style name="Theme.JInventario.Login">
-        <item name="backgroundTint">@color/loginColorNight</item>
-        <item name="android:textColor">@color/loginTextColorNight</item>
+        <item name="backgroundTint">@color/loginNightColor</item>
+        <item name="android:textColor">@color/loginTextColor</item>
     </style>
 
     <style name="Theme.JInventario.Separator">
-        <item name="android:background">@color/separatorColorNight</item>
+        <item name="android:background">@color/separatorNightColor</item>
     </style>
 
     <style name="Theme.JInventario.Link">
-        <item name="android:textColor">@color/linkColorNight</item>
+        <item name="android:textColor">@color/linkNightColor</item>
+    </style>
+
+    <style name="Theme.JInventario.HeaderDrawerLayout">
+        <item name="android:background">@color/secondaryLightColor</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 </resources>

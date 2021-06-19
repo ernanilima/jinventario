@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/secondaryColor"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/Theme.JInventario.HeaderDrawerLayout">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="56dp"
@@ -15,16 +14,40 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_usuario_padrao" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/campo_nav_nomeaparelho"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NomeAparelho" />
+        android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/campo_nav_email"
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10sp"
+            android:text="@string/s_hdl_nome_aparelho" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/campo_nav_nomeaparelho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_hdl_exemplo_nome_aparelho" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email@email.com.br" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10sp"
+            android:text="@string/s_hdl_email" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/campo_nav_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_hdl_exemplo_email" />
+    </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

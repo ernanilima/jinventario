@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#2196f3</color>
-    <color name="primaryLightColor">#6ec6ff</color>
-    <color name="primaryDarkColor">#0069c0</color>
-    <color name="secondaryColor">#303f9f</color>
-    <color name="secondaryLightColor">#666ad1</color>
-    <color name="secondaryDarkColor">#001970</color>
+    <color name="primaryColor">#f5f5f5</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryDarkColor">#c2c2c2</color>
+    <color name="secondaryColor">#37474f</color>
+    <color name="secondaryLightColor">#62727b</color>
+    <color name="secondaryDarkColor">#102027</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
 
     <!--  Botoes no fragment login  -->
-    <color name="loginColor">#37474f</color>
-    <color name="loginTextColor">#ffffff</color>
-    <color name="loginColorNight">#b0bec5</color>
-    <color name="loginTextColorNight">#000000</color>
+    <color name="loginColor">@color/secondaryColor</color>
+    <color name="loginNightColor">@color/secondaryLightColor</color>
+    <color name="loginTextColor">@color/secondaryTextColor</color>
 
     <!-- Separacoes -->
     <color name="separatorColor">#0D000000</color>
-    <color name="separatorColorNight">#0DFFFFFF</color>
+    <color name="separatorNightColor">#0DFFFFFF</color>
 
     <!--  Botao de login com o google  -->
     <color name="googleColor">#ffffff</color>
@@ -25,5 +24,5 @@
 
     <!--  Links  -->
     <color name="linkColor">#1E88E5</color>
-    <color name="linkColorNight">#B7CFE4</color>
+    <color name="linkNightColor">#B7CFE4</color>
 </resources>
