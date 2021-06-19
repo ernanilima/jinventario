@@ -40,4 +40,8 @@
     <string name="s_qtd_de_cxs">Qtd De Cxs</string>
     <string name="s_qtd_por_cx">Qtd Por Cx</string>
     <string name="s_ok">Ok</string>
+    <string name="s_qtd_total">Qtd Total</string>
+    <string name="s_irv_c_exemplo_codigo_barras">78901234567890</string>
+    <string name="s_irv_c_exemplo_qtd">999</string>
+    <string name="s_irv_c_exemplo_qtd_total">9.999</string>
 </resources>
