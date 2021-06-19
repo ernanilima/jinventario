@@ -28,4 +28,12 @@
     <string name="s_hdl_exemplo_nome_aparelho">Ex_Nome_Aparelho</string>
     <string name="s_hdl_email">E-mail:</string>
     <string name="s_hdl_exemplo_email">email@email.com.br</string>
+    <string name="s_irv_cs_numero_contavem_estoque">Contagem de estoque número:</string>
+    <string name="s_irv_cs_exemplo_numero_contagem">9999</string>
+    <string name="s_irv_cs_data_criacao">Data de Criação</string>
+    <string name="s_irv_cs_data_hora_alteracao">Data e Hora da Alteração</string>
+    <string name="s_irv_cs_total">Total Itens</string>
+    <string name="s_irv_cs_exemplo_data">99/99/99</string>
+    <string name="s_irv_cs_exemplo_data_hora">99/99/99 99:99</string>
+    <string name="s_irv_cs_exemplo_total">999.999</string>
 </resources>

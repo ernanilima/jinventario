@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.JInventario.Login">
+    <style name="Theme.JInventario.Button">
         <item name="backgroundTint">@color/loginColor</item>
         <item name="android:textColor">@color/loginTextColor</item>
     </style>
@@ -34,6 +34,10 @@
     <style name="Theme.JInventario.HeaderDrawerLayout">
         <item name="android:background">@color/secondaryColor</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="Theme.JInventario.Inicio">
+
     </style>
 
     <style name="Theme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

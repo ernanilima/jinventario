@@ -7,17 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".view.InicioAppFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_novacontagem"
+        style="@style/Theme.JInventario.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        app:iconGravity="textStart"
+        android:text="@string/s_novacontagem"
+        android:textAllCaps="false"
+        app:cornerRadius="25dp"
+        app:icon="@drawable/ic_novo"
+        app:iconTint="@null"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"
-        android:text="@string/s_novacontagem" />
+        android:layout_alignParentEnd="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -27,9 +31,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="0dp"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/itens_contagens_recyclerview" />
 

@@ -1,106 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:gravity="right"
-    tools:showIn="@layout/fragment_inicio_app" >
+    android:paddingStart="16sp"
+    android:paddingEnd="16sp"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    tools:showIn="@layout/fragment_inicio_app">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="10sp"
+        android:layout_toStartOf="@+id/btn_editar"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tx_numero_contagem"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:text="Contagem de estoque número:" />
+            android:layout_marginTop="10sp">
 
-        <TextView
-            android:id="@+id/campo_numero_contagem"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tx_numero_contagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/s_irv_cs_numero_contavem_estoque" />
+
+            <TextView
+                android:id="@+id/campo_numero_contagem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                android:layout_toEndOf="@+id/tx_numero_contagem"
+                android:text="@string/s_irv_cs_exemplo_numero_contagem" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tx_data_criacao"
+                android:layout_width="75sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/s_irv_cs_data_criacao"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tx_data_hora_alteracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/tx_total_itens"
+                android:layout_toEndOf="@+id/tx_data_criacao"
+                android:gravity="center"
+                android:text="@string/s_irv_cs_data_hora_alteracao"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tx_total_itens"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end"
+                android:text="@string/s_irv_cs_total"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/tx_numero_contagem"
-            android:text="9999"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginBottom="10sp">
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/campo_data_criacao"
+                android:layout_width="75sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:gravity="start"
+                android:text="@string/s_irv_cs_exemplo_data" />
 
-        <TextView
-            android:id="@+id/tx_data_criacao"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginEnd="10dp"
-            android:text="Data de Criação"
-            android:textSize="8sp" />
+            <TextView
+                android:id="@+id/campo_data_hora_alteracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/campo_total_itens"
+                android:layout_toEndOf="@+id/campo_data_criacao"
+                android:gravity="center"
+                android:text="@string/s_irv_cs_exemplo_data_hora" />
 
-        <TextView
-            android:id="@+id/tx_data_hora_alteracao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/tx_total_itens"
-            android:layout_toEndOf="@+id/tx_data_criacao"
-            android:gravity="center"
-            android:text="Data e Hora da Alteração"
-            android:textSize="8sp" />
+            <TextView
+                android:id="@+id/campo_total_itens"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end"
+                android:text="@string/s_irv_cs_exemplo_total" />
 
-        <TextView
-            android:id="@+id/tx_total_itens"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="right"
-            android:layout_marginRight="30dp"
-            android:text="Total Itens"
-            android:textSize="8sp" />
+        </RelativeLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+    <ImageView
+        android:id="@+id/btn_editar"
+        android:layout_width="25sp"
+        android:layout_height="70sp"
+        android:textSize="0sp"
+        android:src="@drawable/ic_editar"
+        android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/campo_data_criacao"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginEnd="10dp"
-            android:gravity="left"
-            android:text="99/99/99" />
-
-        <TextView
-            android:id="@+id/campo_data_hora_alteracao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="99/99/99 99:99"
-            android:layout_toEndOf="@+id/campo_data_criacao"
-            android:layout_toStartOf="@+id/campo_total_itens"/>
-
-        <TextView
-            android:id="@+id/campo_total_itens"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_toStartOf="@+id/btn_editar"
-            android:gravity="right"
-            android:text="99.999" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_editar"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/ic_editar"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

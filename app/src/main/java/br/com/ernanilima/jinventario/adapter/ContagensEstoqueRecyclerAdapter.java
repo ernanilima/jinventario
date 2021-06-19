@@ -3,10 +3,10 @@ package br.com.ernanilima.jinventario.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
     static class ContagensViewHolder extends RecyclerView.ViewHolder {
 
         public TextView campo_numero_contagem, campo_data_criacao, campo_data_hora_alteracao, campo_total_itens;
-        public AppCompatButton btn_editar;
+        public ImageView btn_editar;
 
         public ContagensViewHolder(@NonNull View itemView) {
             super(itemView);

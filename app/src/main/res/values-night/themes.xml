@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.JInventario.Login">
+    <style name="Theme.JInventario.Button">
         <item name="backgroundTint">@color/loginNightColor</item>
         <item name="android:textColor">@color/loginTextColor</item>
     </style>
