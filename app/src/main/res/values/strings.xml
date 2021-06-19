@@ -36,4 +36,8 @@
     <string name="s_irv_cs_exemplo_data">99/99/99</string>
     <string name="s_irv_cs_exemplo_data_hora">99/99/99 99:99</string>
     <string name="s_irv_cs_exemplo_total">999.999</string>
+    <string name="s_codigo_barras">Código De Barras</string>
+    <string name="s_qtd_de_cxs">Qtd De Cxs</string>
+    <string name="s_qtd_por_cx">Qtd Por Cx</string>
+    <string name="s_ok">Ok</string>
 </resources>

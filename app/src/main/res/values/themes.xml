@@ -17,6 +17,7 @@
     <style name="Theme.JInventario.Button">
         <item name="backgroundTint">@color/loginColor</item>
         <item name="android:textColor">@color/loginTextColor</item>
+        <item name="android:tint">@color/loginColor</item>
     </style>
 
     <style name="Theme.JInventario.Separator">
