@@ -13,9 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:textCursorDrawable">@drawable/cursor_day</item>
+        <!-- Dialog -->
         <item name="buttonBarPositiveButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
         <item name="buttonBarNegativeButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
         <item name="buttonBarNeutralButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <!-- Item Drawer Layout -->
+        <item name="colorNavigationItem">@color/menu_item_color_state_day</item>
+        <item name="colorNavigationItemSelected">@color/secondaryDarkColorDay</item>
     </style>
 
     <!-- Usado na activity do AndroidManifest -->
@@ -76,10 +80,11 @@
     </style>
 
     <style name="Theme.JInventario.DrawerLayout" parent="Widget.Design.NavigationView">
-        <item name="android:color">@color/primaryColorDay</item>
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
     </style>
 
     <!-- Barra de status -->
-    <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Light" />
     <style name="Theme.JInventario.PopupMenu" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

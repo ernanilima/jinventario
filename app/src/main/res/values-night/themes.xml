@@ -15,9 +15,13 @@
         <!--<item name="errorTextColor">@android:color/holo_purple</item>-->
         <!--<item name="boxStrokeErrorColor">@android:color/holo_purple</item>-->
         <item name="android:textCursorDrawable">@drawable/cursor_night</item>
+        <!-- Dialog -->
         <item name="buttonBarPositiveButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
         <item name="buttonBarNegativeButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
         <item name="buttonBarNeutralButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <!-- Item Drawer layout -->
+        <item name="colorNavigationItem">@color/menu_item_color_state_night</item>
+        <item name="colorNavigationItemSelected">@color/primaryLightColorNigth</item>
     </style>
 
     <style name="Theme.JInventario.Fields">
@@ -67,6 +71,11 @@
         <item name="android:textColor">@color/secondaryTextColorNigth</item>
         <item name="android:src">@drawable/ic_usuario_padrao</item>
         <item name="android:tint">@color/secondaryTextColorNigth</item>
+    </style>
+
+    <style name="Theme.JInventario.DrawerLayout" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
     </style>
 
     <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
