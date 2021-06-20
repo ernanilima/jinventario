@@ -2,22 +2,56 @@
     <!-- Base application theme. -->
     <style name="Theme.JInventario" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorPrimary">@color/primaryColorNigth</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColorNigth</item>
+        <item name="colorOnPrimary">@color/primaryTextColorNigth</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <item name="colorSecondary">@color/secondaryColorNigth</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColorNigth</item>
+        <item name="colorOnSecondary">@color/secondaryTextColorNigth</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!--<item name="errorTextColor">@android:color/holo_purple</item>-->
+        <!--<item name="boxStrokeErrorColor">@android:color/holo_purple</item>-->
+        <item name="android:textCursorDrawable">@drawable/cursor_night</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+    </style>
+
+    <style name="Theme.JInventario.Fields">
+        <item name="hintTextColor">@color/primaryLightColorNigth</item>
+        <item name="boxStrokeColor">@color/primaryLightColorNigth</item>
+        <item name="passwordToggleTint">@color/primaryLightColorNigth</item>
+        <item name="boxBackgroundColor">@null</item>
+    </style>
+
+    <style name="Theme.JInventario.Fields.Contagem">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="shapeAppearanceOverlay">@null</item>
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="boxStrokeColor">@color/mtrl_outlined_stroke_color</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="Theme.JInventario.Alert">
+        <item name="android:textColor">@color/primaryDarkColorDay</item>
     </style>
 
     <style name="Theme.JInventario.Button">
-        <item name="backgroundTint">@color/loginNightColor</item>
-        <item name="android:textColor">@color/loginTextColor</item>
-        <item name="android:tint">@color/loginNightColor</item>
+        <item name="backgroundTint">@color/buttonColorNight</item>
+        <item name="android:tint">@color/buttonColorNight</item>
+        <item name="android:textColor">@color/loginTextColorNight</item>
+    </style>
+
+    <style name="Theme.JInventario.Button.NewContagem">
+        <item name="icon">@drawable/ic_novo</item>
+        <item name="iconTint">@null</item>
+    </style>
+
+    <style name="Theme.JInventario.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryLightColorNigth</item>
     </style>
 
     <style name="Theme.JInventario.Separator">
@@ -29,7 +63,15 @@
     </style>
 
     <style name="Theme.JInventario.HeaderDrawerLayout">
-        <item name="android:background">@color/secondaryLightColor</item>
-        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:background">@color/secondaryLightColorNigth</item>
+        <item name="android:textColor">@color/secondaryTextColorNigth</item>
+        <item name="android:src">@drawable/ic_usuario_padrao</item>
+        <item name="android:tint">@color/secondaryTextColorNigth</item>
     </style>
+
+    <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/secondaryLightColorNigth</item>
+        <item name="colorControlNormal">@color/secondaryTextColorNigth</item>
+    </style>
+
 </resources>

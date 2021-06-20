@@ -101,15 +101,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_gravar"
+        style="@style/Theme.JInventario.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/primaryColor"
         android:text="@string/s_gravar"
         android:textSize="16sp"
-        android:textColor="@color/primaryTextColor"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#f5f5f5</color>
-    <color name="primaryLightColor">#ffffff</color>
-    <color name="primaryDarkColor">#c2c2c2</color>
-    <color name="secondaryColor">#37474f</color>
-    <color name="secondaryLightColor">#62727b</color>
-    <color name="secondaryDarkColor">#102027</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#ffffff</color>
+    <!-- Dia -->
+    <color name="primaryColorDay">#ffeb3b</color>
+    <color name="primaryLightColorDay">#ffff72</color>
+    <color name="primaryDarkColorDay">#c8b900</color>
+    <color name="secondaryColorDay">#fbc02d</color>
+    <color name="secondaryLightColorDay">#fff263</color>
+    <color name="secondaryDarkColorDay">#c49000</color>
+    <color name="primaryTextColorDay">#000000</color>
+    <color name="secondaryTextColorDay">#000000</color>
+
+    <!-- Noite -->
+    <color name="primaryColorNigth">#607d8b</color>
+    <color name="primaryLightColorNigth">#8eacbb</color>
+    <color name="primaryDarkColorNigth">#34515e</color>
+    <color name="secondaryColorNigth">#455a64</color>
+    <color name="secondaryLightColorNigth">#718792</color>
+    <color name="secondaryDarkColorNigth">#1c313a</color>
+    <color name="primaryTextColorNigth">#000000</color>
+    <color name="secondaryTextColorNigth">#ffffff</color>
 
     <!--  Botoes no fragment login  -->
-    <color name="loginColor">@color/secondaryColor</color>
-    <color name="loginNightColor">@color/secondaryLightColor</color>
-    <color name="loginTextColor">@color/secondaryTextColor</color>
+    <color name="buttonColorDay">@color/secondaryColorDay</color>
+    <color name="loginTextColorDay">@color/secondaryTextColorDay</color>
+    <color name="buttonColorNight">@color/secondaryLightColorNigth</color>
+    <color name="loginTextColorNight">@color/secondaryTextColorNigth</color>
 
     <!-- Separacoes -->
     <color name="separatorColor">#0D000000</color>

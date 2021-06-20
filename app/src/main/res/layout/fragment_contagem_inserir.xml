@@ -15,7 +15,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/campo_codbarras"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
@@ -63,7 +63,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/campo_qtd_dcaixa"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
@@ -86,7 +86,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/campo_qtd_pcaixa"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"

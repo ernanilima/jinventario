@@ -33,12 +33,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/campo_email"
+                style="@style/Theme.JInventario.Fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/s_email">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -48,6 +49,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/campo_senha1"
+                style="@style/Theme.JInventario.Fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -56,7 +58,7 @@
                 app:counterMaxLength="6"
                 app:passwordToggleEnabled="true">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -67,6 +69,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/campo_senha2"
+                style="@style/Theme.JInventario.Fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -75,7 +78,7 @@
                 app:counterMaxLength="6"
                 app:passwordToggleEnabled="true">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

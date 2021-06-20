@@ -44,4 +44,5 @@
     <string name="s_irv_c_exemplo_codigo_barras">78901234567890</string>
     <string name="s_irv_c_exemplo_qtd">999</string>
     <string name="s_irv_c_exemplo_qtd_total">9.999</string>
+    <string name="s_exemplo_nome_aparelho">ex: coletor_estoque</string>
 </resources>
