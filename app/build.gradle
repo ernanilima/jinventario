@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "br.com.ernanilima.jinventario"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 3
         versionName "0.11"
@@ -86,6 +86,8 @@ dependencies {
 
     // ZXING PARA SCANNER COM A CAMERA
     // https://github.com/journeyapps/zxing-android-embedded
-    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+    //implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+    implementation('com.journeyapps:zxing-android-embedded:4.2.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.4.0'
 
 }
