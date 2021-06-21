@@ -64,22 +64,14 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     @Override
-    /** Abre a camera scanner
+    /** Solicita permissao ao usuario para que o aplicativo possa usar a camera
+     * Abre a camera scanner
      * Exibe a camera padrao (ml kit google) ou a escolhida nas configuracoes */
     public void abrirCameraScanner() {
-        if (dbConfiguracao == null || dbConfiguracao.getCameraScannerMlkit()) {
-            // por padrao essa eh a camera usada mesmo que o
-            // usuario nunca tenha gravado nenhuma configuracao
-
-            CameraMLKitDialogFragment.novoDialog()
-                    .setFragmentManager(vContagem.requireParentFragment().getParentFragmentManager())
-                    .setReceberResposta(this)
-                    .exibir();
-
-        } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
-            // para usar essa camera, o usuario precisa escolher nas configuracoes
-            vContagem.getCameraZXingDialogFragment().setReceberResposta(this).exibir();
-        }
+        // antes de abrir a camera como scanner, eh verificado se o aplicativo tem a permissao
+        // de utilizacao da camera, o resultado dessa solicitacao de permissao eh exibido no
+        // metodo setResultadoPermissao
+        vContagem.getValidarPermissoes().setReceberResposta(this).validarPermissoes();
     }
 
     @Override
@@ -208,5 +200,27 @@ public class ContagemPresenter implements IContagem.IPresenter {
     public void setResultadoCameraScanner(String codigoBarras) {
         vContagem.getCampoCodbarras().getEditText().setText(codigoBarras);
         vContagem.getCampoQtdDeCaixa().requestFocus();
+    }
+
+    @Override
+    /** Resultado recebido da solicitacao de permissao */
+    public void setResultadoPermissao(boolean usarCameraComoScanner) {
+        if (usarCameraComoScanner) { // se o aplicativo tiver a permissao de usar a camera
+            if (dbConfiguracao == null || dbConfiguracao.getCameraScannerMlkit()) {
+                // por padrao essa eh a camera usada mesmo que o
+                // usuario nunca tenha gravado nenhuma configuracao
+
+                CameraMLKitDialogFragment.novoDialog()
+                        .setFragmentManager(vContagem.requireParentFragment().getParentFragmentManager())
+                        .setReceberResposta(this)
+                        .exibir();
+
+            } else if (dbConfiguracao != null && dbConfiguracao.getCameraScannerZxing()) {
+                // para usar essa camera, o usuario precisa escolher nas configuracoes
+                vContagem.getCameraZXingDialogFragment().setReceberResposta(this).exibir();
+            }
+        } else { // se o aplicativo nao tiver a permissao de usar a camera
+            ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+        }
     }
 }

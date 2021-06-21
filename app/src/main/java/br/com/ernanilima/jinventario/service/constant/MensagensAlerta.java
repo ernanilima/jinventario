@@ -27,7 +27,8 @@ public enum MensagensAlerta {
     NOME_APARELHO_INVALIDO("Informe um nome válido para o aparelho"),
     COMPARTILHAMENTO_VAZIO("Nenhum item para compartilhar"),
     SEM_INTERNET("Aparelho sem internet"),
-    POLITICA_PRIVACIDADE("Leia e aceita a política de privacidade");
+    POLITICA_PRIVACIDADE("Leia e aceita a política de privacidade"),
+    SEM_PERMISSAO_CAMERA("Aplicativo não possui permissão para usar a \"camera\" do aparelho");
 
     private final String msg;
 

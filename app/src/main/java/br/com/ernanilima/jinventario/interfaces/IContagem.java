@@ -8,6 +8,7 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
+import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
@@ -22,6 +23,7 @@ public interface IContagem {
         void atualizarRecyclerAdapter();
         void setItemAlterado(ItemContagem mItemContagem);
         void setItemExcluido(ItemContagem mItemContagem);
+        ValidarPermissoes getValidarPermissoes();
         CameraZXingDialogFragment getCameraZXingDialogFragment();
         TextInputLayout getCampoCodbarras();
         TextInputLayout getCampoQtdDeCaixa();
@@ -31,7 +33,7 @@ public interface IContagem {
 
     /** Usado no presenter
      * {@link ContagemPresenter} */
-    interface IPresenter extends IResultadoDialog, IResultadoCameraScanner {
+    interface IPresenter extends IResultadoDialog, IResultadoCameraScanner, IResultadoPermissao {
         void setCodigoContagem(Long idContagem);
         void adicionarItemColetado();
         void abrirCameraScanner();

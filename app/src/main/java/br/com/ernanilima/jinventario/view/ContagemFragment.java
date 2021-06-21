@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.view;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,13 +32,19 @@ import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
+import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
+    private static String[] permissoes = new String[] {
+            Manifest.permission.CAMERA
+    };
+
     public static final String CODIGO_CONTAGEM = "CodigoContagem";
 
     private IContagem.IPresenter pContagem;
+    private ValidarPermissoes vPermissoes;
     private CameraZXingDialogFragment dfCameraZXing;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
@@ -70,6 +77,9 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
 
         // DEFINE PRESENTER DESSA ACTIVITY
         pContagem = new ContagemPresenter(this);
+
+        // CLASSE PARA VALIDAR PERMISSOES
+        vPermissoes = ValidarPermissoes.novaValidacao().setFragment(this).setPermissoes(permissoes);
 
         // CAMERA TIPO ZXING
         dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this);
@@ -147,6 +157,11 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     /** Usado para excluir um item na lista de itens atribuida ao recycler adapter */
     public void setItemExcluido(ItemContagem mItemContagem) {
         raItemContagem.setItemExcluido(mItemContagem);
+    }
+
+    @Override
+    public ValidarPermissoes getValidarPermissoes() {
+        return vPermissoes;
     }
 
     @Override
