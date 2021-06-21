@@ -1,6 +1,8 @@
 package br.com.ernanilima.jinventario.service.component;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 
 import androidx.core.content.FileProvider;
@@ -27,12 +29,22 @@ public class CompartilharArquivo {
             Uri uri = FileProvider.getUriForFile(vContagem.requireParentFragment().getContext(), "br.com.ernanilima.jinventario.provider", arquivo);
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
             // tipo de arquivo que sera compartilhado
             intent.setType("application/csv");
 
             // descricao que sera exibida antes de selecionar a aplicacao para compartilhar
-            vContagem.requireParentFragment().getActivity().startActivity(Intent.createChooser(intent, "Enviar " + arquivo.getName()));
+            Intent novaIntent = Intent.createChooser(intent, "Enviar " + arquivo.getName());
+
+            List<ResolveInfo> resInfoList = vContagem.requireParentFragment().getActivity().getPackageManager().queryIntentActivities(novaIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            for (ResolveInfo resolveInfo : resInfoList) {
+                String packageName = resolveInfo.activityInfo.packageName;
+                vContagem.requireParentFragment().getActivity().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+
+            vContagem.requireParentFragment().getActivity().startActivity(novaIntent);
         }
     }
 
