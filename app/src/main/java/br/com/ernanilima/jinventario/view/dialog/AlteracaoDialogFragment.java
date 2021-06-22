@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.view.dialog;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,14 +21,21 @@ import com.google.android.material.textfield.TextInputLayout;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
+import br.com.ernanilima.jinventario.interfaces.IResultadoPermissao;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
 
-public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner {
+public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner, IResultadoPermissao {
+
+    private static String[] permissoes = new String[] {
+            Manifest.permission.CAMERA
+    };
 
     private static AlteracaoDialogFragment DIALOG_FRAGMENT;
     public static final String MODEL_ITEM_CONTAGEM = "AlterarItemContagem";
@@ -38,6 +46,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     private IResultadoDialog iResultadoDialog;
     private AlertDialog.Builder aDialog;
 
+    private ValidarPermissoes vPermissoes;
     private CameraZXingDialogFragment dfCameraZXing;
     private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
     public AppCompatButton btn_ok;
@@ -70,6 +79,9 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         // argumentos recebidos
         mItemContagem = (ItemContagem) getArguments().getSerializable(MODEL_ITEM_CONTAGEM);
         mConfiguracao = (Configuracao) getArguments().getSerializable(MODEL_CONFIGURACAO);
+
+        // CLASSE PARA VALIDAR PERMISSOES
+        vPermissoes = ValidarPermissoes.novaValidacao().setFragment(this).setPermissoes(permissoes);
 
         // CAMERA TIPO ZXING
         dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this);
@@ -137,29 +149,11 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
         if(alertDialog != null) {
             // botao neutro, abre a camera scanner
             Button botaoNeutro = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-            botaoNeutro.setOnClickListener(v -> abrirCameraScanner());
+            botaoNeutro.setOnClickListener(v -> vPermissoes.setReceberResposta(this).validarPermissoes());
 
             // botao positivo
             Button botaoConfirmar = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             botaoConfirmar.setOnClickListener(v -> confirmar());
-        }
-    }
-
-    /** Abre a camera scanner
-     * Envia esse dialog para obter a resposta da camera */
-    private void abrirCameraScanner() {
-        if (mConfiguracao == null || mConfiguracao.getCameraScannerMlkit()) {
-            // por padrao essa eh a camera usada mesmo que o
-            // usuario nunca tenha gravado nenhuma configuracao
-
-            CameraMLKitDialogFragment.novoDialog()
-                    .setFragmentManager(getParentFragmentManager())
-                    .setReceberResposta(this)
-                    .exibir();
-
-        } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
-            // para usar essa camera, o usuario precisa escolher nas configuracoes
-            dfCameraZXing.setReceberResposta(this).exibir();
         }
     }
 
@@ -191,5 +185,30 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     public void setResultadoCameraScanner(String codigoBarras) {
         campo_codbarras.getEditText().setText(codigoBarras);
         campo_qtd_dcaixa.requestFocus();
+    }
+
+    @Override
+    /** Resultado recebido da solicitacao de permissao */
+    public void setResultadoPermissao(boolean usarCameraComoScanner) {
+        if (usarCameraComoScanner) { // se o aplicativo tiver a permissao de usar a camera
+
+            // abre a camera scanner
+            // envia esse dialog para obter a resposta da camera
+            if (mConfiguracao == null || mConfiguracao.getCameraScannerMlkit()) {
+                // por padrao essa eh a camera usada mesmo que o
+                // usuario nunca tenha gravado nenhuma configuracao
+
+                CameraMLKitDialogFragment.novoDialog()
+                        .setFragmentManager(getParentFragmentManager())
+                        .setReceberResposta(this)
+                        .exibir();
+
+            } else if (mConfiguracao != null && mConfiguracao.getCameraScannerZxing()) {
+                // para usar essa camera, o usuario precisa escolher nas configuracoes
+                dfCameraZXing.setReceberResposta(this).exibir();
+            }
+        } else { // se o aplicativo nao tiver a permissao de usar a camera
+            ToastPersonalizado.erro(getActivity(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+        }
     }
 }
