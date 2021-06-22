@@ -107,6 +107,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
         menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
         menuItem.setIcon(R.drawable.ic_contagem); // icone no item de menu
+        menuItem.setChecked(true).setCheckable(true); // exibe o item como selecionado na navegacao do drawer layout
         menuItem.setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem
             drawerLayout.closeDrawers(); // fecha o drawer layout
             return true;

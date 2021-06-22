@@ -93,7 +93,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
             drawerLayout.closeDrawers(); // fecha o drawer layout
             pInicioApp.novaContagem(); // abre o dialog para criar nova contagem ou nao
             return true;
-        });
+        }).setChecked(false).setCheckable(false); // eh definido como false para evitar que exista navegacao no item, isso eh alterado ao abrir a nova contagem
     }
 
     @Override
