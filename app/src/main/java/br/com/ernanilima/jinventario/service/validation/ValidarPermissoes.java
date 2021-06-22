@@ -95,6 +95,10 @@ public class ValidarPermissoes {
             lstPermissoes.toArray(novasPermissoes);
 
             abrirParaObterResultado.launch(novasPermissoes);
+        } else {
+            // se for uma versao mais antiga nao precisa de solicitacao de permissao
+            // basta informar a permissao no manifest
+            iResultadoPermissao.setResultadoPermissao(true);
         }
     }
 }
