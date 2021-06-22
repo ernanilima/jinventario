@@ -17,6 +17,7 @@ import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
+import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Utils;
@@ -153,7 +154,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         if (lsItensContagem.isEmpty()) {
             ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
         } else {
-            CompartilharArquivo.csv(vContagem, mContagemEstoque.getId(), lsItensContagem);
+            CompartilharArquivo.csv(vContagem, NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho(), mContagemEstoque.getId(), lsItensContagem);
         }
     }
 

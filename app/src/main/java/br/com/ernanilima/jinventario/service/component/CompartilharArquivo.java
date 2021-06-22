@@ -19,11 +19,12 @@ public class CompartilharArquivo {
 
     /** Cria o arquivo de compartilhamento com o codigo da contadem, arquivo em csv
      * @param vContagem IContagem.IView - view que solicitou o compartilhamento
+     * @param nomeAparelho String - nome do aparelho para compor o nome do arquivo
      * @param codigoContagem long - codigo da contagem
-     * @param lsItensContagem List<ItemContagem> - lista de itens para compor o arquivo */
-    public static void csv(IContagem.IView vContagem, long codigoContagem, List<ItemContagem> lsItensContagem) {
+     * @param lsItensContagem List<ItemContagem> - lista de itens para compor o arquivo  */
+    public static void csv(IContagem.IView vContagem, String nomeAparelho, long codigoContagem, List<ItemContagem> lsItensContagem) {
         // gera o arquivo com o codigo da contagem
-        File arquivo = new File(vContagem.requireParentFragment().getContext().getFilesDir(), "contagem_" + codigoContagem + ".csv");
+        File arquivo = new File(vContagem.requireParentFragment().getContext().getFilesDir(), "contagem_" + nomeAparelho + "_" + codigoContagem + ".csv");
 
         if (criarArquivoCsv(arquivo, lsItensContagem)) {
             Uri uri = FileProvider.getUriForFile(vContagem.requireParentFragment().getContext(), "br.com.ernanilima.jinventario.provider", arquivo);
