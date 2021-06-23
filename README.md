@@ -1,6 +1,10 @@
 # jInventario
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/ernanilima/jinventario/blob/main/LICENSE)
 
+![Gif day](https://github.com/ernanilima/ernanilima/blob/main/imagens/jinventario-android/video_dia_jinventario.gif)![Gif night](https://github.com/ernanilima/ernanilima/blob/main/imagens/jinventario-android/video_noite_jinventario.gif)
+
+[Mais imagens](https://github.com/ernanilima/ernanilima/tree/main/imagens/jinventario-android)
+
 <a href='https://play.google.com/store/apps/details?id=br.com.ernanilima.jinventario&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img alt='Disponível no Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/pt-br_badge_web_generic.png' width="350"/></a>
 
 # Sobre o projeto
