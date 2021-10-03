@@ -24,6 +24,8 @@ public class ItemContagem implements Serializable, IModel {
     private Long idContagem;
     @Property(nameInDb = "CODIGO_BARRAS")
     private String codigoBarras;
+    @Property(nameInDb = "INFORMAR_PRECO")
+    private Double informarPreco;
     @Property(nameInDb = "QTD_DE_CAIXAS")
     private String qtdDeCaixas;
     @Property(nameInDb = "QTD_POR_CAIXA")
@@ -55,15 +57,17 @@ public class ItemContagem implements Serializable, IModel {
     @Generated(hash = 434760024)
     public ItemContagem() {}
 
-    @Generated(hash = 353373457)
-    public ItemContagem(Long id, Long idContagem, String codigoBarras, String qtdDeCaixas, String qtdPorCaixa) {
+    @Generated(hash = 1605747151)
+    public ItemContagem(Long id, Long idContagem, String codigoBarras, Double informarPreco, String qtdDeCaixas, String qtdPorCaixa) {
         this.id = id;
         this.idContagem = idContagem;
         this.codigoBarras = codigoBarras;
+        this.informarPreco = informarPreco;
         this.qtdDeCaixas = qtdDeCaixas;
         this.qtdPorCaixa = qtdPorCaixa;
     }
-
+    @Generated(hash = 54977339)
+    private transient Long mContagem__resolvedKey;
     public Long getId() {
         return this.id;
     }
@@ -82,6 +86,12 @@ public class ItemContagem implements Serializable, IModel {
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
+    public Double getInformarPreco() {
+        return this.informarPreco;
+    }
+    public void setInformarPreco(Double informarPreco) {
+        this.informarPreco = informarPreco;
+    }
     public String getQtdDeCaixas() {
         return this.qtdDeCaixas;
     }
@@ -94,15 +104,11 @@ public class ItemContagem implements Serializable, IModel {
     public void setQtdPorCaixa(String qtdPorCaixa) {
         this.qtdPorCaixa = qtdPorCaixa;
     }
-
-    @Generated(hash = 54977339)
-    private transient Long mContagem__resolvedKey;
     /** To-one relationship, resolved on first access. */
     @Generated(hash = 744425864)
     public ContagemEstoque getMContagem() {
         Long __key = this.idContagem;
-        if (mContagem__resolvedKey == null
-                || !mContagem__resolvedKey.equals(__key)) {
+        if (mContagem__resolvedKey == null || !mContagem__resolvedKey.equals(__key)) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");

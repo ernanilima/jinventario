@@ -74,8 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/s_preco_por_produto"
-                android:text="R$ 0,00"
                 android:imeOptions="actionNext"
+                android:maxLength="10"
                 android:inputType="number"
                 android:textSize="15sp" />
 

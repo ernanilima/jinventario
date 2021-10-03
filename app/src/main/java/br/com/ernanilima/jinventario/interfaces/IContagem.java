@@ -26,6 +26,7 @@ public interface IContagem {
         ValidarPermissoes getValidarPermissoes();
         CameraZXingDialogFragment getCameraZXingDialogFragment();
         TextInputLayout getCampoCodbarras();
+        TextInputLayout getCampoPrecoUn();
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();
         void desativarUsoDaCamera();

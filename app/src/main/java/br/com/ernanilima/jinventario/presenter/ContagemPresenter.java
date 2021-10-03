@@ -20,6 +20,7 @@ import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.util.Filtro;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
@@ -83,6 +84,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
                     null,
                     mContagemEstoque.getId(),
                     vContagem.getCampoCodbarras().getEditText().getText().toString(),
+                    Filtro.pDouble(vContagem.getCampoPrecoUn().getEditText().getText().toString()),
                     vContagem.getCampoQtdDeCaixa().getEditText().getText().toString(),
                     vContagem.getCampoQtdPorCaixa().getEditText().getText().toString()
             );
@@ -92,8 +94,8 @@ public class ContagemPresenter implements IContagem.IPresenter {
 
             atualizarContagem();
 
-            Utils.limparCampo(vContagem.getCampoCodbarras().getEditText(), vContagem.getCampoQtdDeCaixa().getEditText(),
-                    vContagem.getCampoQtdPorCaixa().getEditText());
+            Utils.limparCampo(vContagem.getCampoCodbarras().getEditText(), vContagem.getCampoPrecoUn().getEditText(),
+                    vContagem.getCampoQtdDeCaixa().getEditText(), vContagem.getCampoQtdPorCaixa().getEditText());
             vContagem.getCampoCodbarras().getEditText().requestFocus();
         }
     }
