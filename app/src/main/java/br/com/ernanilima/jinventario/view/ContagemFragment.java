@@ -33,6 +33,7 @@ import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
 import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
+import br.com.ernanilima.jinventario.util.Mascara;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
@@ -46,7 +47,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private IContagem.IPresenter pContagem;
     private ValidarPermissoes vPermissoes;
     private CameraZXingDialogFragment dfCameraZXing;
-    private TextInputLayout campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa;
+    private TextInputLayout campo_codbarras, campo_preco_un, campo_qtd_dcaixa, campo_qtd_pcaixa;
     private AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
     private RecyclerView recycler_view;
@@ -86,11 +87,15 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
 
         //INICIALIZA
         campo_codbarras = view.findViewById(R.id.campo_codbarras);
+        campo_preco_un = view.findViewById(R.id.campo_preco_un);
         campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
         campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
         btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
         btn_ok = view.findViewById(R.id.btn_ok);
         recycler_view = view.findViewById(R.id.recycler_view);
+
+        // MASCARAS EM CAMPOS
+        Mascara.valorMonetario(campo_preco_un.getEditText());
 
         // ACAO DE BOTOES
         campo_qtd_pcaixa.getEditText().setOnClickListener(v -> pContagem.adicionarItemColetado()); // botao de teclado
@@ -173,6 +178,11 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     @Override
     public TextInputLayout getCampoCodbarras() {
         return campo_codbarras;
+    }
+
+    @Override
+    public TextInputLayout getCampoPrecoUn() {
+        return campo_preco_un;
     }
 
     @Override
