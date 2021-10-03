@@ -207,6 +207,17 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     }
 
     @Override
+    /** Usado caso a opcao de informar preco do produto seja desativado nas configuracoes */
+    public void desativarInformarPreco() {
+        campo_preco_un.setVisibility(View.INVISIBLE);
+        // largura do campo, nao pode ser 0(zero)
+        campo_preco_un.getLayoutParams().height = 1;
+        // margem do campo
+        ViewGroup.MarginLayoutParams paramsInformarPreco = (ViewGroup.MarginLayoutParams) campo_preco_un.getLayoutParams();
+        paramsInformarPreco.topMargin = 0; paramsInformarPreco.bottomMargin = 0;
+    }
+
+    @Override
     /** Cronstroi o menu */
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

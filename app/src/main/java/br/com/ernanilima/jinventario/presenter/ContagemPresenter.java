@@ -164,8 +164,15 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Carregado ao iniciar o view de contagem */
     public void popularDadosConfiguracao() {
         if (dbConfiguracao != null && !dbConfiguracao.getCameraScanner()) {
+            // por padrao a opcao vem ativada
             // desativa o botao de usar camera como scanner
             vContagem.desativarUsoDaCamera();
+        }
+
+        if (dbConfiguracao == null || !dbConfiguracao.getInformarPreco()) {
+            // por padrao a opcao vem desativada
+            // desativa a opcao de inserir o preco do produto
+            vContagem.desativarInformarPreco();
         }
     }
 

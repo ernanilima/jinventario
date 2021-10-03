@@ -30,6 +30,7 @@ public interface IContagem {
         TextInputLayout getCampoQtdDeCaixa();
         TextInputLayout getCampoQtdPorCaixa();
         void desativarUsoDaCamera();
+        void desativarInformarPreco();
     }
 
     /** Usado no presenter
