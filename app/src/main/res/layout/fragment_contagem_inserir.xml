@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        android:layout_marginBottom="16sp"
         app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +35,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_camerascanner"
             style="@style/Theme.JInventario.Button"
@@ -58,6 +56,38 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campo_preco_un"
+            style="@style/Theme.JInventario.Fields.Contagem"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginEnd="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/s_preco_por_produto"
+                android:text="R$ 0,00"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
         android:layout_marginBottom="16sp"
         app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
 
