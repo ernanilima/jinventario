@@ -14,6 +14,7 @@ import java.util.List;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
+import br.com.ernanilima.jinventario.util.Formatar;
 
 /** Recycler Adapter de contagem de estoque */
 public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
@@ -44,6 +45,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
         holder.campo_qtd_dcaixa.setText(mItemContagem.getQtdDeCaixas());
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
+        holder.campo_prc_total.setText(Formatar.VALOR_RS.format(mItemContagem.getPrcTotal()).replace("R$ ", ""));
         holder.btn_editar.setOnClickListener(v -> {
             mItemContagem.setPosicaoItem(position);
             pContagem.alterarItemColetado(mItemContagem);
@@ -88,7 +90,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
     /** Class ViewHolder usada para extender na classe {@link ContagemEstoqueRecyclerAdapter} */
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total;
+        public TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total, campo_prc_total;
         public ImageView btn_editar;
 
         public ItemViewHolder(@NonNull View itemView) {
@@ -99,6 +101,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
             campo_qtd_dcaixa = itemView.findViewById(R.id.campo_qtd_dcaixa);
             campo_qtd_pcaixa = itemView.findViewById(R.id.campo_qtd_pcaixa);
             campo_qtd_total = itemView.findViewById(R.id.campo_qtd_total);
+            campo_prc_total = itemView.findViewById(R.id.campo_prc_total);
             btn_editar = itemView.findViewById(R.id.btn_editar);
         }
     }

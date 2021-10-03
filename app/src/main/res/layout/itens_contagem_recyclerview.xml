@@ -11,92 +11,117 @@
     tools:showIn="@layout/fragment_contagem">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/ln_codbarras"
+        android:layout_width="wrap_content"
+        android:layout_height="33sp"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/btn_editar"
-        android:orientation="vertical">
+        android:layout_toStartOf="@+id/ln_qtd_dcaixa"
+        android:orientation="vertical"
+        android:layout_marginEnd="8sp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tx_campo_codbarras"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="@string/s_codigo_barras"
+            android:textSize="9sp" />
 
-            <TextView
-                android:id="@+id/tx_campo_codbarras"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/s_codigo_barras"
-                android:textSize="10sp" />
+        <TextView
+            android:id="@+id/campo_codbarras"
+            android:layout_width="130sp"
+            android:layout_height="wrap_content"
+            android:text="@string/s_irv_c_exemplo_codigo_barras" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10sp"
-                android:layout_toStartOf="@+id/tx_campo_qtd_pcaixa"
-                android:gravity="center"
-                android:text="@string/s_qtd_de_cxs"
-                android:textSize="10sp" />
+    <LinearLayout
+        android:id="@+id/ln_qtd_dcaixa"
+        android:layout_width="46sp"
+        android:layout_height="33sp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_toStartOf="@+id/ln_qtd_pcaixa"
+        android:layout_marginEnd="8sp">
 
-            <TextView
-                android:id="@+id/tx_campo_qtd_pcaixa"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10sp"
-                android:layout_toStartOf="@+id/tx_campo_total"
-                android:gravity="center"
-                android:text="@string/s_qtd_por_cx"
-                android:textSize="10sp" />
+        <TextView
+            android:id="@+id/tx_campo_qtd_dcaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_qtd_de_cxs"
+            android:textSize="9sp" />
 
-            <TextView
-                android:id="@+id/tx_campo_total"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:text="@string/s_qtd_total"
-                android:textSize="10sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/campo_qtd_dcaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_irv_c_exemplo_qtd" />
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ln_qtd_pcaixa"
+        android:layout_width="44sp"
+        android:layout_height="33sp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_toStartOf="@+id/ln_qtd_total"
+        android:layout_marginEnd="8sp">
 
-            <TextView
-                android:id="@+id/campo_codbarras"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/s_irv_c_exemplo_codigo_barras" />
+        <TextView
+            android:id="@+id/tx_campo_qtd_pcaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_qtd_por_cx"
+            android:textSize="9sp" />
 
-            <TextView
-                android:id="@+id/campo_qtd_dcaixa"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10sp"
-                android:layout_toStartOf="@+id/campo_qtd_pcaixa"
-                android:gravity="center"
-                android:text="@string/s_irv_c_exemplo_qtd" />
+        <TextView
+            android:id="@+id/campo_qtd_pcaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_irv_c_exemplo_qtd" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/campo_qtd_pcaixa"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10sp"
-                android:layout_toStartOf="@+id/campo_qtd_total"
-                android:gravity="center"
-                android:text="@string/s_irv_c_exemplo_qtd" />
+    <LinearLayout
+        android:id="@+id/ln_qtd_total"
+        android:layout_width="39sp"
+        android:layout_height="33sp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_toStartOf="@+id/ln_prc_total"
+        android:layout_marginEnd="8sp">
 
-            <TextView
-                android:id="@+id/campo_qtd_total"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:text="@string/s_irv_c_exemplo_qtd_total" />
+        <TextView
+            android:id="@+id/tx_campo_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_qtd_total"
+            android:textSize="9sp" />
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/campo_qtd_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_irv_c_exemplo_qtd_total" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_prc_total"
+        android:layout_width="55sp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_toStartOf="@+id/btn_editar"
+        android:layout_marginEnd="8sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prc Total"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/campo_prc_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9888,77"/>
     </LinearLayout>
 
     <ImageView

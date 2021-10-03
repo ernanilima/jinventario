@@ -24,8 +24,8 @@ public class ItemContagem implements Serializable, IModel {
     private Long idContagem;
     @Property(nameInDb = "CODIGO_BARRAS")
     private String codigoBarras;
-    @Property(nameInDb = "INFORMAR_PRECO")
-    private Double informarPreco;
+    @Property(nameInDb = "PRECO_UN")
+    private Double precoUn;
     @Property(nameInDb = "QTD_DE_CAIXAS")
     private String qtdDeCaixas;
     @Property(nameInDb = "QTD_POR_CAIXA")
@@ -35,6 +35,9 @@ public class ItemContagem implements Serializable, IModel {
     @Transient // indica que este campo não será gravado no banco de dados.
     private int posicaoItem;
 
+    public Double getPrcTotal() {
+        return Double.parseDouble(getQtdTotal()) * precoUn;
+    }
     public String getQtdTotal() {
         return String.valueOf(Long.parseLong(qtdDeCaixas) * Long.parseLong(qtdPorCaixa));
     }
@@ -56,13 +59,12 @@ public class ItemContagem implements Serializable, IModel {
 
     @Generated(hash = 434760024)
     public ItemContagem() {}
-
-    @Generated(hash = 1605747151)
-    public ItemContagem(Long id, Long idContagem, String codigoBarras, Double informarPreco, String qtdDeCaixas, String qtdPorCaixa) {
+    @Generated(hash = 1052498128)
+    public ItemContagem(Long id, Long idContagem, String codigoBarras, Double precoUn, String qtdDeCaixas, String qtdPorCaixa) {
         this.id = id;
         this.idContagem = idContagem;
         this.codigoBarras = codigoBarras;
-        this.informarPreco = informarPreco;
+        this.precoUn = precoUn;
         this.qtdDeCaixas = qtdDeCaixas;
         this.qtdPorCaixa = qtdPorCaixa;
     }
@@ -86,11 +88,11 @@ public class ItemContagem implements Serializable, IModel {
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
-    public Double getInformarPreco() {
-        return this.informarPreco;
+    public Double getPrecoUn() {
+        return this.precoUn;
     }
-    public void setInformarPreco(Double informarPreco) {
-        this.informarPreco = informarPreco;
+    public void setPrecoUn(Double precoUn) {
+        this.precoUn = precoUn;
     }
     public String getQtdDeCaixas() {
         return this.qtdDeCaixas;
