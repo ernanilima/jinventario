@@ -20,7 +20,7 @@ import br.com.ernanilima.jinventario.presenter.ConfiguracaoPresenter;
 public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IView {
 
     private IConfiguracao.IPresenter pConfiguracao;
-    private CheckBox chbx_camera_scanner;
+    private CheckBox chbx_informar_preco_produto, chbx_camera_scanner;
     private RadioGroup radio_group;
     private RadioButton radio_camera_mlkit, radio_camera_zxing;
     private AppCompatButton btn_gravar;
@@ -41,6 +41,7 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
 
         // INICIALIZA
         // nome_local = nome_no_xml
+        chbx_informar_preco_produto = view.findViewById(R.id.chbx_preco_produto);
         chbx_camera_scanner = view.findViewById(R.id.chbx_camera_scanner);
         radio_group = view.findViewById(R.id.radio_group);
         radio_camera_mlkit = view.findViewById(R.id.radio_camera_mlkit);
@@ -59,6 +60,18 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
     private void usarCameraScanner(boolean isChecked) {
         radio_camera_mlkit.setEnabled(isChecked);
         radio_camera_zxing.setEnabled(isChecked);
+    }
+
+    @Override
+    /** Retorna se configuracao foi selecionada */
+    public boolean getConfigInformarPreco() {
+        return chbx_informar_preco_produto.isChecked();
+    }
+
+    @Override
+    /** Recebe a configuracao do campo */
+    public void setConfigInformarPreco(boolean b) {
+        chbx_informar_preco_produto.setChecked(b);
     }
 
     @Override

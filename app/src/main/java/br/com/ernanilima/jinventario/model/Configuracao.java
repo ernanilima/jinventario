@@ -15,6 +15,8 @@ public class Configuracao implements Serializable {
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
     private Long id;
+    @Property(nameInDb = "INFORMAR_PRECO")
+    private boolean informarPreco;
     @Property(nameInDb = "ATIVAR_CAMERA")
     private boolean cameraScanner;
     @Property(nameInDb = "ATIVAR_CAMERA_MLKIT")
@@ -27,10 +29,11 @@ public class Configuracao implements Serializable {
     @Generated(hash = 647547117)
     public Configuracao() {}
 
-    @Generated(hash = 1844670567)
-    public Configuracao(Long id, boolean cameraScanner, boolean cameraScannerMlkit,
-            boolean cameraScannerZxing) {
+    @Generated(hash = 720085660)
+    public Configuracao(Long id, boolean informarPreco, boolean cameraScanner,
+            boolean cameraScannerMlkit, boolean cameraScannerZxing) {
         this.id = id;
+        this.informarPreco = informarPreco;
         this.cameraScanner = cameraScanner;
         this.cameraScannerMlkit = cameraScannerMlkit;
         this.cameraScannerZxing = cameraScannerZxing;
@@ -41,6 +44,12 @@ public class Configuracao implements Serializable {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public boolean getInformarPreco() {
+        return this.informarPreco;
+    }
+    public void setInformarPreco(boolean informarPreco) {
+        this.informarPreco = informarPreco;
     }
     public boolean getCameraScanner() {
         return this.cameraScanner;

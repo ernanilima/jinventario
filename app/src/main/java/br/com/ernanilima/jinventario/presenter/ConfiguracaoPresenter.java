@@ -33,6 +33,8 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
         // atribui na configuracao criada, uma configuracao do banco ou um nova
         Configuracao mConfiguracao = (dbConfiguracao != null) ? dbConfiguracao : new Configuracao();
 
+        // atribui boolean para informar preco do produto coletado
+        mConfiguracao.setInformarPreco(vConfiguracao.getConfigInformarPreco());
         // atribui boolean para usar camera como scanner
         mConfiguracao.setCameraScanner(vConfiguracao.getConfigCameraScanner());
         // atribui boolean para usar o tipo de camera ml kit (google)
@@ -51,6 +53,7 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
     /** Atribui no campo as configuracoes gravadas no banco */
     public void popularDadosConfiguracao() {
         if (dbConfiguracao != null) {
+            vConfiguracao.setConfigInformarPreco(dbConfiguracao.getInformarPreco());
             vConfiguracao.setConfigCameraScanner(dbConfiguracao.getCameraScanner());
             vConfiguracao.setConfigUsarCameraMlkit(dbConfiguracao.getCameraScannerMlkit());
             vConfiguracao.setConfigUsarCameraZxing(dbConfiguracao.getCameraScannerZxing());

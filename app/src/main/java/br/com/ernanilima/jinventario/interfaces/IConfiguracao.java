@@ -11,6 +11,8 @@ public interface IConfiguracao {
      * {@link ConfiguracaoFragment} */
     interface IView {
         Fragment requireParentFragment();
+        boolean getConfigInformarPreco();
+        void setConfigInformarPreco(boolean b);
         boolean getConfigCameraScanner();
         void setConfigCameraScanner(boolean b);
         boolean getConfigUsarCameraMlkit();
