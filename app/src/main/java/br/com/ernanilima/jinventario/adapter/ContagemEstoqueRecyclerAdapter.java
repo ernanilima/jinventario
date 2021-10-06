@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.util.Formatar;
+import br.com.ernanilima.jinventario.util.Utils;
 
 /** Recycler Adapter de contagem de estoque */
 public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
@@ -90,19 +92,23 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
     /** Class ViewHolder usada para extender na classe {@link ContagemEstoqueRecyclerAdapter} */
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total, campo_prc_total;
-        public ImageView btn_editar;
+        private LinearLayout ln_prc_total;
+        private TextView campo_codbarras, campo_qtd_dcaixa, campo_qtd_pcaixa, campo_qtd_total, campo_prc_total;
+        private ImageView btn_editar;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //INICIALIZA
+            ln_prc_total = itemView.findViewById(R.id.ln_prc_total);
             campo_codbarras = itemView.findViewById(R.id.campo_codbarras);
             campo_qtd_dcaixa = itemView.findViewById(R.id.campo_qtd_dcaixa);
             campo_qtd_pcaixa = itemView.findViewById(R.id.campo_qtd_pcaixa);
             campo_qtd_total = itemView.findViewById(R.id.campo_qtd_total);
             campo_prc_total = itemView.findViewById(R.id.campo_prc_total);
             btn_editar = itemView.findViewById(R.id.btn_editar);
+
+            Utils.desativarOpcao(ln_prc_total);
         }
     }
 }

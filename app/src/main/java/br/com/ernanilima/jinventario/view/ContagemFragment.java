@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ import br.com.ernanilima.jinventario.presenter.ContagemPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
 import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.util.Mascara;
+import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
 public class ContagemFragment extends Fragment implements IContagem.IView {
@@ -51,6 +53,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     private AppCompatButton btn_ok;
     private AppCompatImageButton btn_camera_scanner;
     private RecyclerView recycler_view;
+    private TextView campo_prc_total;
     private ContagemEstoqueRecyclerAdapter raItemContagem;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -93,6 +96,9 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
         btn_ok = view.findViewById(R.id.btn_ok);
         recycler_view = view.findViewById(R.id.recycler_view);
+        campo_prc_total = recycler_view.findViewById(R.id.campo_prc_total);
+//        recycler_view.getChildAt(1);
+        System.out.println("MAISS " + recycler_view.findViewById(R.id.campo_prc_total));
 
         // MASCARAS EM CAMPOS
         Mascara.valorMonetario(campo_preco_un.getEditText());
@@ -142,6 +148,8 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         recycler_view.setHasFixedSize(true);
         recycler_view.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayout.VERTICAL));
         recycler_view.setAdapter(raItemContagem);
+
+        System.out.println(recycler_view.getChildCount());
         SwipeHelper swipeHelper = new SwipeHelper(); // classe de slider no item
         swipeHelper.setRecyclerView(recycler_view);
     }
@@ -198,23 +206,26 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
     @Override
     /** Usado caso o uso da camera seja desativado nas configuracoes */
     public void desativarUsoDaCamera() {
-        btn_camera_scanner.setVisibility(View.INVISIBLE);
-        // largura do botao, nao pode ser 0(zero)
-        btn_camera_scanner.getLayoutParams().width = 1;
-        // margem do botao
-        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_camera_scanner.getLayoutParams();
-        paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
+        Utils.desativarOpcao(btn_camera_scanner);
+//        btn_camera_scanner.setVisibility(View.INVISIBLE);
+//        // largura do botao, nao pode ser 0(zero)
+//        btn_camera_scanner.getLayoutParams().width = 1;
+//        // margem do botao
+//        ViewGroup.MarginLayoutParams paramsCameraScanner = (ViewGroup.MarginLayoutParams) btn_camera_scanner.getLayoutParams();
+//        paramsCameraScanner.leftMargin = 0; paramsCameraScanner.rightMargin = 0;
     }
 
     @Override
     /** Usado caso a opcao de informar preco do produto seja desativado nas configuracoes */
     public void desativarInformarPreco() {
-        campo_preco_un.setVisibility(View.INVISIBLE);
-        // largura do campo, nao pode ser 0(zero)
-        campo_preco_un.getLayoutParams().height = 1;
-        // margem do campo
-        ViewGroup.MarginLayoutParams paramsInformarPreco = (ViewGroup.MarginLayoutParams) campo_preco_un.getLayoutParams();
-        paramsInformarPreco.topMargin = 0; paramsInformarPreco.bottomMargin = 0;
+        Utils.desativarOpcao(campo_preco_un);
+//        Utils.desativarOpcao(ln_prc_total);
+//        campo_preco_un.setVisibility(View.INVISIBLE);
+//        // largura do campo, nao pode ser 0(zero)
+//        campo_preco_un.getLayoutParams().height = 1;
+//        // margem do campo
+//        ViewGroup.MarginLayoutParams paramsInformarPreco = (ViewGroup.MarginLayoutParams) campo_preco_un.getLayoutParams();
+//        paramsInformarPreco.topMargin = 0; paramsInformarPreco.bottomMargin = 0;
     }
 
     @Override

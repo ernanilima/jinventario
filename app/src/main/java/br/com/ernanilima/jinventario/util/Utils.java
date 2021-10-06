@@ -1,5 +1,7 @@
 package br.com.ernanilima.jinventario.util;
 
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import java.util.Collections;
@@ -32,5 +34,15 @@ public class Utils {
                 .replace("$", "D") // D = dolar
                 .replace("[", "AC") // AC = abre colchete
                 .replace("]", "FC"); // FC = fecha colchete
+    }
+
+    public static void desativarOpcao(View field) {
+        field.setVisibility(View.INVISIBLE);
+        // largura do campo, nao pode ser 0(zero)
+        field.getLayoutParams().width = 1;
+        field.getLayoutParams().height = 1;
+        // margem do campo
+        ViewGroup.MarginLayoutParams paramsField = (ViewGroup.MarginLayoutParams) field.getLayoutParams();
+        paramsField.topMargin = 0; paramsField.rightMargin = 0; paramsField.bottomMargin = 0; paramsField.leftMargin = 0;
     }
 }
