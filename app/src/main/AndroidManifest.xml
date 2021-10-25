@@ -27,6 +27,7 @@
             android:value="barcode" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.JInventario">
             <intent-filter>

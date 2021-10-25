@@ -1,22 +1,18 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android' // KOTLIN
+    id 'com.google.gms.google-services' // FIREBASE
+    id 'org.greenrobot.greendao' // GREENDAO
 }
 
-// FIREBASE
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-
-// GREENDAO
-apply plugin: 'org.greenrobot.greendao'
-
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "br.com.ernanilima.jinventario"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 6
         versionName "0.16"
 
@@ -30,8 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 }
 
@@ -52,37 +51,41 @@ greendao {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // NAVEGACAO JETPACK
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // FIREBASE
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.firebase:firebase-database'
 
     //GREENDAO
     implementation 'org.greenrobot:greendao:3.3.0'
 
     // CAMERAX
-    implementation "androidx.camera:camera-core:1.1.0-alpha05"
-    implementation "androidx.camera:camera-camera2:1.1.0-alpha05"
-    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha05"
-    implementation "androidx.camera:camera-view:1.0.0-alpha25"
-    implementation "androidx.camera:camera-extensions:1.0.0-alpha25"
+    implementation "androidx.camera:camera-core:1.1.0-alpha10"
+    implementation "androidx.camera:camera-camera2:1.1.0-alpha10"
+    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha10"
+    implementation "androidx.camera:camera-view:1.0.0-alpha30"
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha30"
 
     // ML KIT PARA SCANNER COM A CAMERA
-    implementation 'com.google.mlkit:barcode-scanning:16.1.2'
-    implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:16.1.5'
+    implementation 'com.google.mlkit:barcode-scanning:17.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.1'
 
     // ZXING PARA SCANNER COM A CAMERA
     // https://github.com/journeyapps/zxing-android-embedded
