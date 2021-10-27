@@ -4,14 +4,14 @@ import android.view.View;
 
 import java.util.Date;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
-import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
-import br.com.ernanilima.jinventario.dao.EmailVerificacaoDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.EmailVerificacaoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
@@ -33,7 +33,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
         this.iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vCadastro.getActivity().getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vCadastro.getActivity().getApplication()).getSessao();
         this.dEmailVerificacao = daoSession.getEmailVerificacaoDao();
     }
 

@@ -2,25 +2,33 @@ package br.com.ernanilima.jinventario.presenter;
 
 import androidx.appcompat.app.AlertDialog;
 
+import java.util.Date;
+
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
+import br.com.ernanilima.jinventario.model.EmailVerificacao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.EmailVerificacaoDao;
+import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
+import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho;
 import br.com.ernanilima.jinventario.service.social.Google;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
+import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
-
-//import br.com.ernanilima.jinventario.dao.DaoSession;
-//import br.com.ernanilima.jinventario.dao.EmailVerificacaoDao;
 
 public class LoginPresenter implements ILogin.IPresenter {
 
     private ILogin.IView vLogin;
     private IFirebaseAutenticacao iFirebaseAutenticacao;
-//    private DaoSession daoSession;
-//    private EmailVerificacaoDao dEmailVerificacao;
+    private DaoSession daoSession;
+    private EmailVerificacaoDao dEmailVerificacao;
 
     /** Construtor
      * @param vLogin ILogin.IView - view(fragment) de login */
@@ -29,8 +37,8 @@ public class LoginPresenter implements ILogin.IPresenter {
         iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
-//        this.daoSession = ((DbGreenDao) this.vLogin.getActivity().getApplication()).getSessao();
-//        this.dEmailVerificacao = daoSession.getEmailVerificacaoDao();
+        this.daoSession = ((BaseApplication) this.vLogin.getActivity().getApplication()).getSessao();
+        this.dEmailVerificacao = daoSession.getEmailVerificacaoDao();
     }
 
     @Override
@@ -74,21 +82,21 @@ public class LoginPresenter implements ILogin.IPresenter {
 
         // realiza busca no banco greendao para verificar se cadastro ja existe com base no e-mail
         // se cadastro nao for localizado, a busca retorna um novo model com e-mail do parametro
-//        EmailVerificacao mEmailEnviado = EmailEnviado.getInstance().getEmailVerificacao(email, dEmailVerificacao);
+        EmailVerificacao mEmailEnviado = EmailEnviado.getInstance().getEmailVerificacao(email, dEmailVerificacao);
 
         // se o id for null, significa que a data/hora para o e-mail enviado como parametro nao costa gravado
         // como o cadastro nao existe, envia um e-mail de verificacao e realiza o cadastro do instante do envio realizado.
         // se o id nao for null, verifica se um e-mail pode ser enviado
-//        if (mEmailEnviado.getId() == null || ValidarEmailEnviado.isEnviarNovoEmail(mEmailEnviado.getDataEnvioVerificacao())) {
-//            iFirebaseAutenticacao.enviarEmailVerificacao(vLogin.getActivity()); // envia um novo e-mail de verificacao
-//            mEmailEnviado.setDataEnvioVerificacao(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
-//            dEmailVerificacao.save(mEmailEnviado); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
-//        }
+        if (mEmailEnviado.getId() == null || ValidarEmailEnviado.isEnviarNovoEmail(mEmailEnviado.getDataEnvioVerificacao())) {
+            iFirebaseAutenticacao.enviarEmailVerificacao(vLogin.getActivity()); // envia um novo e-mail de verificacao
+            mEmailEnviado.setDataEnvioVerificacao(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
+            dEmailVerificacao.save(mEmailEnviado); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
+        }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
-//        else {
-//            ToastPersonalizado.erro(vLogin.getActivity().getApplicationContext(),MensagensAlerta.getMsgTempoEsperaEmail(
-//                    ValidarEmailEnviado.getTempoParaNovoEmail(mEmailEnviado.getDataEnvioVerificacao())));
-//        }
+        else {
+            ToastPersonalizado.erro(vLogin.getActivity().getApplicationContext(),MensagensAlerta.getMsgTempoEsperaEmail(
+                    ValidarEmailEnviado.getTempoParaNovoEmail(mEmailEnviado.getDataEnvioVerificacao())));
+        }
     }
 
     private boolean validarCampos() {
@@ -112,10 +120,12 @@ public class LoginPresenter implements ILogin.IPresenter {
         switch (resultado) {
             case LOGIN_REALIZADO:
                 // se nome do aparelho ja existir, abre a tela inicial do app com as contagens
-//                if (NomeAparelhoAutenticacao.getInstance(daoSession).getNomeExiste()) {NavegacaoApp.abrirTelaActivityApp(vLogin.getActivity());}
+                if (NomeAparelhoAutenticacao.getInstance(daoSession).getNomeExiste()) {
+                    NavegacaoApp.abrirTelaActivityApp(vLogin.getActivity());}
 
                 // se o nome do aparelho nao existir, abre a tela para criar um nome
-//                else {NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(vLogin.getActivity());}
+                else {
+                    NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(vLogin.getActivity()); }
                 break;
             case EMAIL_NAO_VERIFICADO:
                 dialogEmailVerificacao();

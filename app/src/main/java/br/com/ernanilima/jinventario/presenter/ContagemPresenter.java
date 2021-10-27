@@ -5,17 +5,17 @@ import android.os.Bundle;
 import java.util.Date;
 import java.util.List;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
-import br.com.ernanilima.jinventario.dao.ContagemEstoqueDao;
-import br.com.ernanilima.jinventario.dao.DaoSession;
-import br.com.ernanilima.jinventario.dao.ItemContagemDao;
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.IModel;
 import br.com.ernanilima.jinventario.model.ItemContagem;
+import br.com.ernanilima.jinventario.repository.orm.ConfiguracaoDao;
+import br.com.ernanilima.jinventario.repository.orm.ContagemEstoqueDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
@@ -46,7 +46,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
         this.vContagem = vContagem;
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vContagem.requireParentFragment().getActivity().getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vContagem.requireParentFragment().getActivity().getApplication()).getSessao();
         this.dContagemEstoque = daoSession.getContagemEstoqueDao();
         this.dItemContagem = daoSession.getItemContagemDao();
         this.dConfiguracao = daoSession.getConfiguracaoDao();

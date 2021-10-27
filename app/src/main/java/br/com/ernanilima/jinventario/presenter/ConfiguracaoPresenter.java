@@ -1,10 +1,11 @@
 package br.com.ernanilima.jinventario.presenter;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
-import br.com.ernanilima.jinventario.dao.ConfiguracaoDao;
-import br.com.ernanilima.jinventario.dao.DaoSession;
+
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.interfaces.IConfiguracao;
 import br.com.ernanilima.jinventario.model.Configuracao;
+import br.com.ernanilima.jinventario.repository.orm.ConfiguracaoDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 
 public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
@@ -20,7 +21,7 @@ public class ConfiguracaoPresenter implements IConfiguracao.IPresenter {
         this.vConfiguracao = vConfiguracao;
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vConfiguracao.requireParentFragment().getActivity().getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vConfiguracao.requireParentFragment().getActivity().getApplication()).getSessao();
         this.dConfiguracao = daoSession.getConfiguracaoDao();
 
         // BUSCA CONFIGURACAO GRAVADA NO BANCO

@@ -1,10 +1,10 @@
 package br.com.ernanilima.jinventario.presenter;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
-import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.NomeAparelho;
-import br.com.ernanilima.jinventario.dao.NomeAparelhoDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.NomeAparelhoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
@@ -21,7 +21,7 @@ public class NomeAparelhoPresenter implements INomeAparelho.IPresenter {
         this.vNomeAparelho = vNomeAparelho;
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vNomeAparelho.getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vNomeAparelho.getApplication()).getSessao();
         this.dNomeAparelho = daoSession.getNomeAparelhoDao();
     }
 

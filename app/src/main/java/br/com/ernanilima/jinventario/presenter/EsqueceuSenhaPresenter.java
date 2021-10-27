@@ -4,14 +4,14 @@ import android.view.View;
 
 import java.util.Date;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
-import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.EmailNovaSenha;
-import br.com.ernanilima.jinventario.dao.EmailNovaSenhaDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.EmailNovaSenhaDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
@@ -34,7 +34,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         iFirebaseAutenticacao = new FirebaseAutenticacao(this);
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vEsqueceuSenha.getActivity().getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vEsqueceuSenha.getActivity().getApplication()).getSessao();
         this.dEmailNovaSenha = daoSession.getEmailNovaSenhaDao();
     }
 

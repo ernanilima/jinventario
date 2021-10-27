@@ -10,3 +10,6 @@ release
 .externalNativeBuild
 .cxx
 local.properties
+
+# ORM GREENDAO
+app/src/main/java/br/com/ernanilima/jinventario/repository/orm/*dao*.java

@@ -48,7 +48,8 @@ greendao {
     // pasta foi criada, projeto limpado e construido
     // dados criados automaticamente na pasta criada
     // atualizado os imports para buscar os daos na pasta criada
-    daoPackage 'br.com.ernanilima.jinventario.dao'
+    daoPackage 'br.com.ernanilima.jinventario.repository.orm'
+    targetGenDir 'src/main/java'
 }
 
 dependencies {
@@ -71,7 +72,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-database'
 
     //GREENDAO

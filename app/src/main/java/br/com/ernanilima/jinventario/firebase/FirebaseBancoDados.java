@@ -8,7 +8,7 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.dto.ItemContagemDTO;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
-import br.com.ernanilima.jinventario.dao.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.model.ItemContagem;
 import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.util.Utils;

@@ -7,15 +7,15 @@ import androidx.appcompat.app.AlertDialog;
 import java.util.Date;
 import java.util.List;
 
-import br.com.ernanilima.jinventario.config.DbGreenDao;
+import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
 import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
-import br.com.ernanilima.jinventario.dao.ContagemEstoqueDao;
-import br.com.ernanilima.jinventario.dao.DaoSession;
 import br.com.ernanilima.jinventario.model.IModel;
+import br.com.ernanilima.jinventario.repository.orm.ContagemEstoqueDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
@@ -36,7 +36,7 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
         iFirebaseAutenticacao = new FirebaseAutenticacao();
 
         // GREENDAO
-        this.daoSession = ((DbGreenDao) this.vInicioApp.requireParentFragment().getActivity().getApplication()).getSessao();
+        this.daoSession = ((BaseApplication) this.vInicioApp.requireParentFragment().getActivity().getApplication()).getSessao();
         this.dContagemEstoque = daoSession.getContagemEstoqueDao();
 
         // envia o conteudo para utilizacao no header do drawer layout

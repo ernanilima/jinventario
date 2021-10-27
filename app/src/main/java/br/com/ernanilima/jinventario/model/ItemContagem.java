@@ -9,9 +9,10 @@ import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Transient;
 
 import java.io.Serializable;
-import br.com.ernanilima.jinventario.dao.DaoSession;
-import br.com.ernanilima.jinventario.dao.ContagemEstoqueDao;
-import br.com.ernanilima.jinventario.dao.ItemContagemDao;
+
+import br.com.ernanilima.jinventario.repository.orm.ContagemEstoqueDao;
+import br.com.ernanilima.jinventario.repository.orm.DaoSession;
+import br.com.ernanilima.jinventario.repository.orm.ItemContagemDao;
 
 @Entity(nameInDb = "ITEM_CONTAGEM")
 public class ItemContagem implements Serializable, IModel {
