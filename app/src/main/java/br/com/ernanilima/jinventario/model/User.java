@@ -4,6 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Transient;
 
 import java.util.Date;
 
@@ -14,10 +15,20 @@ public class User {
     private Long id;
     @Property(nameInDb = "EMAIL")
     private String email;
+    @Transient
+    private String password ;
     @Property(nameInDb = "DATA_ENVIO_VERIFICACAO")
     private Date dataEnvioVerificacao;
     @Property(nameInDb = "DATA_ENVIO_NOVA_SENHA")
     private Date dataEnvioNovaSenha;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     // construtores, gets e sets sao gerados automaticamente ao executar o projeto
     // tudo abaixo eh construido automaticamente ao executar o projeto

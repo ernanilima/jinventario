@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/telaLogin"
-        android:name="br.com.ernanilima.jinventario.view.LoginFragment"
+        android:name="br.com.ernanilima.jinventario.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment

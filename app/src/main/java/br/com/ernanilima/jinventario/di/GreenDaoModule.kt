@@ -1,19 +1,19 @@
 package br.com.ernanilima.jinventario.di
 
 import android.content.Context
-import androidx.fragment.app.Fragment
-import br.com.ernanilima.jinventario.interfaces.ILogin
-import br.com.ernanilima.jinventario.presenter.LoginPresenter
+import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
+import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
 import br.com.ernanilima.jinventario.repository.orm.DaoSession
-import br.com.ernanilima.jinventario.view.LoginFragment
+import br.com.ernanilima.jinventario.ui.login.ILogin
+import br.com.ernanilima.jinventario.ui.login.LoginViewModel
 import dagger.Binds
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.greenrobot.greendao.database.Database
@@ -46,25 +46,14 @@ class GreenDaoModule {
 
 }
 
-@InstallIn(FragmentComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 abstract class UiModule {
 
     @Binds
-    abstract fun bindLoginFragment(fragment: LoginFragment): ILogin.IFragment
+    abstract fun bindLoginViewModel(viewModel: LoginViewModel): ILogin.IViewModel
 
     @Binds
-    abstract fun bindLoginPresenter(presenter: LoginPresenter): ILogin.IPresenter
-
-}
-
-@InstallIn(FragmentComponent::class)
-@Module
-object FragmentModule {
-
-    @Provides
-    fun provideLoginFragment(fragment: Fragment): LoginFragment {
-        return fragment as LoginFragment
-    }
+    abstract fun bindFirebase(impl: FirebaseAutenticacao): IFirebaseAutenticacao
 
 }
