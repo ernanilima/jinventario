@@ -14,15 +14,18 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.textfield.TextInputLayout;
 
+import javax.inject.Inject;
+
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.ILogin;
-import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
 import br.com.ernanilima.jinventario.service.social.Google;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class LoginFragment extends Fragment implements ILogin.IView {
+@AndroidEntryPoint
+public class LoginFragment extends Fragment implements ILogin.IFragment {
 
-    private ILogin.IPresenter pLogin;
+    @Inject ILogin.IPresenter pLogin;
     private TextInputLayout campo_email, campo_senha;
     private TextView link_btn_esqueceu_senha, link_btn_cadastrar;
     private AppCompatButton btn_login, btn_login_gmail;
@@ -38,9 +41,6 @@ public class LoginFragment extends Fragment implements ILogin.IView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // DEFINE PRESENTER DESSA ACTIVITY
-        pLogin = new LoginPresenter(this);
 
         // INICIALIZA
         // nome_local = nome_no_xml

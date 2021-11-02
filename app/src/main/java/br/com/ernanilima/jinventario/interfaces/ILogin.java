@@ -12,7 +12,7 @@ public interface ILogin {
 
     /** Usado no fragment
      * {@link LoginFragment} */
-    interface IView {
+    interface IFragment {
         Activity getActivity();
         TextInputLayout getCampoEmail();
         TextInputLayout getCampoSenha();
