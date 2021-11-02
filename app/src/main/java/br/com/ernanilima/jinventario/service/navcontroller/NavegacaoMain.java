@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import br.com.ernanilima.jinventario.MainActivity;
+import br.com.ernanilima.jinventario.ui.MainActivity;
 import br.com.ernanilima.jinventario.R;
 
 /** Navegacoes na activity main

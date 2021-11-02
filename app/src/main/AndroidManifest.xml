@@ -26,7 +26,7 @@
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="barcode" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.JInventario">
