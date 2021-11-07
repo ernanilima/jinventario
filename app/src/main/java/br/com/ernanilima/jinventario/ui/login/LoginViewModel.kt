@@ -2,14 +2,15 @@ package br.com.ernanilima.jinventario.ui.login
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
 import br.com.ernanilima.jinventario.firebase.TipoResultado
-import br.com.ernanilima.jinventario.model.User
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
-import br.com.ernanilima.jinventario.service.validation.ValidarInternet
+import br.com.ernanilima.jinventario.service.social.Google
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
@@ -21,28 +22,23 @@ class LoginViewModel @Inject constructor(
     private var iFirebaseAutenticacao: IFirebaseAutenticacao
 ): ViewModel(), ILogin.IViewModel {
 
+    private val weakReference = WeakReference(context)
+
     init {
+        // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
     }
 
-    private val weakReference = WeakReference(context)
-
-    var user: User = User()
-        private set
-
-    override fun login() {
-        if (validarInternet()) {
-            iFirebaseAutenticacao.loginUsuario(weakReference.get(), user.email, user.password)
+    override fun login(userEmail: String, userPassword: String) {
+        if (DeviceHelper.isInternet(weakReference.get())) {
+            iFirebaseAutenticacao.loginUsuario(weakReference.get(), userEmail, userPassword)
         }
     }
 
-    @Deprecated(message = "Criar nova forma de usar esse metodo")
-    private fun validarInternet(): Boolean {
-        val internet: Boolean = ValidarInternet.conexao(weakReference.get())
-        if (!internet) {
-            ToastPersonalizado.erro(weakReference.get(), MensagensAlerta.SEM_INTERNET.msg)
+    override fun loginGoogle(loginGoogle: GoogleSignInClient) {
+        if (DeviceHelper.isInternet(weakReference.get())) {
+            Google.getInstance().loginGoogle(loginGoogle, this)
         }
-        return internet
     }
 
     override fun setResultado(resultado: TipoResultado) {

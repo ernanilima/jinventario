@@ -7,8 +7,6 @@ import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
 import br.com.ernanilima.jinventario.repository.orm.DaoSession
-import br.com.ernanilima.jinventario.ui.login.ILogin
-import br.com.ernanilima.jinventario.ui.login.LoginViewModel
 import dagger.Binds
 
 import dagger.Module
@@ -49,9 +47,6 @@ class GreenDaoModule {
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class UiModule {
-
-    @Binds
-    abstract fun bindLoginViewModel(viewModel: LoginViewModel): ILogin.IViewModel
 
     @Binds
     abstract fun bindFirebase(impl: FirebaseAutenticacao): IFirebaseAutenticacao
