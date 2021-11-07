@@ -6,11 +6,13 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 
+@Deprecated
 public class ValidarInternet {
 
     /** Valida a conexao com a internet
      * @param context Context - context da tela onde ocorreu o erro
      * @return boolean - true se tiver internet */
+    @Deprecated
     public static boolean conexao(Context context) {
 
         ConnectivityManager conexao = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
