@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
@@ -24,9 +25,6 @@ class LoginFragment: Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    private lateinit var userEmail: String
-    private lateinit var userPassword: String
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,27 +37,23 @@ class LoginFragment: Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.campoSenha.setOnClickListener { login() } // botao de teclado
+        binding.fieldPassword.setOnEditorActionListener { _, type, _ -> (type == IME_ACTION_DONE).ifTrue { login() } }
         binding.btnLogin.setOnClickListener { login() }
         binding.btnLoginGmail.setOnClickListener { loginGmail() }
-        binding.btnEsqueceuSenha.setOnClickListener { NavegacaoMain.abrirTelaEsqueceuSenha(it) }
-        binding.btnCadastrar.setOnClickListener { NavegacaoMain.abrirTelaCadastrar(it) }
+        binding.btnForgotPassword.setOnClickListener { NavegacaoMain.abrirTelaEsqueceuSenha(it) }
+        binding.btnRegister.setOnClickListener { NavegacaoMain.abrirTelaCadastrar(it) }
 
         // GOOGLE
         mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), activity)
         Google.getInstance().setFragmentLogin(this)
 
-        // FIELDS
-        userEmail = binding.campoEmail.editText!!.text.toString().trim()
-        userPassword = binding.campoSenha.editText!!.text.toString()
-
         InputHelper(requireActivity()).apply {
-            setInputLayout(binding.campoEmail)
+            setInputLayout(binding.layoutEmail)
             setRequired(true)
         }.build()
 
         InputHelper(requireActivity()).apply {
-            setInputLayout(binding.campoSenha)
+            setInputLayout(binding.layoutPassword)
             setRequired(true)
             setMinLength(6)
         }.build()
@@ -70,6 +64,8 @@ class LoginFragment: Fragment() {
      */
     private fun login() {
         validate().ifTrue {
+            val userEmail = binding.fieldEmail.text.toString().trim()
+            val userPassword = binding.fieldPassword.text.toString()
             loginViewModel.login(userEmail, userPassword)
         }
     }
@@ -78,7 +74,7 @@ class LoginFragment: Fragment() {
      * Realiza o login com base no usuario do Google
      */
     private fun loginGmail() {
-        loginViewModel.loginGoogle(mGoogleSignInClient)
+        loginViewModel.loginGmail(mGoogleSignInClient)
     }
 
     /**
@@ -90,18 +86,21 @@ class LoginFragment: Fragment() {
         var isValid = true
 
         Validator.apply {
-            isEmpty(userEmail).ifTrue {
-                showError(binding.campoEmail, requireActivity())
+            isEmpty(binding.fieldEmail.text.toString()).ifTrue {
+                showError(binding.layoutEmail, requireActivity())
                 isValid = !it
             }
         }
 
         Validator.apply {
-            isEmpty(userPassword).ifTrue {
-                showError(binding.campoSenha, requireActivity())
+            isEmpty(binding.fieldPassword.text.toString()).ifTrue {
+                showError(binding.layoutPassword, requireActivity())
                 isValid = !it
             }
         }
+
+        binding.layoutEmail.isErrorEnabled.ifTrue { isValid = !it }
+        binding.layoutPassword.isErrorEnabled.ifTrue { isValid = !it }
 
         return isValid
     }

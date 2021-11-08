@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun loginGoogle(loginGoogle: GoogleSignInClient) {
+    override fun loginGmail(loginGoogle: GoogleSignInClient) {
         if (DeviceHelper.isInternet(weakReference.get())) {
             Google.getInstance().loginGoogle(loginGoogle, this)
         }

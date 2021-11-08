@@ -7,6 +7,6 @@ interface ILogin {
     /** [LoginViewModel]  */
     interface IViewModel : IResultadoFirebase {
         fun login(userEmail: String, userPassword: String)
-        fun loginGoogle(loginGoogle: GoogleSignInClient)
+        fun loginGmail(loginGoogle: GoogleSignInClient)
     }
 }
