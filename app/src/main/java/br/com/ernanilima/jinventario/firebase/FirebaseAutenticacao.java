@@ -44,7 +44,9 @@ public class FirebaseAutenticacao implements IFirebaseAutenticacao {
      * Se estiver, registra no resultado */
     public void verificarSeUsuarioAutenticado() {
         if (usuarioAtual != null && usuarioAtual.isEmailVerified()) {
-            iResFirebase.setResultado(TipoResultado.LOGIN_REALIZADO);
+            iResFirebase.setResultado(TipoResultado.AUTHENTICATED_USER);
+        } else {
+            iResFirebase.setResultado(TipoResultado.UNAUTHENTICATED_USER);
         }
     }
 

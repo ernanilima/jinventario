@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacao_login"
-    app:startDestination="@id/telaLogin">
+    app:startDestination="@id/viewSplash">
     <!-- app:startDestination= define qual tela sera exibida -->
 
+    <fragment
+        android:id="@+id/viewSplash"
+        android:name="br.com.ernanilima.jinventario.ui.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/telaLogin"
         android:name="br.com.ernanilima.jinventario.ui.login.LoginFragment"

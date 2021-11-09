@@ -8,6 +8,5 @@ interface ILogin {
     interface IViewModel : IResultadoFirebase {
         fun login(userEmail: String, userPassword: String)
         fun loginGmail(loginGoogle: GoogleSignInClient)
-        fun checkAuthenticatedUserToLogin()
     }
 }

@@ -41,12 +41,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun checkAuthenticatedUserToLogin() {
-        if (DeviceHelper.isInternet(weakReference.get())) {
-            iFirebaseAutenticacao.verificarSeUsuarioAutenticado()
-        }
-    }
-
     override fun setResultado(resultado: TipoResultado) {
         when (resultado) {
             TipoResultado.LOGIN_REALIZADO -> {

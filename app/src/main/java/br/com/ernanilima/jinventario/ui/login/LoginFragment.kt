@@ -59,11 +59,6 @@ class LoginFragment: Fragment() {
         }.build()
     }
 
-    override fun onStart() {
-        super.onStart()
-        loginViewModel.checkAuthenticatedUserToLogin()
-    }
-
     /**
      * Realiza o login com base no email e senha
      */
