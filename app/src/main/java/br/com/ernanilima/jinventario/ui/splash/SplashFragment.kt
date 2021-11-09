@@ -51,9 +51,9 @@ class SplashFragment : Fragment() {
         })
 
         splashViewModel.automaticLoginResult.observe(viewLifecycleOwner, { result ->
-            when(result) {
+            when (result) {
                 AUTHENTICATED_USER -> {
-                    NavegacaoApp.abrirTelaActivityApp(requireContext())
+                    NavegacaoApp.abrirTelaActivityApp(requireActivity())
                 }
                 UNAUTHENTICATED_USER -> {
                     NavegacaoMain.abrirTelaLogin(requireView())

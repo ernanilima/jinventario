@@ -11,9 +11,15 @@ import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
+import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
+import br.com.ernanilima.jinventario.firebase.TipoResultado
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.social.Google
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,6 +39,7 @@ class LoginFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUi()
+        setupListener()
     }
 
     private fun setupUi() {
@@ -57,6 +64,28 @@ class LoginFragment: Fragment() {
             setRequired(true)
             setMinLength(6)
         }.build()
+    }
+
+    private fun setupListener() {
+        loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
+            result.ifFalse {
+                ToastPersonalizado.erro(activity, MensagensAlerta.SEM_INTERNET.msg)
+            }
+        })
+
+        loginViewModel.loginResult.observe(viewLifecycleOwner, { result ->
+            when(result) {
+                TipoResultado.LOGIN_REALIZADO -> {
+                    NavegacaoApp.abrirTelaActivityApp(requireActivity())
+                }
+                TipoResultado.FIRST_LOGIN -> {
+                    NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
+                }
+                TipoResultado.EMAIL_VERIFICACAO_ENVIADO -> {
+                    ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
+                }
+            }
+        })
     }
 
     /**

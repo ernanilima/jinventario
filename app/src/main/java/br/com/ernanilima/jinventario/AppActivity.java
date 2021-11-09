@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -81,8 +82,34 @@ public class AppActivity extends AppCompatActivity {
     }
 
     private boolean sair() {
-        FirebaseAuth.getInstance().signOut();
-        NavegacaoMain.abrirTelaActivityMain(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção")
+                .setMessage("Deseja sair com o usuário?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+                    FirebaseAuth.getInstance().signOut();
+                    NavegacaoMain.abrirTelaActivityMain(this);
+                })
+                .setNegativeButton("Não", (dialog, which) -> dialog.cancel())
+                .setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção")
+                .setMessage("Deseja fechar o aplicativo?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+                    super.onBackPressed();
+                    finish();
+                })
+                .setNegativeButton("Não", (dialog, which) -> dialog.cancel())
+                .setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
