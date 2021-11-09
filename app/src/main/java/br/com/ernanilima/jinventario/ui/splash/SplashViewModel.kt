@@ -21,6 +21,9 @@ class SplashViewModel @Inject constructor(
 
     private val weakReference = WeakReference(context)
 
+    private val _isInternet = MutableLiveData<Boolean>()
+    val isInternet: LiveData<Boolean> = _isInternet
+
     private val _automaticLoginResult = MutableLiveData<TipoResultado>()
     val automaticLoginResult: LiveData<TipoResultado> = _automaticLoginResult
 
@@ -32,6 +35,9 @@ class SplashViewModel @Inject constructor(
     override fun checkAuthenticatedUserToLogin() {
         if (DeviceHelper.isInternet(weakReference.get())) {
             iFirebaseAutenticacao.verificarSeUsuarioAutenticado()
+        } else {
+            _isInternet.postValue(false)
+            _automaticLoginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)
         }
     }
 

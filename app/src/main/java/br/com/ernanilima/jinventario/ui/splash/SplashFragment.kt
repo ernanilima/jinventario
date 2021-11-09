@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
+import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.firebase.TipoResultado.AUTHENTICATED_USER
 import br.com.ernanilima.jinventario.firebase.TipoResultado.UNAUTHENTICATED_USER
+import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain
+import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,6 +44,12 @@ class SplashFragment : Fragment() {
     }
 
     private fun setupListener() {
+        splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
+            result.ifFalse {
+                ToastPersonalizado.erro(activity, MensagensAlerta.SEM_INTERNET.msg)
+            }
+        })
+
         splashViewModel.automaticLoginResult.observe(viewLifecycleOwner, { result ->
             when(result) {
                 AUTHENTICATED_USER -> {
