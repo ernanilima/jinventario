@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.firebase.TipoResultado.AUTHENTICATED_USER
 import br.com.ernanilima.jinventario.firebase.TipoResultado.UNAUTHENTICATED_USER
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,8 +38,8 @@ class SplashFragment : Fragment() {
         splashViewModel.checkAuthenticatedUserToLogin()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
@@ -56,7 +56,7 @@ class SplashFragment : Fragment() {
                     NavegacaoApp.abrirTelaActivityApp(requireActivity())
                 }
                 UNAUTHENTICATED_USER -> {
-                    NavegacaoMain.abrirTelaLogin(requireView())
+                    Navigation.Login.toLoginFragment(this)
                 }
             }
         })

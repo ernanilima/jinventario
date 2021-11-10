@@ -16,8 +16,8 @@ import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.firebase.TipoResultado
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import br.com.ernanilima.jinventario.service.social.Google
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,13 +26,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment: Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
     private val loginViewModel: LoginViewModel by viewModels()
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,13 +43,18 @@ class LoginFragment: Fragment() {
         setupListener()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupUi() {
         // ACAO DE BOTOES
         binding.fieldPassword.setOnEditorActionListener { _, type, _ -> (type == IME_ACTION_DONE).ifTrue { login() } }
         binding.btnLogin.setOnClickListener { login() }
         binding.btnLoginGmail.setOnClickListener { loginGmail() }
-        binding.btnForgotPassword.setOnClickListener { NavegacaoMain.abrirTelaEsqueceuSenha(it) }
-        binding.btnRegister.setOnClickListener { NavegacaoMain.abrirTelaCadastrar(it) }
+        binding.btnForgotPassword.setOnClickListener { Navigation.Login.toForgotPasswordFragment(this) }
+        binding.btnRegister.setOnClickListener { Navigation.Login.toRegisterFragment(this) }
 
         // GOOGLE
         mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), activity)

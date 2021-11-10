@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.repository.orm.EmailVerificacaoDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
@@ -100,7 +100,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
             case EMAIL_VERIFICACAO_ENVIADO:
                 gravarEmailVerificacaoEnviado();
                 ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
-                NavegacaoMain.abrirTelaLogin(vCadastro.getActivity().getCurrentFocus());
+                Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
         }
     }
 }

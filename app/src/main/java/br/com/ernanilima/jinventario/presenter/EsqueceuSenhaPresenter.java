@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.repository.orm.EmailNovaSenhaDao;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.greendao.EmailEnviado;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
@@ -88,7 +88,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         switch (resultado) {
             case EMAIL_NOVA_SENHA_ENVIADO:
                 ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
-                NavegacaoMain.abrirTelaLogin(vEsqueceuSenha.getActivity().getCurrentFocus());
+                Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
         }
     }
 }

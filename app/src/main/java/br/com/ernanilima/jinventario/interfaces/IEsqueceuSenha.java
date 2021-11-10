@@ -2,6 +2,8 @@ package br.com.ernanilima.jinventario.interfaces;
 
 import android.app.Activity;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
@@ -13,6 +15,7 @@ public interface IEsqueceuSenha {
      * {@link EsqueceuSenhaFragment} */
     interface IView {
         Activity getActivity();
+        Fragment requireParentFragment();
         TextInputLayout getCampoEmail();
     }
 
