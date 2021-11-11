@@ -1,7 +1,9 @@
 <resources>
     <!-- https://developer.android.com/guide/topics/resources/string-resource -->
-    <string name="app_name">jInventario</string>
+    <string name="app_name">jInventário</string>
+    <string name="app_made_by">jMercado - Ernani Lima</string>
     <string name="site_politica_privacidade">https://ernanilima.com.br/jinventario/poliitica_de_privacidade_do_app_inventaario_de_estoque.html</string>
+    <string name="s_loading">Carregando…</string>
     <string name="s_t_login">Login</string>
     <string name="s_email">E-mail</string>
     <string name="s_senha">Senha</string>
