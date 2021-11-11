@@ -34,6 +34,7 @@ class LoginViewModel @Inject constructor(
         this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
     }
 
+    /* Verifica se tem internet e realiza login */
     override fun login(userEmail: String, userPassword: String) {
         if (DeviceHelper.isInternet(weakReference.get())) {
             iFirebaseAutenticacao.loginUsuario(weakReference.get(), userEmail, userPassword)
@@ -43,9 +44,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun loginGmail(loginGoogle: GoogleSignInClient) {
+    /* Verifica se tem internet e realiza login com o gmail */
+    override fun loginGmail(loginGmail: GoogleSignInClient) {
         if (DeviceHelper.isInternet(weakReference.get())) {
-            Google.getInstance().loginGoogle(loginGoogle, this)
+            Google.getInstance().loginGoogle(loginGmail, this)
         } else {
             _isInternet.postValue(false)
             _loginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)

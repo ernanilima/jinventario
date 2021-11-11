@@ -36,6 +36,7 @@ class SplashViewModel @Inject constructor(
         this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
     }
 
+    /* Verifica se tem internet e se usuario esta autenticado */
     override fun checkAuthenticatedUserToLogin() {
         if (DeviceHelper.isInternet(weakReference.get())) {
             iFirebaseAutenticacao.verificarSeUsuarioAutenticado()
@@ -44,12 +45,14 @@ class SplashViewModel @Inject constructor(
         }
     }
 
+    /* Recebe o resultado da autenticacao */
     override fun setResultado(result: TipoResultado) {
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000L)
             when (result) {
                 TipoResultado.UNAUTHENTICATED_USER -> {
                     _automaticLoginResult.postValue(result)
+                    // se o usuario nao estiver autenticado, atualiza o status da internet para a view
                     _isInternet.postValue(DeviceHelper.isInternet(weakReference.get()))
                 }
                 else -> {

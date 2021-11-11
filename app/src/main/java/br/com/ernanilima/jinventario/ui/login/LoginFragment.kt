@@ -106,7 +106,7 @@ class LoginFragment: Fragment() {
     }
 
     /**
-     * Realiza o login com base no usuario do Google
+     * Realiza o login com base no usuario do Gmail
      */
     private fun loginGmail() {
         loginViewModel.loginGmail(mGoogleSignInClient)
