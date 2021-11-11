@@ -10,6 +10,10 @@ import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
 import br.com.ernanilima.jinventario.firebase.TipoResultado
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -36,12 +40,22 @@ class SplashViewModel @Inject constructor(
         if (DeviceHelper.isInternet(weakReference.get())) {
             iFirebaseAutenticacao.verificarSeUsuarioAutenticado()
         } else {
-            _isInternet.postValue(false)
-            _automaticLoginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)
+            setResultado(TipoResultado.UNAUTHENTICATED_USER)
         }
     }
 
     override fun setResultado(result: TipoResultado) {
-        _automaticLoginResult.postValue(result)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000L)
+            when (result) {
+                TipoResultado.UNAUTHENTICATED_USER -> {
+                    _automaticLoginResult.postValue(result)
+                    _isInternet.postValue(DeviceHelper.isInternet(weakReference.get()))
+                }
+                else -> {
+                    _automaticLoginResult.postValue(result)
+                }
+            }
+        }
     }
 }
