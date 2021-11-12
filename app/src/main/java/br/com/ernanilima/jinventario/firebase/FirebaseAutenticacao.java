@@ -130,6 +130,7 @@ public class FirebaseAutenticacao implements IFirebaseAutenticacao {
             }
         }).addOnFailureListener(err -> {
             // erro no login de usuario
+            iResFirebase.setResultado(TipoResultado.UNAUTHENTICATED_USER);
             ValidarFirebase.erroFirebase(contextTelaDoErro, ((FirebaseAuthException) err).getErrorCode());
         });
     }

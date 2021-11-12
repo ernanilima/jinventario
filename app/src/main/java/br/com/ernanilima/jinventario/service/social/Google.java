@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
 
@@ -24,6 +25,7 @@ public class Google {
     private static Google GOOGLE;
     private Fragment fragmentLogin;
     private ActivityResultLauncher<Intent> abrirParaObterResultado;
+    private IResultadoFirebase iResultadoGoogle;
     private IFirebaseAutenticacao iFirebaseAutenticacao;
 
     /** @return Google - instancia da classe {@link Google} */
@@ -51,6 +53,7 @@ public class Google {
      * @param mGoogleSignInClient GoogleSignInClient - servico de login do google
      * @param iResultadoFirebase IResultadoFirebase -  interface que recebera o resultado */
     public void loginGoogle(GoogleSignInClient mGoogleSignInClient, IResultadoFirebase iResultadoFirebase) {
+        iResultadoGoogle = iResultadoFirebase;
         iFirebaseAutenticacao = new FirebaseAutenticacao(iResultadoFirebase);
         Intent intent = mGoogleSignInClient.getSignInIntent();
         abrirParaObterResultado.launch(intent);
@@ -73,6 +76,9 @@ public class Google {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         setUsuarioLoginGoogleRealizado(result.getData());
+                    } else {
+                        // login cancelado
+                        iResultadoGoogle.setResultado(TipoResultado.UNAUTHENTICATED_USER);
                     }
                 });
     }

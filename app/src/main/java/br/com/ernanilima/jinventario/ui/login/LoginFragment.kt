@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
@@ -17,7 +18,8 @@ import br.com.ernanilima.jinventario.firebase.TipoResultado
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
-import br.com.ernanilima.jinventario.service.navcontroller.Navigation
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
 import br.com.ernanilima.jinventario.service.social.Google
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -51,10 +53,10 @@ class LoginFragment: Fragment() {
     private fun setupUi() {
         // ACAO DE BOTOES
         binding.fieldPassword.setOnEditorActionListener { _, type, _ -> (type == IME_ACTION_DONE).ifTrue { login() } }
-        binding.btnLogin.setOnClickListener { login() }
-        binding.btnLoginGmail.setOnClickListener { loginGmail() }
-        binding.btnForgotPassword.setOnClickListener { Navigation.Login.toForgotPasswordFragment(this) }
-        binding.btnRegister.setOnClickListener { Navigation.Login.toRegisterFragment(this) }
+        binding.btnLogin.setOnClickListener { binding.progressLogin.isVisible.ifFalse { login() } }
+        binding.btnLoginGmail.setOnClickListener { binding.progressLogin.isVisible.ifFalse { loginGmail() } }
+        binding.btnForgotPassword.setOnClickListener { binding.progressLogin.isVisible.ifFalse { toForgotPasswordFragment(this) } }
+        binding.btnRegister.setOnClickListener { binding.progressLogin.isVisible.ifFalse { toRegisterFragment(this) } }
 
         // GOOGLE
         mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), activity)
@@ -76,11 +78,12 @@ class LoginFragment: Fragment() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
                 ToastPersonalizado.erro(activity, MensagensAlerta.SEM_INTERNET.msg)
+                binding.progressLogin.visibility = View.GONE
             }
         })
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, { result ->
-            when(result) {
+            when (result) {
                 TipoResultado.LOGIN_REALIZADO -> {
                     NavegacaoApp.abrirTelaActivityApp(requireActivity())
                 }
@@ -91,6 +94,7 @@ class LoginFragment: Fragment() {
                     ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
                 }
             }
+            binding.progressLogin.visibility = View.GONE
         })
     }
 
@@ -99,6 +103,7 @@ class LoginFragment: Fragment() {
      */
     private fun login() {
         validate().ifTrue {
+            binding.progressLogin.visibility = View.VISIBLE
             val userEmail = binding.fieldEmail.text.toString().trim()
             val userPassword = binding.fieldPassword.text.toString()
             loginViewModel.login(userEmail, userPassword)
@@ -109,6 +114,7 @@ class LoginFragment: Fragment() {
      * Realiza o login com base no usuario do Gmail
      */
     private fun loginGmail() {
+        binding.progressLogin.visibility = View.VISIBLE
         loginViewModel.loginGmail(mGoogleSignInClient)
     }
 
