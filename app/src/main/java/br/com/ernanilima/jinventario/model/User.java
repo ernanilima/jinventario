@@ -4,7 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Transient;
+import org.greenrobot.greendao.annotation.Index;
 
 import java.util.Date;
 
@@ -13,32 +13,27 @@ public class User {
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
     private Long id;
+    @Index(unique = true)
     @Property(nameInDb = "EMAIL")
     private String email;
-    @Transient
-    private String password ;
-    @Property(nameInDb = "DATA_ENVIO_VERIFICACAO")
-    private Date dataEnvioVerificacao;
-    @Property(nameInDb = "DATA_ENVIO_NOVA_SENHA")
-    private Date dataEnvioNovaSenha;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @Property(nameInDb = "DEVICE_NAME")
+    private String deviceName ;
+    @Property(nameInDb = "DATE_SUBMIT_VERIFICATION")
+    private Date dateSubmitVerification;
+    @Property(nameInDb = "DATE_SUBMIT_NEW_PASSWORD")
+    private Date dateSubmitNewPassword;
 
     // construtores, gets e sets sao gerados automaticamente ao executar o projeto
     // tudo abaixo eh construido automaticamente ao executar o projeto
-    @Generated(hash = 839459599)
-    public User(Long id, String email, Date dataEnvioVerificacao,
-            Date dataEnvioNovaSenha) {
+
+    @Generated(hash = 367072297)
+    public User(Long id, String email, String deviceName,
+            Date dateSubmitVerification, Date dateSubmitNewPassword) {
         this.id = id;
         this.email = email;
-        this.dataEnvioVerificacao = dataEnvioVerificacao;
-        this.dataEnvioNovaSenha = dataEnvioNovaSenha;
+        this.deviceName = deviceName;
+        this.dateSubmitVerification = dateSubmitVerification;
+        this.dateSubmitNewPassword = dateSubmitNewPassword;
     }
     @Generated(hash = 586692638)
     public User() {
@@ -55,16 +50,22 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Date getDataEnvioVerificacao() {
-        return this.dataEnvioVerificacao;
+    public String getDeviceName() {
+        return this.deviceName;
     }
-    public void setDataEnvioVerificacao(Date dataEnvioVerificacao) {
-        this.dataEnvioVerificacao = dataEnvioVerificacao;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
-    public Date getDataEnvioNovaSenha() {
-        return this.dataEnvioNovaSenha;
+    public Date getDateSubmitVerification() {
+        return this.dateSubmitVerification;
     }
-    public void setDataEnvioNovaSenha(Date dataEnvioNovaSenha) {
-        this.dataEnvioNovaSenha = dataEnvioNovaSenha;
+    public void setDateSubmitVerification(Date dateSubmitVerification) {
+        this.dateSubmitVerification = dateSubmitVerification;
+    }
+    public Date getDateSubmitNewPassword() {
+        return this.dateSubmitNewPassword;
+    }
+    public void setDateSubmitNewPassword(Date dateSubmitNewPassword) {
+        this.dateSubmitNewPassword = dateSubmitNewPassword;
     }
 }

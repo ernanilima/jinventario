@@ -8,6 +8,7 @@ import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
 import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
 import br.com.ernanilima.jinventario.firebase.TipoResultado
+import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.service.social.Google
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,9 +16,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
+import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado
+import java.util.*
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     @ApplicationContext context: Context,
+    private val userDao: UserRepository,
     private var iFirebaseAutenticacao: IFirebaseAutenticacao
 ): ViewModel(), ILogin.IViewModel {
 
@@ -29,6 +34,8 @@ class LoginViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<TipoResultado>()
     val loginResult: LiveData<TipoResultado> = _loginResult
 
+    private var userEmail: String? = null
+
     init {
         // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
@@ -37,6 +44,7 @@ class LoginViewModel @Inject constructor(
     /* Verifica se tem internet e realiza login */
     override fun login(userEmail: String, userPassword: String) {
         if (DeviceHelper.isInternet(weakReference.get())) {
+            this.userEmail = userEmail
             iFirebaseAutenticacao.loginUsuario(weakReference.get(), userEmail, userPassword)
         } else {
             _isInternet.postValue(false)
@@ -54,16 +62,34 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    override fun submitVerification() {
+        // verifica se cadastro ja existe
+        val user = userDao.findByEmail(userEmail!!)
+
+        // se data de envio for null, realiza envio do e-mail
+        // se ja existir envio, verifica se pode enviar novamente
+        if (user.dateSubmitVerification == null || ValidarEmailEnviado.isEnviarNovoEmail(user.dateSubmitVerification)) {
+            iFirebaseAutenticacao.enviarEmailVerificacao(weakReference.get()) // envia e-mail
+            user.dateSubmitVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
+            userDao.update(user)
+        } else {
+            // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
+            println("PENDENTE")
+        }
+    }
+
     override fun setResultado(result: TipoResultado) {
-//        when (result) {
-//            TipoResultado.LOGIN_REALIZADO -> {
-//                if (!NomeAparelhoAutenticacao.getInstance(daoSession).getNomeExiste()) {
-//                    _loginResult.postValue(TipoResultado.FIRST_LOGIN)
-//                }
-//            }
-//            else -> {
+        when (result) {
+            TipoResultado.LOGIN_REALIZADO -> {
+                if (userDao.findByEmail(userEmail!!).deviceName.isNullOrBlank()) {
+                    _loginResult.postValue(TipoResultado.FIRST_LOGIN)
+                } else {
+                    _loginResult.postValue(result)
+                }
+            }
+            else -> {
                 _loginResult.postValue(result)
-//            }
-//        }
+            }
+        }
     }
 }

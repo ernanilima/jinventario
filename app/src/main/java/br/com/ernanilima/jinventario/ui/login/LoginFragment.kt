@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -90,9 +91,22 @@ class LoginFragment: Fragment() {
                 TipoResultado.FIRST_LOGIN -> {
                     NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
                 }
+                TipoResultado.EMAIL_NAO_VERIFICADO -> {
+                    // PENDENTE: CRIAR CLASSE PARA ENVIOS
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("E-mail não verificado!")
+                        .setMessage("Reenviar e-mail de verificação?")
+                        .setPositiveButton("Sim") { _, _ -> loginViewModel.submitVerification() }
+                        .setNegativeButton("Não") { dialog, _ -> dialog.cancel() }
+                        .setCancelable(false)
+
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+                }
                 TipoResultado.EMAIL_VERIFICACAO_ENVIADO -> {
                     ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
                 }
+                else -> {}
             }
             binding.progressLogin.visibility = View.GONE
         })
