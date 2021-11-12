@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 
 import br.com.ernanilima.jinventario.AppActivity;
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.presenter.LoginPresenter;
 import br.com.ernanilima.jinventario.presenter.NomeAparelhoPresenter;
 
 /** Navegacoes na activity app
@@ -29,7 +28,7 @@ public class NavegacaoApp {
     }
 
     /** Abre a activity {@link AppActivity}
-     * Sobrecarga usada na tela de login {@link LoginPresenter}
+     * Sobrecarga usada na tela de login {@link br.com.ernanilima.jinventario.ui.login.LoginViewModel}
      * @param activity Activity - Activity(tela) que esta solicitando */
     public static void abrirTelaActivityApp(Activity activity) {
         Intent intent = new Intent(activity, AppActivity.class);
