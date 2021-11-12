@@ -1,193 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     style="@style/Theme.MaterialComponents.DayNight.NoActionBar"
     tools:context=".view.LoginFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/ll_separator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_logo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_form_login"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/s_t_login"
-                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="90sp"
+                android:layout_height="90sp"
+                android:layout_marginBottom="15sp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo_256x256" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_email"
-                style="@style/Theme.JInventario.Fields"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/s_email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/field_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_password"
-                style="@style/Theme.JInventario.Fields"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/s_senha"
-                app:counterEnabled="true"
-                app:counterMaxLength="6"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/field_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:imeOptions="actionDone"
-                    android:inputType="numberPassword"
-                    android:maxLength="15" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/btn_forgot_password"
-                style="@style/Theme.JInventario.Link"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/s_esqueceusenha"
-                android:textSize="16sp" />
+                android:layout_marginBottom="20sp">
+
+                <TextView
+                    android:id="@+id/txt_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/buda_light"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_logo"
+                    android:layout_marginEnd="5sp"
+                    android:layout_toStartOf="@+id/txt_made_by"
+                    android:text="by"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_made_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_logo"
+                    android:layout_alignEnd="@+id/txt_logo"
+                    android:text="@string/app_made_by"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+            </RelativeLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_view">
 
-        <CheckBox
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_login"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:enabled="false"
-            android:checked="true"
-            android:text="@string/s_lembrarlogin" />
+            android:layout_marginTop="-85dp"
+            android:orientation="vertical"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:layout_constraintTop_toBottomOf="@+id/ll_logo"
+            app:layout_constraintBottom_toTopOf="@+id/ll_botton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
-            style="@style/Theme.JInventario.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:text="@string/s_t_login"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16sp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/ll_separator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/s_t_login"
+                        android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/s_naocadastrado" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_email"
+                        style="@style/Theme.JInventario.Fields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/s_email">
 
-        <TextView
-            android:id="@+id/btn_register"
-            style="@style/Theme.JInventario.Link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/s_cadastrese" />
-    </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/field_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_separator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_margin="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login_gmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_password"
+                        style="@style/Theme.JInventario.Fields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/s_senha"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="6"
+                        app:passwordToggleEnabled="true">
 
-        <View
-            style="@style/Theme.JInventario.Separator"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="1" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/field_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberPassword"
+                            android:maxLength="15" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/btn_forgot_password"
+                            style="@style/Theme.JInventario.Link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16sp"
+                            android:layout_toStartOf="@+id/btn_login"
+                            android:text="@string/s_esqueceusenha" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_login"
+                            style="@style/Theme.JInventario.Button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/s_t_login"
+                            android:textAllCaps="false" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ProgressBar
+                android:id="@+id/progress_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_botton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/s_loginsocial"
-            android:textSize="12sp" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/ll_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <View
-            style="@style/Theme.JInventario.Separator"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12sp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login_gmail"
-        style="@style/Theme.JInventario.Google"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16sp"
-        android:text="@string/s_entrargmail"
-        android:textAllCaps="false"
-        app:cornerRadius="25dp"
-        app:icon="@drawable/ic_gmail"
-        app:iconTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_naocadastrado" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/btn_register"
+                    style="@style/Theme.JInventario.Link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/s_cadastrese" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/Theme.JInventario.Separator"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/s_loginsocial"
+                    android:textSize="12sp" />
+
+                <View
+                    style="@style/Theme.JInventario.Separator"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login_gmail"
+                style="@style/Theme.JInventario.Google"
+                android:layout_width="250sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12sp"
+                android:text="@string/s_entrargmail"
+                android:textAllCaps="false"
+                app:cornerRadius="25dp"
+                app:icon="@drawable/ic_gmail"
+                app:iconTint="@null" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
