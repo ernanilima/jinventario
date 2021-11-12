@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.firebase;
+package br.com.ernanilima.jinventario.data.network.firebase;
 
 /** Enum com o tipo de resultado obtido no firebase
  * {@link FirebaseAutenticacao} */

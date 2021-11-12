@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.firebase.validation;
+package br.com.ernanilima.jinventario.data.network.firebase.validation;
 
 import android.content.Context;
 

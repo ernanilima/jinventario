@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
-import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
-import br.com.ernanilima.jinventario.firebase.TipoResultado
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import br.com.ernanilima.jinventario.repository.UserRepository
-import br.com.ernanilima.jinventario.service.social.Google
+import br.com.ernanilima.jinventario.data.network.google.Google
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -81,6 +81,7 @@ class LoginViewModel @Inject constructor(
     override fun setResultado(result: TipoResultado) {
         when (result) {
             TipoResultado.LOGIN_REALIZADO -> {
+                // TODO - PENDENTE: LOGIN COM O GMAIL GERA UM E-MAIL NULL
                 if (userDao.findByEmail(userEmail!!).deviceName.isNullOrBlank()) {
                     _loginResult.postValue(TipoResultado.FIRST_LOGIN)
                 } else {

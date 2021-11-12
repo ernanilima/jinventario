@@ -5,9 +5,9 @@ import android.view.View;
 import java.util.Date;
 
 import br.com.ernanilima.jinventario.BaseApplication;
-import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;

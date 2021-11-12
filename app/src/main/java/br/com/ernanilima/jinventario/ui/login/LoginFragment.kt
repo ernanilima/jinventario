@@ -15,13 +15,13 @@ import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
 import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
-import br.com.ernanilima.jinventario.firebase.TipoResultado
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
-import br.com.ernanilima.jinventario.service.social.Google
+import br.com.ernanilima.jinventario.data.network.google.Google
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.AndroidEntryPoint

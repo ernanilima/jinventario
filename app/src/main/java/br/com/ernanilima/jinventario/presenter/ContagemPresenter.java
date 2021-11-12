@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.BaseApplication;
-import br.com.ernanilima.jinventario.firebase.FirebaseBancoDados;
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;

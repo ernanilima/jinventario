@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.firebase;
+package br.com.ernanilima.jinventario.data.network.firebase;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import javax.inject.Inject;
 
-import br.com.ernanilima.jinventario.firebase.validation.ValidarFirebase;
+import br.com.ernanilima.jinventario.data.network.firebase.validation.ValidarFirebase;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
 public class FirebaseAutenticacao implements IFirebaseAutenticacao {

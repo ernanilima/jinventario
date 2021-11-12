@@ -1,8 +1,8 @@
 package br.com.ernanilima.jinventario.di
 
 import android.content.Context
-import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster

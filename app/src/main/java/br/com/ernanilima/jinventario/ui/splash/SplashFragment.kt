@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
 import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.firebase.TipoResultado.AUTHENTICATED_USER
-import br.com.ernanilima.jinventario.firebase.TipoResultado.UNAUTHENTICATED_USER
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado.AUTHENTICATED_USER
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado.UNAUTHENTICATED_USER
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation

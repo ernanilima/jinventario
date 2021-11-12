@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.firebase;
+package br.com.ernanilima.jinventario.data.network.firebase;
 
 import android.content.Context;
 

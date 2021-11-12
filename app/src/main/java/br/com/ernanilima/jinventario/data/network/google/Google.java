@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.service.social;
+package br.com.ernanilima.jinventario.data.network.google;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao;
-import br.com.ernanilima.jinventario.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao;
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
 

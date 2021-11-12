@@ -1,4 +1,4 @@
-package br.com.ernanilima.jinventario.firebase;
+package br.com.ernanilima.jinventario.data.network.firebase;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

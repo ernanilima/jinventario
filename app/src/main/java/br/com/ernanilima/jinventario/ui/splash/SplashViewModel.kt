@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
-import br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.firebase.IFirebaseAutenticacao
-import br.com.ernanilima.jinventario.firebase.TipoResultado
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
