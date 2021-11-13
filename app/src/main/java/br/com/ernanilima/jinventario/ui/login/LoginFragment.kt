@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
@@ -23,7 +22,6 @@ import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Comp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
 import br.com.ernanilima.jinventario.data.network.google.Google
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,8 +30,6 @@ class LoginFragment: Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val loginViewModel: LoginViewModel by viewModels()
-
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -60,8 +56,7 @@ class LoginFragment: Fragment() {
         binding.btnRegister.setOnClickListener { binding.progressLogin.isVisible.ifFalse { toRegisterFragment(this) } }
 
         // GOOGLE
-        mGoogleSignInClient = Google.getInstance().servicoLoginGoogle(getString(R.string.default_web_client_id), activity)
-        Google.getInstance().setFragmentLogin(this)
+        Google.showActivityForResult(this)
 
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutEmail)
@@ -129,7 +124,7 @@ class LoginFragment: Fragment() {
      */
     private fun loginGmail() {
         binding.progressLogin.visibility = View.VISIBLE
-        loginViewModel.loginGmail(mGoogleSignInClient)
+        loginViewModel.loginGmail()
     }
 
     /**

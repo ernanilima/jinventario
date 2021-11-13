@@ -23,7 +23,8 @@ import java.util.*
 class LoginViewModel @Inject constructor(
     @ApplicationContext context: Context,
     private val userDao: UserRepository,
-    private var iFirebaseAuth: IFirebaseAuth
+    private var iFirebaseAuth: IFirebaseAuth,
+    private val googleSignInClient: GoogleSignInClient
 ): ViewModel(), ILogin.IViewModel {
 
     private val weakReference = WeakReference(context)
@@ -53,9 +54,9 @@ class LoginViewModel @Inject constructor(
     }
 
     /* Verifica se tem internet e realiza login com o gmail */
-    override fun loginGmail(loginGmail: GoogleSignInClient) {
+    override fun loginGmail() {
         if (DeviceHelper.isInternet(weakReference.get())) {
-            Google.getInstance().loginGoogle(loginGmail, this)
+            Google.loginGmailUser(googleSignInClient, this)
         } else {
             _isInternet.postValue(false)
             _loginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)

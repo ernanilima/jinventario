@@ -1,7 +1,6 @@
 package br.com.ernanilima.jinventario.ui.login
 
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 interface ILogin {
     /** [LoginViewModel]  */
@@ -15,9 +14,8 @@ interface ILogin {
 
         /**
          * * Realiza login com o gmail
-         * @param loginGmail GoogleSignInClient - classe do google
          */
-        fun loginGmail(loginGmail: GoogleSignInClient)
+        fun loginGmail()
 
         /**
          * Envia email de verificacao
