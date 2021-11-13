@@ -81,8 +81,7 @@ class LoginViewModel @Inject constructor(
     override fun setResultado(result: TipoResultado) {
         when (result) {
             TipoResultado.LOGIN_REALIZADO -> {
-                // TODO - PENDENTE: LOGIN COM O GMAIL GERA UM E-MAIL NULL
-                if (userDao.findByEmail(userEmail!!).deviceName.isNullOrBlank()) {
+                if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
                     _loginResult.postValue(TipoResultado.FIRST_LOGIN)
                 } else {
                     _loginResult.postValue(result)
