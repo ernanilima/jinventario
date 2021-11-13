@@ -16,7 +16,7 @@ import br.com.ernanilima.jinventario.util.Utils;
 public class FirebaseBancoDados {
 
     private static FirebaseBancoDados FIREBASE_DB;
-    private IFirebaseAutenticacao iFirebaseAutenticacao;
+    private IFirebaseAuth iFirebaseAuth;
     private DatabaseReference referencia;
 
     /** @return FirebaseDb - instancia da classe {@link FirebaseBancoDados} */
@@ -29,7 +29,7 @@ public class FirebaseBancoDados {
     /** Construtor */
     public FirebaseBancoDados() {
         this.referencia = FirebaseDatabase.getInstance().getReference();
-        this.iFirebaseAutenticacao = new FirebaseAutenticacao();
+        this.iFirebaseAuth = new FirebaseAuth();
     }
 
     /** Grava a contagem recebida no parametro caso ela nao exista
@@ -56,7 +56,7 @@ public class FirebaseBancoDados {
         // recupera a contagem
         return referencia
                 // e-mail do usuario
-                .child(Utils.converter(iFirebaseAutenticacao.getEmailUsuario()))
+                .child(Utils.converter(iFirebaseAuth.getUserEmail()))
                 // nome do aparelho
                 .child(NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho())
                 // id da contagem

@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
-import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.data.network.google.Google
@@ -23,7 +23,7 @@ import java.util.*
 class LoginViewModel @Inject constructor(
     @ApplicationContext context: Context,
     private val userDao: UserRepository,
-    private var iFirebaseAutenticacao: IFirebaseAutenticacao
+    private var iFirebaseAuth: IFirebaseAuth
 ): ViewModel(), ILogin.IViewModel {
 
     private val weakReference = WeakReference(context)
@@ -38,14 +38,14 @@ class LoginViewModel @Inject constructor(
 
     init {
         // EXECUTA AO INICIAR A CLASSE
-        this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
+        this.iFirebaseAuth = FirebaseAuth(this)
     }
 
     /* Verifica se tem internet e realiza login */
     override fun login(userEmail: String, userPassword: String) {
         if (DeviceHelper.isInternet(weakReference.get())) {
             this.userEmail = userEmail
-            iFirebaseAutenticacao.loginUsuario(weakReference.get(), userEmail, userPassword)
+            iFirebaseAuth.loginUser(weakReference.get()!!, userEmail, userPassword)
         } else {
             _isInternet.postValue(false)
             _loginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)
@@ -62,14 +62,14 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun submitVerification() {
+    override fun sendEmailVerification() {
         // verifica se cadastro ja existe
         val user = userDao.findByEmail(userEmail!!)
 
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
         if (user.dateSubmitVerification == null || ValidarEmailEnviado.isEnviarNovoEmail(user.dateSubmitVerification)) {
-            iFirebaseAutenticacao.enviarEmailVerificacao(weakReference.get()) // envia e-mail
+            iFirebaseAuth.sendEmailVerification(weakReference.get()!!) // envia e-mail
             user.dateSubmitVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
             userDao.update(user)
         } else {

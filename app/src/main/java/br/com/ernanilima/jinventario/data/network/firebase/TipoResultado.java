@@ -1,7 +1,7 @@
 package br.com.ernanilima.jinventario.data.network.firebase;
 
 /** Enum com o tipo de resultado obtido no firebase
- * {@link FirebaseAutenticacao} */
+ * {@link FirebaseAuth} */
 @Deprecated
 public enum TipoResultado {
     @Deprecated

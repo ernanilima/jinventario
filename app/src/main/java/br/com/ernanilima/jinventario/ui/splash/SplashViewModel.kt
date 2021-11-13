@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
-import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     @ApplicationContext context: Context,
-    private var iFirebaseAutenticacao: IFirebaseAutenticacao
+    private var iFirebaseAuth: IFirebaseAuth
 ) : ViewModel(), ISplash.IViewModel {
 
     private val weakReference = WeakReference(context)
@@ -33,13 +33,13 @@ class SplashViewModel @Inject constructor(
 
     init {
         // EXECUTA AO INICIAR A CLASSE
-        this.iFirebaseAutenticacao = FirebaseAutenticacao(this)
+        this.iFirebaseAuth = FirebaseAuth(this)
     }
 
     /* Verifica se tem internet e se usuario esta autenticado */
     override fun checkAuthenticatedUserToLogin() {
         if (DeviceHelper.isInternet(weakReference.get())) {
-            iFirebaseAutenticacao.verificarSeUsuarioAutenticado()
+            iFirebaseAuth.checkAuthenticatedUserToLogin()
         } else {
             setResultado(TipoResultado.UNAUTHENTICATED_USER)
         }

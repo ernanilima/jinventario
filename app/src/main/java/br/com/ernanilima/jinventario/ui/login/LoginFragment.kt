@@ -96,7 +96,7 @@ class LoginFragment: Fragment() {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("E-mail não verificado!")
                         .setMessage("Reenviar e-mail de verificação?")
-                        .setPositiveButton("Sim") { _, _ -> loginViewModel.submitVerification() }
+                        .setPositiveButton("Sim") { _, _ -> loginViewModel.sendEmailVerification() }
                         .setNegativeButton("Não") { dialog, _ -> dialog.cancel() }
                         .setCancelable(false)
 

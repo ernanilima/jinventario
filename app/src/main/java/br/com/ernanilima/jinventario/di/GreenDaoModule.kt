@@ -1,8 +1,8 @@
 package br.com.ernanilima.jinventario.di
 
 import android.content.Context
-import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao
-import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
@@ -49,6 +49,6 @@ class GreenDaoModule {
 abstract class UiModule {
 
     @Binds
-    abstract fun bindFirebase(impl: FirebaseAutenticacao): IFirebaseAutenticacao
+    abstract fun bindFirebase(impl: FirebaseAuth): IFirebaseAuth
 
 }

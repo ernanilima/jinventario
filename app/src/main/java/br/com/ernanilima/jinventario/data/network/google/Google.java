@@ -14,8 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAutenticacao;
-import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAutenticacao;
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado;
 import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase;
 
@@ -26,7 +26,7 @@ public class Google {
     private Fragment fragmentLogin;
     private ActivityResultLauncher<Intent> abrirParaObterResultado;
     private IResultadoFirebase iResultadoGoogle;
-    private IFirebaseAutenticacao iFirebaseAutenticacao;
+    private IFirebaseAuth iFirebaseAuth;
 
     /** @return Google - instancia da classe {@link Google} */
     public static Google getInstance() {
@@ -54,7 +54,7 @@ public class Google {
      * @param iResultadoFirebase IResultadoFirebase -  interface que recebera o resultado */
     public void loginGoogle(GoogleSignInClient mGoogleSignInClient, IResultadoFirebase iResultadoFirebase) {
         iResultadoGoogle = iResultadoFirebase;
-        iFirebaseAutenticacao = new FirebaseAutenticacao(iResultadoFirebase);
+        iFirebaseAuth = new FirebaseAuth(iResultadoFirebase);
         Intent intent = mGoogleSignInClient.getSignInIntent();
         abrirParaObterResultado.launch(intent);
     }
@@ -89,7 +89,7 @@ public class Google {
         try {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             GoogleSignInAccount contaUsuario = task.getResult(ApiException.class);
-            iFirebaseAutenticacao.loginUsuarioGoogle(contaUsuario.getIdToken());
+            iFirebaseAuth.loginGmailUser(contaUsuario.getIdToken());
         } catch (ApiException e) { e.printStackTrace(); }
     }
 }

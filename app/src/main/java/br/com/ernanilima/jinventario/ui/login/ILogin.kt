@@ -22,6 +22,6 @@ interface ILogin {
         /**
          * Envia email de verificacao
          */
-        fun submitVerification()
+        fun sendEmailVerification()
     }
 }
