@@ -7,7 +7,8 @@ import java.util.Date;
 import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.data.result.IResultType;
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.model.EmailVerificacao;
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;
@@ -89,18 +90,15 @@ public class CadastroPresenter implements ICadastro.IPresenter {
 
     @Override
     /** Resultado recebido do firebase */
-    public void setResultado(TipoResultado resultado) {
-        switch (resultado) {
-            case CADASTRO_REALIZADO:
-                // cadastro realizado, envia o e-mail de verificacao
-                // para que o usuario confirme se o e-mail realmente existe
-                iFirebaseAuth.sendEmailVerification(vCadastro.getActivity());
-                break;
-
-            case EMAIL_VERIFICACAO_ENVIADO:
-                gravarEmailVerificacaoEnviado();
-                ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
-                Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
+    public void setResult(IResultType iResult) {
+        if (ResultTypeFirebase.REGISTRATION_DONE.equals(iResult)) {
+            // cadastro realizado, envia o e-mail de verificacao
+            // para que o usuario confirme se o e-mail realmente existe
+            iFirebaseAuth.sendEmailVerification(vCadastro.getActivity());
+        } else if (ResultTypeFirebase.VERIFICATION_EMAIL_SENT.equals(iResult)) {
+            gravarEmailVerificacaoEnviado();
+            ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
+            Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
         }
     }
 }

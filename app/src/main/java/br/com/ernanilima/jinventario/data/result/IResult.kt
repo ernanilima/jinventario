@@ -1,6 +1,8 @@
-package br.com.ernanilima.jinventario.data.result
+package br.com.ernanilima.jinventario.data.result;
 
+/**
+ * Usada para receber os resultados
+ */
 interface IResult {
-    // Interface para obter todos os resultados
-    /** [ResultLocal] - [ResultFirebase] [ResultGoogle] */
+    fun setResult(iResult: IResultType)
 }

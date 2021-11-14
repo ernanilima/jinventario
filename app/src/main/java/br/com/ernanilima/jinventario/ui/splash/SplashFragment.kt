@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
 import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado.AUTHENTICATED_USER
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado.UNAUTHENTICATED_USER
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
@@ -52,10 +51,10 @@ class SplashFragment : Fragment() {
 
         splashViewModel.automaticLoginResult.observe(viewLifecycleOwner, { result ->
             when (result) {
-                AUTHENTICATED_USER -> {
+                ResultTypeFirebase.AUTHENTICATED_USER -> {
                     NavegacaoApp.abrirTelaActivityApp(requireActivity())
                 }
-                UNAUTHENTICATED_USER -> {
+                ResultTypeFirebase.UNAUTHENTICATED_USER -> {
                     Navigation.Login.toLoginFragment(this)
                 }
             }

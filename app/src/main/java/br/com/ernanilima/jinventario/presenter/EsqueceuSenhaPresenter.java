@@ -7,7 +7,8 @@ import java.util.Date;
 import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado;
+import br.com.ernanilima.jinventario.data.result.IResultType;
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.model.EmailNovaSenha;
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;
@@ -84,11 +85,10 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
 
     @Override
     /** Resultado recebido do firebase */
-    public void setResultado(TipoResultado resultado) {
-        switch (resultado) {
-            case EMAIL_NOVA_SENHA_ENVIADO:
-                ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
-                Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
+    public void setResult(IResultType iResult) {
+        if (ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT.equals(iResult)) {
+            ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
+            Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
         }
     }
 }

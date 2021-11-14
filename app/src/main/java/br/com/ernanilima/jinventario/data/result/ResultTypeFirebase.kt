@@ -1,9 +1,9 @@
 package br.com.ernanilima.jinventario.data.result
 
 /**
- * Resultados para o firebase - [br.com.ernanilima.jinventario.firebase.FirebaseAutenticacao]
+ * Resultados para o firebase - [br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth]
  */
-enum class ResultFirebase: IResult {
+enum class ResultTypeFirebase: IResultType {
     REGISTRATION_DONE,
     VERIFICATION_EMAIL_SENT,
     EMAIL_NOT_VERIFIED,

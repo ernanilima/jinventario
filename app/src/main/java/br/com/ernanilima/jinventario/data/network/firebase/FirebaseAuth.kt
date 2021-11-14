@@ -3,9 +3,10 @@ package br.com.ernanilima.jinventario.data.network.firebase
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase
+import br.com.ernanilima.jinventario.data.result.IResult
 import javax.inject.Inject
 import br.com.ernanilima.jinventario.data.network.firebase.validation.ValidarFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
 
@@ -14,13 +15,13 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var currentUser: FirebaseUser? = auth.currentUser
 
-    private var _iResult: IResultadoFirebase? = null
+    private var _iResult: IResult? = null
     private val iResult get() = _iResult!!
 
     /**
      * @param iResult IResultadoFirebase - class para obter o resultado
      */
-    constructor(iResult: IResultadoFirebase): this() {
+    constructor(iResult: IResult): this() {
         this._iResult = iResult
     }
 
@@ -29,9 +30,9 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
      */
     override fun checkAuthenticatedUserToLogin() {
         if (currentUser != null && currentUser!!.isEmailVerified) {
-            iResult.setResultado(TipoResultado.AUTHENTICATED_USER)
+            iResult.setResult(ResultTypeFirebase.AUTHENTICATED_USER)
         } else {
-            iResult.setResultado(TipoResultado.UNAUTHENTICATED_USER)
+            iResult.setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
         }
     }
 
@@ -49,7 +50,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
         auth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 currentUser = auth.currentUser
-                iResult.setResultado(TipoResultado.CADASTRO_REALIZADO)
+                iResult.setResult(ResultTypeFirebase.REGISTRATION_DONE)
             }
         }.addOnFailureListener { error ->
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
@@ -62,7 +63,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     override fun sendEmailVerification(context: Context) {
         currentUser!!.sendEmailVerification().addOnCompleteListener { result ->
             if (result.isSuccessful) {
-                iResult.setResultado(TipoResultado.EMAIL_VERIFICACAO_ENVIADO)
+                iResult.setResult(ResultTypeFirebase.VERIFICATION_EMAIL_SENT)
             }
         }.addOnFailureListener { error ->
             ValidarFirebase.erroFirebase(context, error.javaClass.simpleName)
@@ -75,7 +76,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     override fun sendEmailForgotPassword(context: Context, userEmail: String) {
         auth.sendPasswordResetEmail(userEmail).addOnCompleteListener { result ->
             if (result.isSuccessful) {
-                iResult.setResultado(TipoResultado.EMAIL_NOVA_SENHA_ENVIADO)
+                iResult.setResult(ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT)
             }
         }.addOnFailureListener { error ->
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
@@ -90,7 +91,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
         auth.signInWithCredential(credential).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 currentUser = auth.currentUser
-                iResult.setResultado(TipoResultado.LOGIN_REALIZADO)
+                iResult.setResult(ResultTypeFirebase.LOGIN_DONE)
             }
         }
     }
@@ -102,11 +103,11 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 currentUser = auth.currentUser
-                val tipoResultado = if (result.result.user!!.isEmailVerified) TipoResultado.LOGIN_REALIZADO else TipoResultado.EMAIL_NAO_VERIFICADO
-                iResult.setResultado(tipoResultado)
+                val resultTypeFirebase = if (result.result.user!!.isEmailVerified) ResultTypeFirebase.LOGIN_DONE else ResultTypeFirebase.EMAIL_NOT_VERIFIED
+                iResult.setResult(resultTypeFirebase)
             }
         }.addOnFailureListener { error ->
-            iResult.setResultado(TipoResultado.UNAUTHENTICATED_USER)
+            iResult.setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
         }
     }

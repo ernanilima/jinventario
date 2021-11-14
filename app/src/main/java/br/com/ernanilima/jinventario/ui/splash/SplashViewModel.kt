@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
+import br.com.ernanilima.jinventario.data.result.IResultType
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +29,8 @@ class SplashViewModel @Inject constructor(
     private val _isInternet = MutableLiveData<Boolean>()
     val isInternet: LiveData<Boolean> = _isInternet
 
-    private val _automaticLoginResult = MutableLiveData<TipoResultado>()
-    val automaticLoginResult: LiveData<TipoResultado> = _automaticLoginResult
+    private val _automaticLoginResult = MutableLiveData<IResultType>()
+    val automaticLoginResult: LiveData<IResultType> = _automaticLoginResult
 
     init {
         // EXECUTA AO INICIAR A CLASSE
@@ -41,22 +42,22 @@ class SplashViewModel @Inject constructor(
         if (DeviceHelper.isInternet(weakReference.get())) {
             iFirebaseAuth.checkAuthenticatedUserToLogin()
         } else {
-            setResultado(TipoResultado.UNAUTHENTICATED_USER)
+            setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
         }
     }
 
     /* Recebe o resultado da autenticacao */
-    override fun setResultado(result: TipoResultado) {
+    override fun setResult(iResult: IResultType) {
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000L)
-            when (result) {
-                TipoResultado.UNAUTHENTICATED_USER -> {
-                    _automaticLoginResult.postValue(result)
+            when (iResult) {
+                ResultTypeFirebase.UNAUTHENTICATED_USER -> {
+                    _automaticLoginResult.postValue(iResult)
                     // se o usuario nao estiver autenticado, atualiza o status da internet para a view
                     _isInternet.postValue(DeviceHelper.isInternet(weakReference.get()))
                 }
                 else -> {
-                    _automaticLoginResult.postValue(result)
+                    _automaticLoginResult.postValue(iResult)
                 }
             }
         }

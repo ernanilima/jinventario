@@ -2,7 +2,7 @@ package br.com.ernanilima.jinventario.data.network.google
 
 import androidx.activity.result.ActivityResultLauncher
 import android.content.Intent
-import br.com.ernanilima.jinventario.interfaces.IResultadoFirebase
+import br.com.ernanilima.jinventario.data.result.IResult
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import android.app.Activity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
+import br.com.ernanilima.jinventario.data.result.ResultTypeGoogle
 import com.google.android.gms.common.api.ApiException
 
 object Google {
@@ -18,7 +18,7 @@ object Google {
     private var fragment: Fragment? = null
     private var startActivityForResult: ActivityResultLauncher<Intent>? = null
 
-    private var _iResult: IResultadoFirebase? = null
+    private var _iResult: IResult? = null
     private val iResult get() = _iResult!!
 
     private var _iFirebaseAuth: IFirebaseAuth? = null
@@ -29,7 +29,7 @@ object Google {
      * @param googleSignInClient GoogleSignInClient - cliente de login do google
      * @param iResult IResultadoFirebase - class para obter o resultado
      */
-    fun loginGmailUser(googleSignInClient: GoogleSignInClient, iResult: IResultadoFirebase) {
+    fun loginGmailUser(googleSignInClient: GoogleSignInClient, iResult: IResult) {
         _iResult = iResult
         _iFirebaseAuth = FirebaseAuth(iResult)
 
@@ -57,7 +57,7 @@ object Google {
                 setLoginResultPerformed(result.data!!)
             } else {
                 // login cancelado
-                iResult.setResultado(TipoResultado.UNAUTHENTICATED_USER)
+                iResult.setResult(ResultTypeGoogle.LOGIN_CANCELED)
             }
         }
     }

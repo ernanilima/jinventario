@@ -14,13 +14,14 @@ import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
 import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
 import br.com.ernanilima.jinventario.data.network.google.Google
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,14 +81,15 @@ class LoginFragment: Fragment() {
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, { result ->
             when (result) {
-                TipoResultado.LOGIN_REALIZADO -> {
+                ResultTypeFirebase.LOGIN_DONE -> {
                     NavegacaoApp.abrirTelaActivityApp(requireActivity())
                 }
-                TipoResultado.FIRST_LOGIN -> {
+                ResultTypeFirebase.FIRST_LOGIN_DONE -> {
                     NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
                 }
-                TipoResultado.EMAIL_NAO_VERIFICADO -> {
+                ResultTypeFirebase.EMAIL_NOT_VERIFIED -> {
                     // PENDENTE: CRIAR CLASSE PARA ENVIOS
+                    // ADICIONAR LOADING AO ENVIAR EMAIL
                     val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("E-mail não verificado!")
                         .setMessage("Reenviar e-mail de verificação?")
@@ -98,8 +100,11 @@ class LoginFragment: Fragment() {
                     val alertDialog: AlertDialog = builder.create()
                     alertDialog.show()
                 }
-                TipoResultado.EMAIL_VERIFICACAO_ENVIADO -> {
+                ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
                     ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
+                }
+                ResultTypeLocal.WAIT_SEND_VERIFICATION -> {
+                    ToastPersonalizado.erro(requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
                 }
                 else -> {}
             }

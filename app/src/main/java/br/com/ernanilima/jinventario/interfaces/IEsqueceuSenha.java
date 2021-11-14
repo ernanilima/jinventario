@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.data.result.IResult;
 import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
 import br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment;
 
@@ -21,7 +22,7 @@ public interface IEsqueceuSenha {
 
     /** Usado no presenter
      * {@link EsqueceuSenhaPresenter} */
-    interface IPresenter extends IResultadoFirebase {
+    interface IPresenter extends IResult {
         void gerarNovaSenha(android.view.View view);
     }
 }

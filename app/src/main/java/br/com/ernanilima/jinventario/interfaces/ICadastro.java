@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.com.ernanilima.jinventario.data.result.IResult;
 import br.com.ernanilima.jinventario.presenter.CadastroPresenter;
 import br.com.ernanilima.jinventario.view.CadastroFragment;
 
@@ -24,7 +25,7 @@ public interface ICadastro {
 
     /** Usado no presenter
      * {@link CadastroPresenter} */
-    interface IPresenter extends IResultadoFirebase {
+    interface IPresenter extends IResult {
         void cadastrar(android.view.View view);
     }
 }

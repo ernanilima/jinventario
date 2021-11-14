@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
-import br.com.ernanilima.jinventario.data.network.firebase.TipoResultado
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.data.network.google.Google
+import br.com.ernanilima.jinventario.data.result.IResultType
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,8 +34,11 @@ class LoginViewModel @Inject constructor(
     private val _isInternet = MutableLiveData<Boolean>()
     val isInternet: LiveData<Boolean> = _isInternet
 
-    private val _loginResult = MutableLiveData<TipoResultado>()
-    val loginResult: LiveData<TipoResultado> = _loginResult
+    private val _loginResult = MutableLiveData<IResultType>()
+    val loginResult: LiveData<IResultType> = _loginResult
+
+    private var _waitingTime: Long? = null
+    val waitingTime get() = _waitingTime!!
 
     private var userEmail: String? = null
 
@@ -49,7 +54,7 @@ class LoginViewModel @Inject constructor(
             iFirebaseAuth.loginUser(weakReference.get()!!, userEmail, userPassword)
         } else {
             _isInternet.postValue(false)
-            _loginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)
+            _loginResult.postValue(ResultTypeFirebase.UNAUTHENTICATED_USER)
         }
     }
 
@@ -59,7 +64,7 @@ class LoginViewModel @Inject constructor(
             Google.loginGmailUser(googleSignInClient, this)
         } else {
             _isInternet.postValue(false)
-            _loginResult.postValue(TipoResultado.UNAUTHENTICATED_USER)
+            _loginResult.postValue(ResultTypeFirebase.UNAUTHENTICATED_USER)
         }
     }
 
@@ -74,22 +79,23 @@ class LoginViewModel @Inject constructor(
             user.dateSubmitVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
             userDao.update(user)
         } else {
-            // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
-            println("PENDENTE")
+            // se o e-mail nao puder ser enviado
+            _waitingTime = ValidarEmailEnviado.getTempoParaNovoEmail(user.dateSubmitVerification)
+            setResult(ResultTypeLocal.WAIT_SEND_VERIFICATION)
         }
     }
 
-    override fun setResultado(result: TipoResultado) {
-        when (result) {
-            TipoResultado.LOGIN_REALIZADO -> {
+    override fun setResult(iResult: IResultType) {
+        when (iResult) {
+            ResultTypeFirebase.LOGIN_DONE -> {
                 if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
-                    _loginResult.postValue(TipoResultado.FIRST_LOGIN)
+                    _loginResult.postValue(ResultTypeFirebase.FIRST_LOGIN_DONE)
                 } else {
-                    _loginResult.postValue(result)
+                    _loginResult.postValue(iResult)
                 }
             }
             else -> {
-                _loginResult.postValue(result)
+                _loginResult.postValue(iResult)
             }
         }
     }
