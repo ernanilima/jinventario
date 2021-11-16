@@ -5,15 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
-import br.com.ernanilima.jinventario.extension.common.InputHelper
-import br.com.ernanilima.jinventario.extension.common.Validator
-import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
@@ -22,6 +17,9 @@ import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Comp
 import br.com.ernanilima.jinventario.data.network.google.Google
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
+import br.com.ernanilima.jinventario.extension.common.*
+import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -88,17 +86,13 @@ class LoginFragment: Fragment() {
                     NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
                 }
                 ResultTypeFirebase.EMAIL_NOT_VERIFIED -> {
-                    // PENDENTE: CRIAR CLASSE PARA ENVIOS
                     // ADICIONAR LOADING AO ENVIAR EMAIL
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-                    builder.setTitle("E-mail não verificado!")
-                        .setMessage("Reenviar e-mail de verificação?")
-                        .setPositiveButton("Sim") { _, _ -> loginViewModel.sendEmailVerification() }
-                        .setNegativeButton("Não") { dialog, _ -> dialog.cancel() }
-                        .setCancelable(false)
-
-                    val alertDialog: AlertDialog = builder.create()
-                    alertDialog.show()
+                    SimpleDialog(QuestionDialog(requireActivity().supportFragmentManager).apply {
+                        setMessage("Reenviar e-mail de verificação?")
+                        setPositiveButton {
+                            loginViewModel.sendEmailVerification()
+                        }
+                    }).show()
                 }
                 ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
                     ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)

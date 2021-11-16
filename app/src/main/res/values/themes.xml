@@ -46,6 +46,13 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 
+    <style name="Theme.JInventario.Dialog.Button" parent="Widget.Design.NavigationView">
+        <item name="android:outlineProvider">none</item>
+        <item name="backgroundTint">@color/zxing_transparent</item>
+        <item name="android:tint">@color/zxing_transparent</item>
+        <item name="android:textColor">@color/loginTextColorDay</item>
+    </style>
+
     <style name="Theme.JInventario.Alert">
         <item name="android:textColor">@color/design_default_color_error</item>
     </style>
@@ -60,6 +67,7 @@
         <item name="icon">@drawable/ic_novo</item>
     </style>
 
+    <!--  REMOVER FUTURAMENTE  -->
     <style name="Theme.JInventario.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/secondaryDarkColorDay</item>
     </style>
