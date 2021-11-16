@@ -12,7 +12,7 @@ class UserRepositoryImpl @Inject constructor(private val dao: UserDao): UserRepo
      * @param user User - usuario para cadastrar
      */
     override fun insert(user: User) {
-        user.id = null
+        // user.id = null
         update(user)
     }
 

@@ -18,16 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import javax.inject.Inject;
+
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
-import br.com.ernanilima.jinventario.presenter.InicioAppPresenter;
 import br.com.ernanilima.jinventario.service.component.SwipeHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
-    private IInicioApp.IPresenter pInicioApp;
+    @Inject IInicioApp.IPresenter pInicioApp;
     private AppCompatButton btn_novacontagem;
     private RecyclerView recycler_view;
     private ContagensEstoqueRecyclerAdapter raContagensEstoque;
@@ -48,8 +51,8 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // DEFINE PRESENTER DESSA ACTIVITY
-        pInicioApp = new InicioAppPresenter(this);
+//        // DEFINE PRESENTER DESSA ACTIVITY
+//        pInicioApp = new InicioAppPresenter(this);
 
         //INICIALIZA
         // nome_local = nome_no_xml

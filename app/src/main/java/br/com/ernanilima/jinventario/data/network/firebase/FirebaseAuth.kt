@@ -2,7 +2,6 @@ package br.com.ernanilima.jinventario.data.network.firebase
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import br.com.ernanilima.jinventario.data.result.IResult
 import javax.inject.Inject
 import br.com.ernanilima.jinventario.data.network.firebase.validation.ValidarFirebase
@@ -13,7 +12,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 class FirebaseAuth @Inject constructor(): IFirebaseAuth {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var currentUser: FirebaseUser? = auth.currentUser
 
     private var _iResult: IResult? = null
     private val iResult get() = _iResult!!
@@ -29,7 +27,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
      * Verifica se ja existe usuario conectado
      */
     override fun checkAuthenticatedUserToLogin() {
-        if (currentUser != null && currentUser!!.isEmailVerified) {
+        if (auth.currentUser != null && auth.currentUser!!.isEmailVerified) {
             iResult.setResult(ResultTypeFirebase.AUTHENTICATED_USER)
         } else {
             iResult.setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
@@ -40,7 +38,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
      * @return String - e-mail do usuario logado
      */
     override fun getUserEmail(): String {
-        return currentUser?.email ?: ""
+        return auth.currentUser?.email ?: ""
     }
 
     /**
@@ -49,7 +47,6 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     override fun registerUser(context: Context, userEmail: String, userPassword: String) {
         auth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
-                currentUser = auth.currentUser
                 iResult.setResult(ResultTypeFirebase.REGISTRATION_DONE)
             }
         }.addOnFailureListener { error ->
@@ -61,7 +58,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
      * Envia e-mail de verificacao para o usuario
      */
     override fun sendEmailVerification(context: Context) {
-        currentUser!!.sendEmailVerification().addOnCompleteListener { result ->
+        auth.currentUser!!.sendEmailVerification().addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 iResult.setResult(ResultTypeFirebase.VERIFICATION_EMAIL_SENT)
             }
@@ -90,7 +87,6 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
         val credential = GoogleAuthProvider.getCredential(userToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { result ->
             if (result.isSuccessful) {
-                currentUser = auth.currentUser
                 iResult.setResult(ResultTypeFirebase.LOGIN_DONE)
             }
         }
@@ -102,7 +98,6 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     override fun loginUser(context: Context, userEmail: String, userPassword: String) {
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
-                currentUser = auth.currentUser
                 val resultTypeFirebase = if (result.result.user!!.isEmailVerified) ResultTypeFirebase.LOGIN_DONE else ResultTypeFirebase.EMAIL_NOT_VERIFIED
                 iResult.setResult(resultTypeFirebase)
             }

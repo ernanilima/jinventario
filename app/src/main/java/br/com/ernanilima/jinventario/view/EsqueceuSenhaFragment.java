@@ -1,6 +1,5 @@
 package br.com.ernanilima.jinventario.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import javax.inject.Inject;
+
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
-import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter;
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IView {
 
-    private IEsqueceuSenha.IPresenter pEsqueceuSenha;
+    @Inject IEsqueceuSenha.IPresenter pEsqueceuSenha;
     private TextInputLayout campo_email;
     private AppCompatButton btn_novasenha;
     private TextView link_btn_voltar;
@@ -36,8 +39,8 @@ public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // DEFINE PRESENTER DESSA ACTIVITY
-        pEsqueceuSenha = new EsqueceuSenhaPresenter(this);
+//        // DEFINE PRESENTER DESSA ACTIVITY
+//        pEsqueceuSenha = new EsqueceuSenhaPresenter(this);
 
         // INICIALIZA
         // nome_local = nome_no_xml
@@ -47,7 +50,8 @@ public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IV
 
         // ACAO DE BOTOES
         btn_novasenha.setOnClickListener(pEsqueceuSenha::gerarNovaSenha);
-        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
+//        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
+        link_btn_voltar.setOnClickListener(v -> Navigation.Login.Companion.toLoginFragment(this));
 
     }
 

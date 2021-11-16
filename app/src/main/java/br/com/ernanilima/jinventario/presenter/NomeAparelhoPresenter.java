@@ -1,10 +1,12 @@
 package br.com.ernanilima.jinventario.presenter;
 
-import br.com.ernanilima.jinventario.BaseApplication;
+import javax.inject.Inject;
+
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
-import br.com.ernanilima.jinventario.model.NomeAparelho;
-import br.com.ernanilima.jinventario.repository.orm.DaoSession;
-import br.com.ernanilima.jinventario.repository.orm.NomeAparelhoDao;
+import br.com.ernanilima.jinventario.model.User;
+import br.com.ernanilima.jinventario.repository.UserRepository;
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
@@ -12,27 +14,35 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 public class NomeAparelhoPresenter implements INomeAparelho.IPresenter {
 
     private INomeAparelho.IView vNomeAparelho;
-    private DaoSession daoSession;
-    private NomeAparelhoDao dNomeAparelho;
+    private IFirebaseAuth iFirebaseAuth;
+//    private DaoSession daoSession;
+//    private NomeAparelhoDao dNomeAparelho;
+    private UserRepository userDao;
 
     /** Construtor
      * @param vNomeAparelho INomeAparelho.IView - view(fragment) do nome do aparelho */
-    public NomeAparelhoPresenter(INomeAparelho.IView vNomeAparelho) {
+    @Inject
+    public NomeAparelhoPresenter(INomeAparelho.IView vNomeAparelho, UserRepository userDao) {
         this.vNomeAparelho = vNomeAparelho;
-
-        // GREENDAO
-        this.daoSession = ((BaseApplication) this.vNomeAparelho.getApplication()).getSessao();
-        this.dNomeAparelho = daoSession.getNomeAparelhoDao();
+        this.iFirebaseAuth = new FirebaseAuth();
+        this.userDao = userDao;
+//        // GREENDAO
+//        this.daoSession = ((BaseApplication) this.vNomeAparelho.getApplication()).getSessao();
+//        this.dNomeAparelho = daoSession.getNomeAparelhoDao();
     }
 
     @Override
     public void gravarNomeDoAparelho() {
         if (validarCampo()) {
-            // gera um model com o nome do aparelho
-            NomeAparelho mNomeAparelho = new NomeAparelho(null, vNomeAparelho.getCampoNomeAparelho().getEditText().getText().toString());
+            User user = userDao.findByEmail(iFirebaseAuth.getUserEmail());
+            user.setDeviceName(vNomeAparelho.getCampoNomeAparelho().getEditText().getText().toString());
+            userDao.update(user);
 
-            // grava o model
-            dNomeAparelho.save(mNomeAparelho);
+//            // gera um model com o nome do aparelho
+//            NomeAparelho mNomeAparelho = new NomeAparelho(null, vNomeAparelho.getCampoNomeAparelho().getEditText().getText().toString());
+//
+//            // grava o model
+//            dNomeAparelho.save(mNomeAparelho);
 
             // navega para a tela de login
             NavegacaoApp.abrirTelaActivityApp(vNomeAparelho.getApplication().getBaseContext());

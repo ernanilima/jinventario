@@ -1,6 +1,5 @@
 package br.com.ernanilima.jinventario.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,13 +16,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import javax.inject.Inject;
+
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
-import br.com.ernanilima.jinventario.presenter.CadastroPresenter;
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class CadastroFragment extends Fragment implements ICadastro.IView {
 
-    private ICadastro.IPresenter pCadastro;
+    @Inject ICadastro.IPresenter pCadastro;
     private TextInputLayout campo_email, campo_senha1, campo_senha2;
     private AppCompatButton btn_cadastrar;
     private CheckBox chbx_politica_privacidade;
@@ -41,8 +44,8 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // DEFINE PRESENTER DESSA ACTIVITY
-        pCadastro = new CadastroPresenter(this);
+//        // DEFINE PRESENTER DESSA ACTIVITY
+//        pCadastro = new CadastroPresenter(this);
 
         // INICIALIZA
         // nome_local = nome_no_xml
@@ -58,7 +61,8 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
         campo_senha2.getEditText().setOnClickListener(pCadastro::cadastrar); // botao de teclado
         link_btn_politica_privacidade.setOnClickListener(v -> abrirPoliticaPrivacidade());
         btn_cadastrar.setOnClickListener(pCadastro::cadastrar);
-        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
+//        link_btn_voltar.setOnClickListener(v -> ((Activity) v.getContext()).onBackPressed());
+        link_btn_voltar.setOnClickListener(v -> Navigation.Login.Companion.toLoginFragment(this));
 
     }
 

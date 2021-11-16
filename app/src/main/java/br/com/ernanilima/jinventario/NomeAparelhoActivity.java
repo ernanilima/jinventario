@@ -9,13 +9,16 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
-import br.com.ernanilima.jinventario.presenter.NomeAparelhoPresenter;
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
+import javax.inject.Inject;
 
+import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NomeAparelhoActivity extends AppCompatActivity implements INomeAparelho.IView {
 
-    private INomeAparelho.IPresenter pNomeAparelho;
+    @Inject INomeAparelho.IPresenter pNomeAparelho;
     private TextInputLayout campo_nomeaparelho;
     private AppCompatButton btn_gravar;
     private TextView link_btn_voltar;
@@ -25,8 +28,8 @@ public class NomeAparelhoActivity extends AppCompatActivity implements INomeApar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nome_aparelho);
 
-        // DEFINE PRESENTER DESSA ACTIVITY
-        pNomeAparelho = new NomeAparelhoPresenter(this);
+//        // DEFINE PRESENTER DESSA ACTIVITY
+//        pNomeAparelho = new NomeAparelhoPresenter(this);
 
         // INICIALIZA
         // nome_local = nome_no_xml

@@ -7,16 +7,18 @@ import androidx.appcompat.app.AlertDialog;
 import java.util.Date;
 import java.util.List;
 
-import br.com.ernanilima.jinventario.BaseApplication;
+import javax.inject.Inject;
+
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.interfaces.IInicioApp;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.IModel;
+import br.com.ernanilima.jinventario.model.User;
+import br.com.ernanilima.jinventario.repository.UserRepository;
 import br.com.ernanilima.jinventario.repository.orm.ContagemEstoqueDao;
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;
-import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.view.ContagemFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
@@ -28,20 +30,27 @@ public class InicioAppPresenter implements IInicioApp.IPresenter {
     private IFirebaseAuth iFirebaseAuth;
     private DaoSession daoSession;
     private ContagemEstoqueDao dContagemEstoque;
+    private UserRepository userDao;
 
     /** Construtor
      * @param vInicioApp IInicioApp.IView - view(fragment) do inicio do app */
-    public InicioAppPresenter(IInicioApp.IView vInicioApp) {
+    @Inject
+    public InicioAppPresenter(IInicioApp.IView vInicioApp, DaoSession daoSession, UserRepository userDao) {
         this.vInicioApp = vInicioApp;
         iFirebaseAuth = new FirebaseAuth();
+        this.userDao = userDao;
 
         // GREENDAO
-        this.daoSession = ((BaseApplication) this.vInicioApp.requireParentFragment().getActivity().getApplication()).getSessao();
+//        this.daoSession = ((BaseApplication) this.vInicioApp.requireParentFragment().getActivity().getApplication()).getSessao();
+        this.daoSession = daoSession;
         this.dContagemEstoque = daoSession.getContagemEstoqueDao();
 
         // envia o conteudo para utilizacao no header do drawer layout
-        vInicioApp.setNomeAparelho(NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho());
-        vInicioApp.setEmailUsuario(iFirebaseAuth.getUserEmail());
+//        vInicioApp.setNomeAparelho(NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho());
+//        vInicioApp.setEmailUsuario(iFirebaseAuth.getUserEmail());
+        User user = userDao.findByEmail(iFirebaseAuth.getUserEmail());
+        vInicioApp.setNomeAparelho(user.getDeviceName());
+        vInicioApp.setEmailUsuario(user.getEmail());
     }
 
     @Override

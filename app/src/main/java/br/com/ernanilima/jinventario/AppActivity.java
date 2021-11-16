@@ -18,7 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoMain;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class AppActivity extends AppCompatActivity {
     // exibe todos os fragment da tela do aplicativo
     // tudo configurado no xml
