@@ -18,7 +18,7 @@ import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
 
@@ -60,7 +60,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
         else {
-            ToastPersonalizado.erro(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.getMsgTempoEsperaEmail(
+            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.getMsgTempoEsperaEmail(
                     ValidarEmailEnviado.getTempoParaNovoEmail(user.getDateSubmitNewPassword())));
         }
 
@@ -90,7 +90,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vEsqueceuSenha.getActivity());
         if (!internet) {
-            ToastPersonalizado.erro(vEsqueceuSenha.getActivity(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.SEM_INTERNET.getMsg());
         }
 
         return internet;
@@ -100,7 +100,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     /** Resultado recebido do firebase */
     public void setResult(IResultType iResult) {
         if (ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT.equals(iResult)) {
-            ToastPersonalizado.sucesso(vEsqueceuSenha.getActivity().getApplicationContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
+            SnackbarCustom.INSTANCE.success(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
             Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
         }
     }

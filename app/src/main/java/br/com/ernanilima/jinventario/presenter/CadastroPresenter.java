@@ -17,7 +17,7 @@ import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class CadastroPresenter implements ICadastro.IPresenter {
 
@@ -60,7 +60,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private boolean validarPoliticaPrivacidade() {
         boolean politicaPrivacidade = vCadastro.getChbxPoliticaPrivacidadeSelecionado();
         if (!politicaPrivacidade) {
-            ToastPersonalizado.erro(vCadastro.getActivity(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
         }
 
         return politicaPrivacidade;
@@ -69,7 +69,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vCadastro.getActivity());
         if (!internet) {
-            ToastPersonalizado.erro(vCadastro.getActivity(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment(), MensagensAlerta.SEM_INTERNET.getMsg());
         }
 
         return internet;
@@ -101,7 +101,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
             iFirebaseAuth.sendEmailVerification(vCadastro.getActivity());
         } else if (ResultTypeFirebase.VERIFICATION_EMAIL_SENT.equals(iResult)) {
             gravarEmailVerificacaoEnviado();
-            ToastPersonalizado.sucesso(vCadastro.getActivity().getApplicationContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
+            SnackbarCustom.INSTANCE.success(vCadastro.requireParentFragment(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
             Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
         }
     }

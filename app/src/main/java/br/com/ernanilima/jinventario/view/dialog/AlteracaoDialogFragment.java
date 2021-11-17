@@ -29,7 +29,7 @@ import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class AlteracaoDialogFragment extends DialogFragment implements IResultadoCameraScanner, IResultadoPermissao {
 
@@ -208,7 +208,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
                 dfCameraZXing.setReceberResposta(this).exibir();
             }
         } else { // se o aplicativo nao tiver a permissao de usar a camera
-            ToastPersonalizado.erro(getActivity(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+            SnackbarCustom.INSTANCE.warning(this, MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
         }
     }
 }

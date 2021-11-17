@@ -26,7 +26,7 @@ import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -154,7 +154,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Compartilha a contagem em formato csv */
     public void toolbarCompartilhar() {
         if (lsItensContagem.isEmpty()) {
-            ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
+            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
         } else {
             CompartilharArquivo.csv(vContagem, NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho(), mContagemEstoque.getId(), lsItensContagem);
         }
@@ -230,7 +230,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
                 vContagem.getCameraZXingDialogFragment().setReceberResposta(this).exibir();
             }
         } else { // se o aplicativo nao tiver a permissao de usar a camera
-            ToastPersonalizado.erro(vContagem.requireParentFragment().getActivity(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
         }
     }
 }

@@ -12,7 +12,7 @@ import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,7 +45,7 @@ class SplashFragment : Fragment() {
     private fun setupListener() {
         splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                ToastPersonalizado.erro(activity, MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(this, MensagensAlerta.SEM_INTERNET.msg)
             }
         })
 

@@ -20,7 +20,7 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.extension.common.*
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
-import br.com.ernanilima.jinventario.view.toast.ToastPersonalizado
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -72,7 +72,7 @@ class LoginFragment: Fragment() {
     private fun setupListener() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                ToastPersonalizado.erro(activity, MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(this, MensagensAlerta.SEM_INTERNET.msg)
                 binding.progressLogin.visibility = View.GONE
             }
         })
@@ -95,10 +95,10 @@ class LoginFragment: Fragment() {
                     }).show()
                 }
                 ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
-                    ToastPersonalizado.sucesso(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
+                    SnackbarCustom.success(this, MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
                 }
                 ResultTypeLocal.WAIT_SEND_VERIFICATION -> {
-                    ToastPersonalizado.erro(requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
+                    SnackbarCustom.warning(this, MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
                 }
                 else -> {}
             }
