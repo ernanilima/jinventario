@@ -16,7 +16,7 @@ import br.com.ernanilima.jinventario.model.User;
 import br.com.ernanilima.jinventario.repository.UserRepository;
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
-import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
+import br.com.ernanilima.jinventario.extension.common.WaitingTime;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
@@ -53,7 +53,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         String email = vEsqueceuSenha.getCampoEmail().getEditText().getText().toString();
         User user = userDao.findByEmail(email);
 
-        if (user.getDateSubmitNewPassword() == null || ValidarEmailEnviado.isEnviarNovoEmail(user.getDateSubmitNewPassword())) {
+        if (user.getDateSubmitNewPassword() == null || WaitingTime.INSTANCE.get(user.getDateSubmitNewPassword(), WaitingTime.TEN) <= 0) {
             iFirebaseAuth.sendEmailForgotPassword(vEsqueceuSenha.getActivity(), email); // envia um e-mail
             user.setDateSubmitNewPassword(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail enviado
             userDao.update(user); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
@@ -63,7 +63,8 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
             SnackbarCustom.INSTANCE.warning(
                     vEsqueceuSenha.requireParentFragment().requireContext(),
                     vEsqueceuSenha.requireParentFragment().getString(
-                            R.string.msg_waiting_time, String.valueOf(ValidarEmailEnviado.getTempoParaNovoEmail(user.getDateSubmitNewPassword()))
+                            R.string.msg_waiting_time,
+                            String.valueOf(WaitingTime.INSTANCE.get(user.getDateSubmitNewPassword(), WaitingTime.TEN))
                     )
             );
         }

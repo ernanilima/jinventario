@@ -92,10 +92,12 @@ class LoginFragment: Fragment() {
                     }).show()
                 }
                 ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
-                    SnackbarCustom.success(requireContext(), getString(R.string.msg_email_verification_sent))
+                    val context = requireParentFragment().requireContext()
+                    SnackbarCustom.success(context, getString(R.string.msg_email_verification_sent))
                 }
                 ResultTypeLocal.WAIT_SEND_VERIFICATION -> {
-                    SnackbarCustom.warning(requireContext(), getString(R.string.msg_waiting_time, loginViewModel.waitingTime.toString()))
+                    val context = requireParentFragment().requireContext()
+                    SnackbarCustom.warning(context, getString(R.string.msg_waiting_time, loginViewModel.waitingTime))
                 }
                 else -> {}
             }

@@ -18,7 +18,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado
+import br.com.ernanilima.jinventario.extension.common.WaitingTime
 import java.util.*
 
 @HiltViewModel
@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<IResultType>()
     val loginResult: LiveData<IResultType> = _loginResult
 
-    private var _waitingTime: Long? = null
+    private var _waitingTime: String? = null
     val waitingTime get() = _waitingTime!!
 
     private var userEmail: String? = null
@@ -74,13 +74,13 @@ class LoginViewModel @Inject constructor(
 
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
-        if (user.dateSubmitVerification == null || ValidarEmailEnviado.isEnviarNovoEmail(user.dateSubmitVerification)) {
+        if (user.dateSubmitVerification == null || WaitingTime.get(user.dateSubmitVerification) <= 0) {
             iFirebaseAuth.sendEmailVerification(weakReference.get()!!) // envia e-mail
             user.dateSubmitVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
             userDao.update(user)
         } else {
             // se o e-mail nao puder ser enviado
-            _waitingTime = ValidarEmailEnviado.getTempoParaNovoEmail(user.dateSubmitVerification)
+            _waitingTime = WaitingTime.get(user.dateSubmitVerification).toString()
             setResult(ResultTypeLocal.WAIT_SEND_VERIFICATION)
         }
     }
