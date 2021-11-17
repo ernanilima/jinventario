@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.BaseApplication;
+import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseBancoDados;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
@@ -18,7 +20,6 @@ import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.repository.orm.ItemContagemDao;
 import br.com.ernanilima.jinventario.service.component.CompartilharArquivo;
 import br.com.ernanilima.jinventario.service.component.NomeAparelhoAutenticacao;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.util.Filtro;
 import br.com.ernanilima.jinventario.util.Utils;
@@ -26,7 +27,6 @@ import br.com.ernanilima.jinventario.view.dialog.AlteracaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.ExclusaoDialogFragment;
 import br.com.ernanilima.jinventario.view.dialog.TipoResultado;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
-import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class ContagemPresenter implements IContagem.IPresenter {
 
@@ -154,7 +154,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Compartilha a contagem em formato csv */
     public void toolbarCompartilhar() {
         if (lsItensContagem.isEmpty()) {
-            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment().requireContext(), MensagensAlerta.COMPARTILHAMENTO_VAZIO.getMsg());
+            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment().requireContext(), vContagem.requireParentFragment().getString(R.string.msg_empty_share));
         } else {
             CompartilharArquivo.csv(vContagem, NomeAparelhoAutenticacao.getInstance(daoSession).getNomeAparelho(), mContagemEstoque.getId(), lsItensContagem);
         }
@@ -177,9 +177,9 @@ public class ContagemPresenter implements IContagem.IPresenter {
     }
 
     private boolean validarCampos() {
-        return ValidarCampo.vazio(vContagem.getCampoCodbarras(), MensagensAlerta.CODBARRAS_INVALIDO.getMsg()) &&
-                ValidarCampo.vazio(vContagem.getCampoQtdDeCaixa(), MensagensAlerta.QUANTIDADE_DE_CAIXA_INVALIDO.getMsg()) &&
-                ValidarCampo.vazio(vContagem.getCampoQtdPorCaixa(), MensagensAlerta.QUANTIDADE_POR_CAIXA_INVALIDO.getMsg());
+        return ValidarCampo.vazio(vContagem.getCampoCodbarras(), vContagem.requireParentFragment().getString(R.string.msg_invalid_barcode)) &&
+                ValidarCampo.vazio(vContagem.getCampoQtdDeCaixa(), vContagem.requireParentFragment().getString(R.string.msg_invalid_number_of_boxes)) &&
+                ValidarCampo.vazio(vContagem.getCampoQtdPorCaixa(), vContagem.requireParentFragment().getString(R.string.msg_invalid_number_per_boxes));
     }
 
     @Override
@@ -230,7 +230,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
                 vContagem.getCameraZXingDialogFragment().setReceberResposta(this).exibir();
             }
         } else { // se o aplicativo nao tiver a permissao de usar a camera
-            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment().requireContext(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+            SnackbarCustom.INSTANCE.warning(vContagem.requireParentFragment().requireContext(), vContagem.requireParentFragment().getString(R.string.msg_no_premise_the_camera));
         }
     }
 }

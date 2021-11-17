@@ -1,10 +1,11 @@
 package br.com.ernanilima.jinventario.service.validation;
 
+import android.content.Context;
 import android.view.inputmethod.EditorInfo;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
+import br.com.ernanilima.jinventario.R;
 
 public class ValidarCampo {
 
@@ -50,13 +51,13 @@ public class ValidarCampo {
      * @param campo TextInputLayout - campo a ser validado
      * @param qtdMinima int - quantidade minima aceita
      * @return boolean - true se nenhum erro encontrado */
-    public static boolean qtdCaracteres(TextInputLayout campo, int qtdMinima) {
+    public static boolean qtdCaracteres(TextInputLayout campo, int qtdMinima, Context context) {
         String stringDoCampo = campo.getEditText().getText().toString();
 
         if (stringDoCampo.length() < qtdMinima) {
             // com erro
             campo.setErrorEnabled(true);
-            campo.setError(MensagensAlerta.getMsgMinCaracteres(qtdMinima));
+            campo.setError(context.getString(R.string.msg_minimum_of_characters, String.valueOf(qtdMinima)));
             campo.getEditText().requestFocus();
             return false;
         }

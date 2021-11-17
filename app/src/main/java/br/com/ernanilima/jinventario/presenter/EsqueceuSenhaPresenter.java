@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.data.result.IResultType;
@@ -13,7 +14,6 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase;
 import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha;
 import br.com.ernanilima.jinventario.model.User;
 import br.com.ernanilima.jinventario.repository.UserRepository;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarEmailEnviado;
@@ -60,8 +60,12 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
         else {
-            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(
-                    ValidarEmailEnviado.getTempoParaNovoEmail(user.getDateSubmitNewPassword())));
+            SnackbarCustom.INSTANCE.warning(
+                    vEsqueceuSenha.requireParentFragment().requireContext(),
+                    vEsqueceuSenha.requireParentFragment().getString(
+                            R.string.msg_waiting_time, String.valueOf(ValidarEmailEnviado.getTempoParaNovoEmail(user.getDateSubmitNewPassword()))
+                    )
+            );
         }
 
 //        // realiza busca no banco greendao para verificar se cadastro ja existe com base no e-mail
@@ -84,13 +88,13 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     }
 
     private boolean validarCampo() {
-        return ValidarCampo.vazio(vEsqueceuSenha.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg());
+        return ValidarCampo.vazio(vEsqueceuSenha.getCampoEmail(), vEsqueceuSenha.requireParentFragment().getString(R.string.msg_invalid_email));
     }
 
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vEsqueceuSenha.getActivity());
         if (!internet) {
-            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment().requireContext(), vEsqueceuSenha.requireParentFragment().getString(R.string.msg_without_internet));
         }
 
         return internet;
@@ -100,7 +104,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     /** Resultado recebido do firebase */
     public void setResult(IResultType iResult) {
         if (ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT.equals(iResult)) {
-            SnackbarCustom.INSTANCE.success(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
+            SnackbarCustom.INSTANCE.success(vEsqueceuSenha.requireParentFragment().requireContext(), vEsqueceuSenha.requireParentFragment().getString(R.string.msg_email_update_password_sent));
             Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
         }
     }

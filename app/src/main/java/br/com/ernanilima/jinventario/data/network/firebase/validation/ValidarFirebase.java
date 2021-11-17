@@ -2,8 +2,8 @@ package br.com.ernanilima.jinventario.data.network.firebase.validation;
 
 import android.content.Context;
 
+import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 
 public class ValidarFirebase {
     // existem validacoes que nao foram feitas por nao serem para o usuario
@@ -15,53 +15,53 @@ public class ValidarFirebase {
     public static void erroFirebase(Context context, String codigoErro) {
         switch (codigoErro) {
             case "ERROR_USER_DISABLED":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.USUARIO_DESATIVADO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_disabled_user));
                 break;
             case "ERROR_USER_NOT_FOUND":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.USUARIO_NAO_ENCONTRADO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_user_not_found));
                 break;
             case "ERROR_USER_TOKEN_EXPIRED":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.TOKEN_EXPIRADO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_expired_token));
                 break;
             case "ERROR_INVALID_USER_TOKEN":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.TOKEN_QUEBRADO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_broken_token));
                 break;
             case "ERROR_EMAIL_ALREADY_IN_USE":
             case "ERROR_CREDENTIAL_ALREADY_IN_USE":
             case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.EMAIL_JA_EXISTE.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_email_already_exists));
                 break;
             case "ERROR_INVALID_CUSTOM_TOKEN":
             case "ERROR_CUSTOM_TOKEN_MISMATCH":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.TOKEN_INVALIDO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_invalid_token));
                 break;
             case "ERROR_INVALID_CREDENTIAL":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.CREDENCIAL_INVALIDA.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_invalid_credential));
                 break;
             case "ERROR_INVALID_EMAIL":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.EMAIL_INVALIDO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_invalid_email));
                 break;
             case "ERROR_WEAK_PASSWORD":
             case "ERROR_WRONG_PASSWORD":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.SENHA_INVALIDA.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_invalid_password));
                 break;
             case "ERROR_USER_MISMATCH":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.CREDENCIAL_OUTRO_USUARIO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_credential_of_another_user));
                 break;
             case "ERROR_REQUIRES_RECENT_LOGIN":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.REFAZER_LOGIN.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_relogin));
                 break;
             case "ERROR_OPERATION_NOT_ALLOWED":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.OPERACAO_NAO_PERMITIDA.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_operation_not_allowed));
                 break;
             case "ERROR_TOO_MANY_REQUESTS":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.DISPOSITIVO_BLOQUEADO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_locked_device));
                 break;
             case "ERROR_UNKNOWN":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.ERRO_DESCONHECIDO.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_unknown_error));
                 break;
             case "FirebaseTooManyRequestsException":
-                SnackbarCustom.INSTANCE.warning(context, MensagensAlerta.VERIFICACAO_NAO_ENVIAR.getMsg());
+                SnackbarCustom.INSTANCE.warning(context, context.getString(R.string.msg_verification_not_sent));
                 break;
 
             default:

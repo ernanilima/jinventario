@@ -6,18 +6,18 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.data.result.IResultType;
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase;
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 import br.com.ernanilima.jinventario.interfaces.ICadastro;
 import br.com.ernanilima.jinventario.model.User;
 import br.com.ernanilima.jinventario.repository.UserRepository;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarInternet;
-import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 
 public class CadastroPresenter implements ICadastro.IPresenter {
 
@@ -49,18 +49,18 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     }
 
     private boolean validarCampos() {
-        return ValidarCampo.vazio(vCadastro.getCampoEmail(), MensagensAlerta.EMAIL_INVALIDO.getMsg()) &&
-                ValidarCampo.vazio(vCadastro.getCampoSenha1(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
-                ValidarCampo.vazio(vCadastro.getCampoSenha2(), MensagensAlerta.SENHA_INVALIDA.getMsg()) &&
-                ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha1(), 6) &&
-                ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha2(), 6) &&
-                ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), MensagensAlerta.SENHAS_NAO_COMBINAM.getMsg());
+        return ValidarCampo.vazio(vCadastro.getCampoEmail(), vCadastro.getActivity().getString(R.string.msg_invalid_email)) &&
+                ValidarCampo.vazio(vCadastro.getCampoSenha1(), vCadastro.getActivity().getString(R.string.msg_invalid_password)) &&
+                ValidarCampo.vazio(vCadastro.getCampoSenha2(), vCadastro.getActivity().getString(R.string.msg_invalid_password)) &&
+                ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha1(), 6, vCadastro.requireParentFragment().requireContext()) &&
+                ValidarCampo.qtdCaracteres(vCadastro.getCampoSenha2(), 6, vCadastro.requireParentFragment().requireContext()) &&
+                ValidarCampo.senhasIguais(vCadastro.getCampoSenha1(), vCadastro.getCampoSenha2(), vCadastro.getActivity().getString(R.string.msg_passwords_not_match));
     }
 
     private boolean validarPoliticaPrivacidade() {
         boolean politicaPrivacidade = vCadastro.getChbxPoliticaPrivacidadeSelecionado();
         if (!politicaPrivacidade) {
-            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), vCadastro.getActivity().getString(R.string.msg_privacy_policy));
         }
 
         return politicaPrivacidade;
@@ -69,7 +69,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vCadastro.getActivity());
         if (!internet) {
-            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), vCadastro.getActivity().getString(R.string.msg_without_internet));
         }
 
         return internet;
@@ -101,7 +101,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
             iFirebaseAuth.sendEmailVerification(vCadastro.getActivity());
         } else if (ResultTypeFirebase.VERIFICATION_EMAIL_SENT.equals(iResult)) {
             gravarEmailVerificacaoEnviado();
-            SnackbarCustom.INSTANCE.success(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
+            SnackbarCustom.INSTANCE.success(vCadastro.requireParentFragment().requireContext(), vCadastro.getActivity().getString(R.string.msg_registered_user));
             Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
         }
     }

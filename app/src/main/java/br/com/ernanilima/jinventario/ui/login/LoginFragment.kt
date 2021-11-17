@@ -8,8 +8,8 @@ import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
@@ -72,7 +72,7 @@ class LoginFragment: Fragment() {
     private fun setupListener() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(requireContext(), MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(requireContext(), getString(R.string.msg_without_internet))
                 binding.progressLogin.visibility = View.GONE
             }
         })
@@ -95,10 +95,10 @@ class LoginFragment: Fragment() {
                     }).show()
                 }
                 ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
-                    SnackbarCustom.success(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
+                    SnackbarCustom.success(requireContext(), getString(R.string.msg_email_verification_sent))
                 }
                 ResultTypeLocal.WAIT_SEND_VERIFICATION -> {
-                    SnackbarCustom.warning(requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
+                    SnackbarCustom.warning(requireContext(), getString(R.string.msg_waiting_time, loginViewModel.waitingTime.toString()))
                 }
                 else -> {}
             }

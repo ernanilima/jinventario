@@ -2,12 +2,12 @@ package br.com.ernanilima.jinventario.presenter;
 
 import javax.inject.Inject;
 
+import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho;
 import br.com.ernanilima.jinventario.model.User;
 import br.com.ernanilima.jinventario.repository.UserRepository;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 
@@ -53,7 +53,7 @@ public class NomeAparelhoPresenter implements INomeAparelho.IPresenter {
     }
 
     private boolean validarCampo() {
-        return ValidarCampo.vazio(vNomeAparelho.getCampoNomeAparelho(), MensagensAlerta.NOME_APARELHO_INVALIDO.getMsg()) &&
-                ValidarCampo.qtdCaracteres(vNomeAparelho.getCampoNomeAparelho(), 3);
+        return ValidarCampo.vazio(vNomeAparelho.getCampoNomeAparelho(), vNomeAparelho.getApplication().getString(R.string.msg_invalid_device_name)) &&
+                ValidarCampo.qtdCaracteres(vNomeAparelho.getCampoNomeAparelho(), 3, vNomeAparelho.getApplication().getBaseContext());
     }
 }

@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
 import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta
 import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
@@ -45,7 +45,7 @@ class SplashFragment : Fragment() {
     private fun setupListener() {
         splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(requireContext(), MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(requireContext(), getString(R.string.msg_without_internet))
             }
         })
 

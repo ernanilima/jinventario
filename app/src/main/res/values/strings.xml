@@ -59,4 +59,35 @@
     <string name="ih_field_length_error">O conteúdo deve ter %s caracteres no mínimo</string>
     <string name="ih_email_error">E-mail inválido</string>
     <string name="ih_default_error">Erro identificado</string>
+
+    <!--  mensagens  -->
+    <string name="msg_invalid_email">Informe um e-mail válido</string>
+    <string name="msg_invalid_password">Informe uma senha válida</string>
+    <string name="msg_passwords_not_match">Senhas não combinam</string>
+    <string name="msg_disabled_user">Usuário desativado</string>
+    <string name="msg_user_not_found">Usuário não encontrado</string>
+    <string name="msg_expired_token">Token do usuário está expirado</string>
+    <string name="msg_broken_token">Token quebrado, erro no app</string>
+    <string name="msg_invalid_token">Token inválido</string>
+    <string name="msg_email_already_exists">E-mail já existe</string>
+    <string name="msg_invalid_credential">Credencial inválida</string>
+    <string name="msg_credential_of_another_user">Credenciais não são do usuário atual</string>
+    <string name="msg_relogin">Esta operação é confidencial e requer autenticação recente. Faça login novamente antes de tentar novamente esta solicitação</string>
+    <string name="msg_operation_not_allowed">Operação não permitida. Ative o método no console do Firebase</string>
+    <string name="msg_verification_not_sent">E-mail de verificação não pode ser enviado, tente mais tarde</string>
+    <string name="msg_locked_device">Bloqueamos todas as solicitações deste dispositivo devido a atividade incomum</string>
+    <string name="msg_registered_user">Usuário cadastrado, foi enviado uma verificação para seu e-mail</string>
+    <string name="msg_email_update_password_sent">As informações para "Nova Senha" foram enviadas no e-mail</string>
+    <string name="msg_email_verification_sent">Novo e-mail de verificação foi enviado</string>
+    <string name="msg_invalid_barcode">Código de barras inválido</string>
+    <string name="msg_invalid_number_of_boxes">Qtd de caixa(s) inválida</string>
+    <string name="msg_invalid_number_per_boxes">Qtd por caixa(s) inválida</string>
+    <string name="msg_invalid_device_name">Informe um nome válido para o aparelho</string>
+    <string name="msg_empty_share">Nenhum item para compartilhar</string>
+    <string name="msg_without_internet">Aparelho sem internet</string>
+    <string name="msg_privacy_policy">Leia e aceita a política de privacidade</string>
+    <string name="msg_no_premise_the_camera">Aplicativo não possui permissão para usar a "camera" do aparelho</string>
+    <string name="msg_minimum_of_characters">Necessário informar no mínimo %s caractere(s)</string>
+    <string name="msg_waiting_time">Aguarde %s minuto(s) para enviar o e-mail novamente</string>
+    <string name="msg_unknown_error">Ocorreu um erro desconhecido</string>
 </resources>

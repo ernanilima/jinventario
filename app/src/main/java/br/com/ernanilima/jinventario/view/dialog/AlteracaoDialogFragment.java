@@ -24,7 +24,6 @@ import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
 import br.com.ernanilima.jinventario.interfaces.IResultadoPermissao;
 import br.com.ernanilima.jinventario.model.Configuracao;
 import br.com.ernanilima.jinventario.model.ItemContagem;
-import br.com.ernanilima.jinventario.service.constant.MensagensAlerta;
 import br.com.ernanilima.jinventario.service.validation.ValidarCampo;
 import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
@@ -175,9 +174,9 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     }
 
     private boolean validarCampos() {
-        return ValidarCampo.vazio(campo_codbarras, MensagensAlerta.CODBARRAS_INVALIDO.getMsg()) &&
-                ValidarCampo.vazio(campo_qtd_dcaixa, MensagensAlerta.QUANTIDADE_DE_CAIXA_INVALIDO.getMsg()) &&
-                ValidarCampo.vazio(campo_qtd_pcaixa, MensagensAlerta.QUANTIDADE_POR_CAIXA_INVALIDO.getMsg());
+        return ValidarCampo.vazio(campo_codbarras, getString(R.string.msg_invalid_barcode)) &&
+                ValidarCampo.vazio(campo_qtd_dcaixa, getString(R.string.msg_invalid_number_of_boxes)) &&
+                ValidarCampo.vazio(campo_qtd_pcaixa, getString(R.string.msg_invalid_number_per_boxes));
     }
 
     @Override
@@ -208,7 +207,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
                 dfCameraZXing.setReceberResposta(this).exibir();
             }
         } else { // se o aplicativo nao tiver a permissao de usar a camera
-            SnackbarCustom.INSTANCE.warning(requireContext(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+            SnackbarCustom.INSTANCE.warning(requireContext(), getString(R.string.msg_no_premise_the_camera));
         }
     }
 }
