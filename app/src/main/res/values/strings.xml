@@ -25,6 +25,7 @@
     <string name="s_dialog_ex_message">Mensagem</string>
     <string name="s_dialog_btn_negative">Não</string>
     <string name="s_dialog_btn_positive">Sim</string>
+    <string name="s_dialog_msg_email_verification">Reenviar e-mail de verificação?</string>
 
     <string name="s_importante_nomeaparelho">IMPORTANTE: o nome não pode ser alterado depois, o nome definido é usado na exportação da contagem, assim o usuário pode usar mais de um aparelho e pelo nome definido abaixo o usuário saberá de onde é a contagem.</string>
     <string name="s_nomeaparelho">Nome para o aparelho</string>

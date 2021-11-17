@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
 import br.com.ernanilima.jinventario.data.network.google.Google
@@ -21,6 +18,7 @@ import br.com.ernanilima.jinventario.extension.common.*
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +46,6 @@ class LoginFragment: Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.fieldPassword.setOnEditorActionListener { _, type, _ -> (type == IME_ACTION_DONE).ifTrue { login() } }
         binding.btnLogin.setOnClickListener { binding.progressLogin.isVisible.ifFalse { login() } }
         binding.btnLoginGmail.setOnClickListener { binding.progressLogin.isVisible.ifFalse { loginGmail() } }
         binding.btnForgotPassword.setOnClickListener { binding.progressLogin.isVisible.ifFalse { toForgotPasswordFragment(this) } }
@@ -80,15 +77,15 @@ class LoginFragment: Fragment() {
         loginViewModel.loginResult.observe(viewLifecycleOwner, { result ->
             when (result) {
                 ResultTypeFirebase.LOGIN_DONE -> {
-                    NavegacaoApp.abrirTelaActivityApp(requireActivity())
+                    Navigation.App.toHomeActivity(requireActivity())
                 }
                 ResultTypeFirebase.FIRST_LOGIN_DONE -> {
-                    NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
+                    Navigation.Login.toDeviceNameActivity(requireActivity())
                 }
                 ResultTypeFirebase.EMAIL_NOT_VERIFIED -> {
                     // ADICIONAR LOADING AO ENVIAR EMAIL
                     SimpleDialog(QuestionDialog(requireActivity().supportFragmentManager).apply {
-                        setMessage("Reenviar e-mail de verificação?")
+                        setMessage(getString(R.string.s_dialog_msg_email_verification))
                         setPositiveButton {
                             loginViewModel.sendEmailVerification()
                         }
