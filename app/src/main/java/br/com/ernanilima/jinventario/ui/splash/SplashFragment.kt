@@ -10,10 +10,8 @@ import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
 import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
-import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoNomeAparelho
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,10 +51,10 @@ class SplashFragment : Fragment() {
         splashViewModel.automaticLoginResult.observe(viewLifecycleOwner, { result ->
             when (result) {
                 ResultTypeFirebase.AUTHENTICATED_USER -> {
-                    NavegacaoApp.abrirTelaActivityApp(requireActivity())
+                    Navigation.App.toHomeActivity(requireActivity())
                 }
                 ResultTypeFirebase.FIRST_LOGIN_DONE -> {
-                    NavegacaoNomeAparelho.abrirTelaActivityNomeAparelho(requireActivity())
+                    Navigation.Login.toDeviceNameActivity(requireActivity())
                 }
                 ResultTypeFirebase.UNAUTHENTICATED_USER -> {
                     Navigation.Login.toLoginFragment(this)

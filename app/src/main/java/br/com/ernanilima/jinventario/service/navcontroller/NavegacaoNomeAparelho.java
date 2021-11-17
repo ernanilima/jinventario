@@ -7,10 +7,12 @@ import android.content.Intent;
 import br.com.ernanilima.jinventario.NomeAparelhoActivity;
 
 /** Navegacoes para a activity nome do aparelho */
+@Deprecated
 public class NavegacaoNomeAparelho {
 
     /** Abre a activity {@link NomeAparelhoActivity}
      * @param context Context - context(tela) que esta solicitando */
+    @Deprecated
     public static void abrirTelaActivityNomeAparelho(Context context) {
         Activity activity = (Activity)context;
         Intent intent = new Intent(activity, NomeAparelhoActivity.class);

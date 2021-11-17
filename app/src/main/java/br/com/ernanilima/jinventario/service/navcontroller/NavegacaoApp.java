@@ -30,6 +30,7 @@ public class NavegacaoApp {
     /** Abre a activity {@link AppActivity}
      * Sobrecarga usada na tela de login {@link br.com.ernanilima.jinventario.ui.login.LoginViewModel}
      * @param activity Activity - Activity(tela) que esta solicitando */
+    @Deprecated
     public static void abrirTelaActivityApp(Activity activity) {
         Intent intent = new Intent(activity, AppActivity.class);
         activity.startActivity(intent);
