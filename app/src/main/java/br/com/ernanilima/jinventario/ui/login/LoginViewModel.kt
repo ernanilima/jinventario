@@ -89,6 +89,7 @@ class LoginViewModel @Inject constructor(
         when (iResult) {
             ResultTypeFirebase.LOGIN_DONE -> {
                 if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
+                    // se nao nome do aparelho for vazio para o usuario
                     _loginResult.postValue(ResultTypeFirebase.FIRST_LOGIN_DONE)
                 } else {
                     _loginResult.postValue(iResult)
