@@ -6,10 +6,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.Fragment
-
 
 object DeviceHelper {
 
@@ -43,7 +39,9 @@ object DeviceHelper {
      * @param context Context
      */
     fun hideKeyboard(context: Context) {
-        val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow((context as Activity).window.decorView.rootView.windowToken, 0)
+        if (context is Activity) {
+            val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(context.window.decorView.rootView.windowToken, 0)
+        }
     }
 }

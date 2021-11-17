@@ -208,7 +208,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
                 dfCameraZXing.setReceberResposta(this).exibir();
             }
         } else { // se o aplicativo nao tiver a permissao de usar a camera
-            SnackbarCustom.INSTANCE.warning(this, MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
+            SnackbarCustom.INSTANCE.warning(requireContext(), MensagensAlerta.SEM_PERMISSAO_CAMERA.getMsg());
         }
     }
 }

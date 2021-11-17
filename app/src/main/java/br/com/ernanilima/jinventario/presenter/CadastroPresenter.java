@@ -60,7 +60,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private boolean validarPoliticaPrivacidade() {
         boolean politicaPrivacidade = vCadastro.getChbxPoliticaPrivacidadeSelecionado();
         if (!politicaPrivacidade) {
-            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.POLITICA_PRIVACIDADE.getMsg());
         }
 
         return politicaPrivacidade;
@@ -69,7 +69,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vCadastro.getActivity());
         if (!internet) {
-            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.SEM_INTERNET.getMsg());
         }
 
         return internet;
@@ -101,7 +101,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
             iFirebaseAuth.sendEmailVerification(vCadastro.getActivity());
         } else if (ResultTypeFirebase.VERIFICATION_EMAIL_SENT.equals(iResult)) {
             gravarEmailVerificacaoEnviado();
-            SnackbarCustom.INSTANCE.success(vCadastro.requireParentFragment(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
+            SnackbarCustom.INSTANCE.success(vCadastro.requireParentFragment().requireContext(), MensagensAlerta.USUARIO_CADASTRADO.getMsg());
             Navigation.Login.Companion.toLoginFragment(vCadastro.requireParentFragment());
         }
     }

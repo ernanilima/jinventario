@@ -72,7 +72,7 @@ class LoginFragment: Fragment() {
     private fun setupListener() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(this, MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(requireContext(), MensagensAlerta.SEM_INTERNET.msg)
                 binding.progressLogin.visibility = View.GONE
             }
         })
@@ -95,10 +95,10 @@ class LoginFragment: Fragment() {
                     }).show()
                 }
                 ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
-                    SnackbarCustom.success(this, MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
+                    SnackbarCustom.success(requireContext(), MensagensAlerta.EMAIL_VERIFICACAO_ENVIADO.msg)
                 }
                 ResultTypeLocal.WAIT_SEND_VERIFICATION -> {
-                    SnackbarCustom.warning(this, MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
+                    SnackbarCustom.warning(requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(loginViewModel.waitingTime))
                 }
                 else -> {}
             }

@@ -45,7 +45,7 @@ class SplashFragment : Fragment() {
     private fun setupListener() {
         splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(this, MensagensAlerta.SEM_INTERNET.msg)
+                SnackbarCustom.warning(requireContext(), MensagensAlerta.SEM_INTERNET.msg)
             }
         })
 

@@ -102,6 +102,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
                 iResult.setResult(resultTypeFirebase)
             }
         }.addOnFailureListener { error ->
+            // criar validacao para a classe FirebaseTooManyRequestsException
             iResult.setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
         }

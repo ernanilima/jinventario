@@ -60,7 +60,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
         else {
-            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.getMsgTempoEsperaEmail(
+            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.getMsgTempoEsperaEmail(
                     ValidarEmailEnviado.getTempoParaNovoEmail(user.getDateSubmitNewPassword())));
         }
 
@@ -90,7 +90,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     private boolean validarInternet() {
         boolean internet = ValidarInternet.conexao(vEsqueceuSenha.getActivity());
         if (!internet) {
-            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.SEM_INTERNET.getMsg());
+            SnackbarCustom.INSTANCE.warning(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.SEM_INTERNET.getMsg());
         }
 
         return internet;
@@ -100,7 +100,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
     /** Resultado recebido do firebase */
     public void setResult(IResultType iResult) {
         if (ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT.equals(iResult)) {
-            SnackbarCustom.INSTANCE.success(vEsqueceuSenha.requireParentFragment(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
+            SnackbarCustom.INSTANCE.success(vEsqueceuSenha.requireParentFragment().requireContext(), MensagensAlerta.EMAIL_NOVA_SENHA_ENVIADA.getMsg());
             Navigation.Login.Companion.toLoginFragment(vEsqueceuSenha.requireParentFragment());
         }
     }
