@@ -44,7 +44,8 @@ class SplashFragment : Fragment() {
     private fun setupListener() {
         splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(requireContext(), getString(R.string.msg_without_internet))
+                val context = requireParentFragment().requireContext()
+                SnackbarCustom.warning(context, getString(R.string.msg_without_internet))
             }
         })
 

@@ -69,7 +69,8 @@ class LoginFragment: Fragment() {
     private fun setupListener() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
-                SnackbarCustom.warning(requireContext(), getString(R.string.msg_without_internet))
+                val context = requireParentFragment().requireContext()
+                SnackbarCustom.warning(context, getString(R.string.msg_without_internet))
                 binding.progressLogin.visibility = View.GONE
             }
         })
@@ -83,10 +84,10 @@ class LoginFragment: Fragment() {
                     Navigation.Login.toDeviceNameActivity(requireActivity())
                 }
                 ResultTypeFirebase.EMAIL_NOT_VERIFIED -> {
-                    // ADICIONAR LOADING AO ENVIAR EMAIL
-                    SimpleDialog(QuestionDialog(requireActivity().supportFragmentManager).apply {
+                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
                         setMessage(getString(R.string.s_dialog_msg_email_verification))
                         setPositiveButton {
+                            binding.progressLogin.visibility = View.VISIBLE
                             loginViewModel.sendEmailVerification()
                         }
                     }).show()

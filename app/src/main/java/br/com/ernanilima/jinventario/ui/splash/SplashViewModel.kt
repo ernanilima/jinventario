@@ -51,11 +51,11 @@ class SplashViewModel @Inject constructor(
     /* Recebe o resultado da autenticacao */
     override fun setResult(iResult: IResultType) {
         CoroutineScope(Dispatchers.Main).launch {
-            delay(3000L)
+            delay(1500L)
             when (iResult) {
                 ResultTypeFirebase.AUTHENTICATED_USER -> {
                     if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
-                        // se nao nome do aparelho for vazio para o usuario
+                        // se nome do aparelho for vazio para o usuario
                         _automaticLoginResult.postValue(ResultTypeFirebase.FIRST_LOGIN_DONE)
                     } else {
                         _automaticLoginResult.postValue(iResult)
