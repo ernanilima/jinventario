@@ -54,11 +54,13 @@ class LoginFragment: Fragment() {
         // GOOGLE
         Google.showActivityForResult(this)
 
+        // REQUISICOES DO CAMPO E-MAIL
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutEmail)
             setRequired(true)
         }.build()
 
+        // REQUISICOES DO CAMPO SENHA
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutPassword)
             setRequired(true)
@@ -112,9 +114,9 @@ class LoginFragment: Fragment() {
     private fun login() {
         validate().ifTrue {
             binding.progressLogin.visibility = View.VISIBLE
-            val userEmail = binding.fieldEmail.text.toString().trim()
-            val userPassword = binding.fieldPassword.text.toString()
-            loginViewModel.login(userEmail, userPassword)
+            loginViewModel.user.email = binding.fieldEmail.text.toString().trim()
+            loginViewModel.user.password = binding.fieldPassword.text.toString()
+            loginViewModel.login()
         }
     }
 
@@ -134,6 +136,7 @@ class LoginFragment: Fragment() {
     private fun validate(): Boolean {
         var isValid = true
 
+        // campo e-mail
         Validator.apply {
             isEmpty(binding.fieldEmail.text.toString()).ifTrue {
                 showError(binding.layoutEmail, requireActivity())
@@ -141,6 +144,7 @@ class LoginFragment: Fragment() {
             }
         }
 
+        // campo senha
         Validator.apply {
             isEmpty(binding.fieldPassword.text.toString()).ifTrue {
                 showError(binding.layoutPassword, requireActivity())
@@ -148,6 +152,7 @@ class LoginFragment: Fragment() {
             }
         }
 
+        // se ja tiver outros erros
         binding.layoutEmail.isErrorEnabled.ifTrue { isValid = !it }
         binding.layoutPassword.isErrorEnabled.ifTrue { isValid = !it }
 

@@ -19,6 +19,7 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 import br.com.ernanilima.jinventario.extension.common.WaitingTime
+import br.com.ernanilima.jinventario.model.User
 import java.util.*
 
 @HiltViewModel
@@ -31,6 +32,8 @@ class LoginViewModel @Inject constructor(
 
     private val weakReference = WeakReference(context)
 
+    var user: User = User()
+
     private val _isInternet = MutableLiveData<Boolean>()
     val isInternet: LiveData<Boolean> = _isInternet
 
@@ -40,18 +43,15 @@ class LoginViewModel @Inject constructor(
     private var _waitingTime: String? = null
     val waitingTime get() = _waitingTime!!
 
-    private var userEmail: String? = null
-
     init {
         // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAuth = FirebaseAuth(this)
     }
 
     /* Verifica se tem internet e realiza login */
-    override fun login(userEmail: String, userPassword: String) {
+    override fun login() {
         if (DeviceHelper.isInternet(weakReference.get())) {
-            this.userEmail = userEmail
-            iFirebaseAuth.loginUser(weakReference.get()!!, userEmail, userPassword)
+            iFirebaseAuth.loginUser(weakReference.get()!!, user.email, user.password)
         } else {
             _isInternet.postValue(false)
             _loginResult.postValue(ResultTypeFirebase.UNAUTHENTICATED_USER)
@@ -70,7 +70,7 @@ class LoginViewModel @Inject constructor(
 
     override fun sendEmailVerification() {
         // verifica se cadastro ja existe
-        val user = userDao.findByEmail(userEmail!!)
+        val user = userDao.findByEmail(iFirebaseAuth.getUserEmail())
 
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
@@ -89,7 +89,7 @@ class LoginViewModel @Inject constructor(
         when (iResult) {
             ResultTypeFirebase.LOGIN_DONE -> {
                 if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
-                    // se nao nome do aparelho for vazio para o usuario
+                    // se nome do aparelho for vazio para o usuario
                     _loginResult.postValue(ResultTypeFirebase.FIRST_LOGIN_DONE)
                 } else {
                     _loginResult.postValue(iResult)

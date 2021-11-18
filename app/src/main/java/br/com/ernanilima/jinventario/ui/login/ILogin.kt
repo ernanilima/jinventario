@@ -7,10 +7,8 @@ interface ILogin {
     interface IViewModel : IResult {
         /**
          * Realiza login
-         * @param userEmail String - e-mail do usuario
-         * @param userPassword String - senha do usuario
          */
-        fun login(userEmail: String, userPassword: String)
+        fun login()
 
         /**
          * * Realiza login com o gmail
