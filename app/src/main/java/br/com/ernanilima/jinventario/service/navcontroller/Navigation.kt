@@ -48,8 +48,8 @@ class Navigation {
              */
             fun toRegisterFragment(currentFragment: Fragment) {
                 NavHostFragment.findNavController(currentFragment).apply {
-                    popBackStack(R.id.telaCadastro, true)
-                    navigate(R.id.telaCadastro)
+                    popBackStack(R.id.viewRegister, true)
+                    navigate(R.id.viewRegister)
                 }
             }
 

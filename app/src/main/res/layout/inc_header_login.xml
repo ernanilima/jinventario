@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_form_login"
+    android:gravity="center"
+    android:id="@+id/ll_header">
+
+    <ImageView
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:layout_marginBottom="15sp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo_256x256" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20sp">
+
+        <TextView
+            android:id="@+id/txt_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/buda_light"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_logo"
+            android:layout_marginEnd="5sp"
+            android:layout_toStartOf="@+id/txt_made_by"
+            android:text="by"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/txt_made_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_logo"
+            android:layout_alignEnd="@+id/txt_logo"
+            android:text="@string/app_made_by"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="9sp" />
+
+    </RelativeLayout>
+</LinearLayout>

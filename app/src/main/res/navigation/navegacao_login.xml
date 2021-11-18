@@ -17,10 +17,10 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
-        android:id="@+id/telaCadastro"
+        android:id="@+id/viewRegister"
         android:name="br.com.ernanilima.jinventario.view.CadastroFragment"
-        android:label="fragment_login_cadastro"
-        tools:layout="@layout/fragment_login_cadastro"/>
+        android:label="Register"
+        tools:layout="@layout/fragment_login_register"/>
     <fragment
         android:id="@+id/telaEsqueceuSenha"
         android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment"

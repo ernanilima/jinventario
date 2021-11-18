@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    style="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-    tools:context=".ui.login.LoginFragment">
+    tools:context=".view.CadastroFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
-            android:id="@+id/ll_login"
+            android:id="@+id/ll_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-85dp"
@@ -45,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/s_t_login"
+                        android:text="@string/s_t_cadastro"
                         android:textSize="16sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +65,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_password"
+                        android:id="@+id/layout_password_1"
                         style="@style/Theme.JInventario.Fields"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,7 +76,28 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/field_password"
+                            android:id="@+id/field_password_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberPassword"
+                            android:maxLength="15" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_password_2"
+                        style="@style/Theme.JInventario.Fields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/s_senha"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="6"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/field_password_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
@@ -86,117 +106,72 @@
                             android:maxLength="15" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        android:baselineAligned="true"
+                        android:gravity="center_vertical">
+
+                        <CheckBox
+                            android:id="@+id/chbx_privacy_policy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false" />
 
                         <TextView
-                            android:id="@+id/btn_forgot_password"
+                            android:id="@+id/btn_privacy_policy"
                             style="@style/Theme.JInventario.Link"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@string/s_chbx_politica_privacidade" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16sp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_back"
+                            style="@style/Theme.JInventario.Button.Back"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="16sp"
-                            android:layout_toStartOf="@+id/btn_login"
-                            android:text="@string/s_esqueceusenha" />
+                            android:text="@string/s_voltar"
+                            android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_login"
+                            android:id="@+id/btn_register"
                             style="@style/Theme.JInventario.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/s_t_login"
+                            android:text="@string/s_cadastrar"
                             android:textAllCaps="false" />
                     </RelativeLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <ProgressBar
-                android:id="@+id/progress_login"
+                android:id="@+id/progress_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone" />
         </LinearLayout>
 
+        <!-- ancora para mover o cardview em aparelho com tela pequena -->
         <LinearLayout
             android:id="@+id/ll_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/ll_login"
+            app:layout_constraintTop_toBottomOf="@+id/ll_register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12sp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_naocadastrado" />
-
-                <TextView
-                    android:id="@+id/btn_register"
-                    style="@style/Theme.JInventario.Link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/s_cadastrese" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12sp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <View
-                    style="@style/Theme.JInventario.Separator"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/s_loginsocial"
-                    android:textSize="12sp" />
-
-                <View
-                    style="@style/Theme.JInventario.Separator"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_login_gmail"
-                style="@style/Theme.JInventario.Google"
-                android:layout_width="250sp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12sp"
-                android:text="@string/s_entrargmail"
-                android:textAllCaps="false"
-                app:cornerRadius="25dp"
-                app:icon="@drawable/ic_gmail"
-                app:iconTint="@null" />
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

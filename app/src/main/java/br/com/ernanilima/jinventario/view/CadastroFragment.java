@@ -36,7 +36,7 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inicia o xml
-        return inflater.inflate(R.layout.fragment_login_cadastro, container, false);
+        return inflater.inflate(R.layout.fragment_login_register, container, false);
     }
 
 
@@ -49,13 +49,13 @@ public class CadastroFragment extends Fragment implements ICadastro.IView {
 
         // INICIALIZA
         // nome_local = nome_no_xml
-        campo_email = view.findViewById(R.id.campo_email);
-        campo_senha1 = view.findViewById(R.id.campo_senha1);
-        campo_senha2 = view.findViewById(R.id.campo_senha2);
-        chbx_politica_privacidade = view.findViewById(R.id.chbx_politica_privacidade);
-        link_btn_politica_privacidade = view.findViewById(R.id.btn_politica_privacidade);
-        btn_cadastrar = view.findViewById(R.id.btn_cadastrar);
-        link_btn_voltar = view.findViewById(R.id.btn_voltar);
+        campo_email = view.findViewById(R.id.layout_email);
+        campo_senha1 = view.findViewById(R.id.layout_password_1);
+        campo_senha2 = view.findViewById(R.id.layout_password_2);
+        chbx_politica_privacidade = view.findViewById(R.id.chbx_privacy_policy);
+        link_btn_politica_privacidade = view.findViewById(R.id.btn_privacy_policy);
+        btn_cadastrar = view.findViewById(R.id.btn_register);
+        link_btn_voltar = view.findViewById(R.id.btn_back);
 
         // ACAO DE BOTOES
         campo_senha2.getEditText().setOnClickListener(pCadastro::cadastrar); // botao de teclado

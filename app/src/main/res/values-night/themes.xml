@@ -56,6 +56,8 @@
         <item name="android:textColor">@color/loginTextColorNight</item>
     </style>
 
+    <style name="Theme.JInventario.Button.Back" parent="Theme.JInventario.Dialog.Button" />
+
     <style name="Theme.JInventario.Button.NewContagem">
         <item name="icon">@drawable/ic_novo</item>
         <item name="iconTint">@null</item>

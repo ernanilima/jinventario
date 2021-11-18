@@ -32,7 +32,7 @@
     <string name="s_gravar">Gravar</string>
 
     <string name="s_novacontagem">Nova Contagem</string>
-    <string name="s_chbx_politica_privacidade">Confirmo que li a <u><b>Política de Privacidade</b></u></string>
+    <string name="s_chbx_politica_privacidade">Li e aceito a <u><b>Política de Privacidade</b></u></string>
     <string name="s_hdl_nome_aparelho">Aparelho:</string>
     <string name="s_hdl_exemplo_nome_aparelho">Ex_Nome_Aparelho</string>
     <string name="s_hdl_email">E-mail:</string>
