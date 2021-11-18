@@ -58,6 +58,13 @@ Aplicação possui a possibilidade de utilizar a `câmera como scanner`, essa ap
     - Sair
 
 # Mais
+**ATENÇÃO**:
+
+**Versão [0.16](https://github.com/ernanilima/jinventario/releases/tag/v0.16)**: atualmente a Play Store conta com essa versão que está Java.
+
+**Versão 0.17 - atual**: nessa versão estou alterando a linguagem de Java para Kotlin, interface de login e a arquitetura de MVP para MVVM, adicionando Dagger Hilt, Coroutines, splash screen, validações em tempo de execução e novo campo para calcular valor total do inventário, melhorando a navegação entre fragments e activities.
+
+
 Este projeto faz parte do meu portfólio pessoal, então, ficarei feliz se você puder me fornecer algum feedback sobre o projeto, código, estrutura ou qualquer coisa que você possa relatar que possa me tornar um desenvolvedor melhor!
 
 Contato através do [LinkedIn](https://www.linkedin.com/in/ernanilima)
