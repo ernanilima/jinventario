@@ -74,13 +74,13 @@ class LoginViewModel @Inject constructor(
 
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
-        if (user.dateSubmitVerification == null || WaitingTime.get(user.dateSubmitVerification) <= 0) {
+        if (user.dateSendingVerification == null || WaitingTime.get(user.dateSendingVerification) <= 0) {
             iFirebaseAuth.sendEmailVerification(weakReference.get()!!) // envia e-mail
-            user.dateSubmitVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
+            user.dateSendingVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
             userDao.update(user)
         } else {
             // se o e-mail nao puder ser enviado
-            _waitingTime = WaitingTime.get(user.dateSubmitVerification).toString()
+            _waitingTime = WaitingTime.get(user.dateSendingVerification).toString()
             setResult(ResultTypeLocal.WAIT_SEND_VERIFICATION)
         }
     }

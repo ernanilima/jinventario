@@ -80,7 +80,7 @@ public class CadastroPresenter implements ICadastro.IPresenter {
     private void gravarEmailVerificacaoEnviado() {
         String email = vCadastro.getCampoEmail().getEditText().getText().toString();
         User user = userDao.findByEmail(email);
-        user.setDateSubmitVerification(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
+        user.setDateSendingVerification(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail de verificacao enviado
         userDao.insert(user);
 
 //        // realiza busca no banco greendao para verificar se cadastro ja existe com base no e-mail

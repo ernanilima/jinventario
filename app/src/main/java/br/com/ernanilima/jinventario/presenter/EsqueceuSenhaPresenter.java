@@ -53,9 +53,9 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
         String email = vEsqueceuSenha.getCampoEmail().getEditText().getText().toString();
         User user = userDao.findByEmail(email);
 
-        if (user.getDateSubmitNewPassword() == null || WaitingTime.INSTANCE.get(user.getDateSubmitNewPassword(), WaitingTime.TEN) <= 0) {
+        if (user.getDateSendingPassword() == null || WaitingTime.INSTANCE.get(user.getDateSendingPassword(), WaitingTime.TEN) <= 0) {
             iFirebaseAuth.sendEmailForgotPassword(vEsqueceuSenha.getActivity(), email); // envia um e-mail
-            user.setDateSubmitNewPassword(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail enviado
+            user.setDateSendingPassword(new Date(System.currentTimeMillis())); // atribui instante atual para e-mail enviado
             userDao.update(user); // save e updade eh o mesmo, o que muda eh se existe id no que vai ser gravado
         }
         // se o e-mail nao puder ser enviado, exibe um toast com o tempo que o usuario deve aguardar para um novo envio
@@ -64,7 +64,7 @@ public class EsqueceuSenhaPresenter implements IEsqueceuSenha.IPresenter {
                     vEsqueceuSenha.requireParentFragment().requireContext(),
                     vEsqueceuSenha.requireParentFragment().getString(
                             R.string.msg_waiting_time,
-                            String.valueOf(WaitingTime.INSTANCE.get(user.getDateSubmitNewPassword(), WaitingTime.TEN))
+                            String.valueOf(WaitingTime.INSTANCE.get(user.getDateSendingPassword(), WaitingTime.TEN))
                     )
             );
         }
