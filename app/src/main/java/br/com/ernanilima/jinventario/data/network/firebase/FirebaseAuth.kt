@@ -50,6 +50,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
                 iResult.setResult(ResultTypeFirebase.REGISTRATION_DONE)
             }
         }.addOnFailureListener { error ->
+            iResult.setResult(ResultTypeFirebase.REGISTRATION_NOT_DONE)
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
         }
     }

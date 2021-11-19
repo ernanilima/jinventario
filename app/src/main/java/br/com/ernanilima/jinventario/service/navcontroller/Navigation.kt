@@ -43,7 +43,7 @@ class Navigation {
             }
 
             /**
-             * Navega para o fragment [br.com.ernanilima.jinventario.view.CadastroFragment]
+             * Navega para o fragment [br.com.ernanilima.jinventario.ui.register.RegisterFragment]
              * @param currentFragment Fragment - fragment/view atual
              */
             fun toRegisterFragment(currentFragment: Fragment) {

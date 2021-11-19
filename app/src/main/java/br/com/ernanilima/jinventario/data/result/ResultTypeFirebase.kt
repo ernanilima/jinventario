@@ -5,6 +5,7 @@ package br.com.ernanilima.jinventario.data.result
  */
 enum class ResultTypeFirebase: IResultType {
     REGISTRATION_DONE,
+    REGISTRATION_NOT_DONE,
     VERIFICATION_EMAIL_SENT,
     EMAIL_NOT_VERIFIED,
     NEW_PASSWORD_EMAIL_SENT,

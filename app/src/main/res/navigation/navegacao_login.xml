@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/viewRegister"
-        android:name="br.com.ernanilima.jinventario.view.CadastroFragment"
+        android:name="br.com.ernanilima.jinventario.ui.register.RegisterFragment"
         android:label="Register"
         tools:layout="@layout/fragment_login_register"/>
     <fragment
