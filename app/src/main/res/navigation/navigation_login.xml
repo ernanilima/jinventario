@@ -2,29 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navegacao_login"
+    android:id="@+id/navigation_login"
     app:startDestination="@id/viewSplash">
     <!-- app:startDestination= define qual tela sera exibida -->
 
     <fragment
         android:id="@+id/viewSplash"
         android:name="br.com.ernanilima.jinventario.ui.splash.SplashFragment"
-        android:label="Splash"
         tools:layout="@layout/fragment_splash" />
     <fragment
-        android:id="@+id/telaLogin"
+        android:id="@+id/viewLogin"
         android:name="br.com.ernanilima.jinventario.ui.login.LoginFragment"
-        android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/viewRegister"
         android:name="br.com.ernanilima.jinventario.ui.register.RegisterFragment"
-        android:label="Register"
         tools:layout="@layout/fragment_login_register"/>
     <fragment
         android:id="@+id/telaEsqueceuSenha"
         android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment"
-        android:label="fragment_login_esqueceu_senha"
         tools:layout="@layout/fragment_login_esqueceu_senha" />
 
 </navigation>

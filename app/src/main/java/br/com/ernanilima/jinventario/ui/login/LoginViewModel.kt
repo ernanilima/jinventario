@@ -10,7 +10,7 @@ import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.data.network.google.Google
 import br.com.ernanilima.jinventario.data.result.IResultType
-import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.*
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +34,7 @@ class LoginViewModel @Inject constructor(
 
     var user: User = User()
 
+    private val geIsInternet: Boolean get() = DeviceHelper.isInternet(weakReference.get())
     private val _isInternet = MutableLiveData<Boolean>()
     val isInternet: LiveData<Boolean> = _isInternet
 
@@ -50,25 +51,21 @@ class LoginViewModel @Inject constructor(
 
     /* Verifica se tem internet e realiza login */
     override fun login() {
-        if (DeviceHelper.isInternet(weakReference.get())) {
-            iFirebaseAuth.loginUser(weakReference.get()!!, user.email, user.password)
-        } else {
-            _isInternet.postValue(false)
-            _loginResult.postValue(ResultTypeFirebase.UNAUTHENTICATED_USER)
-        }
+        if (!geIsInternet) { _isInternet.postValue(false); return }
+
+        iFirebaseAuth.loginUser(weakReference.get()!!, user.email, user.password)
     }
 
     /* Verifica se tem internet e realiza login com o gmail */
     override fun loginGmail() {
-        if (DeviceHelper.isInternet(weakReference.get())) {
-            Google.loginGmailUser(googleSignInClient, this)
-        } else {
-            _isInternet.postValue(false)
-            _loginResult.postValue(ResultTypeFirebase.UNAUTHENTICATED_USER)
-        }
+        if (!geIsInternet) { _isInternet.postValue(false); return }
+
+        Google.loginGmailUser(googleSignInClient, this)
     }
 
     override fun sendEmailVerification() {
+        if (!geIsInternet) { _isInternet.postValue(false); return }
+
         // verifica se cadastro ja existe
         val user = userDao.findByEmail(iFirebaseAuth.getUserEmail())
 
@@ -85,19 +82,17 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun setResult(iResult: IResultType) {
-        when (iResult) {
-            ResultTypeFirebase.LOGIN_DONE -> {
-                if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
-                    // se nome do aparelho for vazio para o usuario
-                    _loginResult.postValue(ResultTypeFirebase.FIRST_LOGIN_DONE)
-                } else {
-                    _loginResult.postValue(iResult)
-                }
-            }
-            else -> {
+    override fun setResult(iResult: IResultType) = when (iResult) {
+        LOGIN_DONE -> {
+            if (userDao.findByEmail(iFirebaseAuth.getUserEmail()).deviceName.isNullOrBlank()) {
+                // se nome do aparelho for vazio para o usuario
+                _loginResult.postValue(FIRST_LOGIN_DONE)
+            } else {
                 _loginResult.postValue(iResult)
             }
+        }
+        else -> {
+            _loginResult.postValue(iResult)
         }
     }
 }

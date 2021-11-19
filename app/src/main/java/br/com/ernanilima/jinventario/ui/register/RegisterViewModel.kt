@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.data.result.IResultType
-import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.*
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.model.User
 import br.com.ernanilima.jinventario.repository.UserRepository
@@ -28,6 +28,7 @@ class RegisterViewModel @Inject constructor(
 
     var user: User = User()
 
+    private val geIsInternet: Boolean get() = DeviceHelper.isInternet(weakReference.get())
     private val _isInternet = MutableLiveData<Boolean>()
     val isInternet: LiveData<Boolean> = _isInternet
 
@@ -41,12 +42,9 @@ class RegisterViewModel @Inject constructor(
 
     /* Verifica se tem internet e realiza o cadastro do usuario */
     override fun register() {
-        if (DeviceHelper.isInternet(weakReference.get())) {
-            iFirebaseAuth.registerUser(weakReference.get()!!, user.email, user.password)
-        } else {
-            _isInternet.postValue(false)
-            _registerResult.postValue(ResultTypeFirebase.REGISTRATION_NOT_DONE)
-        }
+        if (!geIsInternet) { _isInternet.postValue(false); return }
+
+        iFirebaseAuth.registerUser(weakReference.get()!!, user.email, user.password)
     }
 
     /**
@@ -63,20 +61,18 @@ class RegisterViewModel @Inject constructor(
      * Resultado recebido do firebase
      * @param iResult IResultType - tipo de resultado
      */
-    override fun setResult(iResult: IResultType) {
-        when (iResult) {
-            ResultTypeFirebase.REGISTRATION_DONE -> {
-                // cadastro realizado, envia o e-mail de verificacao
-                iFirebaseAuth.sendEmailVerification(weakReference.get()!!)
-            }
-            ResultTypeFirebase.VERIFICATION_EMAIL_SENT -> {
-                // e-mail enviado
-                verificationEmailSent()
-                _registerResult.postValue(ResultTypeFirebase.REGISTRATION_DONE)
-            }
-            else -> {
-                _registerResult.postValue(iResult)
-            }
+    override fun setResult(iResult: IResultType) = when (iResult) {
+        REGISTRATION_DONE -> {
+            // cadastro realizado, envia o e-mail de verificacao
+            iFirebaseAuth.sendEmailVerification(weakReference.get()!!)
+        }
+        VERIFICATION_EMAIL_SENT -> {
+            // e-mail enviado
+            verificationEmailSent()
+            _registerResult.postValue(REGISTRATION_DONE)
+        }
+        else -> {
+            _registerResult.postValue(iResult)
         }
     }
 }

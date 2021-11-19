@@ -27,7 +27,7 @@ class Navigation {
                 NavHostFragment.findNavController(currentFragment).popBackStack()
                 NavHostFragment.findNavController(currentFragment).apply {
                     popBackStack()
-                    navigate(R.id.telaLogin)
+                    navigate(R.id.viewLogin)
                 }
             }
 

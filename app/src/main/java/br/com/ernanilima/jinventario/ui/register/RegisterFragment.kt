@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.REGISTRATION_DONE
 import br.com.ernanilima.jinventario.databinding.FragmentLoginRegisterBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
@@ -27,6 +27,7 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentLoginRegisterBinding? = null
     private val binding get() = _binding!!
     private val registerViewModel: RegisterViewModel by viewModels()
+    private val progressBar get() = binding.progressRegister.isVisible
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginRegisterBinding.inflate(inflater, container, false)
@@ -46,9 +47,9 @@ class RegisterFragment : Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.btnPrivacyPolicy.setOnClickListener { binding.progressRegister.isVisible.ifFalse { showPrivacyPolicy() } }
-        binding.btnRegister.setOnClickListener { binding.progressRegister.isVisible.ifFalse { register() } }
-        binding.btnBack.setOnClickListener { binding.progressRegister.isVisible.ifFalse { toLoginFragment(this) } }
+        binding.btnPrivacyPolicy.setOnClickListener { progressBar.ifFalse { showPrivacyPolicy() } }
+        binding.btnRegister.setOnClickListener { progressBar.ifFalse { register() } }
+        binding.btnBack.setOnClickListener { progressBar.ifFalse { toLoginFragment(this) } }
 
         // REQUISICOES DO CAMPO E-MAIL
         InputHelper(requireActivity()).apply {
@@ -56,14 +57,14 @@ class RegisterFragment : Fragment() {
             setRequired(true)
         }.build()
 
-        // REQUISICOES DO CAMPO SENHA
+        // REQUISICOES DO CAMPO SENHA 1
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutPassword1)
             setRequired(true)
             setMinLength(6)
         }.build()
 
-        // REQUISICOES DO CAMPO SENHA
+        // REQUISICOES DO CAMPO SENHA 2
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutPassword2)
             setRequired(true)
@@ -85,12 +86,10 @@ class RegisterFragment : Fragment() {
         })
 
         registerViewModel.registerResult.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                ResultTypeFirebase.REGISTRATION_DONE -> {
-                    val context = requireParentFragment().requireContext()
-                    success(context, getString(R.string.msg_registered_user))
-                    toLoginFragment(this)
-                }
+            if (result == REGISTRATION_DONE) {
+                val context = requireParentFragment().requireContext()
+                success(context, getString(R.string.msg_registered_user))
+                toLoginFragment(this)
             }
             binding.progressRegister.visibility = View.GONE
         })
@@ -125,13 +124,6 @@ class RegisterFragment : Fragment() {
     private fun validate(): Boolean {
         var isValid = true
 
-        // politica de privacidade
-        binding.chbxPrivacyPolicy.isChecked.ifFalse {
-            val context = requireParentFragment().requireContext()
-            warning(context, getString(R.string.msg_privacy_policy))
-            isValid = it
-        }
-
         // campo e-mail
         Validator.apply {
             isEmpty(binding.fieldEmail.text.toString()).ifTrue {
@@ -160,6 +152,15 @@ class RegisterFragment : Fragment() {
         binding.layoutEmail.isErrorEnabled.ifTrue { isValid = !it }
         binding.layoutPassword1.isErrorEnabled.ifTrue { isValid = !it }
         binding.layoutPassword2.isErrorEnabled.ifTrue { isValid = !it }
+
+        isValid.ifTrue {
+            // politica de privacidade
+            binding.chbxPrivacyPolicy.isChecked.ifFalse {
+                val context = requireParentFragment().requireContext()
+                warning(context, getString(R.string.msg_privacy_policy))
+                isValid = it
+            }
+        }
 
         return isValid
     }
