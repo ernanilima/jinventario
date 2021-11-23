@@ -26,16 +26,16 @@ public class NomeAparelhoActivity extends AppCompatActivity implements INomeApar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nome_aparelho);
+        setContentView(R.layout.fragment_login_device_name);
 
 //        // DEFINE PRESENTER DESSA ACTIVITY
 //        pNomeAparelho = new NomeAparelhoPresenter(this);
 
         // INICIALIZA
         // nome_local = nome_no_xml
-        campo_nomeaparelho = findViewById(R.id.campo_nomeaparelho);
-        btn_gravar = findViewById(R.id.btn_gravar);
-        link_btn_voltar = findViewById(R.id.btn_voltar);
+        campo_nomeaparelho = findViewById(R.id.layout_device_name);
+        btn_gravar = findViewById(R.id.btn_save);
+        link_btn_voltar = findViewById(R.id.btn_back);
 
         // ACAO DE BOTOES
         btn_gravar.setOnClickListener(v -> pNomeAparelho.gravarNomeDoAparelho());
