@@ -151,7 +151,7 @@ class RegisterFragment : Fragment() {
         binding.layoutPassword1.isErrorEnabled.ifTrue { isValid = !it }
         binding.layoutPassword2.isErrorEnabled.ifTrue { isValid = !it }
 
-        isValid.ifTrue {
+        isValid.ifTrue { // se a validacao abaixo for a ultima a ser realizada
             // politica de privacidade
             binding.chbxPrivacyPolicy.isChecked.ifFalse {
                 val context = requireParentFragment().requireContext()
