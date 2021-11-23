@@ -20,7 +20,7 @@
         tools:layout="@layout/fragment_login_register"/>
     <fragment
         android:id="@+id/viewForgotPassword"
-        android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment"
+        android:name="br.com.ernanilima.jinventario.ui.forgotPassword.ForgotPasswordFragment"
         tools:layout="@layout/fragment_login_forgot_password" />
 
 </navigation>

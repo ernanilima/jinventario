@@ -77,6 +77,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
                 iResult.setResult(ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT)
             }
         }.addOnFailureListener { error ->
+            iResult.setResult(ResultTypeFirebase.NEW_PASSWORD_EMAIL_NOT_SENT)
             ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
         }
     }

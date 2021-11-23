@@ -32,7 +32,7 @@ class Navigation {
             }
 
             /**
-             * Navega para o fragment [br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment]
+             * Navega para o fragment [br.com.ernanilima.jinventario.ui.forgotPassword.ForgotPasswordFragment]
              * @param currentFragment Fragment - fragment/view atual
              */
             fun toForgotPasswordFragment(currentFragment: Fragment) {

@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import br.com.ernanilima.jinventario.NomeAparelhoActivity
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
-import br.com.ernanilima.jinventario.interfaces.IEsqueceuSenha
 import br.com.ernanilima.jinventario.interfaces.IInicioApp
 import br.com.ernanilima.jinventario.interfaces.INomeAparelho
-import br.com.ernanilima.jinventario.presenter.EsqueceuSenhaPresenter
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter
 import br.com.ernanilima.jinventario.presenter.NomeAparelhoPresenter
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
 import br.com.ernanilima.jinventario.repository.orm.DaoSession
-import br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment
 import br.com.ernanilima.jinventario.view.InicioAppFragment
 import dagger.Binds
 
@@ -71,12 +68,6 @@ abstract class UiModule {
 abstract class MVPModule {
 
     @Binds
-    abstract fun bindEsqueceuSenhaFragment(fragment: EsqueceuSenhaFragment): IEsqueceuSenha.IView
-
-    @Binds
-    abstract fun bindEsqueceuSenhaPresenter(presenter: EsqueceuSenhaPresenter): IEsqueceuSenha.IPresenter
-
-    @Binds
     abstract fun bindInicioFragment(fragment: InicioAppFragment): IInicioApp.IView
 
     @Binds
@@ -87,11 +78,6 @@ abstract class MVPModule {
 @InstallIn(FragmentComponent::class)
 @Module
 object FragmentModule {
-
-    @Provides
-    fun provideEsqueceuSenhaFragment(fragment: Fragment): EsqueceuSenhaFragment {
-        return fragment as EsqueceuSenhaFragment
-    }
 
     @Provides
     fun provideInicioFragment(fragment: Fragment): InicioAppFragment {
