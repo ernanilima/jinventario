@@ -60,6 +60,7 @@ class RegisterFragment : Fragment() {
         // REQUISICOES DO CAMPO SENHA 1
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutPassword1)
+            setInputLayoutForMatch(binding.layoutPassword2)
             setRequired(true)
             setMinLength(6)
         }.build()
@@ -67,13 +68,10 @@ class RegisterFragment : Fragment() {
         // REQUISICOES DO CAMPO SENHA 2
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutPassword2)
+            setInputLayoutForMatch(binding.layoutPassword1)
             setRequired(true)
             setMinLength(6)
         }.build()
-
-        //
-        // CRIAR VERIFICACAO DE IGUALDADE
-        //
     }
 
     private fun setupListener() {

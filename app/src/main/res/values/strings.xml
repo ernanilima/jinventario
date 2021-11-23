@@ -59,6 +59,7 @@
     <string name="ih_field_empty_error">Campo não pode ser vazio</string>
     <string name="ih_field_length_error">O conteúdo deve ter %s caracteres no mínimo</string>
     <string name="ih_email_error">E-mail inválido</string>
+    <string name="ih_password_not_match">A senha fornecida não combina</string>
     <string name="ih_default_error">Erro identificado</string>
 
     <!--  mensagens  -->
