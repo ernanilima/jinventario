@@ -19,8 +19,8 @@
         android:name="br.com.ernanilima.jinventario.ui.register.RegisterFragment"
         tools:layout="@layout/fragment_login_register"/>
     <fragment
-        android:id="@+id/telaEsqueceuSenha"
+        android:id="@+id/viewForgotPassword"
         android:name="br.com.ernanilima.jinventario.view.EsqueceuSenhaFragment"
-        tools:layout="@layout/fragment_login_esqueceu_senha" />
+        tools:layout="@layout/fragment_login_forgot_password" />
 
 </navigation>

@@ -32,7 +32,7 @@ public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IV
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inicia o xml
-        return inflater.inflate(R.layout.fragment_login_esqueceu_senha, container, false);
+        return inflater.inflate(R.layout.fragment_login_forgot_password, container, false);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class EsqueceuSenhaFragment extends Fragment implements IEsqueceuSenha.IV
 
         // INICIALIZA
         // nome_local = nome_no_xml
-        campo_email = view.findViewById(R.id.campo_email);
-        btn_novasenha = view.findViewById(R.id.btn_novasenha);
-        link_btn_voltar = view.findViewById(R.id.btn_voltar);
+        campo_email = view.findViewById(R.id.layout_email);
+        btn_novasenha = view.findViewById(R.id.btn_send);
+        link_btn_voltar = view.findViewById(R.id.btn_back);
 
         // ACAO DE BOTOES
         btn_novasenha.setOnClickListener(pEsqueceuSenha::gerarNovaSenha);

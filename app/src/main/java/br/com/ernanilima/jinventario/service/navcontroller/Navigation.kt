@@ -37,8 +37,8 @@ class Navigation {
              */
             fun toForgotPasswordFragment(currentFragment: Fragment) {
                 NavHostFragment.findNavController(currentFragment).apply {
-                    popBackStack(R.id.telaEsqueceuSenha, true)
-                    navigate(R.id.telaEsqueceuSenha)
+                    popBackStack(R.id.viewForgotPassword, true)
+                    navigate(R.id.viewForgotPassword)
                 }
             }
 
