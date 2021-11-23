@@ -114,5 +114,4 @@ class ForgotPasswordFragment : Fragment() {
 
         return isValid
     }
-
 }
