@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".NomeAparelhoActivity">
+    tools:context=".ui.deviceName.DeviceNameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <ProgressBar
-                android:id="@+id/progress_forgot_password"
+                android:id="@+id/progress_device_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

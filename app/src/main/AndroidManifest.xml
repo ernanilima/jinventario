@@ -43,11 +43,6 @@
             tools:replace="screenOrientation" />
 
         <activity
-            android:name=".NomeAparelhoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.JInventario" />
-
-        <activity
             android:name=".AppActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.JInventario" />

@@ -1,15 +1,11 @@
 package br.com.ernanilima.jinventario.di
 
-import android.app.Activity
 import android.content.Context
 import androidx.fragment.app.Fragment
-import br.com.ernanilima.jinventario.NomeAparelhoActivity
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.interfaces.IInicioApp
-import br.com.ernanilima.jinventario.interfaces.INomeAparelho
 import br.com.ernanilima.jinventario.presenter.InicioAppPresenter
-import br.com.ernanilima.jinventario.presenter.NomeAparelhoPresenter
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
@@ -20,7 +16,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
@@ -82,30 +77,6 @@ object FragmentModule {
     @Provides
     fun provideInicioFragment(fragment: Fragment): InicioAppFragment {
         return fragment as InicioAppFragment
-    }
-
-}
-
-
-@InstallIn(ActivityComponent::class)
-@Module
-abstract class MVPActivityModule {
-
-    @Binds
-    abstract fun bindNomeAparelhoFragment(fragment: NomeAparelhoActivity): INomeAparelho.IView
-
-    @Binds
-    abstract fun bindNomeAparelhoPresenter(presenter: NomeAparelhoPresenter): INomeAparelho.IPresenter
-
-}
-
-@InstallIn(ActivityComponent::class)
-@Module
-object ActivityModule {
-
-    @Provides
-    fun provideNomeAparelhoActivity(activity: Activity): NomeAparelhoActivity {
-        return activity as NomeAparelhoActivity
     }
 
 }

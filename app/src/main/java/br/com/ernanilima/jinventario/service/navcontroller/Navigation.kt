@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import br.com.ernanilima.jinventario.AppActivity
-import br.com.ernanilima.jinventario.NomeAparelhoActivity
 import br.com.ernanilima.jinventario.R
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Navegacoes
@@ -28,6 +28,7 @@ class Navigation {
                 NavHostFragment.findNavController(currentFragment).apply {
                     popBackStack()
                     navigate(R.id.viewLogin)
+                    FirebaseAuth.getInstance().signOut()
                 }
             }
 
@@ -54,12 +55,14 @@ class Navigation {
             }
 
             /**
-             * SERA ALTERADO PARA SER UM FRAGMENT DE MAIN/LOGIN
+             * Navega para o fragment [br.com.ernanilima.jinventario.ui.deviceName.DeviceNameFragment]
+             * @param currentFragment Fragment - fragment/view atual
              */
-            fun toDeviceNameActivity(currentactivity: Activity) {
-                val intent = Intent(currentactivity, NomeAparelhoActivity::class.java)
-                currentactivity.startActivity(intent)
-                currentactivity.finish()
+            fun toDeviceNameFragment(currentFragment: Fragment) {
+                NavHostFragment.findNavController(currentFragment).apply {
+                    popBackStack(R.id.viewDeviceName, true)
+                    navigate(R.id.viewDeviceName)
+                }
             }
         }
     }

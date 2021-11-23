@@ -5,5 +5,6 @@ package br.com.ernanilima.jinventario.data.result
  */
 enum class ResultTypeLocal: IResultType {
     WAIT_SEND_VERIFICATION,
-    WAIT_SEND_PASSWORD
+    WAIT_SEND_PASSWORD,
+    SAVED_DEVICE_NAME
 }

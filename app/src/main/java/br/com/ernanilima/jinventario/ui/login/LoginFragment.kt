@@ -20,7 +20,7 @@ import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.success
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toHomeActivity
-import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toDeviceNameActivity
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toDeviceNameFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -86,7 +86,7 @@ class LoginFragment: Fragment() {
                     toHomeActivity(requireActivity())
                 }
                 FIRST_LOGIN_DONE -> {
-                    toDeviceNameActivity(requireActivity())
+                    toDeviceNameFragment(requireParentFragment())
                 }
                 EMAIL_NOT_VERIFIED -> {
                     SimpleDialog(QuestionDialog(parentFragmentManager).apply {

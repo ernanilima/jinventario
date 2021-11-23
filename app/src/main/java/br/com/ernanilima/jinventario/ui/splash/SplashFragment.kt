@@ -55,7 +55,7 @@ class SplashFragment : Fragment() {
                     Navigation.App.toHomeActivity(requireActivity())
                 }
                 ResultTypeFirebase.FIRST_LOGIN_DONE -> {
-                    Navigation.Login.toDeviceNameActivity(requireActivity())
+                    Navigation.Login.toDeviceNameFragment(this)
                 }
                 ResultTypeFirebase.UNAUTHENTICATED_USER -> {
                     Navigation.Login.toLoginFragment(this)

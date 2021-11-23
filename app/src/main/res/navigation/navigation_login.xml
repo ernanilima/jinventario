@@ -22,5 +22,9 @@
         android:id="@+id/viewForgotPassword"
         android:name="br.com.ernanilima.jinventario.ui.forgotPassword.ForgotPasswordFragment"
         tools:layout="@layout/fragment_login_forgot_password" />
+    <fragment
+        android:id="@+id/viewDeviceName"
+        android:name="br.com.ernanilima.jinventario.ui.deviceName.DeviceNameFragment"
+        tools:layout="@layout/fragment_login_device_name" />
 
 </navigation>
