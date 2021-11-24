@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
 import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
-import br.com.ernanilima.jinventario.service.navcontroller.Navigation
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toHomeActivity
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toLoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,7 +63,7 @@ class DeviceNameFragment : Fragment() {
     private fun setupListener() {
         deviceNameViewModel.deviceNameResult.observe(viewLifecycleOwner, { result ->
             if (result == SAVED_DEVICE_NAME) {
-                Navigation.App.toHomeActivity(requireActivity())
+                toHomeActivity(requireActivity())
                 binding.progressDeviceName.visibility = View.GONE
             }
         })

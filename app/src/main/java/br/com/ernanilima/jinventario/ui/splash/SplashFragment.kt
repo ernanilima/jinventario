@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
+import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.*
 import br.com.ernanilima.jinventario.databinding.FragmentSplashBinding
 import br.com.ernanilima.jinventario.extension.common.ifFalse
-import br.com.ernanilima.jinventario.service.navcontroller.Navigation
-import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toHomeActivity
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toDeviceNameFragment
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toLoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,20 +47,20 @@ class SplashFragment : Fragment() {
         splashViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
-                SnackbarCustom.warning(context, getString(R.string.msg_without_internet))
+                warning(context, getString(R.string.msg_without_internet))
             }
         })
 
         splashViewModel.automaticLoginResult.observe(viewLifecycleOwner, { result ->
             when (result) {
-                ResultTypeFirebase.AUTHENTICATED_USER -> {
-                    Navigation.App.toHomeActivity(requireActivity())
+                AUTHENTICATED_USER -> {
+                    toHomeActivity(requireActivity())
                 }
-                ResultTypeFirebase.FIRST_LOGIN_DONE -> {
-                    Navigation.Login.toDeviceNameFragment(this)
+                FIRST_LOGIN_DONE -> {
+                    toDeviceNameFragment(this)
                 }
-                ResultTypeFirebase.UNAUTHENTICATED_USER -> {
-                    Navigation.Login.toLoginFragment(this)
+                UNAUTHENTICATED_USER -> {
+                    toLoginFragment(this)
                 }
             }
         })
