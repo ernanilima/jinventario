@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_DEVICE_NAME
@@ -45,6 +46,11 @@ class DeviceNameFragment : Fragment() {
         // ACAO DE BOTOES
         binding.btnSave.setOnClickListener { progressBar.ifFalse { saveDeviceName() } }
         binding.btnBack.setOnClickListener { progressBar.ifFalse { toLoginFragment(this) } }
+
+        // MANIPILAR BOTAO VOLTAR DO APARELHO
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) {
+            isEnabled.ifTrue { toLoginFragment(this@DeviceNameFragment) }
+        }
 
         // REQUISICOES DO CAMPO NOME DO APARELHO
         InputHelper(requireActivity()).apply {
