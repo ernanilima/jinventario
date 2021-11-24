@@ -1,16 +1,19 @@
 package br.com.ernanilima.jinventario.service.component;
 
-import br.com.ernanilima.jinventario.model.NomeAparelho;
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth;
+import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth;
+import br.com.ernanilima.jinventario.model.User;
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;
-import br.com.ernanilima.jinventario.repository.orm.NomeAparelhoDao;
+import br.com.ernanilima.jinventario.repository.orm.UserDao;
 
+@Deprecated
 public class NomeAparelhoAutenticacao {
 
     private static NomeAparelhoAutenticacao NOME_APARELHO;
-    private final long codigoNomeAparelho = 1L;
-    private NomeAparelho mNomeAparelho;
+    private IFirebaseAuth iFirebaseAuth;
+    private User user;
     private DaoSession daoSession;
-    private NomeAparelhoDao dNomeAparelho;
+    private UserDao userDao;
 
     /** @param daoSession DaoSession - sessao do greendao
      * @return NomeAparelhoAutenticacao - instancia da classe {@link NomeAparelhoAutenticacao} */
@@ -22,24 +25,26 @@ public class NomeAparelhoAutenticacao {
 
     /** Construtor
      * @param daoSession DaoSession - sessao do greendao */
+    @Deprecated
     public NomeAparelhoAutenticacao(DaoSession daoSession) {
         // GREENDAO
         this.daoSession = daoSession;
-        this.dNomeAparelho = this.daoSession.getNomeAparelhoDao();
-    }
-
-    /** Verifica no banco greendao se o nome ja existe
-     * @return boolean - true se nome ja existir */
-    public boolean getNomeExiste() {
-        mNomeAparelho = dNomeAparelho.load(codigoNomeAparelho);
-        return mNomeAparelho != null;
+        this.userDao = this.daoSession.getUserDao();
+        this.iFirebaseAuth = new FirebaseAuth();
     }
 
     /** @return String - nome do aparelho */
+    @Deprecated
     public String getNomeAparelho() {
-        mNomeAparelho = dNomeAparelho.load(codigoNomeAparelho);
-        if (mNomeAparelho != null) {
-            return mNomeAparelho.getNome();
+        user = userDao.queryBuilder().where(UserDao.Properties.Email.eq(iFirebaseAuth.getUserEmail())).unique();
+
+        if (user == null) {
+            user = new User();
+            user.setEmail(iFirebaseAuth.getUserEmail());
+        }
+
+        if (user.getDeviceName() != null) {
+            return user.getDeviceName();
         }
 
         return "NOME NÃO CRIADO";
