@@ -56,7 +56,7 @@ class DeviceNameFragment : Fragment() {
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.layoutDeviceName)
             setRequired(true)
-            setMinLength(6)
+            setMinLength(5)
         }.build()
     }
 
