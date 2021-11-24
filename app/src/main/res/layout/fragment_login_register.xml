@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/s_t_cadastro"
+                        android:text="@string/s_t_sing_up"
                         android:textSize="16sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="@string/s_senha"
+                        android:hint="@string/s_password"
                         app:counterEnabled="true"
                         app:counterMaxLength="6"
                         app:passwordToggleEnabled="true">
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="@string/s_senha"
+                        android:hint="@string/s_password"
                         app:counterEnabled="true"
                         app:counterMaxLength="6"
                         app:passwordToggleEnabled="true">
@@ -124,7 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="@string/s_chbx_politica_privacidade" />
+                            android:text="@string/s_chbx_privacy_policy" />
                     </LinearLayout>
 
                     <RelativeLayout
@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/s_voltar"
+                            android:text="@string/s_back"
                             android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
@@ -149,7 +149,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/s_cadastrar"
+                            android:text="@string/s_continue"
                             android:textAllCaps="false" />
                     </RelativeLayout>
                 </LinearLayout>

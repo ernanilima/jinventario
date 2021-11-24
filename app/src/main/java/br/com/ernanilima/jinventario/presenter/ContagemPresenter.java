@@ -179,7 +179,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     private boolean validarCampos() {
         return ValidarCampo.vazio(vContagem.getCampoCodbarras(), vContagem.requireParentFragment().getString(R.string.msg_invalid_barcode)) &&
                 ValidarCampo.vazio(vContagem.getCampoQtdDeCaixa(), vContagem.requireParentFragment().getString(R.string.msg_invalid_number_of_boxes)) &&
-                ValidarCampo.vazio(vContagem.getCampoQtdPorCaixa(), vContagem.requireParentFragment().getString(R.string.msg_invalid_number_per_boxes));
+                ValidarCampo.vazio(vContagem.getCampoQtdPorCaixa(), vContagem.requireParentFragment().getString(R.string.msg_invalid_number_per_box));
     }
 
     @Override

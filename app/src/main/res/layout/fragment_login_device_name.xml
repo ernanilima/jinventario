@@ -45,13 +45,13 @@
                         style="@style/Theme.JInventario.Alert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/s_importante_nomeaparelho"
+                        android:text="@string/s_important_device_name"
                         android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/s_exemplo_nome_aparelho"
+                        android:text="@string/s_ex_device_name"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -63,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="@string/s_nomeaparelho">
+                        android:hint="@string/s_device_name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/field_device_name"
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/s_voltar"
+                            android:text="@string/s_back"
                             android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
@@ -97,7 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/s_gravar"
+                            android:text="@string/s_continue"
                             android:textAllCaps="false" />
                     </RelativeLayout>
                 </LinearLayout>

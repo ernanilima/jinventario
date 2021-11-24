@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/s_irv_cs_numero_contavem_estoque" />
+                android:text="@string/s_irv_stock_count_number" />
 
             <TextView
                 android:id="@+id/campo_numero_contagem"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_toEndOf="@+id/tx_numero_contagem"
-                android:text="@string/s_irv_cs_exemplo_numero_contagem" />
+                android:text="@string/s_irv_ex_stock_count_number" />
 
         </RelativeLayout>
 
@@ -49,7 +49,7 @@
                 android:layout_width="75sp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/s_irv_cs_data_criacao"
+                android:text="@string/s_irv_creation_date"
                 android:textSize="10sp" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_toStartOf="@+id/tx_total_itens"
                 android:layout_toEndOf="@+id/tx_data_criacao"
                 android:gravity="center"
-                android:text="@string/s_irv_cs_data_hora_alteracao"
+                android:text="@string/s_irv_date_hour_update"
                 android:textSize="10sp" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:gravity="end"
-                android:text="@string/s_irv_cs_total"
+                android:text="@string/s_irv_total"
                 android:textSize="10sp" />
 
         </RelativeLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:gravity="start"
-                android:text="@string/s_irv_cs_exemplo_data" />
+                android:text="@string/s_irv_ex_date" />
 
             <TextView
                 android:id="@+id/campo_data_hora_alteracao"
@@ -92,7 +92,7 @@
                 android:layout_toStartOf="@+id/campo_total_itens"
                 android:layout_toEndOf="@+id/campo_data_criacao"
                 android:gravity="center"
-                android:text="@string/s_irv_cs_exemplo_data_hora" />
+                android:text="@string/s_irv_ex_date_hour" />
 
             <TextView
                 android:id="@+id/campo_total_itens"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:gravity="end"
-                android:text="@string/s_irv_cs_exemplo_total" />
+                android:text="@string/s_irv_ex_total" />
 
         </RelativeLayout>
     </LinearLayout>

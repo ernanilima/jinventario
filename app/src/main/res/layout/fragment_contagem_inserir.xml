@@ -26,7 +26,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/s_codigo_barras"
+                android:hint="@string/s_barcode"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="14"
@@ -75,7 +75,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/s_preco_por_produto"
+                android:hint="@string/s_unit_price"
                 android:imeOptions="actionNext"
                 android:maxLength="10"
                 android:inputType="number"
@@ -107,7 +107,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/s_qtd_de_cxs"
+                android:hint="@string/s_number_of_boxes"
                 android:selectAllOnFocus="true"
                 android:imeOptions="actionNext"
                 android:textSize="15sp"
@@ -131,7 +131,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/s_qtd_por_cx"
+                android:hint="@string/s_number_per_box"
                 android:textSize="15sp"
                 android:selectAllOnFocus="true"
                 android:imeOptions="actionGo"

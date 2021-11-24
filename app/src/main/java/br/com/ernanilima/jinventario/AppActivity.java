@@ -67,7 +67,7 @@ public class AppActivity extends AppCompatActivity {
     /** Abre a pagina de politica de privacidade */
     private boolean abrirPoliticaPrivacidade() {
         drawerLayout.closeDrawers(); // fecha o drawer layout
-        Uri uri = Uri.parse(getString(R.string.site_politica_privacidade));
+        Uri uri = Uri.parse(getString(R.string.link_privacy_policy));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
         return true;

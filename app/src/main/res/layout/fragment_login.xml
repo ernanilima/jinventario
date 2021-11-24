@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="@string/s_senha"
+                        android:hint="@string/s_password"
                         app:counterEnabled="true"
                         app:counterMaxLength="6"
                         app:passwordToggleEnabled="true">
@@ -99,7 +99,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="16sp"
                             android:layout_toStartOf="@+id/btn_login"
-                            android:text="@string/s_esqueceusenha" />
+                            android:text="@string/s_forgot_password" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_login"
@@ -143,7 +143,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/s_naocadastrado" />
+                    android:text="@string/s_not_registered" />
 
                 <TextView
                     android:id="@+id/btn_register"
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/s_cadastrese" />
+                    android:text="@string/s_sing_up" />
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/s_loginsocial"
+                    android:text="@string/s_social_network_login"
                     android:textSize="12sp" />
 
                 <View
@@ -191,7 +191,7 @@
                 android:layout_width="250sp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12sp"
-                android:text="@string/s_entrargmail"
+                android:text="@string/s_login_gmail"
                 android:textAllCaps="false"
                 app:cornerRadius="25dp"
                 app:icon="@drawable/ic_gmail"

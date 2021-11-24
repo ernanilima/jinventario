@@ -1,24 +1,36 @@
 <resources>
+    <!--
+    s = string
+    chbx = checkbox
+    t = title
+    m = message
+    hdl = header drawer layout
+    irv = item recyclerview
+    ex = example
+    ih = input help
+    -->
     <!-- https://developer.android.com/guide/topics/resources/string-resource -->
     <string name="app_name">jInventário</string>
     <string name="app_made_by">jMercado - Ernani Lima</string>
-    <string name="site_politica_privacidade">https://ernanilima.com.br/jinventario/poliitica_de_privacidade_do_app_inventaario_de_estoque.html</string>
     <string name="s_loading">Carregando…</string>
     <string name="s_t_login">Login</string>
     <string name="s_email">E-mail</string>
-    <string name="s_senha">Senha</string>
-    <string name="s_esqueceusenha">Esqueceu a senha?</string>
-    <string name="s_lembrarlogin">Lembrar login</string>
-    <string name="s_loginsocial">Login Social</string>
-    <string name="s_entrargmail">Entrar com o Gmail</string>
-    <string name="s_naocadastrado">Não é cadastrado?</string>
-    <string name="s_cadastrese">Cadastre-se.</string>
-    <string name="s_t_cadastro">Cadastrar Usuário</string>
-    <string name="s_cadastrar">Cadastrar</string>
-    <string name="s_voltar">Voltar</string>
-    <string name="s_t_esqueceusenha">Esqueceu a Senha</string>
-    <string name="s_m_esqueceusenha">Informe o seu e-mail cadastrado.</string>
-    <string name="s_novasenha">Enviar nova senha</string>
+    <string name="s_password">Senha</string>
+    <string name="s_forgot_password">Esqueceu a senha?</string>
+    <string name="s_not_registered">Não é cadastrado?</string>
+    <string name="s_sing_up">Cadastre-se.</string>
+    <string name="s_social_network_login">Login Social</string>
+    <string name="s_login_gmail">Entrar com o Gmail</string>
+    <string name="s_t_forgot_password">Esqueceu a Senha</string>
+    <string name="s_m_forgot_password">Informe o seu e-mail cadastrado.</string>
+    <string name="s_t_sing_up">Cadastrar Usuário</string>
+    <string name="s_chbx_privacy_policy">Li e aceito a <u><b>Política de Privacidade</b></u></string>
+    <string name="link_privacy_policy">https://ernanilima.com.br/jinventario/poliitica_de_privacidade_do_app_inventaario_de_estoque.html</string>
+    <string name="s_back">Voltar</string>
+    <string name="s_continue">Continuar</string>
+    <string name="s_important_device_name">IMPORTANTE: o nome não pode ser alterado depois, o nome definido é usado na exportação da contagem, assim o usuário pode usar mais de um aparelho e pelo nome definido abaixo o usuário saberá de onde é a contagem.</string>
+    <string name="s_ex_device_name">ex: coletor_estoque</string>
+    <string name="s_device_name">Nome para o aparelho</string>
 
     <!--  Dialog  -->
     <string name="s_dialog_title">Atenção</string>
@@ -27,42 +39,38 @@
     <string name="s_dialog_btn_positive">Sim</string>
     <string name="s_dialog_msg_email_verification">Reenviar e-mail de verificação?</string>
 
-    <string name="s_importante_nomeaparelho">IMPORTANTE: o nome não pode ser alterado depois, o nome definido é usado na exportação da contagem, assim o usuário pode usar mais de um aparelho e pelo nome definido abaixo o usuário saberá de onde é a contagem.</string>
-    <string name="s_nomeaparelho">Nome para o aparelho</string>
-    <string name="s_gravar">Gravar</string>
-
-    <string name="s_novacontagem">Nova Contagem</string>
-    <string name="s_chbx_politica_privacidade">Li e aceito a <u><b>Política de Privacidade</b></u></string>
-    <string name="s_hdl_nome_aparelho">Aparelho:</string>
-    <string name="s_hdl_exemplo_nome_aparelho">Ex_Nome_Aparelho</string>
+    <!--  App  -->
+    <string name="s_new_count">Nova Contagem</string>
+    <string name="s_hdl_device_name">Aparelho:</string>
+    <string name="s_hdl_ex_device_name">ColetorLoja</string>
     <string name="s_hdl_email">E-mail:</string>
-    <string name="s_hdl_exemplo_email">email@email.com.br</string>
-    <string name="s_irv_cs_numero_contavem_estoque">Contagem de estoque número:</string>
-    <string name="s_irv_cs_exemplo_numero_contagem">9999</string>
-    <string name="s_irv_cs_data_criacao">Data de Criação</string>
-    <string name="s_irv_cs_data_hora_alteracao">Data e Hora da Alteração</string>
-    <string name="s_irv_cs_total">Total Itens</string>
-    <string name="s_irv_cs_exemplo_data">99/99/99</string>
-    <string name="s_irv_cs_exemplo_data_hora">99/99/99 99:99</string>
-    <string name="s_irv_cs_exemplo_total">999.999</string>
-    <string name="s_codigo_barras">Código De Barras</string>
-    <string name="s_preco_por_produto">Preço Unitário Do Produto</string>
-    <string name="s_qtd_de_cxs">Qtd De Cxs</string>
-    <string name="s_qtd_por_cx">Qtd Por Cx</string>
+    <string name="s_hdl_ex_email">email@email.com.br</string>
+    <string name="s_irv_stock_count_number">Contagem de estoque número:</string>
+    <string name="s_irv_ex_stock_count_number">9999</string>
+    <string name="s_irv_creation_date">Data de Criação</string>
+    <string name="s_irv_ex_date">99/99/99</string>
+    <string name="s_irv_date_hour_update">Data e Hora da Alteração</string>
+    <string name="s_irv_ex_date_hour">99/99/99 99:99</string>
+    <string name="s_irv_total">Total Itens</string>
+    <string name="s_irv_ex_total">999.999</string>
+    <string name="s_barcode">Código De Barras</string>
+    <string name="s_irv_ex_barcode">78901234567890</string>
+    <string name="s_unit_price">Preço Unitário Do Produto</string>
+    <string name="s_number_of_boxes">Qtd De Cxs</string>
+    <string name="s_number_per_box">Qtd Por Cx</string>
+    <string name="s_irv_ex_unit_quantity">999</string>
     <string name="s_ok">Ok</string>
-    <string name="s_qtd_total">Qtd Total</string>
-    <string name="s_irv_c_exemplo_codigo_barras">78901234567890</string>
-    <string name="s_irv_c_exemplo_qtd">999</string>
-    <string name="s_irv_c_exemplo_qtd_total">9.999</string>
-    <string name="s_exemplo_nome_aparelho">ex: coletor_estoque</string>
+    <string name="s_quantity_total">Qtd Total</string>
+    <string name="s_irv_ex_quantity_total">9.999</string>
 
+    <!--  Input Help  -->
     <string name="ih_field_empty_error">Campo não pode ser vazio</string>
     <string name="ih_field_length_error">O conteúdo deve ter %s caracteres no mínimo</string>
     <string name="ih_email_error">E-mail inválido</string>
     <string name="ih_password_not_match">A senha fornecida não combina</string>
     <string name="ih_default_error">Erro identificado</string>
 
-    <!--  mensagens  -->
+    <!--  Mensagens  -->
     <string name="msg_invalid_email">Informe um e-mail válido</string>
     <string name="msg_invalid_password">Informe uma senha válida</string>
     <string name="msg_passwords_not_match">Senhas não combinam</string>
@@ -83,7 +91,7 @@
     <string name="msg_email_verification_sent">Novo e-mail de verificação foi enviado</string>
     <string name="msg_invalid_barcode">Código de barras inválido</string>
     <string name="msg_invalid_number_of_boxes">Qtd de caixa(s) inválida</string>
-    <string name="msg_invalid_number_per_boxes">Qtd por caixa(s) inválida</string>
+    <string name="msg_invalid_number_per_box">Qtd por caixa(s) inválida</string>
     <string name="msg_invalid_device_name">Informe um nome válido para o aparelho</string>
     <string name="msg_empty_share">Nenhum item para compartilhar</string>
     <string name="msg_without_internet">Aparelho sem internet</string>

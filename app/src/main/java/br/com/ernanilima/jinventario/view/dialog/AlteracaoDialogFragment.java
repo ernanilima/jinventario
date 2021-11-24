@@ -176,7 +176,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     private boolean validarCampos() {
         return ValidarCampo.vazio(campo_codbarras, getString(R.string.msg_invalid_barcode)) &&
                 ValidarCampo.vazio(campo_qtd_dcaixa, getString(R.string.msg_invalid_number_of_boxes)) &&
-                ValidarCampo.vazio(campo_qtd_pcaixa, getString(R.string.msg_invalid_number_per_boxes));
+                ValidarCampo.vazio(campo_qtd_pcaixa, getString(R.string.msg_invalid_number_per_box));
     }
 
     @Override

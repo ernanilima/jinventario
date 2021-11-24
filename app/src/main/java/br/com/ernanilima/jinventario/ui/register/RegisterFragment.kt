@@ -97,7 +97,7 @@ class RegisterFragment : Fragment() {
      * Exibe a politica de privacidade
      */
     private fun showPrivacyPolicy() {
-        val uri = Uri.parse(getString(R.string.site_politica_privacidade))
+        val uri = Uri.parse(getString(R.string.link_privacy_policy))
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

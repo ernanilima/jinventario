@@ -22,13 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10sp"
-            android:text="@string/s_hdl_nome_aparelho" />
+            android:text="@string/s_hdl_device_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/campo_nav_nomeaparelho"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_hdl_exemplo_nome_aparelho" />
+            android:text="@string/s_hdl_ex_device_name" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +46,7 @@
             android:id="@+id/campo_nav_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_hdl_exemplo_email" />
+            android:text="@string/s_hdl_ex_email" />
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -23,14 +23,14 @@
             android:id="@+id/tx_campo_codbarras"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_codigo_barras"
+            android:text="@string/s_barcode"
             android:textSize="9sp" />
 
         <TextView
             android:id="@+id/campo_codbarras"
             android:layout_width="130sp"
             android:layout_height="wrap_content"
-            android:text="@string/s_irv_c_exemplo_codigo_barras" />
+            android:text="@string/s_irv_ex_barcode" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,14 +46,14 @@
             android:id="@+id/tx_campo_qtd_dcaixa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_qtd_de_cxs"
+            android:text="@string/s_number_of_boxes"
             android:textSize="9sp" />
 
         <TextView
             android:id="@+id/campo_qtd_dcaixa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_irv_c_exemplo_qtd" />
+            android:text="@string/s_irv_ex_unit_quantity" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,14 +69,14 @@
             android:id="@+id/tx_campo_qtd_pcaixa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_qtd_por_cx"
+            android:text="@string/s_number_per_box"
             android:textSize="9sp" />
 
         <TextView
             android:id="@+id/campo_qtd_pcaixa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_irv_c_exemplo_qtd" />
+            android:text="@string/s_irv_ex_unit_quantity" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,14 +92,14 @@
             android:id="@+id/tx_campo_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_qtd_total"
+            android:text="@string/s_quantity_total"
             android:textSize="9sp" />
 
         <TextView
             android:id="@+id/campo_qtd_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_irv_c_exemplo_qtd_total" />
+            android:text="@string/s_irv_ex_quantity_total" />
     </LinearLayout>
 
     <LinearLayout
