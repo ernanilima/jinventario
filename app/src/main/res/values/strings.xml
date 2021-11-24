@@ -38,6 +38,7 @@
     <string name="s_dialog_btn_negative">Não</string>
     <string name="s_dialog_btn_positive">Sim</string>
     <string name="s_dialog_msg_email_verification">Reenviar e-mail de verificação?</string>
+    <string name="s_dialog_msg_sing_out">Deseja sair?</string>
 
     <!--  App  -->
     <string name="s_new_count">Nova Contagem</string>
