@@ -19,7 +19,7 @@ public class NavegacaoApp {
     @Deprecated
     public static void abrirTelaInicioApp(View view) {
         navController = Navigation.findNavController(view);
-        navController.navigate(R.id.nav_inicio);
+        navController.navigate(R.id.nav_home);
     }
 
     /** Navega para a tela solicitada utilizando o xml de navegacao

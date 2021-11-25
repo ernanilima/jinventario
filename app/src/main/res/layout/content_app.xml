@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/nav_host_fragment_content_app"
-        app:navGraph="@navigation/navegacao_app"
+        app:navGraph="@navigation/navigation_app"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

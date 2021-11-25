@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacao_app"
-    app:startDestination="@id/nav_inicio">
+    app:startDestination="@id/nav_home">
+    <!-- app:startDestination= define qual tela sera exibida -->
 
     <fragment
-        android:id="@+id/nav_inicio"
-        android:name="br.com.ernanilima.jinventario.view.InicioAppFragment"
+        android:id="@+id/nav_home"
+        android:name="br.com.ernanilima.jinventario.ui.home.HomeFragment"
         android:label="Início"
         tools:layout="@layout/fragment_app_home" />
 
