@@ -106,7 +106,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
             campo_qtd_pcaixa = itemView.findViewById(R.id.campo_qtd_pcaixa);
             campo_qtd_total = itemView.findViewById(R.id.campo_qtd_total);
             campo_prc_total = itemView.findViewById(R.id.campo_prc_total);
-            btn_editar = itemView.findViewById(R.id.btn_editar);
+            btn_editar = itemView.findViewById(R.id.btn_edit);
 
             Utils.desativarOpcao(ln_prc_total);
         }

@@ -32,7 +32,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
     @Override
     public ContagensViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inicia o xml
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itens_contagens_recyclerview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_counts, parent, false);
         return new ContagensEstoqueRecyclerAdapter.ContagensViewHolder(view);
     }
 
@@ -89,11 +89,11 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
             super(itemView);
 
             //INICIALIZA
-            campo_numero_contagem = itemView.findViewById(R.id.campo_numero_contagem);
-            campo_data_criacao = itemView.findViewById(R.id.campo_data_criacao);
-            campo_data_hora_alteracao = itemView.findViewById(R.id.campo_data_hora_alteracao);
-            campo_total_itens = itemView.findViewById(R.id.campo_total_itens);
-            btn_editar = itemView.findViewById(R.id.btn_editar);
+            campo_numero_contagem = itemView.findViewById(R.id.field_count_number);
+            campo_data_criacao = itemView.findViewById(R.id.field_creation_date);
+            campo_data_hora_alteracao = itemView.findViewById(R.id.field_date_hour_update);
+            campo_total_itens = itemView.findViewById(R.id.field_total);
+            btn_editar = itemView.findViewById(R.id.btn_edit);
         }
     }
 }

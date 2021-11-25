@@ -44,7 +44,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inicia o xml
-        return inflater.inflate(R.layout.fragment_inicio_app, container, false);
+        return inflater.inflate(R.layout.fragment_app_home, container, false);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class InicioAppFragment extends Fragment implements IInicioApp.IView {
 
         //INICIALIZA
         // nome_local = nome_no_xml
-        btn_novacontagem = view.findViewById(R.id.btn_novacontagem);
+        btn_novacontagem = view.findViewById(R.id.btn_new_count);
         recycler_view = view.findViewById(R.id.recycler_view);
 
         // ACAO DE BOTOES

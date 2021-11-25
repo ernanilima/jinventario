@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_toStartOf="@+id/btn_editar"
+        android:layout_toStartOf="@+id/btn_edit"
         android:layout_marginEnd="8sp">
 
         <TextView
@@ -125,7 +125,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/btn_editar"
+        android:id="@+id/btn_edit"
         android:layout_width="41sp"
         android:layout_height="33sp"
         android:paddingEnd="16sp"
