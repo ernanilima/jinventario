@@ -41,25 +41,33 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         // captura o drawer layout
         val drawerLayout = requireActivity().findViewById(R.id.drawer_layout) as DrawerLayout
         // captura o navigation view
         val navigationView = requireActivity().findViewById(R.id.nav_view) as NavigationView
+        // captura o header do drawer layout
+        val bindingHeader = NavHeaderBinding.bind(navigationView.getHeaderView(0))
 
-        // header do drawer layout
-        val bindingHe = NavHeaderBinding.inflate(layoutInflater)
-        bindingHe.campoNavNomeaparelho.text = homeViewModel.user.deviceName
-        bindingHe.campoNavEmail.text = homeViewModel.user.email
-        val menuItem = navigationView.menu.findItem(R.id.nav_contagem)
-        menuItem.setIcon(R.drawable.ic_novo) // icone no item de menu
-        menuItem.title = binding.btnNewCount.text // atribui no item de menu o mesmo texto do botao
+        // adiciona os dados no header do drawer layout
+        bindingHeader.campoNavNomeaparelho.text = homeViewModel.user.deviceName
+        bindingHeader.campoNavEmail.text = homeViewModel.user.email
 
-        menuItem.setOnMenuItemClickListener { // ao clicao no botao nav_contagem
-            drawerLayout.closeDrawers() // fecha o drawer layout
-            newCount() // abre o dialog para criar nova contagem ou nao
-            true
-        }.setChecked(false).isCheckable = false // eh definido como false para evitar que exista navegacao no item, isso eh alterado ao abrir a nova contagem
+        // captura o item do menu do drawer layout
+        // 'nav_contagem' exibe outra informacao quando a contagem esta em progresso
+        navigationView.menu.findItem(R.id.nav_contagem).apply {
+            icon = binding.btnNewCount.icon
+            title = binding.btnNewCount.text
+            setOnMenuItemClickListener {
+                drawerLayout.closeDrawers()
+                newCount() // abre o dialog para criar nova contagem ou nao
+                true
+            }
+
+            // eh definido como false para evitar que exista navegacao no item,
+            // isso eh alterado ao abrir a nova contagem
+            isCheckable = false
+            isChecked = false
+        }
     }
 
     override fun onDestroy() {
