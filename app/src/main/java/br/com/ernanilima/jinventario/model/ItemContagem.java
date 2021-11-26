@@ -42,10 +42,10 @@ public class ItemContagem implements Serializable, IModel {
     public String getQtdTotal() {
         return String.valueOf(Long.parseLong(qtdDeCaixas) * Long.parseLong(qtdPorCaixa));
     }
-    public int getPosicaoItem() {
+    public int getIndex() {
         return posicaoItem;
     }
-    public void setPosicaoItem(int posicaoItem) {
+    public void setIndex(int posicaoItem) {
         this.posicaoItem = posicaoItem;
     }
 

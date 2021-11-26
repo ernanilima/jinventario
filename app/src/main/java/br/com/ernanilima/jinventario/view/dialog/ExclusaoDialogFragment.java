@@ -54,7 +54,7 @@ public class ExclusaoDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         aDialog.setTitle("Exclusão");
-        aDialog.setMessage("Você tem certeza que deseja excluir o item de número " + (iModel.getPosicaoItem()+1) + "?")
+        aDialog.setMessage("Você tem certeza que deseja excluir o item de número " + (iModel.getIndex()+1) + "?")
                 .setNegativeButton("Cancelar", (dialog, which) -> cancelar())
                 .setPositiveButton("Confirmar", (dialog, which) -> confirmar());
 

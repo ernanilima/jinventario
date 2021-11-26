@@ -49,7 +49,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
         holder.campo_prc_total.setText(Formatar.VALOR_RS.format(mItemContagem.getPrcTotal()).replace("R$ ", ""));
         holder.btn_editar.setOnClickListener(v -> {
-            mItemContagem.setPosicaoItem(position);
+            mItemContagem.setIndex(position);
             pContagem.alterarItemColetado(mItemContagem);
         });
     }
@@ -70,13 +70,13 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
     /** Atualiza a lista de itens com o item alterado que foi recebido no parametro
      * @param mItemContagem ItemContagem - item alterado */
     public void setItemAlterado(ItemContagem mItemContagem) {
-        lsItensContagem.set(mItemContagem.getPosicaoItem(), mItemContagem);
+        lsItensContagem.set(mItemContagem.getIndex(), mItemContagem);
     }
 
     /** Atualiza a lista de itens com o item excluido que foi recebido no parametro
      * @param mItemContagem ItemContagem - item excluido */
     public void setItemExcluido(ItemContagem mItemContagem) {
-        lsItensContagem.remove(mItemContagem.getPosicaoItem());
+        lsItensContagem.remove(mItemContagem.getIndex());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
      * Envia o model para que sua exclusao possar ser comfirmada pelo usuario */
     public void setPosicaoParaExcluir(int posicaoDoItem) {
         ItemContagem mItemContagem = lsItensContagem.get(posicaoDoItem);
-        mItemContagem.setPosicaoItem(posicaoDoItem);
+        mItemContagem.setIndex(posicaoDoItem);
         pContagem.excluirItemColetado(mItemContagem);
     }
 

@@ -25,10 +25,10 @@ public class ContagemEstoque implements Serializable, IModel {
     @Transient // indica que este campo não será gravado no banco de dados.
     private int posicaoItem;
 
-    public int getPosicaoItem() {
+    public int getIndex() {
         return posicaoItem;
     }
-    public void setPosicaoItem(int posicaoItem) {
+    public void setIndex(int posicaoItem) {
         this.posicaoItem = posicaoItem;
     }
 
