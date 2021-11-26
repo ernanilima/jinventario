@@ -12,10 +12,10 @@ import java.io.Serializable;
 
 import br.com.ernanilima.jinventario.repository.orm.DaoSession;
 import br.com.ernanilima.jinventario.repository.orm.StockCountDao;
-import br.com.ernanilima.jinventario.repository.orm.StockCountItemsDao;
+import br.com.ernanilima.jinventario.repository.orm.StockCountItemDao;
 
-@Entity(nameInDb = "STOCK_COUNT_ITEMS")
-public class StockCountItems implements Serializable, IModel {
+@Entity(nameInDb = "STOCK_COUNT_ITEM")
+public class StockCountItem implements Serializable, IModel {
     private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)
@@ -53,11 +53,11 @@ public class StockCountItems implements Serializable, IModel {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    @Generated(hash = 985720575)
-    private transient StockCountItemsDao myDao;
+    @Generated(hash = 1730699988)
+    private transient StockCountItemDao myDao;
 
-    @Generated(hash = 1242826454)
-    public StockCountItems(Long id, Long stockCount, String barcode,
+    @Generated(hash = 2002086092)
+    public StockCountItem(Long id, Long stockCount, String barcode,
             Double unitPrice, String numberOfBoxes, String numberPerBox) {
         this.id = id;
         this.stockCount = stockCount;
@@ -67,8 +67,8 @@ public class StockCountItems implements Serializable, IModel {
         this.numberPerBox = numberPerBox;
     }
 
-    @Generated(hash = 1057315062)
-    public StockCountItems() {
+    @Generated(hash = 1843648589)
+    public StockCountItem() {
     }
 
     @Generated(hash = 666498259)
@@ -189,9 +189,9 @@ public class StockCountItems implements Serializable, IModel {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1317942341)
+    @Generated(hash = 1765670030)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getStockCountItemsDao() : null;
+        myDao = daoSession != null ? daoSession.getStockCountItemDao() : null;
     }
 }

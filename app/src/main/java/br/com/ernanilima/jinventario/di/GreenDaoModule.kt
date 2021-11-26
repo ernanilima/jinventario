@@ -3,7 +3,9 @@ package br.com.ernanilima.jinventario.di
 import android.content.Context
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
+import br.com.ernanilima.jinventario.repository.StockCountRepository
 import br.com.ernanilima.jinventario.repository.UserRepository
+import br.com.ernanilima.jinventario.repository.impl.StockCountRepositoryImpl
 import br.com.ernanilima.jinventario.repository.impl.UserRepositoryImpl
 import br.com.ernanilima.jinventario.repository.orm.DaoMaster
 import br.com.ernanilima.jinventario.repository.orm.DaoSession
@@ -40,7 +42,17 @@ class GreenDaoModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository = userRepositoryImpl
+    fun provideStockCountRepositoryImpl(daoSession: DaoSession): StockCountRepositoryImpl {
+        return StockCountRepositoryImpl(daoSession.stockCountDao, daoSession.stockCountItemDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(impl: UserRepositoryImpl): UserRepository = impl
+
+    @Provides
+    @Singleton
+    fun provideStockCountRepository(impl: StockCountRepositoryImpl): StockCountRepository = impl
 
 }
 
