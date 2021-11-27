@@ -7,7 +7,6 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.BaseApplication;
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.data.network.firebase.FirebaseBancoDados;
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.Configuracao;
@@ -126,7 +125,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
      * @return List<ItemContagem> - lista de itens da contagem */
     private List<ItemContagem> getLsItensContagem() {
         return lsItensContagem = dItemContagem.queryBuilder().orderDesc(ItemContagemDao.Properties.Id)
-                .where(ItemContagemDao.Properties.IdContagem.eq(mContagemEstoque.getId())).list();
+                .where(ItemContagemDao.Properties.IdContagem.eq(/*mContagemEstoque.getId()*/1)).list();
     }
 
     /** Atualiza o Recycler Adapter apos um item ser coletado/alterado
@@ -147,7 +146,7 @@ public class ContagemPresenter implements IContagem.IPresenter {
     /** Atualiza a lista de itens de contagem no firebase */
     private void atualizarContagemFirebase() {
         // caso um itens seja apagado, essa atualizacao tambem eh realizada no firebase
-        FirebaseBancoDados.getInstance().gravarListaItensAlteradosColetados(daoSession, mContagemEstoque, lsItensContagem);
+//        FirebaseBancoDados.getInstance().gravarListaItensAlteradosColetados(daoSession, mContagemEstoque, lsItensContagem);
     }
 
     @Override

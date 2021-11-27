@@ -13,19 +13,19 @@ class StockCountRepositoryImpl @Inject constructor(
 ): StockCountRepository {
 
     override fun insert(stockCount: StockCount) {
-        TODO("Not yet implemented")
+        update(stockCount)
     }
 
     override fun insertItem(stockCountItem: StockCountItem) {
-        TODO("Not yet implemented")
+        updateItem(stockCountItem)
     }
 
     override fun update(stockCount: StockCount) {
-        TODO("Not yet implemented")
+        stockCountDao.save(stockCount)
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
-        TODO("Not yet implemented")
+        stockCountItemsDao.save(stockCountItem)
     }
 
 }

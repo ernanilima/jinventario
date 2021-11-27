@@ -64,7 +64,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         // argumento recebido de outro fragment, basicamente recebe o codigo de uma nova contagem ou de uma existente
-        getParentFragmentManager().setFragmentResultListener(this.getClass().getCanonicalName(), this,
+        getParentFragmentManager().setFragmentResultListener(this.getClass().getSimpleName(), this,
                 (requestKey, result) -> pContagem.setCodigoContagem(result.getLong(CODIGO_CONTAGEM)));
     }
 

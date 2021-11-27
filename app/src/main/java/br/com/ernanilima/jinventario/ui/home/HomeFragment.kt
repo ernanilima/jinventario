@@ -16,6 +16,8 @@ import br.com.ernanilima.jinventario.databinding.NavHeaderBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
+import br.com.ernanilima.jinventario.service.navcontroller.NavegacaoApp
+import br.com.ernanilima.jinventario.view.ContagemFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -76,21 +78,25 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupUi() {
+        // ACAO DE BOTAO
         binding.btnNewCount.setOnClickListener { newCount() }
 
-        //SETs
+        // ADAPTER
         raContagensEstoque = ContagensEstoqueRecyclerAdapter(homeViewModel.listCounts())
         raContagensEstoque!!.setInicioAppPresenter(homeViewModel)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
         binding.recyclerView.adapter = raContagensEstoque
-        val swipeHelper = SwipeHelper() // classe de slider no item
+
+        // SWIPE - DESLIZAR ITEM
+        val swipeHelper = SwipeHelper()
         swipeHelper.setRecyclerView(binding.recyclerView)
     }
 
     private fun setupListener() {
-        homeViewModel.arguments.observe(viewLifecycleOwner, { result ->
-            println("ARGUMENTO EH $result")
+        homeViewModel.arguments.observe(viewLifecycleOwner, {
+            parentFragmentManager.setFragmentResult(ContagemFragment::class.simpleName!!, it)
+            NavegacaoApp.abrirTelaContagem(requireView())
         })
 
         homeViewModel.countResult.observe(viewLifecycleOwner, { result ->
@@ -100,7 +106,7 @@ class HomeFragment : Fragment() {
 
     private fun newCount() {
         SimpleDialog(QuestionDialog(parentFragmentManager).apply {
-            setMessage("Nova contagem?")
+            setMessage(getString(R.string.s_dialog_msg_new_count))
             setPositiveButton {
                 homeViewModel.newCount()
             }

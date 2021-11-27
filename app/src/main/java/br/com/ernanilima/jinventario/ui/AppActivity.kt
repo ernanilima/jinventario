@@ -12,6 +12,7 @@ import androidx.navigation.ui.*
 import br.com.ernanilima.jinventario.databinding.ActivityAppBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
+import br.com.ernanilima.jinventario.model.User
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toSettingsFragment
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toLoginActivity
 import com.google.android.material.navigation.NavigationView
@@ -19,6 +20,13 @@ import com.google.firebase.auth.FirebaseAuth
 
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
+
+    /**
+     * Dados do usuario logado
+     */
+    companion object {
+        var user: User? = null
+    }
 
     private lateinit var binding: ActivityAppBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
