@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
-import br.com.ernanilima.jinventario.model.ContagemEstoque
 import br.com.ernanilima.jinventario.model.IModel
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.User
@@ -19,7 +18,6 @@ import br.com.ernanilima.jinventario.view.dialog.TipoResultado
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -55,15 +53,15 @@ class HomeViewModel @Inject constructor(
         _arguments.postValue(bundle)
     }
 
-    override fun listCounts(): List<ContagemEstoque> {
-        return ArrayList()
+    override fun listStockCount(): List<StockCount> {
+        return stockCountDao.findAll()
     }
 
-    override fun updateCount(contagemEstoque: ContagemEstoque) {
+    override fun updateCount(stockCount: StockCount) {
         TODO("Not yet implemented")
     }
 
-    override fun deleteCount(contagemEstoque: ContagemEstoque) {
+    override fun deleteCount(stockCount: StockCount) {
         TODO("Not yet implemented")
     }
 

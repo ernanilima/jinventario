@@ -16,12 +16,16 @@ class StockCountRepositoryImpl @Inject constructor(
         update(stockCount)
     }
 
-    override fun insertItem(stockCountItem: StockCountItem) {
-        updateItem(stockCountItem)
-    }
-
     override fun update(stockCount: StockCount) {
         stockCountDao.save(stockCount)
+    }
+
+    override fun findAll(): List<StockCount> {
+        return stockCountDao.queryBuilder().orderDesc(StockCountDao.Properties.UpdateDate).list()
+    }
+
+    override fun insertItem(stockCountItem: StockCountItem) {
+        updateItem(stockCountItem)
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {

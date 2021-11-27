@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
         binding.btnNewCount.setOnClickListener { newCount() }
 
         // ADAPTER
-        raContagensEstoque = ContagensEstoqueRecyclerAdapter(homeViewModel.listCounts())
+        raContagensEstoque = ContagensEstoqueRecyclerAdapter(homeViewModel.listStockCount())
         raContagensEstoque!!.setInicioAppPresenter(homeViewModel)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))

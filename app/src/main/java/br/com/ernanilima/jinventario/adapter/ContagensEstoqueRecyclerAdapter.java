@@ -12,19 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.ui.home.IHome;
 import br.com.ernanilima.jinventario.model.ContagemEstoque;
+import br.com.ernanilima.jinventario.model.StockCount;
+import br.com.ernanilima.jinventario.ui.home.IHome;
 import br.com.ernanilima.jinventario.util.Formatar;
 
 /** Recycler Adapter de contagens de estoque */
 public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> implements IRecyclerAdapter {
 
     private IHome.IViewModel pInicioApp;
-    private List<ContagemEstoque> lsContagensEstoque;
+    private List<StockCount> lsContagensEstoque;
 
     /** Construtor
      * @param lsContagensEstoque List<ContagemEstoque> - lista de contagens */
-    public ContagensEstoqueRecyclerAdapter(List<ContagemEstoque> lsContagensEstoque) {
+    public ContagensEstoqueRecyclerAdapter(List<StockCount> lsContagensEstoque) {
         this.lsContagensEstoque = lsContagensEstoque;
     }
 
@@ -40,11 +41,11 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
     /** Obtido automaticamente na utilizacao do adapter
      * Usado para adicionar os dados no item exibido no recycler view */
     public void onBindViewHolder(@NonNull ContagensViewHolder holder, int position) {
-        ContagemEstoque mContagemEstoque = lsContagensEstoque.get(position);
+        StockCount mContagemEstoque = lsContagensEstoque.get(position);
         holder.campo_numero_contagem.setText(String.valueOf(mContagemEstoque.getId()));
-        holder.campo_data_criacao.setText(Formatar.DATA.format(mContagemEstoque.getDataCriacao()));
-        holder.campo_data_hora_alteracao.setText(Formatar.DATA_HORA.format(mContagemEstoque.getDataAlteracao()));
-        holder.campo_total_itens.setText(String.format("%.0f", Double.parseDouble(mContagemEstoque.getQtdTotalItens())));
+        holder.campo_data_criacao.setText(Formatar.DATA.format(mContagemEstoque.getCreationDate()));
+        holder.campo_data_hora_alteracao.setText(Formatar.DATA_HORA.format(mContagemEstoque.getUpdateDate()));
+        holder.campo_total_itens.setText(String.format("%.0f", mContagemEstoque.getTotal()));
         holder.btn_editar.setOnClickListener(v -> {
             pInicioApp.updateCount(mContagemEstoque);
         });
@@ -68,7 +69,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
      * Busca o model com base na posicao recebida
      * Envia o model para que sua exclusao possar ser comfirmada pelo usuario */
     public void setPosicaoParaExcluir(int posicaoDoItem) {
-        ContagemEstoque mContagemEstoque = lsContagensEstoque.get(posicaoDoItem);
+        StockCount mContagemEstoque = lsContagensEstoque.get(posicaoDoItem);
         mContagemEstoque.setIndex(posicaoDoItem);
         pInicioApp.deleteCount(mContagemEstoque);
     }
