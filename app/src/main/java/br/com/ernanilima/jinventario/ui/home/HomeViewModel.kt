@@ -58,7 +58,9 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun updateCount(stockCount: StockCount) {
-        TODO("Not yet implemented")
+        val bundle = Bundle()
+        bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
+        _arguments.postValue(bundle)
     }
 
     override fun deleteCount(stockCount: StockCount) {
