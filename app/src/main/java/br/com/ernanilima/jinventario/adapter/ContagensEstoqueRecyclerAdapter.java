@@ -45,7 +45,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
         holder.campo_numero_contagem.setText(String.valueOf(mContagemEstoque.getId()));
         holder.campo_data_criacao.setText(Formatar.DATA.format(mContagemEstoque.getCreationDate()));
         holder.campo_data_hora_alteracao.setText(Formatar.DATA_HORA.format(mContagemEstoque.getUpdateDate()));
-        holder.campo_total_itens.setText(String.format("%.0f", mContagemEstoque.getTotal()));
+        holder.campo_total_itens.setText(String.valueOf(mContagemEstoque.getTotal()));
         holder.btn_editar.setOnClickListener(v -> {
             pInicioApp.updateCount(mContagemEstoque);
         });
