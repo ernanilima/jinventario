@@ -11,6 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter
+import br.com.ernanilima.jinventario.data.result.IResultType
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.NEW_STOCK_COUNT
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.UPDATE_STOCK_COUNT
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeBinding
 import br.com.ernanilima.jinventario.databinding.NavHeaderBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
@@ -94,13 +98,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListener() {
-        homeViewModel.arguments.observe(viewLifecycleOwner, {
-            parentFragmentManager.setFragmentResult(ContagemFragment::class.simpleName!!, it)
-            NavegacaoApp.abrirTelaContagem(requireView())
-        })
-
         homeViewModel.countResult.observe(viewLifecycleOwner, { result ->
-            println("RESULTADO DA CONTAGEM EH $result")
+            when (result) {
+                NEW_STOCK_COUNT,
+                UPDATE_STOCK_COUNT -> {
+                    parentFragmentManager.setFragmentResult(ContagemFragment::class.simpleName!!, homeViewModel.arguments)
+                    NavegacaoApp.abrirTelaContagem(requireView())
+                }
+            }
         })
     }
 

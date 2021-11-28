@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
+import br.com.ernanilima.jinventario.data.result.IResult
+import br.com.ernanilima.jinventario.data.result.IResultType
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.model.IModel
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.User
@@ -28,11 +31,10 @@ class HomeViewModel @Inject constructor(
 
     var user: User = User()
 
-    private val _arguments = MutableLiveData<Bundle>()
-    val arguments: LiveData<Bundle> = _arguments
+    var arguments: Bundle = Bundle()
 
-    private val _countResult = MutableLiveData<Bundle>()
-    val countResult: LiveData<Bundle> = _countResult
+    private val _countResult = MutableLiveData<IResultType>()
+    val countResult: LiveData<IResultType> = _countResult
 
     init {
         // EXECUTA AO INICIAR A CLASSE
@@ -50,7 +52,8 @@ class HomeViewModel @Inject constructor(
 
         val bundle = Bundle()
         bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
-        _arguments.postValue(bundle)
+        arguments = bundle
+        _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT)
     }
 
     override fun listStockCount(): List<StockCount> {
@@ -60,7 +63,8 @@ class HomeViewModel @Inject constructor(
     override fun updateCount(stockCount: StockCount) {
         val bundle = Bundle()
         bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
-        _arguments.postValue(bundle)
+        arguments = bundle
+        _countResult.postValue(ResultTypeLocal.UPDATE_STOCK_COUNT)
     }
 
     override fun deleteCount(stockCount: StockCount) {
