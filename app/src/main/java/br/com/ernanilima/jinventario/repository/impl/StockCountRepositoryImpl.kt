@@ -39,21 +39,21 @@ class StockCountRepositoryImpl @Inject constructor(
             null
         )
 
-        cursor.moveToFirst() // inicio do resultado
+        if (cursor.moveToFirst()) { // se tiver resultado
+            do {
+                // contagem de estoque
+                val stockCount = StockCount(
+                    cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.Id.columnName)),
+                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.CreationDate.columnName))),
+                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.UpdateDate.columnName)))
+                )
 
-        do {
-            // contagem de estoque
-            val stockCount = StockCount(
-                cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.Id.columnName)),
-                cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.CreationDate.columnName))),
-                cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.UpdateDate.columnName)))
-            )
+                // total de estoque calculado no select
+                stockCount.total = cursor.getLong(cursor.getColumnIndex(totalStock))
 
-            // total de estoque calculado no select
-            stockCount.total = cursor.getLong(cursor.getColumnIndex(totalStock))
-
-            listStockCount.add(stockCount)
-        } while (cursor.moveToNext()) // proximo resultado
+                listStockCount.add(stockCount)
+            } while (cursor.moveToNext()) // proximo resultado
+        }
 
         return listStockCount
     }
