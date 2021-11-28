@@ -40,6 +40,7 @@
     <string name="s_dialog_msg_email_verification">Reenviar e-mail de verificação?</string>
     <string name="s_dialog_msg_sing_out">Deseja sair?</string>
     <string name="s_dialog_msg_new_count">Criar uma contagem?</string>
+    <string name="s_dialog_msg_delete_count">Deseja apagar a contagem de número %s?</string>
 
     <!--  App  -->
     <string name="s_new_count">Nova Contagem</string>

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import br.com.ernanilima.jinventario.interfaces.IResultadoDialog;
 import br.com.ernanilima.jinventario.model.IModel;
 
+@Deprecated
 public class ExclusaoDialogFragment extends DialogFragment {
 
     private static ExclusaoDialogFragment DIALOG_FRAGMENT;
@@ -25,6 +26,7 @@ public class ExclusaoDialogFragment extends DialogFragment {
      * @param iResultadoDialog IResultadoDialog - onde o resultado sera exibido
      * @param argumento Bundle - argumento para o dialog
      * @return ExclusaoDialogFragment - nova instancia do dialog */
+    @Deprecated
     public static ExclusaoDialogFragment novoDialog(IResultadoDialog iResultadoDialog, Bundle argumento) {
         DIALOG_FRAGMENT = new ExclusaoDialogFragment(iResultadoDialog);
         DIALOG_FRAGMENT.setArguments(argumento);
@@ -34,6 +36,7 @@ public class ExclusaoDialogFragment extends DialogFragment {
 
     /** Construtor
      * @param iResultadoDialog IResultadoDialog - onde o resultado sera exibido */
+    @Deprecated
     private ExclusaoDialogFragment(IResultadoDialog iResultadoDialog) {
         this.iResultadoDialog = iResultadoDialog;
     }
@@ -63,16 +66,19 @@ public class ExclusaoDialogFragment extends DialogFragment {
 
     /** Exibe o dialog
      * @param fragmentManager FragmentManager - tela que o dialog sera exibido */
+    @Deprecated
     public void show(FragmentManager fragmentManager) {
         DIALOG_FRAGMENT.show(fragmentManager, "excluir_item");
     }
 
     /** Cancela a exclusao */
+    @Deprecated
     private void cancelar() {
         iResultadoDialog.setResultadoDialog(TipoResultado.CANCELAR_EXCLUSAO, iModel);
     }
 
     /** Confirma a exclusao realizada no dialog */
+    @Deprecated
     private void confirmar() {
         iResultadoDialog.setResultadoDialog(TipoResultado.CONFIRMAR_EXCLUSAO, iModel);
     }

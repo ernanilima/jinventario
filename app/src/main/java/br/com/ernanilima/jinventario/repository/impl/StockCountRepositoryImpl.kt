@@ -58,6 +58,10 @@ class StockCountRepositoryImpl @Inject constructor(
         return listStockCount
     }
 
+    override fun delete(stockCount: StockCount) {
+        stockCountDao.delete(stockCount)
+    }
+
     override fun insertItem(stockCountItem: StockCountItem) {
         updateItem(stockCountItem)
     }
@@ -65,5 +69,4 @@ class StockCountRepositoryImpl @Inject constructor(
     override fun updateItem(stockCountItem: StockCountItem) {
         stockCountItemsDao.save(stockCountItem)
     }
-
 }

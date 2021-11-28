@@ -7,17 +7,14 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
 import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
-import br.com.ernanilima.jinventario.data.result.IResult
 import br.com.ernanilima.jinventario.data.result.IResultType
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
-import br.com.ernanilima.jinventario.model.IModel
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.User
 import br.com.ernanilima.jinventario.repository.StockCountRepository
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.ui.AppActivity
 import br.com.ernanilima.jinventario.view.ContagemFragment
-import br.com.ernanilima.jinventario.view.dialog.TipoResultado
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
@@ -29,9 +26,14 @@ class HomeViewModel @Inject constructor(
     private var iFirebaseAuth: IFirebaseAuth
 ): ViewModel(), IHome.IViewModel {
 
-    var user: User = User()
+    private var _user: User? = null
+    val user get() = _user!!
 
-    var arguments: Bundle = Bundle()
+    private var _arguments: Bundle? = null
+    val arguments get() = _arguments!!
+
+    private var _stockCount: StockCount? = null
+    val stockCount get() = _stockCount!!
 
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
@@ -39,39 +41,59 @@ class HomeViewModel @Inject constructor(
     init {
         // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAuth = FirebaseAuth()
-        this.user = userDao.findByEmail(iFirebaseAuth.getUserEmail())
+        this._user = userDao.findByEmail(iFirebaseAuth.getUserEmail())
         AppActivity.user = user
     }
 
+    /**
+     * Criar nova contagem de estoque
+     */
     override fun newCount() {
         val currentDate = Date(System.currentTimeMillis())
         val stockCount = StockCount(null, currentDate, currentDate)
 
-        stockCountDao.insert(stockCount)
-        FirebaseDatabase.saveStockCount(stockCount)
+        stockCountDao.insert(stockCount) // banco de dados local
+        FirebaseDatabase.saveStockCount(stockCount) // banco de dados no firebase
 
         val bundle = Bundle()
         bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
-        arguments = bundle
+        _arguments = bundle
         _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT)
     }
 
+    /**
+     * Lista de contagens para popular o recycler view
+     * @return List<StockCount>
+     */
     override fun listStockCount(): List<StockCount> {
         return stockCountDao.findAll()
     }
 
+    /**
+     * Alterar ao clicar no icone do recycler view
+     * @param stockCount StockCount
+     */
     override fun updateCount(stockCount: StockCount) {
         val bundle = Bundle()
         bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
-        arguments = bundle
+        _arguments = bundle
         _countResult.postValue(ResultTypeLocal.UPDATE_STOCK_COUNT)
     }
 
+    /**
+     * Apagar ao deslizar o item
+     * @param stockCount StockCount
+     */
     override fun deleteCount(stockCount: StockCount) {
-        TODO("Not yet implemented")
+        this._stockCount = stockCount
+        _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT)
     }
 
-    override fun setResultadoDialog(tipoResultado: TipoResultado?, iModel: IModel?) {
-        TODO("Not yet implemented")
+    /**
+     * Apagar ao confirmar o dialog
+     */
+    override fun deleteCount() {
+        stockCountDao.delete(stockCount)
+        FirebaseDatabase.deleteStockCount(stockCount)
     }
 }

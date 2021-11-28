@@ -11,10 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter
-import br.com.ernanilima.jinventario.data.result.IResultType
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.NEW_STOCK_COUNT
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.UPDATE_STOCK_COUNT
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.*
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeBinding
 import br.com.ernanilima.jinventario.databinding.NavHeaderBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
@@ -105,10 +102,25 @@ class HomeFragment : Fragment() {
                     parentFragmentManager.setFragmentResult(ContagemFragment::class.simpleName!!, homeViewModel.arguments)
                     NavegacaoApp.abrirTelaContagem(requireView())
                 }
+                DELETE_STOCK_COUNT -> {
+                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
+                        setMessage(getString(R.string.s_dialog_msg_delete_count, homeViewModel.stockCount.id.toString()))
+                        setNegativeButton {
+                            raContagensEstoque!!.notifyItemChanged(homeViewModel.stockCount.index)
+                        }
+                        setPositiveButton {
+                            raContagensEstoque!!.setContagemExcluida(homeViewModel.stockCount)
+                            homeViewModel.deleteCount()
+                        }
+                    }).show()
+                }
             }
         })
     }
 
+    /**
+     * Exibe um dialog para que o usuario confirme a criacao de uma nova contagem de estoque
+     */
     private fun newCount() {
         SimpleDialog(QuestionDialog(parentFragmentManager).apply {
             setMessage(getString(R.string.s_dialog_msg_new_count))

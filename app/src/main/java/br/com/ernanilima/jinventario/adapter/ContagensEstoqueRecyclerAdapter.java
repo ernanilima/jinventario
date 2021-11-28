@@ -12,10 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.ernanilima.jinventario.R;
-import br.com.ernanilima.jinventario.model.ContagemEstoque;
 import br.com.ernanilima.jinventario.model.StockCount;
 import br.com.ernanilima.jinventario.ui.home.IHome;
 import br.com.ernanilima.jinventario.util.Formatar;
+
+/*
+notifyItemChanged(int)
+notifyItemInserted(int)
+notifyItemRemoved(int)
+notifyItemRangeChanged(int, int)
+notifyItemRangeInserted(int, int)
+notifyItemRangeRemoved(int, int)
+*/
 
 /** Recycler Adapter de contagens de estoque */
 public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> implements IRecyclerAdapter {
@@ -76,8 +84,10 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
 
     /** Atualiza a lista de contagens com o contagem excluida que foi recebido no parametro
      * @param mContagemEstoque ContagemEstoque - contagem excluida */
-    public void setContagemExcluida(ContagemEstoque mContagemEstoque) {
+    @Deprecated
+    public void setContagemExcluida(StockCount mContagemEstoque) {
         lsContagensEstoque.remove(mContagemEstoque.getIndex());
+        notifyItemRemoved(mContagemEstoque.getIndex());
     }
 
     /** Class ViewHolder usada para extender na classe {@link ContagensEstoqueRecyclerAdapter} */
