@@ -21,12 +21,4 @@ public class NavegacaoApp {
         navController = Navigation.findNavController(view);
         navController.navigate(R.id.nav_home);
     }
-
-    /** Navega para a tela solicitada utilizando o xml de navegacao
-     * @param view View - view(tela) que esta solicitando */
-    @Deprecated
-    public static void abrirTelaContagem(View view) {
-        navController = Navigation.findNavController(view);
-        navController.navigate(R.id.nav_contagem);
-    }
 }

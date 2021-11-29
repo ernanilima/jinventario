@@ -108,6 +108,17 @@ class Navigation {
                     navigate(R.id.nav_configuracao)
                 }
             }
+
+            /**
+             * Navega para o fragment [br.com.ernanilima.jinventario.view.ContagemFragment]
+             * @param currentView View - view atual
+             */
+            fun toStockCountFragment(currentView: View) {
+                Navigation.findNavController(currentView).apply {
+                    popBackStack()
+                    navigate(R.id.nav_contagem)
+                }
+            }
         }
     }
 }
