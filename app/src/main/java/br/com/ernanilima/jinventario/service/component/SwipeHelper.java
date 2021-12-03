@@ -14,6 +14,7 @@ import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.adapter.IRecyclerAdapter;
 
 /** Configura a opcao de deslizar o item no recycler view */
+@Deprecated
 public class SwipeHelper extends ItemTouchHelper.Callback {
 
     private ItemTouchHelper itemTouchHelper;
@@ -45,7 +46,7 @@ public class SwipeHelper extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         // ao executar o slider totalmente
-        iRecyclerAdapter.setPosicaoParaExcluir(viewHolder.getAdapterPosition());
+        iRecyclerAdapter.notifyItemRemovedBySwipe(viewHolder.getAdapterPosition());
     }
 
     @Override

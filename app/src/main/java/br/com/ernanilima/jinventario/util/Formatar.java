@@ -7,6 +7,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+@Deprecated
 public class Formatar {
     /** Formata a data para o padrao brasileiro */
     public static final DateFormat DATA = new SimpleDateFormat("dd/MM/yy");

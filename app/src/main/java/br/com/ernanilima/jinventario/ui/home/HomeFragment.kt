@@ -84,8 +84,7 @@ class HomeFragment : Fragment() {
         binding.btnNewCount.setOnClickListener { newCount() }
 
         // ADAPTER
-        _homeRecyclerAdapter = HomeRecyclerAdapter(homeViewModel.listStockCount())
-        homeRecyclerAdapter.setViewModel(homeViewModel)
+        _homeRecyclerAdapter = HomeRecyclerAdapter(homeViewModel, homeViewModel.listStockCount())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
         binding.recyclerView.adapter = homeRecyclerAdapter

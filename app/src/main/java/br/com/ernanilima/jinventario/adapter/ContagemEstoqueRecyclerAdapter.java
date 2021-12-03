@@ -19,6 +19,7 @@ import br.com.ernanilima.jinventario.util.Formatar;
 import br.com.ernanilima.jinventario.util.Utils;
 
 /** Recycler Adapter de contagem de estoque */
+@Deprecated
 public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagemEstoqueRecyclerAdapter.ItemViewHolder> implements IRecyclerAdapter {
 
     private IContagem.IPresenter pContagem;
@@ -80,12 +81,9 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
     }
 
     @Override
-    /** Recebe a posicao do item que deseja excluir
-     * Busca o model com base na posicao recebida
-     * Envia o model para que sua exclusao possar ser comfirmada pelo usuario */
-    public void setPosicaoParaExcluir(int posicaoDoItem) {
-        ItemContagem mItemContagem = lsItensContagem.get(posicaoDoItem);
-        mItemContagem.setIndex(posicaoDoItem);
+    public void notifyItemRemovedBySwipe(int position) {
+        ItemContagem mItemContagem = lsItensContagem.get(position);
+        mItemContagem.setIndex(position);
         pContagem.excluirItemColetado(mItemContagem);
     }
 
