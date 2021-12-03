@@ -15,7 +15,7 @@ import java.util.List;
 import br.com.ernanilima.jinventario.R;
 import br.com.ernanilima.jinventario.interfaces.IContagem;
 import br.com.ernanilima.jinventario.model.ItemContagem;
-import br.com.ernanilima.jinventario.util.Formatar;
+import br.com.ernanilima.jinventario.util.Format;
 import br.com.ernanilima.jinventario.util.Utils;
 
 /** Recycler Adapter de contagem de estoque */
@@ -48,7 +48,7 @@ public class ContagemEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contage
         holder.campo_qtd_dcaixa.setText(mItemContagem.getQtdDeCaixas());
         holder.campo_qtd_pcaixa.setText(mItemContagem.getQtdPorCaixa());
         holder.campo_qtd_total.setText(mItemContagem.getQtdTotal());
-        holder.campo_prc_total.setText(Formatar.VALOR_RS.format(mItemContagem.getPrcTotal()).replace("R$ ", ""));
+        holder.campo_prc_total.setText(Format.PRICE_PTBR.format(mItemContagem.getPrcTotal()).replace("R$ ", ""));
         holder.btn_editar.setOnClickListener(v -> {
             mItemContagem.setIndex(position);
             pContagem.alterarItemColetado(mItemContagem);

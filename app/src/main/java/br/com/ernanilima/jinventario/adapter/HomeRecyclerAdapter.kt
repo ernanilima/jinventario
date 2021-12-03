@@ -8,7 +8,7 @@ import android.view.View
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.databinding.ItemCountsBinding
 import br.com.ernanilima.jinventario.ui.home.IHome
-import br.com.ernanilima.jinventario.util.Formatar
+import br.com.ernanilima.jinventario.util.Format
 
 class HomeRecyclerAdapter constructor(
     private val homeViewModel: IHome.IViewModel,
@@ -56,8 +56,8 @@ class HomeRecyclerAdapter constructor(
 
         fun bind(stockCount: StockCount, homeViewModel: IHome.IViewModel) {
             binding.fieldCountNumber.text = stockCount.id.toString()
-            binding.fieldCreationDate.text = Formatar.DATA.format(stockCount.creationDate)
-            binding.fieldDateHourUpdate.text = Formatar.DATA_HORA.format(stockCount.updateDate)
+            binding.fieldCreationDate.text = Format.DATE.format(stockCount.creationDate)
+            binding.fieldDateHourUpdate.text = Format.DATE_TIME.format(stockCount.updateDate)
             binding.fieldTotal.text = stockCount.total.toString()
             binding.btnEdit.setOnClickListener { homeViewModel.updateCount(stockCount) }
         }

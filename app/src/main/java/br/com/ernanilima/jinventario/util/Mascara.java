@@ -24,7 +24,7 @@ public class Mascara {
                     // formata a string para o formato de valor/preco
                     // divide o valor/preco para garantir que o valor sempre vai comecar por centavos
                     // Ex... 1 / 100 = 0,01
-                    String formadoValor = Formatar.VALOR_RS.format((valorDouble / 100));
+                    String formadoValor = Format.PRICE_PTBR.format((valorDouble / 100));
 
                     // adiciona o valor/preco formatado
                     editText.setText(formadoValor);
