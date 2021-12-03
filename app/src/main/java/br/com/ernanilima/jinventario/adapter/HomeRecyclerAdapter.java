@@ -26,14 +26,15 @@ notifyItemRangeRemoved(int, int)
 */
 
 /** Recycler Adapter de contagens de estoque */
-public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<ContagensEstoqueRecyclerAdapter.ContagensViewHolder> implements IRecyclerAdapter {
+@Deprecated
+public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ContagensViewHolder> implements IRecyclerAdapter {
 
     private IHome.IViewModel pInicioApp;
     private List<StockCount> lsContagensEstoque;
 
     /** Construtor
      * @param lsContagensEstoque List<ContagemEstoque> - lista de contagens */
-    public ContagensEstoqueRecyclerAdapter(List<StockCount> lsContagensEstoque) {
+    public HomeRecyclerAdapter(List<StockCount> lsContagensEstoque) {
         this.lsContagensEstoque = lsContagensEstoque;
     }
 
@@ -42,7 +43,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
     public ContagensViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inicia o xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_counts, parent, false);
-        return new ContagensEstoqueRecyclerAdapter.ContagensViewHolder(view);
+        return new HomeRecyclerAdapter.ContagensViewHolder(view);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
 
     /** Usado para que a interface seja atribuida e seus metodos possam ser utilizados
      * @param pInicioApp IInicioApp.IPresenter */
-    public void setInicioAppPresenter(IHome.IViewModel pInicioApp) {
+    public void setViewModel(IHome.IViewModel pInicioApp) {
         this.pInicioApp = pInicioApp;
     }
 
@@ -84,13 +85,13 @@ public class ContagensEstoqueRecyclerAdapter extends RecyclerView.Adapter<Contag
 
     /** Atualiza a lista de contagens com o contagem excluida que foi recebido no parametro
      * @param mContagemEstoque ContagemEstoque - contagem excluida */
-    @Deprecated
-    public void setContagemExcluida(StockCount mContagemEstoque) {
+    public void notifyItemRemoved(StockCount mContagemEstoque) {
         lsContagensEstoque.remove(mContagemEstoque.getIndex());
         notifyItemRemoved(mContagemEstoque.getIndex());
     }
 
-    /** Class ViewHolder usada para extender na classe {@link ContagensEstoqueRecyclerAdapter} */
+    /** Class ViewHolder usada para extender na classe {@link HomeRecyclerAdapter} */
+    @Deprecated
     static class ContagensViewHolder extends RecyclerView.ViewHolder {
 
         public TextView campo_numero_contagem, campo_data_criacao, campo_data_hora_alteracao, campo_total_itens;

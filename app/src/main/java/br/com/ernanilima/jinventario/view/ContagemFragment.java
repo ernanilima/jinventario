@@ -38,12 +38,14 @@ import br.com.ernanilima.jinventario.util.Mascara;
 import br.com.ernanilima.jinventario.util.Utils;
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment;
 
+@Deprecated
 public class ContagemFragment extends Fragment implements IContagem.IView {
 
     private static String[] permissoes = new String[] {
             Manifest.permission.CAMERA
     };
 
+    @Deprecated
     public static final String CODIGO_CONTAGEM = "CodigoContagem";
 
     private IContagem.IPresenter pContagem;
@@ -116,7 +118,7 @@ public class ContagemFragment extends Fragment implements IContagem.IView {
         super.onStart();
         drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout); // captura o drawer layout
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); // captura o navigation view
-        menuItem = navigationView.getMenu().findItem(R.id.nav_contagem); // captura o item de menu com base no seu id
+        menuItem = navigationView.getMenu().findItem(R.id.nav_stock_count); // captura o item de menu com base no seu id
         menuItem.setIcon(R.drawable.ic_contagem); // icone no item de menu
         menuItem.setChecked(true).setCheckable(true); // exibe o item como selecionado na navegacao do drawer layout
         menuItem.setOnMenuItemClickListener(item -> { // ao clicao no botao nav_contagem

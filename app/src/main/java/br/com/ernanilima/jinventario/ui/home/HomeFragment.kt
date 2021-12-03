@@ -10,7 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.adapter.ContagensEstoqueRecyclerAdapter
+import br.com.ernanilima.jinventario.adapter.HomeRecyclerAdapter
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.*
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeBinding
 import br.com.ernanilima.jinventario.databinding.NavHeaderBinding
@@ -29,7 +29,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private var raContagensEstoque: ContagensEstoqueRecyclerAdapter? = null
+    private var _homeRecyclerAdapter: HomeRecyclerAdapter? = null
+    private val homeRecyclerAdapter get() = _homeRecyclerAdapter!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAppHomeBinding.inflate(inflater, container, false)
@@ -52,17 +53,17 @@ class HomeFragment : Fragment() {
         val bindingHeader = NavHeaderBinding.bind(navigationView.getHeaderView(0))
 
         // adiciona os dados no header do drawer layout
-        bindingHeader.campoNavNomeaparelho.text = homeViewModel.user.deviceName
-        bindingHeader.campoNavEmail.text = homeViewModel.user.email
+        bindingHeader.fieldDeviceName.text = homeViewModel.user.deviceName
+        bindingHeader.fieldEmail.text = homeViewModel.user.email
 
         // captura o item do menu do drawer layout
-        // 'nav_contagem' exibe outra informacao quando a contagem esta em progresso
-        navigationView.menu.findItem(R.id.nav_contagem).apply {
+        // 'nav_stock_count' exibe outra informacao quando esta no fragment de contagem de estoque
+        navigationView.menu.findItem(R.id.nav_stock_count).apply {
             icon = binding.btnNewCount.icon
             title = binding.btnNewCount.text
             setOnMenuItemClickListener {
                 drawerLayout.closeDrawers()
-                newCount() // abre o dialog para criar nova contagem ou nao
+                newCount() // abre o dialog para que seja confirmado a criacao de uma nova contagem
                 true
             }
 
@@ -83,11 +84,11 @@ class HomeFragment : Fragment() {
         binding.btnNewCount.setOnClickListener { newCount() }
 
         // ADAPTER
-        raContagensEstoque = ContagensEstoqueRecyclerAdapter(homeViewModel.listStockCount())
-        raContagensEstoque!!.setInicioAppPresenter(homeViewModel)
+        _homeRecyclerAdapter = HomeRecyclerAdapter(homeViewModel.listStockCount())
+        homeRecyclerAdapter.setViewModel(homeViewModel)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
-        binding.recyclerView.adapter = raContagensEstoque
+        binding.recyclerView.adapter = homeRecyclerAdapter
 
         // SWIPE - DESLIZAR ITEM
         val swipeHelper = SwipeHelper()
@@ -106,10 +107,10 @@ class HomeFragment : Fragment() {
                     SimpleDialog(QuestionDialog(parentFragmentManager).apply {
                         setMessage(getString(R.string.s_dialog_msg_delete_count, homeViewModel.stockCount.id.toString()))
                         setNegativeButton {
-                            raContagensEstoque!!.notifyItemChanged(homeViewModel.stockCount.index)
+                            homeRecyclerAdapter.notifyItemChanged(homeViewModel.stockCount.index)
                         }
                         setPositiveButton {
-                            raContagensEstoque!!.setContagemExcluida(homeViewModel.stockCount)
+                            homeRecyclerAdapter.notifyItemRemoved(homeViewModel.stockCount)
                             homeViewModel.deleteCount()
                         }
                     }).show()

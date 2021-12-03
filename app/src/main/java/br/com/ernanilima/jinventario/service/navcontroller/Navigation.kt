@@ -116,7 +116,7 @@ class Navigation {
             fun toStockCountFragment(currentView: View) {
                 Navigation.findNavController(currentView).apply {
                     popBackStack()
-                    navigate(R.id.nav_contagem)
+                    navigate(R.id.nav_stock_count)
                 }
             }
         }

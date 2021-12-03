@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseAuth
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
-import br.com.ernanilima.jinventario.data.network.firebase.IFirebaseAuth
 import br.com.ernanilima.jinventario.data.result.IResultType
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.model.StockCount
@@ -22,8 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val userDao: UserRepository,
-    private val stockCountDao: StockCountRepository,
-    private var iFirebaseAuth: IFirebaseAuth
+    private val stockCountDao: StockCountRepository
 ): ViewModel(), IHome.IViewModel {
 
     private var _user: User? = null
@@ -40,8 +38,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         // EXECUTA AO INICIAR A CLASSE
-        this.iFirebaseAuth = FirebaseAuth()
-        this._user = userDao.findByEmail(iFirebaseAuth.getUserEmail())
+        this._user = userDao.findByEmail(FirebaseAuth().getUserEmail())
         AppActivity.user = user
     }
 

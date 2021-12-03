@@ -25,7 +25,7 @@
             android:text="@string/s_hdl_device_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/campo_nav_nomeaparelho"
+            android:id="@+id/field_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_hdl_ex_device_name" />
@@ -43,7 +43,7 @@
             android:text="@string/s_hdl_email" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/campo_nav_email"
+            android:id="@+id/field_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_hdl_ex_email" />

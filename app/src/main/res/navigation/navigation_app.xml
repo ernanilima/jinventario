@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_app_home" />
 
     <fragment
-        android:id="@+id/nav_contagem"
+        android:id="@+id/nav_stock_count"
         android:name="br.com.ernanilima.jinventario.view.ContagemFragment"
         android:label="Contagem"
         tools:layout="@layout/fragment_contagem" />

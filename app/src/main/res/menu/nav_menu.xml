@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_home" />
 
         <item android:title="Nova Contagem"
-            android:id="@+id/nav_contagem"
+            android:id="@+id/nav_stock_count"
             android:icon="@drawable/ic_novo" />
     </group>
 

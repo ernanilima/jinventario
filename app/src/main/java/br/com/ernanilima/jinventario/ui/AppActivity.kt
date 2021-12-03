@@ -43,7 +43,7 @@ class AppActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_contagem
+                R.id.nav_home, R.id.nav_stock_count
             ), drawerLayout
         )
 
