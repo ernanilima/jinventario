@@ -81,19 +81,18 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Apagar ao deslizar o item
+     * Apaga contagem de estoque
      * @param stockCount StockCount
      */
-    override fun deleteCount(stockCount: StockCount) {
-        this._stockCount = stockCount
-        _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT)
-    }
-
-    /**
-     * Apagar ao confirmar o dialog
-     */
-    override fun deleteCount() {
-        stockCountDao.delete(stockCount)
-        FirebaseDatabase.deleteStockCount(stockCount)
+    override fun deleteCount(stockCount: StockCount?) {
+        if (stockCount != null) {
+            // apagar ao deslizar o item
+            this._stockCount = stockCount
+            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT)
+        } else {
+            // apagar ao confirmar o dialog
+            stockCountDao.delete(this.stockCount)
+            FirebaseDatabase.deleteStockCount(this.stockCount)
+        }
     }
 }
