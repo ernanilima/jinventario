@@ -1,56 +1,53 @@
 package br.com.ernanilima.jinventario.model;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Generated;
 
 import java.io.Serializable;
 
-@Deprecated
-@Entity(nameInDb = "CONFIGURACAO")
-public class Configuracao implements Serializable {
+@Entity(nameInDb = "SETTINGS")
+public class settings implements Serializable {
     private static final long serialVersionUID = 1L;
-    // construtores, gets e sets sao gerados automaticamente ao executar o projeto
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
     private Long id;
-    @Property(nameInDb = "INFORMAR_PRECO")
-    private boolean informarPreco;
-    @Property(nameInDb = "ATIVAR_CAMERA")
+    @Property(nameInDb = "SHOW PRICE")
+    private boolean showPrice;
+    @Property(nameInDb = "CAMERA_SCANNER")
     private boolean cameraScanner;
-    @Property(nameInDb = "ATIVAR_CAMERA_MLKIT")
+    @Property(nameInDb = "CAMERA_SCANNER_MLKIT")
     private boolean cameraScannerMlkit;
-    @Property(nameInDb = "ATIVAR_CAMERA_ZXING")
+    @Property(nameInDb = "CAMERA_SCANNER_ZXING")
     private boolean cameraScannerZxing;
 
     // tudo abaixo eh construido automaticamente ao executar o projeto
 
-    @Generated(hash = 647547117)
-    public Configuracao() {}
-
-    @Generated(hash = 720085660)
-    public Configuracao(Long id, boolean informarPreco, boolean cameraScanner,
+    @Generated(hash = 148091290)
+    public settings(Long id, boolean showPrice, boolean cameraScanner,
             boolean cameraScannerMlkit, boolean cameraScannerZxing) {
         this.id = id;
-        this.informarPreco = informarPreco;
+        this.showPrice = showPrice;
         this.cameraScanner = cameraScanner;
         this.cameraScannerMlkit = cameraScannerMlkit;
         this.cameraScannerZxing = cameraScannerZxing;
     }
-
+    @Generated(hash = 501373388)
+    public settings() {
+    }
     public Long getId() {
         return this.id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    public boolean getInformarPreco() {
-        return this.informarPreco;
+    public boolean getShowPrice() {
+        return this.showPrice;
     }
-    public void setInformarPreco(boolean informarPreco) {
-        this.informarPreco = informarPreco;
+    public void setShowPrice(boolean showPrice) {
+        this.showPrice = showPrice;
     }
     public boolean getCameraScanner() {
         return this.cameraScanner;
