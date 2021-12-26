@@ -29,7 +29,7 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inicia o xml
-        return inflater.inflate(R.layout.fragment_configuracao, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ConfiguracaoFragment extends Fragment implements IConfiguracao.IVie
         radio_group = view.findViewById(R.id.radio_group);
         radio_camera_mlkit = view.findViewById(R.id.radio_camera_mlkit);
         radio_camera_zxing = view.findViewById(R.id.radio_camera_zxing);
-        btn_gravar = view.findViewById(R.id.btn_gravar);
+        btn_gravar = view.findViewById(R.id.btn_save);
 
         // ACAO DE BOTOES
         chbx_camera_scanner.setOnCheckedChangeListener((buttonView, isChecked) -> usarCameraScanner(isChecked));

@@ -22,6 +22,6 @@
         android:id="@+id/nav_configuracao"
         android:name="br.com.ernanilima.jinventario.view.ConfiguracaoFragment"
         android:label="Configuração"
-        tools:layout="@layout/fragment_configuracao" />
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>
