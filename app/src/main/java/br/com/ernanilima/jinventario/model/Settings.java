@@ -8,13 +8,13 @@ import org.greenrobot.greendao.annotation.Property;
 import java.io.Serializable;
 
 @Entity(nameInDb = "SETTINGS")
-public class settings implements Serializable {
+public class Settings implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)
     @Property(nameInDb = "ID")
     private Long id;
-    @Property(nameInDb = "SHOW PRICE")
+    @Property(nameInDb = "SHOW_PRICE")
     private boolean showPrice;
     @Property(nameInDb = "CAMERA_SCANNER")
     private boolean cameraScanner;
@@ -25,8 +25,8 @@ public class settings implements Serializable {
 
     // tudo abaixo eh construido automaticamente ao executar o projeto
 
-    @Generated(hash = 148091290)
-    public settings(Long id, boolean showPrice, boolean cameraScanner,
+    @Generated(hash = 1627279586)
+    public Settings(Long id, boolean showPrice, boolean cameraScanner,
             boolean cameraScannerMlkit, boolean cameraScannerZxing) {
         this.id = id;
         this.showPrice = showPrice;
@@ -34,8 +34,8 @@ public class settings implements Serializable {
         this.cameraScannerMlkit = cameraScannerMlkit;
         this.cameraScannerZxing = cameraScannerZxing;
     }
-    @Generated(hash = 501373388)
-    public settings() {
+    @Generated(hash = 456090543)
+    public Settings() {
     }
     public Long getId() {
         return this.id;
