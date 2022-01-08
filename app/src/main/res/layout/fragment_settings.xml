@@ -8,7 +8,7 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <LinearLayout
-        android:id="@+id/ln_preco_produto"
+        android:id="@+id/ll_show_price"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="10dp"
@@ -30,7 +30,7 @@
             android:gravity="end">
 
             <CheckBox
-                android:id="@+id/chbx_preco_produto"
+                android:id="@+id/chbx_show_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false" />
@@ -43,11 +43,11 @@
         android:layout_height="1dp"
         android:layout_margin="10dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@+id/ln_preco_produto"
+        app:layout_constraintTop_toBottomOf="@+id/ll_show_price"
         tools:layout_editor_absoluteX="10dp" />
 
     <LinearLayout
-        android:id="@+id/ln_camera_scanner"
+        android:id="@+id/ll_camera_scanner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="10dp"
@@ -82,11 +82,11 @@
         android:layout_height="1dp"
         android:layout_margin="10dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@+id/ln_camera_scanner"
+        app:layout_constraintTop_toBottomOf="@+id/ll_camera_scanner"
         tools:layout_editor_absoluteX="10dp" />
 
     <LinearLayout
-        android:id="@+id/ln_tipo_camera_scanner"
+        android:id="@+id/ll_type_camera_scanner"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="10dp"

@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.REFRESH_SETTINGS
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_SETTINGS
 import br.com.ernanilima.jinventario.databinding.FragmentSettingsBinding
+import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +37,19 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupListener() {
-
+        settingsViewModel.settingsResult.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                REFRESH_SETTINGS -> {
+                    binding.chbxShowPrice.isChecked = settingsViewModel.settings.showPrice
+                    binding.chbxCameraScanner.isChecked = settingsViewModel.settings.cameraScanner
+                    binding.radioCameraMlkit.isChecked = settingsViewModel.settings.cameraScannerMlkit
+                    binding.radioCameraZxing.isChecked = settingsViewModel.settings.cameraScannerZxing
+                }
+                SAVED_SETTINGS -> {
+                    Navigation.App.toHomeActivity(requireActivity())
+                }
+            }
+        })
     }
 
     /**
@@ -46,7 +61,14 @@ class SettingsFragment : Fragment() {
         binding.radioCameraZxing.isEnabled = isChecked
     }
 
+    /**
+     * Grava as configuracoes
+     */
     private fun saveSettings() {
-
+        settingsViewModel.settings.showPrice = binding.chbxShowPrice.isChecked
+        settingsViewModel.settings.cameraScanner = binding.chbxCameraScanner.isChecked
+        settingsViewModel.settings.cameraScannerMlkit = binding.radioCameraMlkit.isChecked
+        settingsViewModel.settings.cameraScannerZxing = binding.radioCameraZxing.isChecked
+        settingsViewModel.saveSettings()
     }
 }
