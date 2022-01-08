@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Informar preço do produto coletado:" />
+            android:text="@string/s_chbx_show_price" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Ativar a camera como scanner:" />
+            android:text="@string/s_chbx_camera_scanner" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,13 +104,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:text="Usar Camera ML KIT (Google)" />
+                android:text="@string/s_radio_camera_mlkit" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:text="Usar Camera ZXING" />
+                android:text="@string/s_radio_camera_zxing" />
         </LinearLayout>
 
         <LinearLayout
@@ -137,6 +137,20 @@
                     android:layout_height="wrap_content" />
             </RadioGroup>
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progress_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

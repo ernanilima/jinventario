@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.ui.settings
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_SETTINGS
 import br.com.ernanilima.jinventario.databinding.FragmentSettingsBinding
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -26,8 +28,17 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        delay()
         setupUi()
         setupListener()
+    }
+
+    private fun delay() {
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.progressSettings.visibility = View.VISIBLE
+            delay(1000)
+            binding.progressSettings.visibility = View.GONE
+        }
     }
 
     private fun setupUi() {
@@ -46,6 +57,7 @@ class SettingsFragment : Fragment() {
                     binding.radioCameraZxing.isChecked = settingsViewModel.settings.cameraScannerZxing
                 }
                 SAVED_SETTINGS -> {
+                    binding.progressSettings.visibility = View.GONE
                     Navigation.App.toHomeActivity(requireActivity())
                 }
             }
@@ -65,6 +77,7 @@ class SettingsFragment : Fragment() {
      * Grava as configuracoes
      */
     private fun saveSettings() {
+        binding.progressSettings.visibility = View.VISIBLE
         settingsViewModel.settings.showPrice = binding.chbxShowPrice.isChecked
         settingsViewModel.settings.cameraScanner = binding.chbxCameraScanner.isChecked
         settingsViewModel.settings.cameraScannerMlkit = binding.radioCameraMlkit.isChecked

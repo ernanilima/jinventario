@@ -103,4 +103,10 @@
     <string name="msg_minimum_of_characters">Necessário informar no mínimo %s caractere(s)</string>
     <string name="msg_waiting_time">Aguarde %s minuto(s) para enviar o e-mail novamente</string>
     <string name="msg_unknown_error">Ocorreu um erro desconhecido</string>
+
+    <!--  Configuracoes  -->
+    <string name="s_chbx_show_price">Informar preço do produto coletado:</string>
+    <string name="s_chbx_camera_scanner">Ativar a camera como scanner:</string>
+    <string name="s_radio_camera_mlkit">Usar Camera ML KIT (Google)</string>
+    <string name="s_radio_camera_zxing">Usar Camera ZXING (Zebra)</string>
 </resources>
