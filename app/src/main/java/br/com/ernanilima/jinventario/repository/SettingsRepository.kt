@@ -4,4 +4,5 @@ import br.com.ernanilima.jinventario.model.Settings
 
 interface SettingsRepository {
     fun update(settings: Settings)
+    fun findSettings(): Settings?
 }

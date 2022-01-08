@@ -12,14 +12,14 @@ class SettingsRepositoryImpl @Inject constructor(private val dao: SettingsDao): 
      * @param settings Settings - configuracoes para atualizar
      */
     override fun update(settings: Settings) {
-        settings.id = findSettings().id
+        settings.id = findSettings()?.id
         dao.save(settings)
     }
 
     /**
      * @return configuracao principal
      */
-    private fun findSettings(): Settings {
-        return dao.load(1L) ?: Settings()
+    override fun findSettings(): Settings? {
+        return dao.load(1L)
     }
 }
