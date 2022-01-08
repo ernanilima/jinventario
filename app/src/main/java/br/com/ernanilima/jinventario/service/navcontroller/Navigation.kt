@@ -99,7 +99,7 @@ class Navigation {
             }
 
             /**
-             * Navega para o fragment [br.com.ernanilima.jinventario.view.ConfiguracaoFragment]
+             * Navega para o fragment [br.com.ernanilima.jinventario.ui.settings.SettingsFragment]
              * @param currentView View - view da navegacao
              */
             fun toSettingsFragment(currentView: View) {

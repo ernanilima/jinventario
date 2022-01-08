@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/nav_configuracao"
-        android:name="br.com.ernanilima.jinventario.view.ConfiguracaoFragment"
+        android:name="br.com.ernanilima.jinventario.ui.settings.SettingsFragment"
         android:label="Configuração"
         tools:layout="@layout/fragment_settings" />
 
