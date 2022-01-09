@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
+import br.com.ernanilima.jinventario.databinding.DialogSimpleLoadingBinding
 import br.com.ernanilima.jinventario.databinding.DialogSimpleQuestionBinding
 
 private enum class BtnAction { POSITIVE, NEGATIVE }
-enum class Type { QUESTION, BASE }
+enum class Type { BASE, QUESTION, LOADING }
 typealias BtnNegativeCallback = () -> Unit
 typealias BtnPositiveCallback = () -> Unit
 
@@ -25,12 +26,20 @@ class SimpleDialog constructor(
     private var _bindingQuestion: DialogSimpleQuestionBinding? = null
     private val bindingQuestion get() = _bindingQuestion!!
 
+    private var _bindingLoading: DialogSimpleLoadingBinding? = null
+    private val bindingLoading get() = _bindingLoading!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return when (baseDialog.type) {
             Type.QUESTION -> {
                 _bindingQuestion = DialogSimpleQuestionBinding.inflate(inflater, container, false)
                 setLayoutQuestion(baseDialog)
                 bindingQuestion.root
+            }
+            Type.LOADING -> {
+                _bindingLoading = DialogSimpleLoadingBinding.inflate(inflater, container, false)
+                setLayoutLoading(baseDialog)
+                bindingLoading.root
             }
             else -> {
                 super.onCreateView(inflater, container, savedInstanceState)
@@ -62,6 +71,13 @@ class SimpleDialog constructor(
         bindingQuestion.btnNegative.setOnClickListener(this)
         bindingQuestion.btnPositive.tag = BtnAction.POSITIVE
         bindingQuestion.btnPositive.setOnClickListener(this)
+    }
+
+    @UiThread
+    private fun setLayoutLoading(baseDialog: BaseDialog) {
+        baseDialog.also {
+            it.message?.let { m -> bindingLoading.txtMessage.text = m }
+        }
     }
 
     override fun onClick(v: View) {
