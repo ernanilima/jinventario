@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
-import br.com.ernanilima.jinventario.databinding.DialogSimpleAlertBinding
+import br.com.ernanilima.jinventario.databinding.DialogSimpleQuestionBinding
 
 private enum class BtnAction { POSITIVE, NEGATIVE }
 enum class Type { QUESTION, BASE }
@@ -22,8 +22,8 @@ class SimpleDialog constructor(
     private val baseDialog: BaseDialog
 ) : DialogFragment(), View.OnClickListener {
 
-    private var _binding: DialogSimpleAlertBinding? = null
-    private val binding get() = _binding!!
+    private var _bindingQuestion: DialogSimpleQuestionBinding? = null
+    private val bindingQuestion get() = _bindingQuestion!!
 
     private var title: String? = null
     private var message: String? = null
@@ -32,27 +32,17 @@ class SimpleDialog constructor(
     private var negativeButtonBold: Int? = null
     private var positiveButtonBold: Int? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = DialogSimpleAlertBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setLayout(baseDialog)
-
-        title?.let { binding.txtTitle.text = it }
-        message?.let { binding.txtMessage.text = it }
-        titleNegativeButton?.let { binding.btnNegative.text = it }
-        titlePositiveButton?.let { binding.btnPositive.text = it }
-        negativeButtonBold?.let { binding.btnNegative.setTypeface(null, it) }
-        positiveButtonBold?.let { binding.btnPositive.setTypeface(null, it) }
-
-        binding.btnNegative.tag = BtnAction.NEGATIVE
-        binding.btnNegative.setOnClickListener(this)
-        binding.btnPositive.tag = BtnAction.POSITIVE
-        binding.btnPositive.setOnClickListener(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return when (baseDialog.type) {
+            Type.QUESTION -> {
+                _bindingQuestion = DialogSimpleQuestionBinding.inflate(inflater, container, false)
+                setLayoutQuestion(baseDialog)
+                bindingQuestion.root
+            }
+            else -> {
+                super.onCreateView(inflater, container, savedInstanceState)
+            }
+        }
     }
 
     override fun onStart() {
@@ -89,18 +79,25 @@ class SimpleDialog constructor(
     }
 
     @UiThread
-    private fun setLayout(baseDialog: BaseDialog) {
-        when (baseDialog.type) {
-            Type.QUESTION -> {
-                baseDialog.title?.let { setTitle(it) }
-                baseDialog.message?.let { setMessage(it) }
-                baseDialog.titleNegativeButton?.let { setTitleNegativeButton(it) }
-                baseDialog.titlePositiveButton?.let { setTitlePositiveButton(it) }
-                baseDialog.negativeButtonBold?.let { setNegativeButtonBold() }
-                baseDialog.positiveButtonBold?.let { setPositiveButtonBold() }
-            }
-            // em breve tera a opcao de loading e alert
-        }
+    private fun setLayoutQuestion(baseDialog: BaseDialog) {
+        baseDialog.title?.let { setTitle(it) }
+        baseDialog.message?.let { setMessage(it) }
+        baseDialog.titleNegativeButton?.let { setTitleNegativeButton(it) }
+        baseDialog.titlePositiveButton?.let { setTitlePositiveButton(it) }
+        baseDialog.negativeButtonBold?.let { setNegativeButtonBold() }
+        baseDialog.positiveButtonBold?.let { setPositiveButtonBold() }
+
+        title?.let { bindingQuestion.txtTitle.text = it }
+        message?.let { bindingQuestion.txtMessage.text = it }
+        titleNegativeButton?.let { bindingQuestion.btnNegative.text = it }
+        titlePositiveButton?.let { bindingQuestion.btnPositive.text = it }
+        negativeButtonBold?.let { bindingQuestion.btnNegative.setTypeface(null, it) }
+        positiveButtonBold?.let { bindingQuestion.btnPositive.setTypeface(null, it) }
+
+        bindingQuestion.btnNegative.tag = BtnAction.NEGATIVE
+        bindingQuestion.btnNegative.setOnClickListener(this)
+        bindingQuestion.btnPositive.tag = BtnAction.POSITIVE
+        bindingQuestion.btnPositive.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
