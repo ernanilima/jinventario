@@ -25,13 +25,6 @@ class SimpleDialog constructor(
     private var _bindingQuestion: DialogSimpleQuestionBinding? = null
     private val bindingQuestion get() = _bindingQuestion!!
 
-    private var title: String? = null
-    private var message: String? = null
-    private var titleNegativeButton: String? = null
-    private var titlePositiveButton: String? = null
-    private var negativeButtonBold: Int? = null
-    private var positiveButtonBold: Int? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return when (baseDialog.type) {
             Type.QUESTION -> {
@@ -54,45 +47,16 @@ class SimpleDialog constructor(
         )
     }
 
-    private fun setTitle(title: String) {
-        this.title = title
-    }
-
-    private fun setMessage(message: String) {
-        this.message = message
-    }
-
-    private fun setNegativeButtonBold() {
-        this.negativeButtonBold = Typeface.BOLD
-    }
-
-    private fun setPositiveButtonBold() {
-        this.positiveButtonBold = Typeface.BOLD
-    }
-
-    private fun setTitleNegativeButton(titleNegativeButton: String) {
-        this.titleNegativeButton = titleNegativeButton
-    }
-
-    private fun setTitlePositiveButton(titlePositiveButton: String) {
-        this.titlePositiveButton = titlePositiveButton
-    }
-
     @UiThread
     private fun setLayoutQuestion(baseDialog: BaseDialog) {
-        baseDialog.title?.let { setTitle(it) }
-        baseDialog.message?.let { setMessage(it) }
-        baseDialog.titleNegativeButton?.let { setTitleNegativeButton(it) }
-        baseDialog.titlePositiveButton?.let { setTitlePositiveButton(it) }
-        baseDialog.negativeButtonBold?.let { setNegativeButtonBold() }
-        baseDialog.positiveButtonBold?.let { setPositiveButtonBold() }
-
-        title?.let { bindingQuestion.txtTitle.text = it }
-        message?.let { bindingQuestion.txtMessage.text = it }
-        titleNegativeButton?.let { bindingQuestion.btnNegative.text = it }
-        titlePositiveButton?.let { bindingQuestion.btnPositive.text = it }
-        negativeButtonBold?.let { bindingQuestion.btnNegative.setTypeface(null, it) }
-        positiveButtonBold?.let { bindingQuestion.btnPositive.setTypeface(null, it) }
+        baseDialog.also {
+            it.title?.let { t -> bindingQuestion.txtTitle.text = t }
+            it.message?.let { m -> bindingQuestion.txtMessage.text = m }
+            it.titleNegativeButton?.let { tnb -> bindingQuestion.btnNegative.text = tnb }
+            it.titlePositiveButton?.let { tpb -> bindingQuestion.btnPositive.text = tpb }
+            it.negativeButtonBold?.let { bindingQuestion.btnNegative.setTypeface(null, Typeface.BOLD) }
+            it.positiveButtonBold?.let { bindingQuestion.btnPositive.setTypeface(null, Typeface.BOLD) }
+        }
 
         bindingQuestion.btnNegative.tag = BtnAction.NEGATIVE
         bindingQuestion.btnNegative.setOnClickListener(this)
