@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
@@ -15,6 +14,7 @@ import br.com.ernanilima.jinventario.data.network.google.Google
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.*
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.WAIT_SEND_VERIFICATION
 import br.com.ernanilima.jinventario.extension.common.*
+import br.com.ernanilima.jinventario.extension.common.dialog.LoadingDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.success
@@ -28,8 +28,9 @@ class LoginFragment: Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private var _loadingDialog: SimpleDialog? = null
+    private val loadingDialog get() = _loadingDialog!!
     private val loginViewModel: LoginViewModel by viewModels()
-    private val progressBar get() = binding.progressLogin.isVisible
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -49,10 +50,11 @@ class LoginFragment: Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.btnLogin.setOnClickListener { progressBar.ifFalse { login() } }
-        binding.btnLoginGmail.setOnClickListener { progressBar.ifFalse { loginGmail() } }
-        binding.btnForgotPassword.setOnClickListener { progressBar.ifFalse { toForgotPasswordFragment(this) } }
-        binding.btnRegister.setOnClickListener { progressBar.ifFalse { toRegisterFragment(this) } }
+        binding.btnLogin.setOnClickListener { login() }
+        binding.btnLoginGmail.setOnClickListener { loginGmail() }
+        binding.btnForgotPassword.setOnClickListener { toForgotPasswordFragment(this) }
+        binding.btnRegister.setOnClickListener { toRegisterFragment(this) }
+        _loadingDialog = SimpleDialog(LoadingDialog(parentFragmentManager))
 
         // GOOGLE
         Google.showActivityForResult(this)
@@ -76,7 +78,7 @@ class LoginFragment: Fragment() {
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
                 warning(context, getString(R.string.msg_without_internet))
-                binding.progressLogin.visibility = View.GONE
+                loadingDialog.close()
             }
         })
 
@@ -92,7 +94,7 @@ class LoginFragment: Fragment() {
                     SimpleDialog(QuestionDialog(parentFragmentManager).apply {
                         setMessage(getString(R.string.s_dialog_msg_email_verification))
                         setPositiveButton {
-                            binding.progressLogin.visibility = View.VISIBLE
+                            loadingDialog.show()
                             loginViewModel.sendEmailVerification()
                         }
                     }).show()
@@ -106,7 +108,7 @@ class LoginFragment: Fragment() {
                     warning(context, getString(R.string.msg_waiting_time, loginViewModel.waitingTime))
                 }
             }
-            binding.progressLogin.visibility = View.GONE
+            loadingDialog.dismiss()
         })
     }
 
@@ -115,7 +117,7 @@ class LoginFragment: Fragment() {
      */
     private fun login() {
         validate().ifTrue {
-            binding.progressLogin.visibility = View.VISIBLE
+            loadingDialog.show()
             loginViewModel.user.email = binding.fieldEmail.text.toString().trim()
             loginViewModel.user.password = binding.fieldPassword.text.toString()
             loginViewModel.login()
@@ -126,7 +128,7 @@ class LoginFragment: Fragment() {
      * Realiza o login com base no usuario do Gmail
      */
     private fun loginGmail() {
-        binding.progressLogin.visibility = View.VISIBLE
+        loadingDialog.show()
         loginViewModel.loginGmail()
     }
 

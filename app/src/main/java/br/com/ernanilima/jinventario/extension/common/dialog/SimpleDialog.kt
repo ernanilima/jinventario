@@ -92,7 +92,11 @@ class SimpleDialog constructor(
         dismiss()
     }
 
+    fun close() {
+        if (this.tag != null) dismiss()
+    }
+
     fun show() {
-        this.show(baseDialog.fragmentManager, this::class.simpleName)
+        this.show(baseDialog.fragmentManager, baseDialog::class.java.simpleName)
     }
 }

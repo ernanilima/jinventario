@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT
@@ -13,6 +12,8 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.WAIT_SEND_PASSW
 import br.com.ernanilima.jinventario.databinding.FragmentLoginForgotPasswordBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
+import br.com.ernanilima.jinventario.extension.common.dialog.LoadingDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.success
@@ -25,8 +26,9 @@ class ForgotPasswordFragment : Fragment() {
 
     private var _binding: FragmentLoginForgotPasswordBinding? = null
     private val binding get() = _binding!!
+    private var _loadingDialog: SimpleDialog? = null
+    private val loadingDialog get() = _loadingDialog!!
     private val forgotPasswordViewModel: ForgotPasswordViewModel by viewModels()
-    private val progressBar get() = binding.progressForgotPassword.isVisible
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginForgotPasswordBinding.inflate(inflater, container, false)
@@ -46,8 +48,9 @@ class ForgotPasswordFragment : Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.btnSend.setOnClickListener { progressBar.ifFalse { sendNewPassword() } }
-        binding.btnBack.setOnClickListener { progressBar.ifFalse { toLoginFragment(this) } }
+        binding.btnSend.setOnClickListener { sendNewPassword() }
+        binding.btnBack.setOnClickListener { toLoginFragment(this) }
+        _loadingDialog = SimpleDialog(LoadingDialog(parentFragmentManager))
 
         // REQUISICOES DO CAMPO E-MAIL
         InputHelper(requireActivity()).apply {
@@ -61,7 +64,7 @@ class ForgotPasswordFragment : Fragment() {
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
                 warning(context, getString(R.string.msg_without_internet))
-                binding.progressForgotPassword.visibility = View.GONE
+                loadingDialog.close()
             }
         })
 
@@ -78,7 +81,7 @@ class ForgotPasswordFragment : Fragment() {
                 }
                 // NEW_PASSWORD_EMAIL_NOT_SENT -> { RESULTADO EH EXIBO NO TRATAMENTO DE ERROS }
             }
-            binding.progressForgotPassword.visibility = View.GONE
+            loadingDialog.close()
         })
     }
 
@@ -87,7 +90,7 @@ class ForgotPasswordFragment : Fragment() {
      */
     private fun sendNewPassword() {
         validate().ifTrue {
-            binding.progressForgotPassword.visibility = View.VISIBLE
+            loadingDialog.show()
             forgotPasswordViewModel.user.email = binding.fieldEmail.text.toString().trim()
             forgotPasswordViewModel.sendNewPassword()
         }

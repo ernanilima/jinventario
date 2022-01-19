@@ -7,13 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.REGISTRATION_DONE
 import br.com.ernanilima.jinventario.databinding.FragmentLoginRegisterBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
+import br.com.ernanilima.jinventario.extension.common.dialog.LoadingDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifFalse
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.success
@@ -26,8 +27,9 @@ class RegisterFragment : Fragment() {
 
     private var _binding: FragmentLoginRegisterBinding? = null
     private val binding get() = _binding!!
+    private var _loadingDialog: SimpleDialog? = null
+    private val loadingDialog get() = _loadingDialog!!
     private val registerViewModel: RegisterViewModel by viewModels()
-    private val progressBar get() = binding.progressRegister.isVisible
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginRegisterBinding.inflate(inflater, container, false)
@@ -47,9 +49,10 @@ class RegisterFragment : Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.btnPrivacyPolicy.setOnClickListener { progressBar.ifFalse { showPrivacyPolicy() } }
-        binding.btnRegister.setOnClickListener { progressBar.ifFalse { register() } }
-        binding.btnBack.setOnClickListener { progressBar.ifFalse { toLoginFragment(this) } }
+        binding.btnPrivacyPolicy.setOnClickListener { showPrivacyPolicy() }
+        binding.btnRegister.setOnClickListener { register() }
+        binding.btnBack.setOnClickListener { toLoginFragment(this) }
+        _loadingDialog = SimpleDialog(LoadingDialog(parentFragmentManager))
 
         // REQUISICOES DO CAMPO E-MAIL
         InputHelper(requireActivity()).apply {
@@ -79,7 +82,7 @@ class RegisterFragment : Fragment() {
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
                 warning(context, getString(R.string.msg_without_internet))
-                binding.progressRegister.visibility = View.GONE
+                loadingDialog.close()
             }
         })
 
@@ -89,7 +92,7 @@ class RegisterFragment : Fragment() {
                 success(context, getString(R.string.msg_registered_user))
                 toLoginFragment(this)
             }
-            binding.progressRegister.visibility = View.GONE
+            loadingDialog.close()
         })
     }
 
@@ -107,7 +110,7 @@ class RegisterFragment : Fragment() {
      */
     private fun register() {
         validate().ifTrue {
-            binding.progressRegister.visibility = View.VISIBLE
+            loadingDialog.show()
             registerViewModel.user.email = binding.fieldEmail.text.toString().trim()
             registerViewModel.user.password = binding.fieldPassword1.text.toString()
             registerViewModel.register()

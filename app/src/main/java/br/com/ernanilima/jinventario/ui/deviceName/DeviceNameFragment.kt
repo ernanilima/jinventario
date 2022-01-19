@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_DEVICE_NAME
 import br.com.ernanilima.jinventario.databinding.FragmentLoginDeviceNameBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.Validator
-import br.com.ernanilima.jinventario.extension.common.ifFalse
+import br.com.ernanilima.jinventario.extension.common.dialog.LoadingDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toHomeActivity
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toLoginFragment
@@ -23,8 +23,9 @@ class DeviceNameFragment : Fragment() {
 
     private var _binding: FragmentLoginDeviceNameBinding? = null
     private val binding get() = _binding!!
+    private var _loadingDialog: SimpleDialog? = null
+    private val loadingDialog get() = _loadingDialog!!
     private val deviceNameViewModel: DeviceNameViewModel by viewModels()
-    private val progressBar get() = binding.progressDeviceName.isVisible
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginDeviceNameBinding.inflate(inflater, container, false)
@@ -44,8 +45,9 @@ class DeviceNameFragment : Fragment() {
 
     private fun setupUi() {
         // ACAO DE BOTOES
-        binding.btnSave.setOnClickListener { progressBar.ifFalse { saveDeviceName() } }
-        binding.btnBack.setOnClickListener { progressBar.ifFalse { toLoginFragment(this) } }
+        binding.btnSave.setOnClickListener { saveDeviceName() }
+        binding.btnBack.setOnClickListener { toLoginFragment(this) }
+        _loadingDialog = SimpleDialog(LoadingDialog(parentFragmentManager))
 
         // MANIPILAR BOTAO VOLTAR DO APARELHO
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) {
@@ -64,7 +66,7 @@ class DeviceNameFragment : Fragment() {
         deviceNameViewModel.deviceNameResult.observe(viewLifecycleOwner, { result ->
             if (result == SAVED_DEVICE_NAME) {
                 toHomeActivity(requireActivity())
-                binding.progressDeviceName.visibility = View.GONE
+                loadingDialog.close()
             }
         })
     }
@@ -74,7 +76,7 @@ class DeviceNameFragment : Fragment() {
      */
     private fun saveDeviceName() {
         validate().ifTrue {
-            binding.progressDeviceName.visibility = View.VISIBLE
+            loadingDialog.show()
             deviceNameViewModel.user.deviceName = binding.fieldDeviceName.text.toString().trim()
             deviceNameViewModel.saveDeviceName()
         }
