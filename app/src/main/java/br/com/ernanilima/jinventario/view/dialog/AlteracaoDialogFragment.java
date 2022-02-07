@@ -91,7 +91,7 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_contagem_inserir, null);
+        View view = inflater.inflate(R.layout.fragment_app_home_stock_count_insert, null);
 
         aDialog.setView(view)
                 .setTitle("Alteração")

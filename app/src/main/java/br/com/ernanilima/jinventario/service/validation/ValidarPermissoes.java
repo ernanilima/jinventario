@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.com.ernanilima.jinventario.interfaces.IResultadoPermissao;
 
+@Deprecated
 public class ValidarPermissoes {
 
     private static ValidarPermissoes VALIDAR_PERMISSOES;
@@ -56,6 +57,7 @@ public class ValidarPermissoes {
 
     /** Constroi um callback para exibir e obter o resultado
      * Substitui startActivityForResult e onActivityResult */
+    @Deprecated
     private void construirExibirObterResultado() {
         // https://developer.android.com/training/basics/intents/result
         // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
@@ -68,6 +70,7 @@ public class ValidarPermissoes {
 
     /** Exibe o dialog do android para solicitar as permissoes para o aplicativo
      * As mesmas permissoes solicitadas devem estar no manifest.xml */
+    @Deprecated
     public void validarPermissoes() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // se a api do aparelho for igual ou maior que 23

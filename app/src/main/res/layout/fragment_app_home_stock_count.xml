@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/fragment_contagem_inserir"/>
+            <include layout="@layout/fragment_app_home_stock_count_insert"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -35,6 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        tools:listitem="@layout/itens_contagem_recyclerview"/>
+        tools:listitem="@layout/item_stock_count_recyclerview"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

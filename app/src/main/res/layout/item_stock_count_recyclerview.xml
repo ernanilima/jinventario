@@ -8,7 +8,7 @@
     android:paddingTop="10sp"
     android:paddingBottom="10sp"
     android:paddingStart="16sp"
-    tools:showIn="@layout/fragment_contagem">
+    tools:showIn="@layout/fragment_app_home_stock_count">
 
     <LinearLayout
         android:id="@+id/ln_codbarras"

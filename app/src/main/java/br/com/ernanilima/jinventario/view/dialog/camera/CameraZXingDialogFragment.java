@@ -12,6 +12,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import br.com.ernanilima.jinventario.interfaces.IResultadoCameraScanner;
 
+@Deprecated
 public class CameraZXingDialogFragment extends DialogFragment {
 
     private static CameraZXingDialogFragment DIALOG_FRAGMENT;

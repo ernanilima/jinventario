@@ -18,7 +18,7 @@ import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toStockCountFragment
-import br.com.ernanilima.jinventario.view.ContagemFragment
+import br.com.ernanilima.jinventario.ui.stockCount.StockCountFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
             when (result) {
                 NEW_STOCK_COUNT,
                 UPDATE_STOCK_COUNT -> {
-                    parentFragmentManager.setFragmentResult(ContagemFragment::class.simpleName!!, homeViewModel.arguments)
+                    parentFragmentManager.setFragmentResult(StockCountFragment::class.simpleName!!, homeViewModel.arguments)
                     toStockCountFragment(requireView())
                 }
                 DELETE_STOCK_COUNT -> {

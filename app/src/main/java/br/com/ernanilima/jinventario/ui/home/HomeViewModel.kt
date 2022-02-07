@@ -13,7 +13,7 @@ import br.com.ernanilima.jinventario.model.User
 import br.com.ernanilima.jinventario.repository.StockCountRepository
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.ui.AppActivity
-import br.com.ernanilima.jinventario.view.ContagemFragment
+import br.com.ernanilima.jinventario.ui.stockCount.StockCountFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
@@ -53,7 +53,7 @@ class HomeViewModel @Inject constructor(
         FirebaseDatabase.saveStockCount(stockCount) // banco de dados no firebase
 
         val bundle = Bundle()
-        bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
+        bundle.putLong(StockCountFragment::COUNT_CODE.toString(), stockCount.id)
         _arguments = bundle
         _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT)
     }
@@ -72,7 +72,7 @@ class HomeViewModel @Inject constructor(
      */
     override fun updateCount(stockCount: StockCount) {
         val bundle = Bundle()
-        bundle.putLong(ContagemFragment.CODIGO_CONTAGEM, stockCount.id)
+        bundle.putLong(StockCountFragment::COUNT_CODE.toString(), stockCount.id)
         _arguments = bundle
         _countResult.postValue(ResultTypeLocal.UPDATE_STOCK_COUNT)
     }
