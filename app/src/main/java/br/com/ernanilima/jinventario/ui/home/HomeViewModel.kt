@@ -53,7 +53,7 @@ class HomeViewModel @Inject constructor(
         FirebaseDatabase.saveStockCount(stockCount) // banco de dados no firebase
 
         val bundle = Bundle()
-        bundle.putLong(StockCountFragment::COUNT_CODE.toString(), stockCount.id)
+        bundle.putLong(StockCountFragment.ID_STOCK_COUNT, stockCount.id)
         _arguments = bundle
         _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT)
     }
@@ -72,7 +72,7 @@ class HomeViewModel @Inject constructor(
      */
     override fun updateCount(stockCount: StockCount) {
         val bundle = Bundle()
-        bundle.putLong(StockCountFragment::COUNT_CODE.toString(), stockCount.id)
+        bundle.putLong(StockCountFragment.ID_STOCK_COUNT, stockCount.id)
         _arguments = bundle
         _countResult.postValue(ResultTypeLocal.UPDATE_STOCK_COUNT)
     }

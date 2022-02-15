@@ -9,6 +9,11 @@ import javax.inject.Inject
 class StockCountViewModel @Inject constructor(
 
 ) : ViewModel(), IStockCount.IViewModel {
+
+    override fun setIdStockCount(idStockCount: Long) {
+        println(idStockCount)
+    }
+
     override fun listItemStockCount(): List<StockCountItem> {
         return ArrayList()
     }

@@ -30,21 +30,22 @@ class StockCountFragment : Fragment() {
     private var _stockCountRecyclerAdapter: StockCountRecyclerAdapter? = null
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
-    val COUNT_CODE: String = "Count_Code"
-
     private val permissions = arrayOf(Manifest.permission.CAMERA)
     private var vPermissoes: ValidarPermissoes? = null
     private var dfCameraZXing: CameraZXingDialogFragment? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-//        // argumento recebido de outro fragment, basicamente recebe o codigo de uma nova contagem ou de uma existente
-//        parentFragmentManager.setFragmentResultListener(this.javaClass.simpleName, this, {
-//                requestKey: String?, result: Bundle -> pContagem.setCodigoContagem(result.getLong(ContagemFragment.CODIGO_CONTAGEM))
-//            }
-//        )
-//    }
+    companion object { val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        // argumento recebido de outro fragment, basicamente recebe o codigo de uma nova contagem ou de uma existente
+        parentFragmentManager.setFragmentResultListener(
+            this.javaClass.simpleName, this, {
+                _: String?, result: Bundle -> stockCountViewModel.setIdStockCount(result.getLong(ID_STOCK_COUNT))
+            }
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAppHomeStockCountBinding.inflate(inflater, container, false)

@@ -4,6 +4,7 @@ import br.com.ernanilima.jinventario.model.StockCountItem
 
 interface IStockCount {
     interface IViewModel {
+        fun setIdStockCount(idStockCount: Long)
         fun listItemStockCount(): List<StockCountItem>
         fun updateItem(stockCountItem: StockCountItem)
         fun deleteItem(stockCountItem: StockCountItem)
