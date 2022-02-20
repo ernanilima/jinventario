@@ -107,10 +107,11 @@ class StockCountFragment : Fragment() {
                 ResultTypeLocal.LIST_STOCK_COUNT_ITEM -> {
                     setupRecyclerAdapter()
                 }
-                ResultTypeLocal.NEW_STOCK_COUNT_ITEM,
-                ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
-                    stockCountRecyclerAdapter.notifyItemChanged(0)
+                ResultTypeLocal.NEW_STOCK_COUNT_ITEM -> {
+                    stockCountRecyclerAdapter.notifyItemInserted(0)
                     clearFields()
+                }
+                ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
                 }
                 ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
                 }
@@ -142,6 +143,7 @@ class StockCountFragment : Fragment() {
     }
 
     private fun clearFields() {
+        binding.include.campoCodbarras.editText?.requestFocus()
         binding.include.campoCodbarras.editText?.setText("")
         binding.include.campoPrecoUn.editText?.setText("")
         binding.include.campoQtdDcaixa.editText?.setText("")
