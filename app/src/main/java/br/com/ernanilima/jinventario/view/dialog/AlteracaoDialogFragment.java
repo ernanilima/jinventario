@@ -102,10 +102,10 @@ public class AlteracaoDialogFragment extends DialogFragment implements IResultad
                 .setPositiveButton("Confirmar", null);
 
         //INICIALIZA
-        campo_codbarras = view.findViewById(R.id.campo_codbarras);
-        campo_qtd_dcaixa = view.findViewById(R.id.campo_qtd_dcaixa);
-        campo_qtd_pcaixa = view.findViewById(R.id.campo_qtd_pcaixa);
-        btn_camera_scanner = view.findViewById(R.id.btn_camerascanner);
+        campo_codbarras = view.findViewById(R.id.field_barcode);
+        campo_qtd_dcaixa = view.findViewById(R.id.field_number_of_boxes);
+        campo_qtd_pcaixa = view.findViewById(R.id.field_number_per_box);
+        btn_camera_scanner = view.findViewById(R.id.btn_camera_scanner);
         btn_ok = view.findViewById(R.id.btn_ok);
 
         validarConfigUsarCamera();

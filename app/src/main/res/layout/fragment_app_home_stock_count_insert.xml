@@ -10,20 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
+        app:layout_constraintTop_toBottomOf="@id/layout_barcode">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/campo_codbarras"
+            android:id="@+id/layout_barcode"
             style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:layout_marginEnd="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_camerascanner"
+            app:layout_constraintEnd_toStartOf="@id/btn_camera_scanner"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/field_barcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/s_barcode"
@@ -36,7 +37,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_camerascanner"
+            android:id="@+id/btn_camera_scanner"
             style="@style/Theme.JInventario.Button"
             android:layout_width="55sp"
             android:layout_height="54sp"
@@ -46,7 +47,7 @@
             android:src="@drawable/ic_camera"
             android:scaleType="fitCenter"
             android:background="@null"
-            app:layout_constraintStart_toEndOf="@id/campo_codbarras"
+            app:layout_constraintStart_toEndOf="@id/layout_barcode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,11 +57,10 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
+        app:layout_constraintTop_toBottomOf="@id/layout_barcode">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/campo_preco_un"
+            android:id="@+id/layout_unit_price"
             style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
@@ -73,6 +73,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/field_unit_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/s_unit_price"
@@ -91,20 +92,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
         android:layout_marginBottom="16sp"
-        app:layout_constraintTop_toBottomOf="@id/campo_codbarras">
+        app:layout_constraintTop_toBottomOf="@id/layout_barcode">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/campo_qtd_dcaixa"
+            android:id="@+id/layout_number_of_boxes"
             style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/campo_qtd_pcaixa"
+            app:layout_constraintEnd_toStartOf="@+id/layout_number_per_box"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/field_number_of_boxes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/s_number_of_boxes"
@@ -117,7 +119,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/campo_qtd_pcaixa"
+            android:id="@+id/layout_number_per_box"
             style="@style/Theme.JInventario.Fields.Contagem"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
@@ -125,10 +127,11 @@
             android:layout_marginEnd="15sp"
             app:layout_constraintEnd_toStartOf="@id/btn_ok"
             app:layout_constraintHorizontal_bias="100.0"
-            app:layout_constraintStart_toEndOf="@id/campo_qtd_dcaixa"
+            app:layout_constraintStart_toEndOf="@id/layout_number_of_boxes"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/field_number_per_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/s_number_per_box"
@@ -152,7 +155,7 @@
             android:textAllCaps="false"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/campo_qtd_pcaixa"
+            app:layout_constraintStart_toEndOf="@id/layout_number_per_box"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package br.com.ernanilima.jinventario.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +55,11 @@ class StockCountRecyclerAdapter constructor(
         private val binding: ItemStockCountRecyclerviewBinding = ItemStockCountRecyclerviewBinding.bind(itemView)
 
         fun bind(stockCountItem: StockCountItem, stockCountViewModel: IStockCount.IViewModel) {
-            binding.campoCodbarras.text = stockCountItem.barcode.toString()
-            binding.campoQtdDcaixa.text = stockCountItem.numberOfBoxes.toString()
-            binding.campoQtdPcaixa.text = stockCountItem.numberPerBox.toString()
-            binding.campoQtdTotal.text = stockCountItem.total.toString()
-            binding.campoPrcTotal.text = Format.PRICE_PTBR.format(stockCountItem.unitPrice).replace("R$ ", "")
+            binding.fieldBarcode.text = stockCountItem.barcode.toString()
+            binding.fieldNumberOfBoxes.text = stockCountItem.numberOfBoxes.toString()
+            binding.fieldNumberPerBox.text = stockCountItem.numberPerBox.toString()
+            binding.fieldTotalQuantity.text = stockCountItem.total.toString()
+            binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountItem.unitPrice).replace("R$ ", "")
             binding.btnEdit.setOnClickListener { stockCountViewModel.updateItem(stockCountItem) }
         }
     }

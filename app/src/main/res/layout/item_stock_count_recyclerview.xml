@@ -8,102 +8,107 @@
     android:paddingTop="10sp"
     android:paddingBottom="10sp"
     android:paddingStart="16sp"
+    android:paddingEnd="0sp"
     tools:showIn="@layout/fragment_app_home_stock_count">
 
     <LinearLayout
-        android:id="@+id/ln_codbarras"
+        android:id="@+id/layout_barcode"
         android:layout_width="wrap_content"
         android:layout_height="33sp"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/ln_qtd_dcaixa"
+        android:layout_toStartOf="@+id/layout_number_of_boxes"
         android:orientation="vertical"
         android:layout_marginEnd="8sp">
 
         <TextView
-            android:id="@+id/tx_campo_codbarras"
+            android:id="@+id/label_barcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_barcode"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/campo_codbarras"
+            android:id="@+id/field_barcode"
             android:layout_width="130sp"
             android:layout_height="wrap_content"
             android:text="@string/s_irv_ex_barcode" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ln_qtd_dcaixa"
+        android:id="@+id/layout_number_of_boxes"
         android:layout_width="46sp"
         android:layout_height="33sp"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_toStartOf="@+id/ln_qtd_pcaixa"
+        android:layout_toStartOf="@+id/layout_number_per_box"
         android:layout_marginEnd="8sp">
 
         <TextView
-            android:id="@+id/tx_campo_qtd_dcaixa"
+            android:id="@+id/label_number_of_boxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_number_of_boxes"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/campo_qtd_dcaixa"
+            android:id="@+id/field_number_of_boxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_irv_ex_unit_quantity" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ln_qtd_pcaixa"
+        android:id="@+id/layout_number_per_box"
         android:layout_width="44sp"
         android:layout_height="33sp"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_toStartOf="@+id/ln_qtd_total"
+        android:layout_toStartOf="@+id/layout_total_quantity"
         android:layout_marginEnd="8sp">
 
         <TextView
-            android:id="@+id/tx_campo_qtd_pcaixa"
+            android:id="@+id/label_number_per_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_number_per_box"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/campo_qtd_pcaixa"
+            android:id="@+id/field_number_per_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/s_irv_ex_unit_quantity" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ln_qtd_total"
+        android:id="@+id/layout_total_quantity"
         android:layout_width="39sp"
         android:layout_height="33sp"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_toStartOf="@+id/ln_prc_total"
+        android:layout_toStartOf="@+id/layout_total_price"
         android:layout_marginEnd="8sp">
 
         <TextView
-            android:id="@+id/tx_campo_total"
+            android:id="@+id/label_total_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_quantity_total"
-            android:textSize="9sp" />
+            android:text="@string/s_total_quantity"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/campo_qtd_total"
+            android:id="@+id/field_total_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_irv_ex_quantity_total" />
+            android:text="@string/s_irv_ex_total_quantity" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ln_prc_total"
+        android:id="@+id/layout_total_price"
         android:layout_width="55sp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -112,22 +117,25 @@
         android:layout_marginEnd="8sp">
 
         <TextView
+            android:id="@+id/label_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prc Total"
-            android:textSize="9sp" />
+            android:text="@string/s_total_price"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/campo_prc_total"
+            android:id="@+id/field_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9888,77"/>
+            android:text="@string/s_irv_ex_total_price"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/btn_edit"
         android:layout_width="41sp"
         android:layout_height="33sp"
+        android:paddingStart="0sp"
         android:paddingEnd="16sp"
         android:textSize="0sp"
         android:src="@drawable/ic_editar"

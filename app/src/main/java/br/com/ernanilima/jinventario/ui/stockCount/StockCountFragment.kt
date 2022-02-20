@@ -134,20 +134,20 @@ class StockCountFragment : Fragment() {
     private fun newItem() {
         validate().ifTrue {
             val stockCountItem = StockCountItem()
-            stockCountItem.barcode = binding.include.campoCodbarras.editText?.text.toString()
-            stockCountItem.unitPrice = Filtro.pDouble(binding.include.campoPrecoUn.editText?.text.toString())
-            stockCountItem.numberOfBoxes = binding.include.campoQtdDcaixa.editText?.text.toString()
-            stockCountItem.numberPerBox = binding.include.campoQtdPcaixa.editText?.text.toString()
+            stockCountItem.barcode = binding.include.fieldBarcode.text.toString()
+            stockCountItem.unitPrice = Filtro.pDouble(binding.include.fieldUnitPrice.text.toString())
+            stockCountItem.numberOfBoxes = binding.include.fieldNumberOfBoxes.text.toString()
+            stockCountItem.numberPerBox = binding.include.fieldNumberPerBox.text.toString()
             stockCountViewModel.newItem(stockCountItem)
         }
     }
 
     private fun clearFields() {
-        binding.include.campoCodbarras.editText?.requestFocus()
-        binding.include.campoCodbarras.editText?.setText("")
-        binding.include.campoPrecoUn.editText?.setText("")
-        binding.include.campoQtdDcaixa.editText?.setText("")
-        binding.include.campoQtdPcaixa.editText?.setText("")
+        binding.include.fieldBarcode.requestFocus()
+        binding.include.fieldBarcode.setText("")
+        binding.include.fieldUnitPrice.setText("")
+        binding.include.fieldNumberOfBoxes.setText("")
+        binding.include.fieldNumberPerBox.setText("")
     }
 
     private fun validate(): Boolean {

@@ -63,8 +63,10 @@
     <string name="s_number_per_box">Qtd Por Cx</string>
     <string name="s_irv_ex_unit_quantity">999</string>
     <string name="s_ok">Ok</string>
-    <string name="s_quantity_total">Qtd Total</string>
-    <string name="s_irv_ex_quantity_total">9.999</string>
+    <string name="s_total_quantity">Qtd Total</string>
+    <string name="s_irv_ex_total_quantity">9.999</string>
+    <string name="s_total_price">Prc Total</string>
+    <string name="s_irv_ex_total_price">9888,77</string>
 
     <!--  Input Help  -->
     <string name="ih_field_empty_error">Campo não pode ser vazio</string>
