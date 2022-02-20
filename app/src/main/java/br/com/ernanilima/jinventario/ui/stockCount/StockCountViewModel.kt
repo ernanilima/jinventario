@@ -3,6 +3,7 @@ package br.com.ernanilima.jinventario.ui.stockCount
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
 import br.com.ernanilima.jinventario.data.result.IResultType
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.model.StockCount
@@ -43,6 +44,7 @@ class StockCountViewModel @Inject constructor(
         stockCountItem.stockCount = stockCount.id
         stockCountDao.insertItem(stockCountItem)
         (listStockCountItem as MutableList).add(0, stockCountItem)
+        updateStockCountFirebase()
         _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT_ITEM)
     }
 
@@ -52,5 +54,9 @@ class StockCountViewModel @Inject constructor(
 
     override fun deleteItem(stockCountItem: StockCountItem) {
         TODO("Not yet implemented")
+    }
+
+    private fun updateStockCountFirebase() {
+        FirebaseDatabase.saveStockCountItems(stockCount, listStockCountItem)
     }
 }
