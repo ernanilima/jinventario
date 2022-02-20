@@ -15,6 +15,10 @@ class StockCountRepositoryImpl @Inject constructor(
     private val stockCountItemsDao: StockCountItemDao
 ): StockCountRepository {
 
+    override fun findStockCountById(id: Long): StockCount {
+        return stockCountDao.load(id)
+    }
+
     override fun insert(stockCount: StockCount) {
         update(stockCount)
     }
@@ -62,6 +66,11 @@ class StockCountRepositoryImpl @Inject constructor(
         stockCountDao.delete(stockCount)
     }
 
+    override fun findItemsListByStockCountId(idStockCount: Long): List<StockCountItem> {
+        return stockCountItemsDao.queryBuilder().orderDesc(StockCountItemDao.Properties.Id)
+                .where(StockCountItemDao.Properties.StockCount.eq(idStockCount)).list()
+    }
+
     override fun insertItem(stockCountItem: StockCountItem) {
         updateItem(stockCountItem)
     }
@@ -69,4 +78,5 @@ class StockCountRepositoryImpl @Inject constructor(
     override fun updateItem(stockCountItem: StockCountItem) {
         stockCountItemsDao.save(stockCountItem)
     }
+
 }

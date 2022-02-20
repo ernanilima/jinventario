@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ContagemFragment">
+    tools:context=".ui.stockCount.StockCountFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
@@ -20,7 +20,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/fragment_app_home_stock_count_insert"/>
+            <include android:id="@+id/include"
+                layout="@layout/fragment_app_home_stock_count_insert"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

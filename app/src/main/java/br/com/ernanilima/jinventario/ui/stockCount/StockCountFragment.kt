@@ -13,9 +13,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.R.drawable.ic_contagem
 import br.com.ernanilima.jinventario.adapter.StockCountRecyclerAdapter
+import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
+import br.com.ernanilima.jinventario.extension.common.ifTrue
+import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes
+import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,6 +98,28 @@ class StockCountFragment : Fragment() {
         // CAMERA TIPO ZXING
         dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this)
 
+        binding.include.btnOk.setOnClickListener { newItem() }
+    }
+
+    private fun setupListener() {
+        stockCountViewModel.countResult.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                ResultTypeLocal.LIST_STOCK_COUNT_ITEM -> {
+                    setupRecyclerAdapter()
+                }
+                ResultTypeLocal.NEW_STOCK_COUNT_ITEM,
+                ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
+                    stockCountRecyclerAdapter.notifyItemChanged(0)
+                    clearFields()
+                }
+                ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
+                }
+            }
+        })
+    }
+
+    private fun setupRecyclerAdapter() {
+        // RECYCLER ADAPTER
         _stockCountRecyclerAdapter = StockCountRecyclerAdapter(stockCountViewModel, stockCountViewModel.listItemStockCount())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
@@ -104,7 +130,27 @@ class StockCountFragment : Fragment() {
         swipeHelper.setRecyclerView(binding.recyclerView)
     }
 
-    private fun setupListener() {
+    private fun newItem() {
+        validate().ifTrue {
+            val stockCountItem = StockCountItem()
+            stockCountItem.barcode = binding.include.campoCodbarras.editText?.text.toString()
+            stockCountItem.unitPrice = Filtro.pDouble(binding.include.campoPrecoUn.editText?.text.toString())
+            stockCountItem.numberOfBoxes = binding.include.campoQtdDcaixa.editText?.text.toString()
+            stockCountItem.numberPerBox = binding.include.campoQtdPcaixa.editText?.text.toString()
+            stockCountViewModel.newItem(stockCountItem)
+        }
+    }
 
+    private fun clearFields() {
+        binding.include.campoCodbarras.editText?.setText("")
+        binding.include.campoPrecoUn.editText?.setText("")
+        binding.include.campoQtdDcaixa.editText?.setText("")
+        binding.include.campoQtdPcaixa.editText?.setText("")
+    }
+
+    private fun validate(): Boolean {
+        var isValid = true
+        // ...
+        return isValid
     }
 }

@@ -1,5 +1,6 @@
 package br.com.ernanilima.jinventario.util;
 
+@Deprecated
 public class Filtro {
 
     /** Possibilita que filtre conteudo para numero double
@@ -8,6 +9,7 @@ public class Filtro {
      * Se nulo ou vazio, retorna 0.00
      * @param numeroDouble String - Conteudo a ser filtrado
      * @return double - conteudo filtrado para double */
+    @Deprecated
     public static Double pDouble(String numeroDouble) {
         if (numeroDouble == null) { return 0.00; }
         numeroDouble = numeroDouble.replaceAll("[^0-9|^,]", "").replace(",", ".");

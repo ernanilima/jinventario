@@ -6,6 +6,7 @@ interface IStockCount {
     interface IViewModel {
         fun setIdStockCount(idStockCount: Long)
         fun listItemStockCount(): List<StockCountItem>
+        fun newItem(stockCountItem: StockCountItem)
         fun updateItem(stockCountItem: StockCountItem)
         fun deleteItem(stockCountItem: StockCountItem)
     }
