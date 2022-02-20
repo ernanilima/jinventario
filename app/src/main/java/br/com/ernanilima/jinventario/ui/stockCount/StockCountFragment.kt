@@ -15,6 +15,8 @@ import br.com.ernanilima.jinventario.R.drawable.ic_contagem
 import br.com.ernanilima.jinventario.adapter.StockCountRecyclerAdapter
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
+import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
@@ -114,6 +116,16 @@ class StockCountFragment : Fragment() {
                 ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
                 }
                 ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
+                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
+                        setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountViewModel.stockCountItem.id.toString()))
+                        setNegativeButton {
+                            stockCountRecyclerAdapter.notifyItemChanged(stockCountViewModel.stockCountItem.index)
+                        }
+                        setPositiveButton {
+                            stockCountRecyclerAdapter.notifyItemRemoved(stockCountViewModel.stockCountItem)
+                            stockCountViewModel.deleteItem()
+                        }
+                    }).show()
                 }
             }
         })

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class StockCountRepositoryImpl @Inject constructor(
     private val stockCountDao: StockCountDao,
-    private val stockCountItemsDao: StockCountItemDao
+    private val stockCountItemDao: StockCountItemDao
 ): StockCountRepository {
 
     override fun findStockCountById(id: Long): StockCount {
@@ -67,7 +67,7 @@ class StockCountRepositoryImpl @Inject constructor(
     }
 
     override fun findItemsListByStockCountId(idStockCount: Long): List<StockCountItem> {
-        return stockCountItemsDao.queryBuilder().orderDesc(StockCountItemDao.Properties.Id)
+        return stockCountItemDao.queryBuilder().orderDesc(StockCountItemDao.Properties.Id)
                 .where(StockCountItemDao.Properties.StockCount.eq(idStockCount)).list()
     }
 
@@ -76,7 +76,10 @@ class StockCountRepositoryImpl @Inject constructor(
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
-        stockCountItemsDao.save(stockCountItem)
+        stockCountItemDao.save(stockCountItem)
     }
 
+    override fun deleteItem(stockCountItem: StockCountItem) {
+        stockCountItemDao.delete(stockCountItem)
+    }
 }

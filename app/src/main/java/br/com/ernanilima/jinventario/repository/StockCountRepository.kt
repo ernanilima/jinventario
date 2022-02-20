@@ -12,4 +12,5 @@ interface StockCountRepository {
     fun findItemsListByStockCountId(idStockCount: Long): List<StockCountItem>
     fun insertItem(stockCountItem: StockCountItem)
     fun updateItem(stockCountItem: StockCountItem)
+    fun deleteItem(stockCountItem: StockCountItem)
 }

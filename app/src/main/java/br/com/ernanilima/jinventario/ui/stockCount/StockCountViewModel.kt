@@ -20,12 +20,11 @@ class StockCountViewModel @Inject constructor(
     private var _stockCount: StockCount? = null
     val stockCount get() = _stockCount!!
 
-    private var _listStockCountItem: List<StockCountItem> = ArrayList()
-    val listStockCountItem get() = _listStockCountItem
-
-
     private var _stockCountItem: StockCountItem? = null
     val stockCountItem get() = _stockCountItem!!
+
+    private var _listStockCountItem: List<StockCountItem> = ArrayList()
+    val listStockCountItem get() = _listStockCountItem
 
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
@@ -52,8 +51,14 @@ class StockCountViewModel @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun deleteItem(stockCountItem: StockCountItem) {
-        TODO("Not yet implemented")
+    override fun deleteItem(stockCountItem: StockCountItem?) {
+        if (stockCountItem != null) {
+            this._stockCountItem = stockCountItem
+            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT_ITEM)
+        } else {
+            stockCountDao.deleteItem(this.stockCountItem)
+            updateStockCountFirebase()
+        }
     }
 
     private fun updateStockCountFirebase() {

@@ -8,6 +8,6 @@ interface IStockCount {
         fun listItemStockCount(): List<StockCountItem>
         fun newItem(stockCountItem: StockCountItem)
         fun updateItem(stockCountItem: StockCountItem)
-        fun deleteItem(stockCountItem: StockCountItem)
+        fun deleteItem(stockCountItem: StockCountItem? = null)
     }
 }
