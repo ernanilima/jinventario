@@ -24,6 +24,7 @@ import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBindin
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
+import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.util.Filtro
@@ -49,7 +50,7 @@ class StockCountFragment : Fragment() {
     private val permission = Manifest.permission.CAMERA
     private var dfCameraZXing: CameraZXingDialogFragment? = null
 
-    companion object { val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
+    companion object { const val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -212,6 +213,10 @@ class StockCountFragment : Fragment() {
             // basta informar a permissao no manifest
             return true
         }
+
+        // exibe um snackbar quando nao tem a permissao
+        val context = requireParentFragment().requireContext()
+        warning(context, getString(R.string.msg_without_camera_permission))
         return false
     }
 }

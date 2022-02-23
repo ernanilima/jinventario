@@ -107,6 +107,9 @@
     <string name="msg_waiting_time">Aguarde %s minuto(s) para enviar o e-mail novamente</string>
     <string name="msg_unknown_error">Ocorreu um erro desconhecido</string>
 
+    <!--  Sem permissao  -->
+    <string name="msg_without_camera_permission">Sem permissão para usar a câmera</string>
+
     <!--  Configuracoes  -->
     <string name="s_chbx_show_price">Informar preço do produto coletado:</string>
     <string name="s_chbx_camera_scanner">Ativar a camera como scanner:</string>
