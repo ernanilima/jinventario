@@ -1,12 +1,19 @@
 package br.com.ernanilima.jinventario.ui.stockCount
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +33,7 @@ import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.ArrayList
 
 @AndroidEntryPoint
 class StockCountFragment : Fragment() {
@@ -33,6 +41,8 @@ class StockCountFragment : Fragment() {
     private var _binding: FragmentAppHomeStockCountBinding? = null
     private val binding get() = _binding!!
     private val stockCountViewModel: StockCountViewModel by viewModels()
+    private var _registerForResult: ActivityResultLauncher<Array<String>>? = null
+    private val registerForResult get() = _registerForResult!!
 
     private var _idStockCount = MutableLiveData<Long>()
     private val idStockCount get() = _idStockCount
@@ -41,7 +51,6 @@ class StockCountFragment : Fragment() {
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
     private val permissions = arrayOf(Manifest.permission.CAMERA)
-    private var vPermissoes: ValidarPermissoes? = null
     private var dfCameraZXing: CameraZXingDialogFragment? = null
 
     companion object { val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
@@ -102,12 +111,17 @@ class StockCountFragment : Fragment() {
     }
 
     private fun setupUi() {
-        // CLASSE PARA VALIDAR PERMISSOES
-        vPermissoes = ValidarPermissoes.novaValidacao().setFragment(this).setPermissoes(this.permissions)
+        // VALIDAR PERMISSAO (CAMERA)
+        // https://developer.android.com/training/basics/intents/result
+        // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
+        _registerForResult = registerForActivityResult(RequestMultiplePermissions()) {
+                permissions -> permissions.containsValue(true).ifTrue { openCameraScanner() }
+        }
 
         // CAMERA TIPO ZXING
         dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this)
 
+        binding.include.btnCameraScanner.setOnClickListener { openCameraScanner() }
         binding.include.btnOk.setOnClickListener { newItem() }
     }
 
@@ -151,6 +165,12 @@ class StockCountFragment : Fragment() {
         swipeHelper.setRecyclerView(binding.recyclerView)
     }
 
+    private fun openCameraScanner() {
+        validarPermissoes().ifTrue {
+            println("ABRIR CAMERA SCANNER")
+        }
+    }
+
     private fun newItem() {
         validate().ifTrue {
             val stockCountItem = StockCountItem()
@@ -174,5 +194,38 @@ class StockCountFragment : Fragment() {
         var isValid = true
         // ...
         return isValid
+    }
+
+    private fun validarPermissoes(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // se a api do aparelho for igual ou maior que 23
+
+            // cria lista de permissoes
+            val lsPermissions: MutableList<String> = ArrayList()
+            for (permission in this.permissions) {
+
+                // verifica se a permissao ja foi dada
+                val isPermission: Boolean = ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    permission
+                ) == PackageManager.PERMISSION_GRANTED
+
+                // se a permissao nao foi dada, adiciona a permissao na lista
+                if (!isPermission)
+                    lsPermissions.add(permission)
+            }
+
+            // verifica se a lista esta vazia, significa que todas as permissoes foram dadas
+            if (lsPermissions.isEmpty())
+                return true
+
+            //
+            registerForResult.launch(lsPermissions.toTypedArray())
+        } else {
+            // se for uma versao mais antiga nao precisa de solicitacao de permissao
+            // basta informar a permissao no manifest
+            return true
+        }
+        return false
     }
 }
