@@ -9,9 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -28,12 +26,10 @@ import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
-import br.com.ernanilima.jinventario.service.validation.ValidarPermissoes
 import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.ArrayList
 
 @AndroidEntryPoint
 class StockCountFragment : Fragment() {
@@ -50,7 +46,7 @@ class StockCountFragment : Fragment() {
     private var _stockCountRecyclerAdapter: StockCountRecyclerAdapter? = null
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
-    private val permissions = arrayOf(Manifest.permission.CAMERA)
+    private val permission = Manifest.permission.CAMERA
     private var dfCameraZXing: CameraZXingDialogFragment? = null
 
     companion object { val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
@@ -166,7 +162,7 @@ class StockCountFragment : Fragment() {
     }
 
     private fun openCameraScanner() {
-        validarPermissoes().ifTrue {
+        isPermissionSalid().ifTrue {
             println("ABRIR CAMERA SCANNER")
         }
     }
@@ -196,31 +192,21 @@ class StockCountFragment : Fragment() {
         return isValid
     }
 
-    private fun validarPermissoes(): Boolean {
+    private fun isPermissionSalid(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // se a api do aparelho for igual ou maior que 23
 
-            // cria lista de permissoes
-            val lsPermissions: MutableList<String> = ArrayList()
-            for (permission in this.permissions) {
-
                 // verifica se a permissao ja foi dada
                 val isPermission: Boolean = ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    permission
+                    requireContext(), permission
                 ) == PackageManager.PERMISSION_GRANTED
 
-                // se a permissao nao foi dada, adiciona a permissao na lista
-                if (!isPermission)
-                    lsPermissions.add(permission)
-            }
+                // se a permissao foi dada, continua
+                if (isPermission)
+                    return true
 
-            // verifica se a lista esta vazia, significa que todas as permissoes foram dadas
-            if (lsPermissions.isEmpty())
-                return true
-
-            //
-            registerForResult.launch(lsPermissions.toTypedArray())
+            // solicita permissao para o usuario
+            registerForResult.launch(arrayOf(permission))
         } else {
             // se for uma versao mais antiga nao precisa de solicitacao de permissao
             // basta informar a permissao no manifest
