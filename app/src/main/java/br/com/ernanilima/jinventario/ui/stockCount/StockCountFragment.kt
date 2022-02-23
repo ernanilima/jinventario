@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.R.drawable.ic_contagem
@@ -33,6 +34,9 @@ class StockCountFragment : Fragment() {
     private val binding get() = _binding!!
     private val stockCountViewModel: StockCountViewModel by viewModels()
 
+    private var _idStockCount = MutableLiveData<Long>()
+    private val idStockCount get() = _idStockCount
+
     private var _stockCountRecyclerAdapter: StockCountRecyclerAdapter? = null
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
@@ -48,7 +52,9 @@ class StockCountFragment : Fragment() {
         // argumento recebido de outro fragment, basicamente recebe o codigo de uma nova contagem ou de uma existente
         parentFragmentManager.setFragmentResultListener(
             this.javaClass.simpleName, this, {
-                _: String?, result: Bundle -> stockCountViewModel.setIdStockCount(result.getLong(ID_STOCK_COUNT))
+                _: String?, result: Bundle ->
+                _idStockCount.postValue(result.getLong(ID_STOCK_COUNT))
+                stockCountViewModel.setIdStockCount(result.getLong(ID_STOCK_COUNT))
             }
         )
     }
@@ -74,8 +80,10 @@ class StockCountFragment : Fragment() {
         // captura o item do menu do drawer layout
         // 'nav_stock_count' exibe outra informacao quando esta no fragment de contagem de estoque
         navigationView.menu.findItem(R.id.nav_stock_count).apply {
-            setIcon(ic_contagem)
-            // title = binding.btnNewCount.text
+            idStockCount.observe(viewLifecycleOwner, { id ->
+                setIcon(ic_contagem)
+                title = "Contagem N: $id"
+            })
             setOnMenuItemClickListener {
                 drawerLayout.closeDrawers()
                 true
@@ -83,8 +91,8 @@ class StockCountFragment : Fragment() {
 
             // eh definido como false para evitar que exista navegacao no item,
             // isso eh alterado ao abrir a nova contagem
-            isCheckable = false
-            isChecked = false
+            isCheckable = true
+            isChecked = true
         }
     }
 
