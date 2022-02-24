@@ -20,6 +20,7 @@ import br.com.ernanilima.jinventario.R
 import br.com.ernanilima.jinventario.R.drawable.ic_contagem
 import br.com.ernanilima.jinventario.adapter.StockCountRecyclerAdapter
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
@@ -146,6 +147,12 @@ class StockCountFragment : Fragment() {
                         }
                     }).show()
                 }
+                ResultTypeSettings.CAMERA_MLKIT -> {
+                    println("USAR CAMERA MLKIT (GOOGLE)")
+                }
+                ResultTypeSettings.CAMERA_ZXING -> {
+                    println("USAR CAMERA ZXING (ZEBRA)")
+                }
             }
         })
     }
@@ -164,7 +171,7 @@ class StockCountFragment : Fragment() {
 
     private fun openCameraScanner() {
         isPermissionSalid().ifTrue {
-            println("ABRIR CAMERA SCANNER")
+            stockCountViewModel.openCameraScanner()
         }
     }
 

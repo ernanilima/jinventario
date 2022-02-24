@@ -6,15 +6,19 @@ import androidx.lifecycle.ViewModel
 import br.com.ernanilima.jinventario.data.network.firebase.FirebaseDatabase
 import br.com.ernanilima.jinventario.data.result.IResultType
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
+import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.StockCountItem
+import br.com.ernanilima.jinventario.repository.SettingsRepository
 import br.com.ernanilima.jinventario.repository.StockCountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class StockCountViewModel @Inject constructor(
-    private val stockCountDao: StockCountRepository
+    private val stockCountDao: StockCountRepository,
+    private val settingsDao: SettingsRepository
 ) : ViewModel(), IStockCount.IViewModel {
 
     private var _stockCount: StockCount? = null
@@ -37,6 +41,15 @@ class StockCountViewModel @Inject constructor(
 
     override fun listItemStockCount(): List<StockCountItem> {
         return listStockCountItem
+    }
+
+    override fun openCameraScanner() {
+        val settings: Settings? = settingsDao.findSettings()
+        if (settings == null || settings.cameraScannerMlkit) {
+            _countResult.postValue(ResultTypeSettings.CAMERA_MLKIT)
+        } else if (settings.cameraScannerZxing) {
+            _countResult.postValue(ResultTypeSettings.CAMERA_ZXING)
+        }
     }
 
     override fun newItem(stockCountItem: StockCountItem) {
