@@ -17,17 +17,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import br.com.ernanilima.jinventario.view.dialog.camera.CameraMLKitDialogFragment;
+import br.com.ernanilima.jinventario.ui.camera.CameraScanner;
 
+@Deprecated
 public class CameraScannerAnalyzer implements ImageAnalysis.Analyzer {
     // https://developers.google.com/ml-kit/vision/barcode-scanning/android
 
-    private final CameraMLKitDialogFragment cameraMLKitDialogFragment;
+//    private final CameraMLKitDialogFragment cameraMLKitDialogFragment;
+    private final CameraScanner cameraScanner;
 
-    /** Construtor
-     * @param cameraMLKitDialogFragment CameraDialogFragment - dialog da camera scanner */
-    public CameraScannerAnalyzer(CameraMLKitDialogFragment cameraMLKitDialogFragment) {
-        this.cameraMLKitDialogFragment = cameraMLKitDialogFragment;
+//    public CameraScannerAnalyzer(CameraMLKitDialogFragment cameraMLKitDialogFragment) {
+//        this.cameraMLKitDialogFragment = cameraMLKitDialogFragment;
+//    }
+
+    public CameraScannerAnalyzer(CameraScanner cameraScanner) {
+        this.cameraScanner = cameraScanner;
     }
 
     @Override
@@ -66,7 +70,8 @@ public class CameraScannerAnalyzer implements ImageAnalysis.Analyzer {
         for (Barcode barcode : barcodes) {
             if (barcode.getValueType() == Barcode.TYPE_PRODUCT) {
                 String codigo = barcode.getRawValue();
-                cameraMLKitDialogFragment.codigoColetado(codigo);
+                if (codigo != null)
+                    cameraScanner.barcode(codigo);
             }
         }
     }

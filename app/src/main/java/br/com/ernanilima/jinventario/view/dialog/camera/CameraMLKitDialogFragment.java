@@ -90,7 +90,7 @@ public class CameraMLKitDialogFragment extends DialogFragment {
         // INICIALIZA
         previewView = view.findViewById(R.id.textureview);
         cameraProviderFuture = ProcessCameraProvider.getInstance(getActivity());
-        cameraScannerAnalyzer = new CameraScannerAnalyzer(this);
+//        cameraScannerAnalyzer = new CameraScannerAnalyzer(this);
         cameraExecutor = Executors.newSingleThreadExecutor();
 
         return aDialog.create();

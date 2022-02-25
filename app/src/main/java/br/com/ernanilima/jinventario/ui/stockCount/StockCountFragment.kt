@@ -28,6 +28,8 @@ import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
+import br.com.ernanilima.jinventario.ui.camera.CameraScanner
+import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
@@ -149,6 +151,11 @@ class StockCountFragment : Fragment() {
                 }
                 ResultTypeSettings.CAMERA_MLKIT -> {
                     println("USAR CAMERA MLKIT (GOOGLE)")
+                    CameraScanner(MLKit(parentFragmentManager).apply {
+                        setPositiveResult {
+                            println(it)
+                        }
+                    }).show()
                 }
                 ResultTypeSettings.CAMERA_ZXING -> {
                     println("USAR CAMERA ZXING (ZEBRA)")
