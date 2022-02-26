@@ -10,6 +10,7 @@ import br.com.ernanilima.jinventario.data.result.IResultType
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.User
+import br.com.ernanilima.jinventario.repository.SettingsRepository
 import br.com.ernanilima.jinventario.repository.StockCountRepository
 import br.com.ernanilima.jinventario.repository.UserRepository
 import br.com.ernanilima.jinventario.ui.AppActivity
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val userDao: UserRepository,
+    private val settingsDao: SettingsRepository,
     private val stockCountDao: StockCountRepository
 ): ViewModel(), IHome.IViewModel {
 
@@ -40,6 +42,7 @@ class HomeViewModel @Inject constructor(
         // EXECUTA AO INICIAR A CLASSE
         this._user = userDao.findByEmail(FirebaseAuth().getUserEmail())
         AppActivity.user = user
+        AppActivity.settings = settingsDao.findSettings()
     }
 
     /**
