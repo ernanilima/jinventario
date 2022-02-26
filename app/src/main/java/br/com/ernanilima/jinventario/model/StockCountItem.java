@@ -46,8 +46,12 @@ public class StockCountItem implements Serializable, IModel {
         this.index = index;
     }
 
-    public String getTotal() {
+    public String getTotalQuantity() {
         return String.valueOf(Long.parseLong(numberOfBoxes) * Long.parseLong(numberPerBox));
+    }
+
+    public Double getTotalPrice() {
+        return ((Double.parseDouble(numberOfBoxes) * Double.parseDouble(numberPerBox)) * unitPrice);
     }
 
     // tudo abaixo eh construido automaticamente ao executar o projeto

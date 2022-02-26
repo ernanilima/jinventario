@@ -71,8 +71,8 @@ class StockCountRecyclerAdapter constructor(
             binding.fieldBarcode.text = stockCountItem.barcode.toString()
             binding.fieldNumberOfBoxes.text = stockCountItem.numberOfBoxes.toString()
             binding.fieldNumberPerBox.text = stockCountItem.numberPerBox.toString()
-            binding.fieldTotalQuantity.text = stockCountItem.total.toString()
-            binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountItem.unitPrice).replace("R$ ", "")
+            binding.fieldTotalQuantity.text = stockCountItem.totalQuantity.toString()
+            binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountItem.totalPrice).replace("R$ ", "")
             binding.btnEdit.setOnClickListener { stockCountViewModel.updateItem(stockCountItem) }
         }
     }
