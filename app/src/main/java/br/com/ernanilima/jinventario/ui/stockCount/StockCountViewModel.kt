@@ -33,17 +33,28 @@ class StockCountViewModel @Inject constructor(
     // Carrega as configuracoes
     private val settings: Settings? = settingsDao.findSettings()
 
-    private val _settingsResult = MutableLiveData<ResultTypeSettings>()
-    val settingsResult: LiveData<ResultTypeSettings> = _settingsResult
+    private val _settingsResult = MutableLiveData<List<ResultTypeSettings>>()
+    val settingsResult: LiveData<List<ResultTypeSettings>> = _settingsResult
 
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
 
     init {
-        if (settings != null && !settings.cameraScanner) {
-            // desativa o botao de usar camera como scanner
-            _settingsResult.postValue(ResultTypeSettings.DONT_USE_CAMERA)
-        }
+        userSettings()
+    }
+
+    private fun userSettings() {
+        val userSettings: List<ResultTypeSettings> = ArrayList()
+        if (settings != null && !settings.cameraScanner)
+        // desativa o botao de usar camera como scanner
+            (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_CAMERA)
+
+
+        if (settings != null && !settings.showPrice)
+        // desativa a opcao de inserir o preco do produto
+            (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_PRICE)
+
+        _settingsResult.postValue(userSettings)
     }
 
     override fun setIdStockCount(idStockCount: Long) {
@@ -59,10 +70,10 @@ class StockCountViewModel @Inject constructor(
     override fun openCameraScanner() {
         if (settings == null || settings.cameraScannerMlkit) {
             // usar a camera do Google
-            _settingsResult.postValue(ResultTypeSettings.CAMERA_MLKIT)
+            _settingsResult.postValue(listOf(ResultTypeSettings.CAMERA_MLKIT))
         } else if (settings.cameraScannerZxing) {
             // usar a camera da Zebra
-            _settingsResult.postValue(ResultTypeSettings.CAMERA_ZXING)
+            _settingsResult.postValue(listOf(ResultTypeSettings.CAMERA_ZXING))
         }
     }
 

@@ -132,25 +132,28 @@ class StockCountFragment : Fragment() {
     private fun setupListener() {
         // CONFIGURACAO
         stockCountViewModel.settingsResult.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                ResultTypeSettings.DONT_USE_CAMERA -> {
-                    Utils.disableOption(binding.include.btnCameraScanner)
-                }
-                ResultTypeSettings.CAMERA_MLKIT -> {
-                    CameraScanner(MLKit(this).apply {
-                        setPositiveResult { barcode ->
-                            setResultCameraScanner(barcode)
-                        }
-                    }).show()
-                }
-                ResultTypeSettings.CAMERA_ZXING -> {
-                    CameraScanner(zxing.apply {
-                        setPositiveResult { barcode ->
-                            setResultCameraScanner(barcode)
-                        }
-                    }).show()
-                }
-                else -> { }
+            (result.contains(ResultTypeSettings.DONT_USE_PRICE)).ifTrue {
+                Utils.disableOption(binding.include.fieldUnitPrice)
+            }
+
+            (result.contains(ResultTypeSettings.DONT_USE_CAMERA)).ifTrue {
+                Utils.disableOption(binding.include.btnCameraScanner)
+            }
+
+            (result.contains(ResultTypeSettings.CAMERA_MLKIT)).ifTrue {
+                CameraScanner(MLKit(this).apply {
+                    setPositiveResult { barcode ->
+                        setResultCameraScanner(barcode)
+                    }
+                }).show()
+            }
+
+            (result.contains(ResultTypeSettings.CAMERA_ZXING)).ifTrue {
+                CameraScanner(zxing.apply {
+                    setPositiveResult { barcode ->
+                        setResultCameraScanner(barcode)
+                    }
+                }).show()
             }
         })
 
