@@ -33,6 +33,7 @@ import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
 import br.com.ernanilima.jinventario.util.Filtro
+import br.com.ernanilima.jinventario.util.Utils
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -129,6 +130,31 @@ class StockCountFragment : Fragment() {
     }
 
     private fun setupListener() {
+        // CONFIGURACAO
+        stockCountViewModel.settingsResult.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                ResultTypeSettings.DONT_USE_CAMERA -> {
+                    Utils.disableOption(binding.include.btnCameraScanner)
+                }
+                ResultTypeSettings.CAMERA_MLKIT -> {
+                    CameraScanner(MLKit(this).apply {
+                        setPositiveResult { barcode ->
+                            setResultCameraScanner(barcode)
+                        }
+                    }).show()
+                }
+                ResultTypeSettings.CAMERA_ZXING -> {
+                    CameraScanner(zxing.apply {
+                        setPositiveResult { barcode ->
+                            setResultCameraScanner(barcode)
+                        }
+                    }).show()
+                }
+                else -> { }
+            }
+        })
+
+        // CONTAGEM
         stockCountViewModel.countResult.observe(viewLifecycleOwner, { result ->
             when (result) {
                 ResultTypeLocal.LIST_STOCK_COUNT_ITEM -> {
@@ -149,20 +175,6 @@ class StockCountFragment : Fragment() {
                         setPositiveButton {
                             stockCountRecyclerAdapter.notifyItemRemoved(stockCountViewModel.stockCountItem)
                             stockCountViewModel.deleteItem()
-                        }
-                    }).show()
-                }
-                ResultTypeSettings.CAMERA_MLKIT -> {
-                    CameraScanner(MLKit(this).apply {
-                        setPositiveResult { barcode ->
-                            setResultCameraScanner(barcode)
-                        }
-                    }).show()
-                }
-                ResultTypeSettings.CAMERA_ZXING -> {
-                    CameraScanner(zxing.apply {
-                        setPositiveResult { barcode ->
-                            setResultCameraScanner(barcode)
                         }
                     }).show()
                 }

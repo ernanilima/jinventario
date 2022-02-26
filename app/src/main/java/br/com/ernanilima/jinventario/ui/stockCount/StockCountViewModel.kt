@@ -30,8 +30,21 @@ class StockCountViewModel @Inject constructor(
     private var _listStockCountItem: List<StockCountItem> = ArrayList()
     val listStockCountItem get() = _listStockCountItem
 
+    // Carrega as configuracoes
+    private val settings: Settings? = settingsDao.findSettings()
+
+    private val _settingsResult = MutableLiveData<ResultTypeSettings>()
+    val settingsResult: LiveData<ResultTypeSettings> = _settingsResult
+
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
+
+    init {
+        if (settings != null && !settings.cameraScanner) {
+            // desativa o botao de usar camera como scanner
+            _settingsResult.postValue(ResultTypeSettings.DONT_USE_CAMERA)
+        }
+    }
 
     override fun setIdStockCount(idStockCount: Long) {
         _stockCount = stockCountDao.findStockCountById(idStockCount)
@@ -44,11 +57,12 @@ class StockCountViewModel @Inject constructor(
     }
 
     override fun openCameraScanner() {
-        val settings: Settings? = settingsDao.findSettings()
         if (settings == null || settings.cameraScannerMlkit) {
-            _countResult.postValue(ResultTypeSettings.CAMERA_MLKIT)
+            // usar a camera do Google
+            _settingsResult.postValue(ResultTypeSettings.CAMERA_MLKIT)
         } else if (settings.cameraScannerZxing) {
-            _countResult.postValue(ResultTypeSettings.CAMERA_ZXING)
+            // usar a camera da Zebra
+            _settingsResult.postValue(ResultTypeSettings.CAMERA_ZXING)
         }
     }
 
