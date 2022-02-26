@@ -10,15 +10,14 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.model.StockCountItem
-import br.com.ernanilima.jinventario.repository.SettingsRepository
 import br.com.ernanilima.jinventario.repository.StockCountRepository
+import br.com.ernanilima.jinventario.ui.AppActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class StockCountViewModel @Inject constructor(
     private val stockCountDao: StockCountRepository,
-    private val settingsDao: SettingsRepository
 ) : ViewModel(), IStockCount.IViewModel {
 
     private var _stockCount: StockCount? = null
@@ -31,7 +30,7 @@ class StockCountViewModel @Inject constructor(
     val listStockCountItem get() = _listStockCountItem
 
     // Carrega as configuracoes
-    private val settings: Settings? = settingsDao.findSettings()
+    private val settings: Settings? = AppActivity.settings
 
     private val _settingsResult = MutableLiveData<List<ResultTypeSettings>>()
     val settingsResult: LiveData<List<ResultTypeSettings>> = _settingsResult
@@ -46,12 +45,12 @@ class StockCountViewModel @Inject constructor(
     private fun userSettings() {
         val userSettings: List<ResultTypeSettings> = ArrayList()
         if (settings != null && !settings.cameraScanner)
-        // desativa o botao de usar camera como scanner
+            // desativa o botao de usar camera como scanner
             (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_CAMERA)
 
 
         if (settings != null && !settings.showPrice)
-        // desativa a opcao de inserir o preco do produto
+            // desativa a opcao de inserir o preco do produto
             (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_PRICE)
 
         _settingsResult.postValue(userSettings)
