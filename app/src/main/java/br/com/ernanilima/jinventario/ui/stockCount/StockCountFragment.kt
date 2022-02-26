@@ -23,6 +23,7 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
+import br.com.ernanilima.jinventario.extension.common.InputHelper
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
@@ -127,6 +128,33 @@ class StockCountFragment : Fragment() {
 
         binding.include.btnCameraScanner.setOnClickListener { openCameraScanner() }
         binding.include.btnOk.setOnClickListener { newItem() }
+
+        // REQUISICOES DO CAMPO CODIGO DE BARRAS
+        InputHelper(requireActivity()).apply {
+            setInputLayout(binding.include.layoutBarcode)
+            setMin(1)
+            setRequired(true)
+        }.build()
+
+        // REQUISICOES DO CAMPO PRECO UNITARIO
+        InputHelper(requireActivity()).apply {
+            setInputLayout(binding.include.layoutUnitPrice)
+            setRequired(true)
+        }.build()
+
+        // REQUISICOES DO CAMPO QUANTIDADE DE CAIXAS
+        InputHelper(requireActivity()).apply {
+            setInputLayout(binding.include.layoutNumberOfBoxes)
+            setMin(1)
+            setRequired(true)
+        }.build()
+
+        // REQUISICOES DO CAMPO QUANTIDADE POR CAIXA
+        InputHelper(requireActivity()).apply {
+            setInputLayout(binding.include.layoutNumberPerBox)
+            setMin(1)
+            setRequired(true)
+        }.build()
     }
 
     private fun setupListener() {

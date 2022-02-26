@@ -21,13 +21,15 @@ class InputHelper constructor(private val activity: Activity) {
     private var inputLayout: TextInputLayout? = null
     private var inputLayoutForMatch: TextInputLayout? = null
     private var required = false
+    private var min: Int = Int.MIN_VALUE
     private var minLength: Int = 0
 
     companion object {
         const val ERROR_EMPTY = 0
-        const val ERROR_LENGTH = 1
-        const val ERROR_EMAIL = 2
-        const val PASSWORD_NOT_MATCH = 3
+        const val ERROR_MIN = 1
+        const val ERROR_LENGTH = 2
+        const val ERROR_EMAIL = 3
+        const val PASSWORD_NOT_MATCH = 4
     }
 
     fun setInputLayout(inputLayout: TextInputLayout): InputHelper {
@@ -45,13 +47,18 @@ class InputHelper constructor(private val activity: Activity) {
         return this
     }
 
+    fun setMin(min: Int): InputHelper {
+        this.min = min
+        return this
+    }
+
     fun setMinLength(minLength: Int): InputHelper {
         this.minLength = minLength
         return this
     }
 
     fun build() {
-        validationWatcher = ValidationWatcher(activity, inputLayout, inputLayoutForMatch, required, minLength)
+        validationWatcher = ValidationWatcher(activity, inputLayout, inputLayoutForMatch, required, min, minLength)
         inputLayout?.editText?.addTextChangedListener(validationWatcher)
     }
 
@@ -60,6 +67,7 @@ class InputHelper constructor(private val activity: Activity) {
         private val inputLayout: TextInputLayout?,
         private val inputLayoutForMatch: TextInputLayout?,
         private val required: Boolean,
+        private val min: Int,
         private val minLength: Int
     ) : TextWatcher {
 
@@ -73,8 +81,8 @@ class InputHelper constructor(private val activity: Activity) {
 
             value = s.toString()
 
-            (validationForEmptyValue() && validationMinLength() && validationForMatch() &&
-                    validationForType(inputLayout!!.editText!!.inputType))
+            (validationForEmptyValue() && validationMin() && validationMinLength() &&
+                    validationForMatch() && validationForType(inputLayout!!.editText!!.inputType))
         }
 
         /**
@@ -91,6 +99,16 @@ class InputHelper constructor(private val activity: Activity) {
          */
         private fun validationForEmptyValue(): Boolean {
             return if (value.isEmpty() && required) { setError(ERROR_EMPTY) }
+            else { removeError() }
+        }
+
+        /**
+         * Realiza a validacao do valor minimo aceito
+         * @return Boolean - false se tiver erro
+         */
+        private fun validationMin(): Boolean {
+            val valueInt = value.replace(Regex("[^0-9]"), "").toIntOrNull()
+            return if (valueInt != null && valueInt < min) { setError(ERROR_MIN) }
             else { removeError() }
         }
 
@@ -194,6 +212,9 @@ class InputHelper constructor(private val activity: Activity) {
                 }
                 ERROR_EMAIL -> {
                     activity.getString(R.string.ih_email_error)
+                }
+                ERROR_MIN -> {
+                    activity.getString(R.string.ih_field_min_error, (min - 1).toString())
                 }
                 ERROR_LENGTH -> {
                     activity.getString(R.string.ih_field_length_error, minLength.toString())
