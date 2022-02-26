@@ -1,8 +1,8 @@
 package br.com.ernanilima.jinventario.ui.camera
 
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 
-class MLKit constructor(supportFragmentManager: FragmentManager) : BaseCameraScanner(supportFragmentManager) {
+class MLKit constructor(fragment: Fragment) : BaseCameraScanner(fragment) {
 
     init {
         type = Type.MLKIT

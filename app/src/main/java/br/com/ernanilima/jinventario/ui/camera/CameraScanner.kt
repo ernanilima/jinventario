@@ -20,7 +20,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-enum class Type { BASE, MLKIT }
+enum class Type { BASE, MLKIT, ZXING }
 typealias PositiveResultCallback = (String) -> Unit
 
 class CameraScanner constructor(
@@ -95,11 +95,13 @@ class CameraScanner constructor(
         dismiss()
     }
 
-    fun close() {
-        if (this.tag != null) dismiss()
-    }
-
-    fun show() {
-        this.show(baseCameraScanner.fragmentManager, baseCameraScanner::class.java.simpleName)
+    fun show() = when (baseCameraScanner.type) {
+        Type.MLKIT -> {
+            this.show(baseCameraScanner.fragment.parentFragmentManager, baseCameraScanner::class.java.simpleName)
+        }
+        Type.ZXING -> {
+            (baseCameraScanner as ZXing).show()
+        }
+        else -> { }
     }
 }

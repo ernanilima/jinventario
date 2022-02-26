@@ -30,6 +30,7 @@ import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
+import br.com.ernanilima.jinventario.ui.camera.ZXing
 import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
@@ -51,7 +52,9 @@ class StockCountFragment : Fragment() {
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
     private val permission = Manifest.permission.CAMERA
-    private var dfCameraZXing: CameraZXingDialogFragment? = null
+//    private var dfCameraZXing: CameraZXingDialogFragment? = null
+    private var _zxing: ZXing? = null
+    private val zxing get() = _zxing!!
 
     companion object { const val ID_STOCK_COUNT: String = "ID_STOCK_COUNT" }
 
@@ -119,7 +122,8 @@ class StockCountFragment : Fragment() {
         }
 
         // CAMERA TIPO ZXING
-        dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this)
+        _zxing = ZXing(this)
+//        dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this)
 
         binding.include.btnCameraScanner.setOnClickListener { openCameraScanner() }
         binding.include.btnOk.setOnClickListener { newItem() }
@@ -151,7 +155,7 @@ class StockCountFragment : Fragment() {
                 }
                 ResultTypeSettings.CAMERA_MLKIT -> {
                     println("USAR CAMERA MLKIT (GOOGLE)")
-                    CameraScanner(MLKit(parentFragmentManager).apply {
+                    CameraScanner(MLKit(this).apply {
                         setPositiveResult {
                             println(it)
                         }
@@ -159,6 +163,11 @@ class StockCountFragment : Fragment() {
                 }
                 ResultTypeSettings.CAMERA_ZXING -> {
                     println("USAR CAMERA ZXING (ZEBRA)")
+                    CameraScanner(zxing.apply {
+                        setPositiveResult {
+                            println(it)
+                        }
+                    }).show()
                 }
             }
         })
