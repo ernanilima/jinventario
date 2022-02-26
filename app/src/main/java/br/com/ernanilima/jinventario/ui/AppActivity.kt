@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import br.com.ernanilima.jinventario.databinding.ActivityAppBinding
+import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.model.User
@@ -60,6 +61,7 @@ class AppActivity : AppCompatActivity() {
      * Abre drawer layout ao pressionar o botao na toolbar
      */
     override fun onSupportNavigateUp(): Boolean {
+        DeviceHelper.hideKeyboard(this)
         val navController = findNavController(R.id.nav_host_fragment_content_app)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }

@@ -200,6 +200,8 @@ class StockCountFragment : Fragment() {
     }
 
     private fun setResultCameraScanner(barcode: String) {
+        val context = requireParentFragment().requireContext()
+        DeviceHelper.showKeyboard(binding.include.fieldBarcode, context)
         binding.include.fieldBarcode.requestFocus()
         binding.include.fieldBarcode.setText(barcode)
     }
