@@ -22,6 +22,7 @@ import br.com.ernanilima.jinventario.adapter.StockCountRecyclerAdapter
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
+import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
@@ -32,7 +33,6 @@ import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
 import br.com.ernanilima.jinventario.util.Filtro
-import br.com.ernanilima.jinventario.view.dialog.camera.CameraZXingDialogFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +52,7 @@ class StockCountFragment : Fragment() {
     private val stockCountRecyclerAdapter get() = _stockCountRecyclerAdapter!!
 
     private val permission = Manifest.permission.CAMERA
-//    private var dfCameraZXing: CameraZXingDialogFragment? = null
+
     private var _zxing: ZXing? = null
     private val zxing get() = _zxing!!
 
@@ -123,7 +123,6 @@ class StockCountFragment : Fragment() {
 
         // CAMERA TIPO ZXING
         _zxing = ZXing(this)
-//        dfCameraZXing = CameraZXingDialogFragment.novoDialog().setFragment(this)
 
         binding.include.btnCameraScanner.setOnClickListener { openCameraScanner() }
         binding.include.btnOk.setOnClickListener { newItem() }
@@ -154,18 +153,16 @@ class StockCountFragment : Fragment() {
                     }).show()
                 }
                 ResultTypeSettings.CAMERA_MLKIT -> {
-                    println("USAR CAMERA MLKIT (GOOGLE)")
                     CameraScanner(MLKit(this).apply {
-                        setPositiveResult {
-                            println(it)
+                        setPositiveResult { barcode ->
+                            setResultCameraScanner(barcode)
                         }
                     }).show()
                 }
                 ResultTypeSettings.CAMERA_ZXING -> {
-                    println("USAR CAMERA ZXING (ZEBRA)")
                     CameraScanner(zxing.apply {
-                        setPositiveResult {
-                            println(it)
+                        setPositiveResult { barcode ->
+                            setResultCameraScanner(barcode)
                         }
                     }).show()
                 }
@@ -200,6 +197,11 @@ class StockCountFragment : Fragment() {
             stockCountItem.numberPerBox = binding.include.fieldNumberPerBox.text.toString()
             stockCountViewModel.newItem(stockCountItem)
         }
+    }
+
+    private fun setResultCameraScanner(barcode: String) {
+        binding.include.fieldBarcode.requestFocus()
+        binding.include.fieldBarcode.setText(barcode)
     }
 
     private fun clearFields() {
