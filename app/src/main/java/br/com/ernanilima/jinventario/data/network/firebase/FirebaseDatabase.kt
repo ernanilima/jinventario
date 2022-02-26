@@ -56,7 +56,7 @@ object FirebaseDatabase {
     private fun baseStockCount(stockCount: StockCount): DatabaseReference {
         return reference
                 // e-mail do usuario
-                .child(Utils.converter(user.email))
+                .child(Utils.convert(user.email))
                 // nome do aparelho
                 .child(user.deviceName)
                 // id da contagem
