@@ -14,7 +14,7 @@ import br.com.ernanilima.jinventario.util.Format
 import br.com.ernanilima.jinventario.util.Utils
 
 class StockCountRecyclerAdapter constructor(
-    private val stockCountViewModel: IStockCount.IViewModel,
+    private val stockCountFragment: IStockCount.IFragment,
     private val listItemStockCount: List<StockCountItem>
 ) : RecyclerView.Adapter<StockCountRecyclerAdapter.ViewHolder>(), IRecyclerAdapter {
 
@@ -27,7 +27,7 @@ class StockCountRecyclerAdapter constructor(
 
     override fun onBindViewHolder(holder: StockCountRecyclerAdapter.ViewHolder, position: Int) {
         holder.userSettings()
-        holder.bind(listItemStockCount[position], stockCountViewModel)
+        holder.bind(listItemStockCount[position], stockCountFragment)
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +41,7 @@ class StockCountRecyclerAdapter constructor(
     override fun notifyItemRemovedBySwipe(position: Int) {
         val stockCountItem = listItemStockCount[position]
         stockCountItem.index = position
-        stockCountViewModel.deleteItem(stockCountItem)
+        stockCountFragment.deleteItemBySwipe(stockCountItem)
     }
 
     /**
@@ -67,13 +67,13 @@ class StockCountRecyclerAdapter constructor(
                 Utils.disableOption(binding.layoutTotalPrice)
         }
 
-        fun bind(stockCountItem: StockCountItem, stockCountViewModel: IStockCount.IViewModel) {
+        fun bind(stockCountItem: StockCountItem, stockCountFragment: IStockCount.IFragment) {
             binding.fieldBarcode.text = stockCountItem.barcode.toString()
             binding.fieldNumberOfBoxes.text = stockCountItem.numberOfBoxes.toString()
             binding.fieldNumberPerBox.text = stockCountItem.numberPerBox.toString()
             binding.fieldTotalQuantity.text = stockCountItem.totalQuantity.toString()
             binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountItem.totalPrice).replace("R$ ", "")
-            binding.btnEdit.setOnClickListener { stockCountViewModel.updateItem(stockCountItem) }
+            binding.btnEdit.setOnClickListener { stockCountFragment.updateItem(stockCountItem) }
         }
     }
 }

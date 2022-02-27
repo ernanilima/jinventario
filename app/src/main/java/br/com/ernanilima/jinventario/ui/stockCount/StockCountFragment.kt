@@ -43,7 +43,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StockCountFragment : Fragment() {
+class StockCountFragment : Fragment(), IStockCount.IFragment {
 
     private var _binding: FragmentAppHomeStockCountBinding? = null
     private val binding get() = _binding!!
@@ -206,25 +206,25 @@ class StockCountFragment : Fragment() {
                 }
                 ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
                 }
-                ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
-                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
-                        setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountViewModel.stockCountItem.id.toString()))
-                        setNegativeButton {
-                            stockCountRecyclerAdapter.notifyItemChanged(stockCountViewModel.stockCountItem.index)
-                        }
-                        setPositiveButton {
-                            stockCountRecyclerAdapter.notifyItemRemoved(stockCountViewModel.stockCountItem)
-                            stockCountViewModel.deleteItem()
-                        }
-                    }).show()
-                }
+//                ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
+//                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
+//                        setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountViewModel.stockCountItem.id.toString()))
+//                        setNegativeButton {
+//                            stockCountRecyclerAdapter.notifyItemChanged(stockCountViewModel.stockCountItem.index)
+//                        }
+//                        setPositiveButton {
+//                            stockCountRecyclerAdapter.notifyItemRemoved(stockCountViewModel.stockCountItem)
+//                            stockCountViewModel.deleteItem()
+//                        }
+//                    }).show()
+//                }
             }
         })
     }
 
     private fun setupRecyclerAdapter() {
         // RECYCLER ADAPTER
-        _stockCountRecyclerAdapter = StockCountRecyclerAdapter(stockCountViewModel, stockCountViewModel.listItemStockCount())
+        _stockCountRecyclerAdapter = StockCountRecyclerAdapter(this, stockCountViewModel.listItemStockCount())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
         binding.recyclerView.adapter = stockCountRecyclerAdapter
@@ -249,6 +249,27 @@ class StockCountFragment : Fragment() {
             stockCountItem.numberPerBox = binding.include.fieldNumberPerBox.text.toString()
             stockCountViewModel.newItem(stockCountItem)
         }
+    }
+
+    override fun updateItem(stockCountItem: StockCountItem) {
+
+    }
+
+    /**
+     * Solicita para o usuario a confirmacao para deletar item
+     * @param stockCountItem StockCountItem - item para deletar
+     */
+    override fun deleteItemBySwipe(stockCountItem: StockCountItem) {
+        SimpleDialog(QuestionDialog(parentFragmentManager).apply {
+            setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountItem.id.toString()))
+            setNegativeButton {
+                stockCountRecyclerAdapter.notifyItemChanged(stockCountItem.index)
+            }
+            setPositiveButton {
+                stockCountRecyclerAdapter.notifyItemRemoved(stockCountItem)
+                stockCountViewModel.deleteItem(stockCountItem)
+            }
+        }).show()
     }
 
     private fun setResultCameraScanner(barcode: String) {

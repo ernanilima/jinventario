@@ -88,14 +88,14 @@ class StockCountViewModel @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun deleteItem(stockCountItem: StockCountItem?) {
-        if (stockCountItem != null) {
-            this._stockCountItem = stockCountItem
-            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT_ITEM)
-        } else {
-            stockCountDao.deleteItem(this.stockCountItem)
+    override fun deleteItem(stockCountItem: StockCountItem) {
+//        if (stockCountItem != null) {
+//            this._stockCountItem = stockCountItem
+//            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT_ITEM)
+//        } else {
+            stockCountDao.deleteItem(stockCountItem)
             updateStockCountFirebase()
-        }
+//        }
     }
 
     private fun updateStockCountFirebase() {
