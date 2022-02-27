@@ -16,6 +16,7 @@ import br.com.ernanilima.jinventario.databinding.FragmentAppHomeBinding
 import br.com.ernanilima.jinventario.databinding.NavHeaderBinding
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
+import br.com.ernanilima.jinventario.model.StockCount
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.App.Companion.toStockCountFragment
 import br.com.ernanilima.jinventario.ui.stockCount.StockCountFragment
@@ -23,7 +24,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IHome.IFragment {
 
     private var _binding: FragmentAppHomeBinding? = null
     private val binding get() = _binding!!
@@ -57,7 +58,7 @@ class HomeFragment : Fragment() {
         bindingHeader.fieldEmail.text = homeViewModel.user.email
 
         // captura o item do menu do drawer layout
-        // 'nav_stock_count' exibe outra informacao quando esta no fragment de contagem de estoque
+        // 'viewStockCount' exibe outra informacao quando esta no fragment de contagem de estoque
         navigationView.menu.findItem(R.id.viewStockCount).apply {
             icon = binding.btnNewCount.icon
             title = binding.btnNewCount.text
@@ -84,7 +85,7 @@ class HomeFragment : Fragment() {
         binding.btnNewCount.setOnClickListener { newCount() }
 
         // ADAPTER
-        _homeRecyclerAdapter = HomeRecyclerAdapter(homeViewModel, homeViewModel.listStockCount())
+        _homeRecyclerAdapter = HomeRecyclerAdapter(this, homeViewModel.listStockCount())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
         binding.recyclerView.adapter = homeRecyclerAdapter
@@ -102,18 +103,6 @@ class HomeFragment : Fragment() {
                     parentFragmentManager.setFragmentResult(StockCountFragment::class.simpleName!!, homeViewModel.arguments)
                     toStockCountFragment(this)
                 }
-                DELETE_STOCK_COUNT -> {
-                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
-                        setMessage(getString(R.string.s_dialog_msg_delete_count, homeViewModel.stockCount.id.toString()))
-                        setNegativeButton {
-                            homeRecyclerAdapter.notifyItemChanged(homeViewModel.stockCount.index)
-                        }
-                        setPositiveButton {
-                            homeRecyclerAdapter.notifyItemRemoved(homeViewModel.stockCount)
-                            homeViewModel.deleteCount()
-                        }
-                    }).show()
-                }
             }
         })
     }
@@ -126,6 +115,31 @@ class HomeFragment : Fragment() {
             setMessage(getString(R.string.s_dialog_msg_new_count))
             setPositiveButton {
                 homeViewModel.newCount()
+            }
+        }).show()
+    }
+
+    /**
+     * Altera contagem
+     * @param stockCount StockCount - contatem para alterar
+     */
+    override fun updateCount(stockCount: StockCount) {
+        homeViewModel.updateCount(stockCount)
+    }
+
+    /**
+     * Solicita para o usuario a confirmacao para deletar a contagem
+     * @param stockCount StockCount - contatem para deletar
+     */
+    override fun deleteCountBySwipe(stockCount: StockCount) {
+        SimpleDialog(QuestionDialog(parentFragmentManager).apply {
+            setMessage(getString(R.string.s_dialog_msg_delete_count, stockCount.id.toString()))
+            setNegativeButton {
+                homeRecyclerAdapter.notifyItemChanged(stockCount.index)
+            }
+            setPositiveButton {
+                homeRecyclerAdapter.notifyItemRemoved(stockCount)
+                homeViewModel.deleteCount(stockCount)
             }
         }).show()
     }

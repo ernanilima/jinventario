@@ -206,18 +206,6 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
                 }
                 ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
                 }
-//                ResultTypeLocal.DELETE_STOCK_COUNT_ITEM -> {
-//                    SimpleDialog(QuestionDialog(parentFragmentManager).apply {
-//                        setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountViewModel.stockCountItem.id.toString()))
-//                        setNegativeButton {
-//                            stockCountRecyclerAdapter.notifyItemChanged(stockCountViewModel.stockCountItem.index)
-//                        }
-//                        setPositiveButton {
-//                            stockCountRecyclerAdapter.notifyItemRemoved(stockCountViewModel.stockCountItem)
-//                            stockCountViewModel.deleteItem()
-//                        }
-//                    }).show()
-//                }
             }
         })
     }

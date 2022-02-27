@@ -11,7 +11,7 @@ import br.com.ernanilima.jinventario.ui.home.IHome
 import br.com.ernanilima.jinventario.util.Format
 
 class HomeRecyclerAdapter constructor(
-    private val homeViewModel: IHome.IViewModel,
+    private val homeViewFragment: IHome.IFragment,
     private val listStockCount: List<StockCount>
 ) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>(), IRecyclerAdapter {
 
@@ -20,7 +20,7 @@ class HomeRecyclerAdapter constructor(
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listStockCount[position], homeViewModel)
+        holder.bind(listStockCount[position], homeViewFragment)
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +34,7 @@ class HomeRecyclerAdapter constructor(
     override fun notifyItemRemovedBySwipe(position: Int) {
         val stockCount = listStockCount[position]
         stockCount.index = position
-        homeViewModel.deleteCount(stockCount)
+        homeViewFragment.deleteCountBySwipe(stockCount)
     }
 
     /**
@@ -54,12 +54,12 @@ class HomeRecyclerAdapter constructor(
 
         private val binding: ItemCountsBinding = ItemCountsBinding.bind(itemView)
 
-        fun bind(stockCount: StockCount, homeViewModel: IHome.IViewModel) {
+        fun bind(stockCount: StockCount, homeViewFragment: IHome.IFragment) {
             binding.fieldCountNumber.text = stockCount.id.toString()
             binding.fieldCreationDate.text = Format.DATE.format(stockCount.creationDate)
             binding.fieldDateHourUpdate.text = Format.DATE_TIME.format(stockCount.updateDate)
             binding.fieldTotal.text = stockCount.total.toString()
-            binding.btnEdit.setOnClickListener { homeViewModel.updateCount(stockCount) }
+            binding.btnEdit.setOnClickListener { homeViewFragment.updateCount(stockCount) }
         }
     }
 }

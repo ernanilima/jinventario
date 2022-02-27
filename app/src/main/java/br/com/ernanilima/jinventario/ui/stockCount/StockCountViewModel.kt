@@ -23,11 +23,8 @@ class StockCountViewModel @Inject constructor(
     private var _stockCount: StockCount? = null
     val stockCount get() = _stockCount!!
 
-    private var _stockCountItem: StockCountItem? = null
-    val stockCountItem get() = _stockCountItem!!
-
     private var _listStockCountItem: List<StockCountItem> = ArrayList()
-    val listStockCountItem get() = _listStockCountItem
+    private val listStockCountItem get() = _listStockCountItem
 
     // Carrega as configuracoes
     val settings: Settings? = AppActivity.settings
@@ -89,13 +86,8 @@ class StockCountViewModel @Inject constructor(
     }
 
     override fun deleteItem(stockCountItem: StockCountItem) {
-//        if (stockCountItem != null) {
-//            this._stockCountItem = stockCountItem
-//            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT_ITEM)
-//        } else {
-            stockCountDao.deleteItem(stockCountItem)
-            updateStockCountFirebase()
-//        }
+        stockCountDao.deleteItem(stockCountItem)
+        updateStockCountFirebase()
     }
 
     private fun updateStockCountFirebase() {

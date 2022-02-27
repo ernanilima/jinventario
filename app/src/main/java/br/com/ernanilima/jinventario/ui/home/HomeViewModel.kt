@@ -32,9 +32,6 @@ class HomeViewModel @Inject constructor(
     private var _arguments: Bundle? = null
     val arguments get() = _arguments!!
 
-    private var _stockCount: StockCount? = null
-    val stockCount get() = _stockCount!!
-
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
 
@@ -84,15 +81,8 @@ class HomeViewModel @Inject constructor(
      * Apaga contagem de estoque
      * @param stockCount StockCount
      */
-    override fun deleteCount(stockCount: StockCount?) {
-        if (stockCount != null) {
-            // apagar ao deslizar o item
-            this._stockCount = stockCount
-            _countResult.postValue(ResultTypeLocal.DELETE_STOCK_COUNT)
-        } else {
-            // apagar ao confirmar o dialog
-            stockCountDao.delete(this.stockCount)
-            FirebaseDatabase.deleteStockCount(this.stockCount)
-        }
+    override fun deleteCount(stockCount: StockCount) {
+        stockCountDao.delete(stockCount)
+        FirebaseDatabase.deleteStockCount(stockCount)
     }
 }
