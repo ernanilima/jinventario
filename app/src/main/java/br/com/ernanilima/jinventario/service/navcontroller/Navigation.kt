@@ -104,19 +104,19 @@ class Navigation {
              */
             fun toSettingsFragment(currentView: View) {
                 Navigation.findNavController(currentView).apply {
-                    popBackStack()
-                    navigate(R.id.nav_configuracao)
+                    popBackStack(R.id.viewStockCount, true)
+                    navigate(R.id.viewSettings)
                 }
             }
 
             /**
              * Navega para o fragment [br.com.ernanilima.jinventario.view.ContagemFragment]
-             * @param currentView View - view atual
+             * @param currentFragment Fragment - Fragment atual
              */
-            fun toStockCountFragment(currentView: View) {
-                Navigation.findNavController(currentView).apply {
-                    popBackStack()
-                    navigate(R.id.nav_stock_count)
+            fun toStockCountFragment(currentFragment: Fragment) {
+                NavHostFragment.findNavController(currentFragment).apply {
+                    popBackStack(R.id.viewStockCount, true)
+                    navigate(R.id.viewStockCount)
                 }
             }
         }

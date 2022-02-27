@@ -19,6 +19,6 @@ public class NavegacaoApp {
     @Deprecated
     public static void abrirTelaInicioApp(View view) {
         navController = Navigation.findNavController(view);
-        navController.navigate(R.id.nav_home);
+        navController.navigate(R.id.viewHome);
     }
 }

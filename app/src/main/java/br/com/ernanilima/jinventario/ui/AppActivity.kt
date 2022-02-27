@@ -46,7 +46,7 @@ class AppActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_stock_count
+                R.id.viewHome, R.id.viewStockCount
             ), drawerLayout
         )
 
@@ -54,9 +54,9 @@ class AppActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         // botao que nao tem fragment para navegacao
-        navView.menu.findItem(R.id.nav_politica_privacidade).setOnMenuItemClickListener { privacyPolicy() }
-        navView.menu.findItem(R.id.nav_configuracao).setOnMenuItemClickListener { settings() }
-        navView.menu.findItem(R.id.nav_sair).setOnMenuItemClickListener { singOut() }
+        navView.menu.findItem(R.id.menuPrivacyPolicy).setOnMenuItemClickListener { privacyPolicy() }
+        navView.menu.findItem(R.id.viewSettings).setOnMenuItemClickListener { settings() }
+        navView.menu.findItem(R.id.menuExit).setOnMenuItemClickListener { singOut() }
     }
 
     /**

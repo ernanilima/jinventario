@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacao_app"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/viewHome">
     <!-- app:startDestination= define qual tela sera exibida -->
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/viewHome"
         android:name="br.com.ernanilima.jinventario.ui.home.HomeFragment"
         android:label="Início"
         tools:layout="@layout/fragment_app_home" />
 
     <fragment
-        android:id="@+id/nav_stock_count"
+        android:id="@+id/viewStockCount"
         android:name="br.com.ernanilima.jinventario.ui.stockCount.StockCountFragment"
         android:label="Contagem"
         tools:layout="@layout/fragment_app_home_stock_count" />
 
     <fragment
-        android:id="@+id/nav_configuracao"
+        android:id="@+id/viewSettings"
         android:name="br.com.ernanilima.jinventario.ui.settings.SettingsFragment"
         android:label="Configuração"
         tools:layout="@layout/fragment_settings" />

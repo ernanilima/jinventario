@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
 
         // captura o item do menu do drawer layout
         // 'nav_stock_count' exibe outra informacao quando esta no fragment de contagem de estoque
-        navigationView.menu.findItem(R.id.nav_stock_count).apply {
+        navigationView.menu.findItem(R.id.viewStockCount).apply {
             icon = binding.btnNewCount.icon
             title = binding.btnNewCount.text
             setOnMenuItemClickListener {
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
                 NEW_STOCK_COUNT,
                 UPDATE_STOCK_COUNT -> {
                     parentFragmentManager.setFragmentResult(StockCountFragment::class.simpleName!!, homeViewModel.arguments)
-                    toStockCountFragment(requireView())
+                    toStockCountFragment(this)
                 }
                 DELETE_STOCK_COUNT -> {
                     SimpleDialog(QuestionDialog(parentFragmentManager).apply {

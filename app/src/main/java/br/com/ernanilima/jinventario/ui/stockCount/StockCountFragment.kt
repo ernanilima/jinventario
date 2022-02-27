@@ -32,7 +32,6 @@ import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.wa
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
-import br.com.ernanilima.jinventario.ui.AppActivity
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
@@ -95,19 +94,18 @@ class StockCountFragment : Fragment() {
         val navigationView = requireActivity().findViewById(R.id.nav_view) as NavigationView
 
         // captura o item do menu do drawer layout
-        // 'nav_stock_count' exibe outra informacao quando esta no fragment de contagem de estoque
-        navigationView.menu.findItem(R.id.nav_stock_count).apply {
+        navigationView.menu.findItem(R.id.viewStockCount).apply {
             idStockCount.observe(viewLifecycleOwner, { id ->
                 setIcon(ic_contagem)
                 title = "Contagem N: $id"
             })
+            // ao clicao no botao 'Contagem N:*'
             setOnMenuItemClickListener {
                 drawerLayout.closeDrawers()
                 true
             }
 
-            // eh definido como false para evitar que exista navegacao no item,
-            // isso eh alterado ao abrir a nova contagem
+            // exibe o item como selecionado na navegacao do drawer layout
             isCheckable = true
             isChecked = true
         }
