@@ -11,13 +11,15 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.R.drawable.ic_contagem
+import br.com.ernanilima.jinventario.R.drawable.ic_current_count
 import br.com.ernanilima.jinventario.adapter.StockCountRecyclerAdapter
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal
 import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
@@ -95,9 +97,12 @@ class StockCountFragment : Fragment() {
 
         // captura o item do menu do drawer layout
         navigationView.menu.findItem(R.id.viewStockCount).apply {
+            // preenche o titulo quando popular o codigo da contagem recebida por parametro
             idStockCount.observe(viewLifecycleOwner, { id ->
-                setIcon(ic_contagem)
-                title = "Contagem N: $id"
+                setIcon(ic_current_count)
+                title = getString(R.string.s_menu_current_count, id.toString())
+                val actionBar: ActionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
+                actionBar.title = title
             })
             // ao clicao no botao 'Contagem N:*'
             setOnMenuItemClickListener {

@@ -69,6 +69,15 @@
     <string name="s_total_price">Prc Total</string>
     <string name="s_irv_ex_total_price">9888,77</string>
 
+    <!--  Menus  -->
+    <string name="s_menu_home">Início</string>
+    <string name="s_menu_new_count">Nova Contagem</string>
+    <string name="s_menu_current_count">Contagem Nº: %s</string>
+    <string name="s_sub_menu_others">Outros</string>
+    <string name="s_menu_privacy_policy">Política de Privacidade</string>
+    <string name="s_menu_settings">Configuração</string>
+    <string name="s_menu_exit">Sair</string>
+
     <!--  Input Help  -->
     <string name="ih_field_empty_error">Campo não pode ser vazio</string>
     <string name="ih_field_min_error">O conteúdo deve ser maior que %s</string>

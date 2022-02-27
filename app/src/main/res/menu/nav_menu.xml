@@ -4,28 +4,28 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:title="Inicio"
+        <item android:title="@string/s_menu_home"
             android:id="@+id/viewHome"
             android:icon="@drawable/ic_home" />
 
-        <item android:title="Nova Contagem"
+        <item android:title="@string/s_menu_new_count"
             android:id="@+id/viewStockCount"
-            android:icon="@drawable/ic_novo" />
+            android:icon="@drawable/ic_add" />
     </group>
 
-    <item android:title="Outros">
+    <item android:title="@string/s_sub_menu_others">
         <menu>
-            <item android:title="Política de Privacidade"
+            <item android:title="@string/s_menu_privacy_policy"
                 android:id="@+id/menuPrivacyPolicy"
-                android:icon="@drawable/ic_politica_privacidade" />
+                android:icon="@drawable/ic_privacy_policy" />
 
-            <item android:title="Configuração"
+            <item android:title="@string/s_menu_settings"
                 android:id="@+id/viewSettings"
-                android:icon="@drawable/ic_configuracao" />
+                android:icon="@drawable/ic_settings" />
 
-            <item android:title="Sair"
+            <item android:title="@string/s_menu_exit"
                 android:id="@+id/menuExit"
-                android:icon="@drawable/ic_sair" />
+                android:icon="@drawable/ic_exit" />
         </menu>
     </item>
 </menu>

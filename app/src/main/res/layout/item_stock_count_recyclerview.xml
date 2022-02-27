@@ -138,7 +138,7 @@
         android:paddingStart="0sp"
         android:paddingEnd="16sp"
         android:textSize="0sp"
-        android:src="@drawable/ic_editar"
+        android:src="@drawable/ic_edit"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

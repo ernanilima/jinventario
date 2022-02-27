@@ -5,5 +5,5 @@
     <item android:title="Compartilhar"
         android:id="@+id/compartilhar"
         app:showAsAction="always"
-        android:icon="@drawable/ic_compartilhar"/>
+        android:icon="@drawable/ic_share"/>
 </menu>

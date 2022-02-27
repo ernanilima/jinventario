@@ -59,7 +59,7 @@
     <style name="Theme.JInventario.Button.Back" parent="Theme.JInventario.Dialog.Button" />
 
     <style name="Theme.JInventario.Button.NewContagem">
-        <item name="icon">@drawable/ic_novo</item>
+        <item name="icon">@drawable/ic_add</item>
         <item name="iconTint">@null</item>
     </style>
 
@@ -79,7 +79,7 @@
     <style name="Theme.JInventario.HeaderDrawerLayout">
         <item name="android:background">@color/secondaryLightColorNigth</item>
         <item name="android:textColor">@color/secondaryTextColorNigth</item>
-        <item name="android:src">@drawable/ic_usuario_padrao</item>
+        <item name="android:src">@drawable/ic_default_user</item>
         <item name="android:tint">@color/secondaryTextColorNigth</item>
     </style>
 

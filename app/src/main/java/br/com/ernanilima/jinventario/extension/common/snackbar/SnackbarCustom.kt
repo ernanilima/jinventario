@@ -20,7 +20,7 @@ object SnackbarCustom {
      * @param message String - mensagem para exibir
      */
     fun success(context: Context, message: String) {
-        base(context, R.drawable.bg_success, message)
+        base(context, R.drawable.background_success, message)
     }
 
     /**
@@ -28,7 +28,7 @@ object SnackbarCustom {
      * @param message String - mensagem para exibir
      */
     fun warning(context: Context, message: String) {
-        base(context, R.drawable.bg_warning, message)
+        base(context, R.drawable.background_warning, message)
     }
 
     //fun error(context: Context, message: String) {

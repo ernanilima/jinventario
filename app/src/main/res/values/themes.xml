@@ -66,7 +66,7 @@
     <style name="Theme.JInventario.Button.Back" parent="Theme.JInventario.Dialog.Button" />
 
     <style name="Theme.JInventario.Button.NewContagem">
-        <item name="icon">@drawable/ic_novo</item>
+        <item name="icon">@drawable/ic_add</item>
     </style>
 
     <!--  REMOVER FUTURAMENTE  -->
@@ -90,7 +90,7 @@
     <style name="Theme.JInventario.HeaderDrawerLayout">
         <item name="android:background">@color/secondaryColorDay</item>
         <item name="android:textColor">@color/secondaryTextColorDay</item>
-        <item name="android:src">@drawable/ic_usuario_padrao</item>
+        <item name="android:src">@drawable/ic_default_user</item>
     </style>
 
     <style name="Theme.JInventario.DrawerLayout" parent="Widget.Design.NavigationView">
