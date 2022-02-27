@@ -62,7 +62,7 @@ class StockCountRecyclerAdapter constructor(
         private val binding: ItemStockCountRecyclerviewBinding = ItemStockCountRecyclerviewBinding.bind(itemView)
 
         fun userSettings() {
-            if (settings != null && !settings.showPrice)
+            if (settings == null || !settings.showPrice)
                 // desativa a opcao de exibir o preco do produto
                 Utils.disableOption(binding.layoutTotalPrice)
         }

@@ -24,10 +24,12 @@ import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
 import br.com.ernanilima.jinventario.databinding.FragmentAppHomeStockCountBinding
 import br.com.ernanilima.jinventario.extension.common.DeviceHelper
 import br.com.ernanilima.jinventario.extension.common.InputHelper
+import br.com.ernanilima.jinventario.extension.common.Validator
 import br.com.ernanilima.jinventario.extension.common.dialog.QuestionDialog
 import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
+import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.ui.AppActivity
@@ -263,7 +265,42 @@ class StockCountFragment : Fragment() {
 
     private fun validate(): Boolean {
         var isValid = true
-        // ...
+
+        // campo codigo de barras
+        Validator.apply {
+            isEmpty(binding.include.fieldBarcode.text.toString()).ifTrue {
+                showError(binding.include.layoutBarcode, requireActivity())
+                isValid = !it
+            }
+        }
+
+        // campo codigo de barras
+        val settings: Settings? = stockCountViewModel.settings
+        (settings != null && settings.showPrice).ifTrue {
+            Validator.apply {
+                isEmpty(binding.include.fieldUnitPrice.text.toString()).ifTrue {
+                    showError(binding.include.layoutUnitPrice, requireActivity())
+                    isValid = !it
+                }
+            }
+        }
+
+        // campo quantidade de caixas
+        Validator.apply {
+            isEmpty(binding.include.fieldNumberOfBoxes.text.toString()).ifTrue {
+                showError(binding.include.layoutNumberOfBoxes, requireActivity())
+                isValid = !it
+            }
+        }
+
+        // campo quantidade por caixa
+        Validator.apply {
+            isEmpty(binding.include.fieldNumberPerBox.text.toString()).ifTrue {
+                showError(binding.include.layoutNumberPerBox, requireActivity())
+                isValid = !it
+            }
+        }
+
         return isValid
     }
 

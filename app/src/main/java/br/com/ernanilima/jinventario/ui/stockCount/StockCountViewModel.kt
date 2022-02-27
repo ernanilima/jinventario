@@ -30,7 +30,7 @@ class StockCountViewModel @Inject constructor(
     val listStockCountItem get() = _listStockCountItem
 
     // Carrega as configuracoes
-    private val settings: Settings? = AppActivity.settings
+    val settings: Settings? = AppActivity.settings
 
     private val _settingsResult = MutableLiveData<List<ResultTypeSettings>>()
     val settingsResult: LiveData<List<ResultTypeSettings>> = _settingsResult
@@ -49,7 +49,7 @@ class StockCountViewModel @Inject constructor(
             (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_CAMERA)
 
 
-        if (settings != null && !settings.showPrice)
+        if (settings == null || !settings.showPrice)
             // desativa a opcao de inserir o preco do produto
             (userSettings as MutableList).add(ResultTypeSettings.DONT_USE_PRICE)
 
