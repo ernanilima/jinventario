@@ -3,6 +3,7 @@ package br.com.ernanilima.jinventario.util
 import android.view.View
 import android.widget.EditText
 import android.view.ViewGroup.MarginLayoutParams
+import com.google.android.material.textfield.TextInputLayout
 
 object Utils {
 
@@ -15,6 +16,19 @@ object Utils {
             val lsNodes = listOf(nodes)
             for (n in lsNodes) {
                 if (n is EditText) n.setText("")
+            }
+        }
+    }
+
+    /**
+     * Limpa os erros dos layouts passados no parametro
+     * @param node Ant - layouts
+     */
+    fun clearErrors(vararg node: Any) {
+        for (nodes in node) {
+            val lsNodes = listOf(nodes)
+            for (n in lsNodes) {
+                if (n is TextInputLayout) n.isErrorEnabled = false
             }
         }
     }

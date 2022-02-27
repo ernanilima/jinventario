@@ -129,6 +129,7 @@ class StockCountFragment : Fragment() {
 
         binding.include.btnCameraScanner.setOnClickListener { openCameraScanner() }
         binding.include.btnOk.setOnClickListener { newItem() }
+        binding.include.fieldNumberPerBox.setOnClickListener { newItem() }
 
         // REQUISICOES DO CAMPO CODIGO DE BARRAS
         InputHelper(requireActivity()).apply {
@@ -195,6 +196,7 @@ class StockCountFragment : Fragment() {
                 }
                 ResultTypeLocal.NEW_STOCK_COUNT_ITEM -> {
                     stockCountRecyclerAdapter.notifyItemInserted(0)
+                    binding.recyclerView.scrollToPosition(0)
                     clearFields()
                 }
                 ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
@@ -253,10 +255,10 @@ class StockCountFragment : Fragment() {
 
     private fun clearFields() {
         binding.include.fieldBarcode.requestFocus()
-        binding.include.fieldBarcode.setText("")
-        binding.include.fieldUnitPrice.setText("")
-        binding.include.fieldNumberOfBoxes.setText("")
-        binding.include.fieldNumberPerBox.setText("")
+        Utils.clearFields(binding.include.fieldBarcode, binding.include.fieldUnitPrice,
+            binding.include.fieldNumberOfBoxes, binding.include.fieldNumberPerBox)
+        Utils.clearErrors(binding.include.layoutBarcode, binding.include.layoutUnitPrice,
+            binding.include.layoutNumberOfBoxes, binding.include.layoutNumberPerBox)
     }
 
     private fun validate(): Boolean {
