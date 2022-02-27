@@ -16,10 +16,12 @@ import com.google.android.material.textfield.TextInputLayout
  */
 class InputHelper constructor(private val activity: Activity) {
 
+    private lateinit var mask: Mask
     private lateinit var validationWatcher: ValidationWatcher
 
     private var inputLayout: TextInputLayout? = null
     private var inputLayoutForMatch: TextInputLayout? = null
+    private var monetary = false
     private var required = false
     private var min: Int = Int.MIN_VALUE
     private var minLength: Int = 0
@@ -42,6 +44,11 @@ class InputHelper constructor(private val activity: Activity) {
         return this
     }
 
+    fun setMaskMonetary(monetary: Boolean): InputHelper {
+        this.monetary = monetary
+        return this
+    }
+
     fun setRequired(required: Boolean): InputHelper {
         this.required = required
         return this
@@ -58,8 +65,57 @@ class InputHelper constructor(private val activity: Activity) {
     }
 
     fun build() {
+        mask = Mask(inputLayout, monetary)
+        inputLayout?.editText?.addTextChangedListener(mask)
+
         validationWatcher = ValidationWatcher(activity, inputLayout, inputLayoutForMatch, required, min, minLength)
         inputLayout?.editText?.addTextChangedListener(validationWatcher)
+    }
+
+    private class Mask constructor(
+        private val inputLayout: TextInputLayout?,
+        private val monetary: Boolean
+    ) : TextWatcher {
+
+        private lateinit var value: String
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+
+        override fun afterTextChanged(s: Editable?) {
+            if (isNull()) { return }
+            value = s.toString()
+            maskMonetary()
+        }
+
+        /**
+         * Verifica se o conteudo recebido eh nulo
+         * @return Boolean - true se for nulo
+         */
+        private fun isNull(): Boolean {
+            return inputLayout == null
+        }
+
+        /**
+         * Mascara para valor monetario
+         */
+        private fun maskMonetary() {
+            if (monetary) {
+                inputLayout?.editText?.removeTextChangedListener(this)
+                val decimalPlaces = 2
+                // regex para formatar em valor monetario do brasil
+                value = value.replace(Regex("[^0-9]"), "")
+                value = value.replace(Regex("([0-9]{1})([0-9]{"+ (decimalPlaces + 6) +"})$"), "$1$2")
+                value = value.replace(Regex("([0-9]{1})([0-9]{"+ (decimalPlaces + 3) +"})$"), "$1$2")
+                value = value.replace(Regex("([0-9])([0-9]{$decimalPlaces})$"), "$1,$2")
+                // atribui o valor
+                inputLayout?.editText?.setText(value)
+                // define o cursor no final do valor
+                inputLayout?.editText?.setSelection(value.length)
+                // define essa classe como listener novamente
+                inputLayout?.editText?.addTextChangedListener(this)
+            }
+        }
     }
 
     private class ValidationWatcher constructor(

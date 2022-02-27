@@ -79,7 +79,7 @@
                 android:hint="@string/s_unit_price"
                 android:imeOptions="actionNext"
                 android:maxLength="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>

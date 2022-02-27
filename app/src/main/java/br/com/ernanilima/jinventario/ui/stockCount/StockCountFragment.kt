@@ -30,6 +30,7 @@ import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
+import br.com.ernanilima.jinventario.ui.AppActivity
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
@@ -139,6 +140,7 @@ class StockCountFragment : Fragment() {
         // REQUISICOES DO CAMPO PRECO UNITARIO
         InputHelper(requireActivity()).apply {
             setInputLayout(binding.include.layoutUnitPrice)
+            setMaskMonetary(true)
             setRequired(true)
         }.build()
 
