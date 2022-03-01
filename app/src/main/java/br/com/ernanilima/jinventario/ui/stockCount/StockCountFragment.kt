@@ -31,6 +31,7 @@ import br.com.ernanilima.jinventario.extension.common.ifTrue
 import br.com.ernanilima.jinventario.extension.common.snackbar.SnackbarCustom.warning
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCountItem
+import br.com.ernanilima.jinventario.service.component.ShareCount
 import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
@@ -211,7 +212,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
 
     private fun setupRecyclerAdapter() {
         // RECYCLER ADAPTER
-        _stockCountRecyclerAdapter = StockCountRecyclerAdapter(this, stockCountViewModel.listItemStockCount())
+        _stockCountRecyclerAdapter = StockCountRecyclerAdapter(this, stockCountViewModel.listStockCountItem)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(this.context, LinearLayout.VERTICAL))
         binding.recyclerView.adapter = stockCountRecyclerAdapter
@@ -365,9 +366,14 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
      * Acao ao selecionar o menu
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.share)
-            println("DEVE COMPARTILHAR")
-
+        if (item.itemId == R.id.share) {
+            if (stockCountViewModel.listStockCountItem.isEmpty()) {
+                val context = requireParentFragment().requireContext()
+                warning(context, getString(R.string.msg_empty_share))
+            } else {
+                ShareCount.csv(requireParentFragment(), idStockCount.value!!, stockCountViewModel.listStockCountItem)
+            }
+        }
         return false
     }
 }

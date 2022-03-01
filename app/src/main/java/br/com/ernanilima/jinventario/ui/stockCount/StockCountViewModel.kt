@@ -24,7 +24,7 @@ class StockCountViewModel @Inject constructor(
     val stockCount get() = _stockCount!!
 
     private var _listStockCountItem: List<StockCountItem> = ArrayList()
-    private val listStockCountItem get() = _listStockCountItem
+    val listStockCountItem get() = _listStockCountItem
 
     // Carrega as configuracoes
     val settings: Settings? = AppActivity.settings
@@ -57,10 +57,6 @@ class StockCountViewModel @Inject constructor(
         _stockCount = stockCountDao.findStockCountById(idStockCount)
         _listStockCountItem = stockCountDao.findItemsListByStockCountId(idStockCount)
         _countResult.postValue(ResultTypeLocal.LIST_STOCK_COUNT_ITEM)
-    }
-
-    override fun listItemStockCount(): List<StockCountItem> {
-        return listStockCountItem
     }
 
     override fun openCameraScanner() {

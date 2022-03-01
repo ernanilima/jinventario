@@ -10,7 +10,6 @@ interface IStockCount {
 
     interface IViewModel {
         fun setIdStockCount(idStockCount: Long)
-        fun listItemStockCount(): List<StockCountItem>
         fun openCameraScanner()
         fun newItem(stockCountItem: StockCountItem)
         fun updateItem(stockCountItem: StockCountItem)
