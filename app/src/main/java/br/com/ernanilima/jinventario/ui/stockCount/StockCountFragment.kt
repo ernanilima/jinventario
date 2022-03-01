@@ -4,10 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
@@ -282,6 +280,10 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
             binding.include.layoutNumberOfBoxes, binding.include.layoutNumberPerBox)
     }
 
+    private fun shareCount() {
+
+    }
+
     private fun validate(): Boolean {
         var isValid = true
 
@@ -347,6 +349,25 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
         // exibe um snackbar quando nao tem a permissao
         val context = requireParentFragment().requireContext()
         warning(context, getString(R.string.msg_without_camera_permission))
+        return false
+    }
+
+    /**
+     * Constroi o menu
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.toolbar_menu_stock_count, menu)
+    }
+
+    /**
+     * Acao ao selecionar o menu
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.share)
+            println("DEVE COMPARTILHAR")
+
         return false
     }
 }

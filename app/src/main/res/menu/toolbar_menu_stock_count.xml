@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Compartilhar"
-        android:id="@+id/compartilhar"
+    <item android:title="@string/s_toolbar_menu_share"
+        android:id="@+id/share"
         app:showAsAction="always"
         android:icon="@drawable/ic_share"/>
 </menu>
