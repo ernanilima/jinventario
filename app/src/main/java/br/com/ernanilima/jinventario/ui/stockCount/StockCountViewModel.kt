@@ -82,7 +82,8 @@ class StockCountViewModel @Inject constructor(
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
-        TODO("Not yet implemented")
+        stockCountDao.updateItem(stockCountItem)
+        updateStockCountFirebase()
     }
 
     override fun deleteItem(stockCountItem: StockCountItem) {

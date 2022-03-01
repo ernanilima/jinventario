@@ -73,7 +73,10 @@ class StockCountRecyclerAdapter constructor(
             binding.fieldNumberPerBox.text = stockCountItem.numberPerBox.toString()
             binding.fieldTotalQuantity.text = stockCountItem.totalQuantity.toString()
             binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountItem.totalPrice).replace("R$ ", "")
-            binding.btnEdit.setOnClickListener { stockCountFragment.updateItem(stockCountItem) }
+            binding.btnEdit.setOnClickListener {
+                stockCountItem.index = adapterPosition
+                stockCountFragment.updateItem(stockCountItem)
+            }
         }
     }
 }

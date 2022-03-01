@@ -19,7 +19,7 @@ class ZXing constructor(fragment: Fragment) : BaseCameraScanner(fragment) {
         _resultLauncher = fragment.registerForActivityResult(StartActivityForResult()) {
                 result: ActivityResult ->
             val resultIntegrator = IntentIntegrator.parseActivityResult(result.resultCode, result.data)
-            if (resultIntegrator != null) {
+            if (resultIntegrator != null && resultIntegrator.contents != null) {
                 super.positiveResultCallback?.invoke(resultIntegrator.contents)
             }
         }

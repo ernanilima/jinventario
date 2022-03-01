@@ -37,6 +37,7 @@ import br.com.ernanilima.jinventario.service.component.SwipeHelper
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
+import br.com.ernanilima.jinventario.ui.updateItem.UpdateItemDialogFragment
 import br.com.ernanilima.jinventario.util.Filtro
 import br.com.ernanilima.jinventario.util.Utils
 import com.google.android.material.navigation.NavigationView
@@ -223,7 +224,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
     }
 
     private fun openCameraScanner() {
-        isPermissionSalid().ifTrue {
+        isPermissionValid().ifTrue {
             stockCountViewModel.openCameraScanner()
         }
     }
@@ -240,7 +241,13 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
-
+        UpdateItemDialogFragment(this).apply {
+            setStockCountItem(stockCountItem)
+            setPositiveResult {
+                stockCountRecyclerAdapter.notifyItemChanged(it.index)
+                stockCountViewModel.updateItem(it)
+            }
+        }.show()
     }
 
     /**
@@ -286,7 +293,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
             }
         }
 
-        // campo codigo de barras
+        // campo preco unitario
         val settings: Settings? = stockCountViewModel.settings
         (settings != null && settings.showPrice).ifTrue {
             Validator.apply {
@@ -316,7 +323,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
         return isValid
     }
 
-    private fun isPermissionSalid(): Boolean {
+    private fun isPermissionValid(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // se a api do aparelho for igual ou maior que 23
 
