@@ -46,9 +46,7 @@ class HomeViewModel @Inject constructor(
      * Criar nova contagem de estoque
      */
     override fun newCount() {
-        val currentDate = Date(System.currentTimeMillis())
-        val stockCount = StockCount(null, currentDate, currentDate)
-
+        val stockCount = StockCount()
         stockCountDao.insert(stockCount) // banco de dados local
         FirebaseDatabase.saveStockCount(stockCount) // banco de dados no firebase
 

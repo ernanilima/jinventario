@@ -8,6 +8,7 @@ import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.repository.StockCountRepository
 import br.com.ernanilima.jinventario.repository.orm.StockCountDao
 import br.com.ernanilima.jinventario.repository.orm.StockCountItemDao
+import java.util.*
 import javax.inject.Inject
 
 class StockCountRepositoryImpl @Inject constructor(
@@ -20,10 +21,15 @@ class StockCountRepositoryImpl @Inject constructor(
     }
 
     override fun insert(stockCount: StockCount) {
-        update(stockCount)
+        val currentDate = Date(System.currentTimeMillis())
+        stockCount.id = null
+        stockCount.creationDate = currentDate
+        stockCount.updateDate = currentDate
+        stockCountDao.save(stockCount)
     }
 
     override fun update(stockCount: StockCount) {
+        stockCount.updateDate = Date(System.currentTimeMillis())
         stockCountDao.save(stockCount)
     }
 
@@ -39,7 +45,8 @@ class StockCountRepositoryImpl @Inject constructor(
                     "COALESCE(SUM(${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.NumberOfBoxes.columnName} * ${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.NumberPerBox.columnName}), 0) $totalStock " +
                     "FROM ${StockCountDao.TABLENAME} LEFT JOIN ${StockCountItemDao.TABLENAME} " +
                     "ON ${StockCountDao.TABLENAME}.${StockCountDao.Properties.Id.columnName} = ${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.StockCount.columnName} " +
-                    "GROUP BY ${StockCountDao.TABLENAME}.${StockCountDao.Properties.Id.columnName}",
+                    "GROUP BY ${StockCountDao.TABLENAME}.${StockCountDao.Properties.Id.columnName} " +
+                    "ORDER BY ${StockCountDao.Properties.UpdateDate.columnName} DESC",
             null
         )
 
@@ -72,14 +79,17 @@ class StockCountRepositoryImpl @Inject constructor(
     }
 
     override fun insertItem(stockCountItem: StockCountItem) {
+        update(findStockCountById(stockCountItem.stockCount))
         updateItem(stockCountItem)
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
+        update(findStockCountById(stockCountItem.stockCount))
         stockCountItemDao.save(stockCountItem)
     }
 
     override fun deleteItem(stockCountItem: StockCountItem) {
+        update(findStockCountById(stockCountItem.stockCount))
         stockCountItemDao.delete(stockCountItem)
     }
 }
