@@ -1,14 +1,13 @@
 package br.com.ernanilima.jinventario.ui.settings
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.REFRESH_SETTINGS
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_SETTINGS
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.REFRESH_SETTINGS
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.SAVED_SETTINGS
 import br.com.ernanilima.jinventario.databinding.FragmentSettingsBinding
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import dagger.hilt.android.AndroidEntryPoint

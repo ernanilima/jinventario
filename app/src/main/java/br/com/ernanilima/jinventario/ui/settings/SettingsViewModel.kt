@@ -3,9 +3,9 @@ package br.com.ernanilima.jinventario.ui.settings
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.ernanilima.jinventario.data.result.IResultType
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.REFRESH_SETTINGS
-import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.SAVED_SETTINGS
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.REFRESH_SETTINGS
+import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.SAVED_SETTINGS
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +18,8 @@ class SettingsViewModel @Inject constructor(
 
     val settings: Settings = Settings()
 
-    private val _settingsResult = MutableLiveData<IResultType>()
-    val settingsResult: LiveData<IResultType> = _settingsResult
+    private val _settingsResult = MutableLiveData<ResultTypeSettings>()
+    val settingsResult: LiveData<ResultTypeSettings> = _settingsResult
 
     init {
         this.popularSettings()
