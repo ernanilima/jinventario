@@ -170,6 +170,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
         stockCountViewModel.settingsResult.observe(viewLifecycleOwner, { result ->
             (result.contains(ResultTypeSettings.DONT_USE_PRICE)).ifTrue {
                 Utils.disableOption(binding.include.layoutUnitPrice)
+                Utils.disableOption(binding.layoutTotalPrice)
             }
 
             (result.contains(ResultTypeSettings.DONT_USE_CAMERA)).ifTrue {
