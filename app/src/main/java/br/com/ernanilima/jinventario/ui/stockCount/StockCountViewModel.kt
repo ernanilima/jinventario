@@ -35,6 +35,9 @@ class StockCountViewModel @Inject constructor(
     private val _countResult = MutableLiveData<IResultType>()
     val countResult: LiveData<IResultType> = _countResult
 
+    private val _refreshTotalResult = MutableLiveData<IResultType>()
+    val refreshTotalResult: LiveData<IResultType> = _refreshTotalResult
+
     init {
         userSettings()
     }
@@ -57,6 +60,19 @@ class StockCountViewModel @Inject constructor(
         _stockCount = stockCountDao.findStockCountById(idStockCount)
         _listStockCountItem = stockCountDao.findItemsListByStockCountId(idStockCount)
         _countResult.postValue(ResultTypeLocal.LIST_STOCK_COUNT_ITEM)
+        refreshTotal()
+    }
+
+    private fun refreshTotal() {
+        var totalQuantity: Long = 0
+        var totalPrice: Double = 0.0
+        listStockCountItem.forEach { item ->
+            totalQuantity += item.totalQuantity.toLong()
+            totalPrice += item.totalPrice
+        }
+        _stockCount!!.totalQuantity = totalQuantity
+        _stockCount!!.totalPrice = totalPrice
+        _refreshTotalResult.postValue(ResultTypeLocal.REFRESH_STOCK_COUNT)
     }
 
     override fun openCameraScanner() {
@@ -73,17 +89,20 @@ class StockCountViewModel @Inject constructor(
         stockCountItem.stockCount = stockCount.id
         stockCountDao.insertItem(stockCountItem)
         (listStockCountItem as MutableList).add(0, stockCountItem)
+        refreshTotal()
         updateStockCountFirebase()
         _countResult.postValue(ResultTypeLocal.NEW_STOCK_COUNT_ITEM)
     }
 
     override fun updateItem(stockCountItem: StockCountItem) {
         stockCountDao.updateItem(stockCountItem)
+        refreshTotal()
         updateStockCountFirebase()
     }
 
     override fun deleteItem(stockCountItem: StockCountItem) {
         stockCountDao.deleteItem(stockCountItem)
+        refreshTotal()
         updateStockCountFirebase()
     }
 

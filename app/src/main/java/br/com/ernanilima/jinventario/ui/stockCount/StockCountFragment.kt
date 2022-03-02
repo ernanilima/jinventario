@@ -38,6 +38,7 @@ import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
 import br.com.ernanilima.jinventario.ui.updateItem.UpdateItemDialogFragment
 import br.com.ernanilima.jinventario.util.Filtro
+import br.com.ernanilima.jinventario.util.Format
 import br.com.ernanilima.jinventario.util.Utils
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -205,7 +206,14 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
                     binding.recyclerView.scrollToPosition(0)
                     clearFields()
                 }
-                ResultTypeLocal.UPDATE_STOCK_COUNT_ITEM -> {
+            }
+        })
+
+        stockCountViewModel.refreshTotalResult.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                ResultTypeLocal.REFRESH_STOCK_COUNT -> {
+                    binding.fieldTotalQuantity.text = stockCountViewModel.stockCount.totalQuantity.toString()
+                    binding.fieldTotalPrice.text = Format.PRICE_PTBR.format(stockCountViewModel.stockCount.totalPrice)
                 }
             }
         })
