@@ -58,7 +58,7 @@ class HomeRecyclerAdapter constructor(
             binding.fieldCountNumber.text = stockCount.id.toString()
             binding.fieldCreationDate.text = Format.DATE.format(stockCount.creationDate)
             binding.fieldDateHourUpdate.text = Format.DATE_TIME.format(stockCount.updateDate)
-            binding.fieldTotal.text = stockCount.total.toString()
+            binding.fieldTotal.text = stockCount.totalQuantity.toString()
             binding.btnEdit.setOnClickListener { homeViewFragment.updateCount(stockCount) }
         }
     }

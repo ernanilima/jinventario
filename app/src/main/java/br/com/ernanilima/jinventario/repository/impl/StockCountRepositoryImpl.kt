@@ -60,7 +60,7 @@ class StockCountRepositoryImpl @Inject constructor(
                 )
 
                 // total de estoque calculado no select
-                stockCount.total = cursor.getLong(cursor.getColumnIndex(totalStock))
+                stockCount.totalQuantity = cursor.getLong(cursor.getColumnIndex(totalStock))
 
                 listStockCount.add(stockCount)
             } while (cursor.moveToNext()) // proximo resultado

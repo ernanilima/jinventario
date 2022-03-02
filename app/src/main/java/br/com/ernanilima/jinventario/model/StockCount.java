@@ -21,16 +21,26 @@ public class StockCount implements Serializable, IModel {
     @Property(nameInDb = "UPDATE_DATE")
     private Date updateDate;
     @Transient
-    private long total;
+    private long totalQuantity;
+    @Transient
+    private Double totalPrice;
     @Transient
     private int index;
 
-    public long getTotal() {
-        return total;
+    public long getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public void setTotal(long total) {
-        this.total = total;
+    public void setTotalQuantity(long totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override
