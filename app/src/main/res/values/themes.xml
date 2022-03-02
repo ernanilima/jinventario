@@ -14,12 +14,10 @@
         <!-- Customize your theme here. -->
         <item name="android:textCursorDrawable">@drawable/cursor_day</item>
         <!-- Dialog -->
-        <item name="buttonBarPositiveButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
-        <item name="buttonBarNeutralButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <item name="alertDialogTheme">@style/Theme.JInventario.Dialog.Alert</item>
         <!-- Item Drawer Layout -->
         <item name="colorNavigationItem">@color/menu_item_color_state_day</item>
-        <item name="colorNavigationItemSelected">@color/secondaryDarkColorDay</item>
+        <item name="colorNavigationItemSelected">@color/primaryTextColorItemSelected</item>
     </style>
 
     <style name="Theme.JInventario.ProgressBarWhite" parent="@style/Theme.AppCompat">
@@ -46,11 +44,22 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 
+    <style name="Theme.JInventario.Dialog.Alert" parent="Theme.MaterialComponents.Light.Dialog.Alert.Bridge">
+        <item name="android:textColor">@color/primaryTextColorItem</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Theme.JInventario.Button.Dialog</item>
+    </style>
+
+    <style name="Theme.JInventario.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryTextColorItem</item>
+    </style>
+
     <style name="Theme.JInventario.Dialog.Button" parent="Widget.Design.NavigationView">
         <item name="android:outlineProvider">none</item>
         <item name="backgroundTint">@color/zxing_transparent</item>
         <item name="android:tint">@color/zxing_transparent</item>
-        <item name="android:textColor">@color/loginTextColorDay</item>
+        <item name="android:textColor">@color/primaryTextColorItem</item>
     </style>
 
     <style name="Theme.JInventario.Alert">
@@ -69,11 +78,6 @@
         <item name="icon">@drawable/ic_add</item>
     </style>
 
-    <!--  REMOVER FUTURAMENTE  -->
-    <style name="Theme.JInventario.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/secondaryDarkColorDay</item>
-    </style>
-
     <style name="Theme.JInventario.Separator">
         <item name="android:background">@color/separatorColor</item>
     </style>
@@ -88,9 +92,10 @@
     </style>
 
     <style name="Theme.JInventario.HeaderDrawerLayout">
-        <item name="android:background">@color/secondaryColorDay</item>
+        <item name="android:background">@color/secondaryLightColorDay</item>
         <item name="android:textColor">@color/secondaryTextColorDay</item>
         <item name="android:src">@drawable/ic_default_user</item>
+        <item name="android:tint">@color/secondaryTextColorNigth</item>
     </style>
 
     <style name="Theme.JInventario.DrawerLayout" parent="Widget.Design.NavigationView">
@@ -99,6 +104,8 @@
     </style>
 
     <!-- Barra de status -->
-    <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/secondaryTextColorNigth</item>
+    </style>
     <style name="Theme.JInventario.PopupMenu" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

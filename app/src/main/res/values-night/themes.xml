@@ -63,7 +63,6 @@
         <item name="iconTint">@null</item>
     </style>
 
-    <!--  REMOVER FUTURAMENTE  -->
     <style name="Theme.JInventario.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/primaryLightColorNigth</item>
     </style>
@@ -88,6 +87,7 @@
         <item name="itemTextColor">?attr/colorNavigationItem</item>
     </style>
 
+    <!-- Barra de status -->
     <style name="Theme.JInventario.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/secondaryLightColorNigth</item>
         <item name="colorControlNormal">@color/secondaryTextColorNigth</item>
