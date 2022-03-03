@@ -36,17 +36,26 @@ class StockCountRepositoryImpl @Inject constructor(
     @SuppressLint("Range")
     override fun findAll(): List<StockCount> {
         val listStockCount: MutableList<StockCount> = mutableListOf()
-        val totalStock = "total_stock"
+
+        val TAB_COUNT = StockCountDao.TABLENAME // nome da tabela de contagem de estoque
+        val TAB_ITEMS = StockCountItemDao.TABLENAME // nome da tabela com items da contagem de estoque
+        val COL_NOFBXS = StockCountItemDao.Properties.NumberOfBoxes.columnName // nome da coluna quantidade de caixas
+        val COL_NPERBX = StockCountItemDao.Properties.NumberPerBox.columnName // nome da coluna quantidade por caixa
+        val TOTAL_ITEMS = "total_items" // valor que armazenara o total de itens de cada contagem de estoque
+        val COL_ID_COUNT = StockCountDao.Properties.Id.columnName // nome da coluna com o id da contagem de estoque
+        val COL_ITEM_MCOUNT = StockCountItemDao.Properties.StockCount.columnName // nome da coluna que faz o relacionamento com a contagem de estoque
+        val COL_COUNT_CREATION = StockCountDao.Properties.CreationDate.columnName // nome da coluna que grava a data de criacao da contagem de estoque
+        val COL_COUNT_UPDATE = StockCountDao.Properties.UpdateDate.columnName // nome da coluna que grava a data/hora de atualizacao da contagem de estoque
 
         // select manual, realiza a soma do total de estoque, 0 (zero) como padrao para valor nulo
         val cursor: Cursor = stockCountDao.database.rawQuery(
             // "SELECT STOCK_COUNT.*, COALESCE(SUM(STOCK_COUNT_ITEM.NUMBER_OF_BOXES * STOCK_COUNT_ITEM.NUMBER_PER_BOX), 0) TOTAL FROM STOCK_COUNT LEFT JOIN STOCK_COUNT_ITEM ON STOCK_COUNT.id = STOCK_COUNT_ITEM.STOCK_COUNT GROUP BY STOCK_COUNT.id",
-            "SELECT ${StockCountDao.TABLENAME}.*, " +
-                    "COALESCE(SUM(${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.NumberOfBoxes.columnName} * ${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.NumberPerBox.columnName}), 0) $totalStock " +
-                    "FROM ${StockCountDao.TABLENAME} LEFT JOIN ${StockCountItemDao.TABLENAME} " +
-                    "ON ${StockCountDao.TABLENAME}.${StockCountDao.Properties.Id.columnName} = ${StockCountItemDao.TABLENAME}.${StockCountItemDao.Properties.StockCount.columnName} " +
-                    "GROUP BY ${StockCountDao.TABLENAME}.${StockCountDao.Properties.Id.columnName} " +
-                    "ORDER BY ${StockCountDao.Properties.UpdateDate.columnName} DESC",
+            "SELECT $TAB_COUNT.*, " +
+                    "COALESCE(SUM($TAB_ITEMS.$COL_NOFBXS * $TAB_ITEMS.$COL_NPERBX), 0) $TOTAL_ITEMS " +
+                    "FROM $TAB_COUNT LEFT JOIN $TAB_ITEMS " +
+                    "ON $TAB_COUNT.$COL_ID_COUNT = $TAB_ITEMS.$COL_ITEM_MCOUNT " +
+                    "GROUP BY $TAB_COUNT.$COL_ID_COUNT " +
+                    "ORDER BY $COL_COUNT_UPDATE DESC",
             null
         )
 
@@ -54,13 +63,13 @@ class StockCountRepositoryImpl @Inject constructor(
             do {
                 // contagem de estoque
                 val stockCount = StockCount(
-                    cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.Id.columnName)),
-                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.CreationDate.columnName))),
-                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(StockCountDao.Properties.UpdateDate.columnName)))
+                    cursor.getLong(cursor.getColumnIndex(COL_ID_COUNT)),
+                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(COL_COUNT_CREATION))),
+                    cursor.getDate(cursor.getLong(cursor.getColumnIndex(COL_COUNT_UPDATE)))
                 )
 
                 // total de estoque calculado no select
-                stockCount.totalQuantity = cursor.getLong(cursor.getColumnIndex(totalStock))
+                stockCount.totalQuantity = cursor.getLong(cursor.getColumnIndex(TOTAL_ITEMS))
 
                 listStockCount.add(stockCount)
             } while (cursor.moveToNext()) // proximo resultado
