@@ -41,7 +41,9 @@ class StockCountRepositoryImpl @Inject constructor(
         val TAB_ITEMS = StockCountItemDao.TABLENAME // nome da tabela com items da contagem de estoque
         val COL_NOFBXS = StockCountItemDao.Properties.NumberOfBoxes.columnName // nome da coluna quantidade de caixas
         val COL_NPERBX = StockCountItemDao.Properties.NumberPerBox.columnName // nome da coluna quantidade por caixa
-        val TOTAL_ITEMS = "total_items" // valor que armazenara o total de itens de cada contagem de estoque
+        val TOTAL_ITEMS = "total_items" // constante que armazenara o total de itens de cada contagem de estoque
+        val COL_ITEMS_PRC = StockCountItemDao.Properties.UnitPrice.columnName // nome da coluna com preco unitario do item
+        val TOTAL_PRICE = "total_price" // constante que armazenara o preco total coletado de cada contagem de estoque
         val COL_ID_COUNT = StockCountDao.Properties.Id.columnName // nome da coluna com o id da contagem de estoque
         val COL_ITEM_MCOUNT = StockCountItemDao.Properties.StockCount.columnName // nome da coluna que faz o relacionamento com a contagem de estoque
         val COL_COUNT_CREATION = StockCountDao.Properties.CreationDate.columnName // nome da coluna que grava a data de criacao da contagem de estoque
@@ -51,7 +53,8 @@ class StockCountRepositoryImpl @Inject constructor(
         val cursor: Cursor = stockCountDao.database.rawQuery(
             // "SELECT STOCK_COUNT.*, COALESCE(SUM(STOCK_COUNT_ITEM.NUMBER_OF_BOXES * STOCK_COUNT_ITEM.NUMBER_PER_BOX), 0) TOTAL FROM STOCK_COUNT LEFT JOIN STOCK_COUNT_ITEM ON STOCK_COUNT.id = STOCK_COUNT_ITEM.STOCK_COUNT GROUP BY STOCK_COUNT.id",
             "SELECT $TAB_COUNT.*, " +
-                    "COALESCE(SUM($TAB_ITEMS.$COL_NOFBXS * $TAB_ITEMS.$COL_NPERBX), 0) $TOTAL_ITEMS " +
+                    "COALESCE(SUM($TAB_ITEMS.$COL_NOFBXS * $TAB_ITEMS.$COL_NPERBX), 0) $TOTAL_ITEMS, " +
+                    "COALESCE(SUM($TAB_ITEMS.$COL_NOFBXS * $TAB_ITEMS.$COL_NPERBX * $TAB_ITEMS.$COL_ITEMS_PRC), 0) $TOTAL_PRICE " +
                     "FROM $TAB_COUNT LEFT JOIN $TAB_ITEMS " +
                     "ON $TAB_COUNT.$COL_ID_COUNT = $TAB_ITEMS.$COL_ITEM_MCOUNT " +
                     "GROUP BY $TAB_COUNT.$COL_ID_COUNT " +
@@ -70,6 +73,7 @@ class StockCountRepositoryImpl @Inject constructor(
 
                 // total de estoque calculado no select
                 stockCount.totalQuantity = cursor.getLong(cursor.getColumnIndex(TOTAL_ITEMS))
+                stockCount.totalPrice = cursor.getDouble(cursor.getColumnIndex(TOTAL_PRICE))
 
                 listStockCount.add(stockCount)
             } while (cursor.moveToNext()) // proximo resultado
