@@ -47,7 +47,7 @@ greendao {
     // os dados ja gravados serao apagados
     // futuramente deve ser verificado/implementado o schema sem apagar dados
     // https://stackoverflow.com/questions/16154113/greendao-schema-upgrade
-    schemaVersion 2
+    schemaVersion 3
 
     // pasta foi criada, projeto limpado e construido
     // dados criados automaticamente na pasta criada

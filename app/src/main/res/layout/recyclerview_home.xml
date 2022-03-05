@@ -122,7 +122,6 @@
                 android:layout_width="55sp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:layout_marginStart="16sp"
                 android:layout_alignParentEnd="true"
                 android:orientation="vertical">
 
