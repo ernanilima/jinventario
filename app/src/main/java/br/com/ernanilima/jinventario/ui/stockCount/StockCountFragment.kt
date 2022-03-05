@@ -264,7 +264,9 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
      */
     override fun deleteItemBySwipe(stockCountItem: StockCountItem) {
         SimpleDialog(QuestionDialog(parentFragmentManager).apply {
-            setMessage(getString(R.string.s_dialog_msg_delete_count_item, stockCountItem.id.toString()))
+            setMessage(getString(R.string.s_dialog_msg_delete_count_item))
+            setBarcode(stockCountItem.barcode)
+            setTotalItems(stockCountItem.totalQuantity)
             setNegativeButton {
                 stockCountRecyclerAdapter.notifyItemChanged(stockCountItem.index)
             }
@@ -288,10 +290,6 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
             binding.include.fieldNumberOfBoxes, binding.include.fieldNumberPerBox)
         Utils.clearErrors(binding.include.layoutBarcode, binding.include.layoutUnitPrice,
             binding.include.layoutNumberOfBoxes, binding.include.layoutNumberPerBox)
-    }
-
-    private fun shareCount() {
-
     }
 
     private fun validate(): Boolean {

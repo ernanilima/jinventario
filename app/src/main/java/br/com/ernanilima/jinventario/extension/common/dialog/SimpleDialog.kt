@@ -10,6 +10,7 @@ import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
 import br.com.ernanilima.jinventario.databinding.DialogSimpleLoadingBinding
 import br.com.ernanilima.jinventario.databinding.DialogSimpleQuestionBinding
+import br.com.ernanilima.jinventario.util.Utils
 
 private enum class BtnAction { POSITIVE, NEGATIVE }
 enum class Type { BASE, QUESTION, LOADING }
@@ -61,10 +62,17 @@ class SimpleDialog constructor(
         baseDialog.also {
             it.title?.let { t -> bindingQuestion.txtTitle.text = t }
             it.message?.let { m -> bindingQuestion.txtMessage.text = m }
+            it.barcode?.let { m -> bindingQuestion.fieldBarcode.text = m }
+            it.totalItems?.let { m -> bindingQuestion.fieldTotalQuantity.text = m }
             it.titleNegativeButton?.let { tnb -> bindingQuestion.btnNegative.text = tnb }
             it.titlePositiveButton?.let { tpb -> bindingQuestion.btnPositive.text = tpb }
             it.negativeButtonBold?.let { bindingQuestion.btnNegative.setTypeface(null, Typeface.BOLD) }
             it.positiveButtonBold?.let { bindingQuestion.btnPositive.setTypeface(null, Typeface.BOLD) }
+        }
+
+        if (baseDialog.barcode == null || baseDialog.totalItems == null) {
+            Utils.disableOption(bindingQuestion.layoutBarcode)
+            Utils.disableOption(bindingQuestion.layoutTotalQuantity)
         }
 
         bindingQuestion.btnNegative.tag = BtnAction.NEGATIVE

@@ -6,6 +6,8 @@ abstract class BaseDialog constructor(supportFragmentManager: FragmentManager) {
 
     var title: String? = null
     var message: String? = null
+    var barcode: String? = null
+    var totalItems: String? = null
     var titleNegativeButton: String? = null
     var titlePositiveButton: String? = null
     var negativeButtonBold: Boolean? = null

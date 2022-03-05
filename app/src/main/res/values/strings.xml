@@ -41,7 +41,7 @@
     <string name="s_dialog_msg_sing_out">Deseja sair?</string>
     <string name="s_dialog_msg_new_count">Criar uma contagem?</string>
     <string name="s_dialog_msg_delete_count">Deseja apagar a contagem de número %s?</string>
-    <string name="s_dialog_msg_delete_count_item">Deseja excluir o item de número %s?</string>
+    <string name="s_dialog_msg_delete_count_item">Deseja excluir o item informado abaixo?</string>
 
     <!--  App  -->
     <string name="s_new_count">Nova Contagem</string>

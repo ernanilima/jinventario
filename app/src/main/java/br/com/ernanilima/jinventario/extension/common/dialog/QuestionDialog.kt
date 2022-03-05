@@ -18,6 +18,16 @@ class QuestionDialog constructor(supportFragmentManager: FragmentManager): BaseD
         return this
     }
 
+    fun setBarcode(barcode: String): QuestionDialog {
+        super.barcode = barcode
+        return this
+    }
+
+    fun setTotalItems(totalItems: String): QuestionDialog {
+        super.totalItems = totalItems
+        return this
+    }
+
     fun setTitleNegativeButton(titleNegativeButton: String): QuestionDialog {
         super.titleNegativeButton = titleNegativeButton
         return this
