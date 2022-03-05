@@ -55,8 +55,9 @@
     <string name="s_irv_ex_date">99/99/99</string>
     <string name="s_irv_date_hour_update">Data e Hora da Alteração</string>
     <string name="s_irv_ex_date_hour">99/99/99 99:99</string>
-    <string name="s_irv_total">Total Itens</string>
-    <string name="s_irv_ex_total">999.999</string>
+    <string name="s_irv_total_items">Total de Itens</string>
+    <string name="s_irv_total_price">Preço Total</string>
+    <string name="s_irv_ex_total_items">999.999</string>
     <string name="s_barcode">Código De Barras</string>
     <string name="s_irv_ex_barcode">78901234567890</string>
     <string name="s_unit_price">Preço Unitário Do Produto</string>

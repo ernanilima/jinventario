@@ -6,27 +6,31 @@
     android:paddingTop="10sp"
     android:paddingBottom="10sp"
     android:paddingStart="16sp"
-    android:layout_gravity="center"
+    android:paddingEnd="0sp"
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_app_home">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="10sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8sp"
         android:layout_toStartOf="@+id/btn_edit"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/layout_count_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txt_count_number"
+                android:id="@+id/label_count_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:text="@string/s_irv_stock_count_number" />
 
             <TextView
@@ -34,83 +38,226 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
-                android:layout_toEndOf="@+id/txt_count_number"
                 android:text="@string/s_irv_ex_stock_count_number" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/txt_creation_date"
-                android:layout_width="75sp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/s_irv_creation_date"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/txt_date_hour_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/txt_total"
-                android:layout_toEndOf="@+id/txt_creation_date"
-                android:gravity="center"
-                android:text="@string/s_irv_date_hour_update"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/txt_total"
-                android:layout_width="60sp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="end"
-                android:text="@string/s_irv_total"
-                android:textSize="10sp" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/layout_data"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_count_number"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/field_creation_date"
+            <LinearLayout
+                android:id="@+id/layout_creation_date"
                 android:layout_width="75sp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:gravity="start"
-                android:text="@string/s_irv_ex_date" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/field_date_hour_update"
+                <TextView
+                    android:id="@+id/label_creation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_creation_date"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/field_creation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_ex_date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_date_hour_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/field_total"
-                android:layout_toEndOf="@+id/field_creation_date"
+                android:layout_toStartOf="@+id/layout_total_quantity"
+                android:layout_toEndOf="@+id/layout_creation_date"
                 android:gravity="center"
-                android:text="@string/s_irv_ex_date_hour" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/field_total"
+                <TextView
+                    android:id="@+id/label_date_hour_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_date_hour_update"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/field_date_hour_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_ex_date_hour" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_total_quantity"
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="end"
-                android:text="@string/s_irv_ex_total" />
+                android:gravity="center"
+                android:layout_toStartOf="@+id/layout_total_price"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/label_total_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_total_items"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/field_total_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_ex_total_items" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_total_price"
+                android:layout_width="55sp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginStart="16sp"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/label_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_total_price"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/field_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_irv_ex_total_price" />
+            </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/btn_edit"
         android:layout_width="41sp"
         android:layout_height="53sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:paddingStart="0sp"
         android:paddingEnd="16sp"
-        android:textSize="0sp"
         android:src="@drawable/ic_edit"
-        android:layout_alignParentEnd="true" />
+        android:textSize="0sp" />
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginEnd="10sp"-->
+<!--        android:layout_toStartOf="@+id/btn_edit"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_count_number"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:text="@string/s_irv_stock_count_number" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/field_count_number"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16sp"-->
+<!--                android:layout_toEndOf="@+id/txt_count_number"-->
+<!--                android:text="@string/s_irv_ex_stock_count_number" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_creation_date"-->
+<!--                android:layout_width="75sp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:text="@string/s_irv_creation_date"-->
+<!--                android:textSize="10sp"-->
+<!--                tools:ignore="SmallSp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_date_hour_update"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_toStartOf="@+id/txt_total"-->
+<!--                android:layout_toEndOf="@+id/txt_creation_date"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/s_irv_date_hour_update"-->
+<!--                android:textSize="10sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_total"-->
+<!--                android:layout_width="60sp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:gravity="end"-->
+<!--                android:text="@string/s_irv_total"-->
+<!--                android:textSize="10sp" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/field_creation_date"-->
+<!--                android:layout_width="75sp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:gravity="start"-->
+<!--                android:text="@string/s_irv_ex_date" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/field_date_hour_update"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_toStartOf="@+id/field_total"-->
+<!--                android:layout_toEndOf="@+id/field_creation_date"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/s_irv_ex_date_hour" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/field_total"-->
+<!--                android:layout_width="60sp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:gravity="end"-->
+<!--                android:text="@string/s_irv_ex_total" />-->
+
+<!--        </RelativeLayout>-->
+<!--    </LinearLayout>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/btn_edit"-->
+<!--        android:layout_width="41sp"-->
+<!--        android:layout_height="53sp"-->
+<!--        android:paddingEnd="16sp"-->
+<!--        android:textSize="0sp"-->
+<!--        android:src="@drawable/ic_edit"-->
+<!--        android:layout_alignParentEnd="true" />-->
 
 </RelativeLayout>
