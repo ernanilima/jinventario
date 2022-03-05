@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.databinding.ItemCountsBinding
+import br.com.ernanilima.jinventario.databinding.RecyclerviewHomeBinding
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.ui.AppActivity
 import br.com.ernanilima.jinventario.ui.home.IHome
@@ -23,7 +23,7 @@ class HomeRecyclerAdapter constructor(
     private val settings: Settings? = AppActivity.settings
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_counts, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_home, parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -60,7 +60,7 @@ class HomeRecyclerAdapter constructor(
      */
     inner class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val binding: ItemCountsBinding = ItemCountsBinding.bind(itemView)
+        private val binding: RecyclerviewHomeBinding = RecyclerviewHomeBinding.bind(itemView)
 
         fun userSettings() {
             if (settings == null || !settings.showPrice) {

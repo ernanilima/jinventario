@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.ernanilima.jinventario.R
-import br.com.ernanilima.jinventario.databinding.ItemStockCountRecyclerviewBinding
+import br.com.ernanilima.jinventario.databinding.RecyclerviewStockCountBinding
 import br.com.ernanilima.jinventario.model.Settings
 import br.com.ernanilima.jinventario.model.StockCountItem
 import br.com.ernanilima.jinventario.ui.AppActivity
@@ -22,7 +22,7 @@ class StockCountRecyclerAdapter constructor(
     private val settings: Settings? = AppActivity.settings
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockCountRecyclerAdapter.ViewHolder = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_stock_count_recyclerview, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_stock_count, parent, false)
     )
 
     override fun onBindViewHolder(holder: StockCountRecyclerAdapter.ViewHolder, position: Int) {
@@ -59,7 +59,7 @@ class StockCountRecyclerAdapter constructor(
      */
     inner class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val binding: ItemStockCountRecyclerviewBinding = ItemStockCountRecyclerviewBinding.bind(itemView)
+        private val binding: RecyclerviewStockCountBinding = RecyclerviewStockCountBinding.bind(itemView)
 
         fun userSettings() {
             if (settings == null || !settings.showPrice)
