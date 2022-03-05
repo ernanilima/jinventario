@@ -140,19 +140,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/progress_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-    </LinearLayout>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
         style="@style/Theme.JInventario.Button"

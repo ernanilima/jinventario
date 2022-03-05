@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.REFRESH_SETTINGS
 import br.com.ernanilima.jinventario.data.result.ResultTypeSettings.SAVED_SETTINGS
 import br.com.ernanilima.jinventario.databinding.FragmentSettingsBinding
+import br.com.ernanilima.jinventario.extension.common.dialog.LoadingDialog
+import br.com.ernanilima.jinventario.extension.common.dialog.SimpleDialog
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -18,6 +20,8 @@ class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+    private var _loadingDialog: SimpleDialog? = null
+    private val loadingDialog get() = _loadingDialog!!
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,9 +38,9 @@ class SettingsFragment : Fragment() {
 
     private fun delay() {
         CoroutineScope(Dispatchers.Main).launch {
-            binding.progressSettings.visibility = View.VISIBLE
+            loadingDialog.show()
             delay(1000)
-            binding.progressSettings.visibility = View.GONE
+            loadingDialog.close()
         }
     }
 
@@ -44,6 +48,7 @@ class SettingsFragment : Fragment() {
         // ACAO DE BOTOES
         binding.chbxCameraScanner.setOnCheckedChangeListener { _, isChecked -> useCameraAsScanner(isChecked) }
         binding.btnSave.setOnClickListener { saveSettings() }
+        _loadingDialog = SimpleDialog(LoadingDialog(parentFragmentManager))
     }
 
     private fun setupListener() {
@@ -56,7 +61,7 @@ class SettingsFragment : Fragment() {
                     binding.radioCameraZxing.isChecked = settingsViewModel.settings.cameraScannerZxing
                 }
                 SAVED_SETTINGS -> {
-                    binding.progressSettings.visibility = View.GONE
+                    loadingDialog.close()
                     Navigation.App.toHomeActivity(requireActivity())
                 }
             }
@@ -76,7 +81,7 @@ class SettingsFragment : Fragment() {
      * Grava as configuracoes
      */
     private fun saveSettings() {
-        binding.progressSettings.visibility = View.VISIBLE
+        loadingDialog.show()
         settingsViewModel.settings.showPrice = binding.chbxShowPrice.isChecked
         settingsViewModel.settings.cameraScanner = binding.chbxCameraScanner.isChecked
         settingsViewModel.settings.cameraScannerMlkit = binding.radioCameraMlkit.isChecked
