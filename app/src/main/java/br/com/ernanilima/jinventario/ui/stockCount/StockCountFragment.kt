@@ -37,7 +37,7 @@ import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
 import br.com.ernanilima.jinventario.ui.updateItem.UpdateItemDialogFragment
-import br.com.ernanilima.jinventario.util.Filtro
+import br.com.ernanilima.jinventario.util.Filter
 import br.com.ernanilima.jinventario.util.Format
 import br.com.ernanilima.jinventario.util.Utils
 import com.google.android.material.navigation.NavigationView
@@ -241,7 +241,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
         validate().ifTrue {
             val stockCountItem = StockCountItem()
             stockCountItem.barcode = binding.include.fieldBarcode.text.toString()
-            stockCountItem.unitPrice = Filtro.pDouble(binding.include.fieldUnitPrice.text.toString())
+            stockCountItem.unitPrice = Filter.toDouble(binding.include.fieldUnitPrice.text.toString())
             stockCountItem.numberOfBoxes = binding.include.fieldNumberOfBoxes.text.toString()
             stockCountItem.numberPerBox = binding.include.fieldNumberPerBox.text.toString()
             stockCountViewModel.newItem(stockCountItem)

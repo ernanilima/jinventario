@@ -28,7 +28,7 @@ import br.com.ernanilima.jinventario.ui.AppActivity
 import br.com.ernanilima.jinventario.ui.camera.CameraScanner
 import br.com.ernanilima.jinventario.ui.camera.MLKit
 import br.com.ernanilima.jinventario.ui.camera.ZXing
-import br.com.ernanilima.jinventario.util.Filtro
+import br.com.ernanilima.jinventario.util.Filter
 import br.com.ernanilima.jinventario.util.Format
 import br.com.ernanilima.jinventario.util.Utils
 
@@ -191,7 +191,7 @@ class UpdateItemDialogFragment constructor(
         if (validate()) {
             stockCountItem!!.also { item ->
                 item.barcode = binding.fieldBarcode.text.toString()
-                item.unitPrice = Filtro.pDouble(binding.fieldUnitPrice.text.toString())
+                item.unitPrice = Filter.toDouble(binding.fieldUnitPrice.text.toString())
                 item.numberOfBoxes = binding.fieldNumberOfBoxes.text.toString()
                 item.numberPerBox = binding.fieldNumberPerBox.text.toString()
             }
