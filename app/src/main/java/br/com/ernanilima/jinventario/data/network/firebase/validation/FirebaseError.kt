@@ -4,7 +4,16 @@ import android.content.Context
 import br.com.ernanilima.jinventario.R
 
 object FirebaseError {
+
+    /**
+     * Obter a mensagem de erro com base no errorCode retornado pelo firebase
+     * @param errorCode String - codigo do erro
+     * @param context Context - context do fragment
+     * @return String - mensagem do erro
+     */
     fun getMessage(errorCode: String, context: Context): String {
+        // existem validacoes que nao foram feitas por nao serem para o usuario
+        // https://github.com/firebase/FirebaseUI-Android/blob/master/auth/src/main/java/com/firebase/ui/auth/util/FirebaseAuthError.java
         return when (errorCode) {
             "ERROR_USER_DISABLED" -> context.getString(R.string.msg_disabled_user)
 

@@ -10,6 +10,7 @@ release
 .externalNativeBuild
 .cxx
 local.properties
+PoliticaDePrivacidade.html
 
 # ORM GREENDAO
 app/src/main/java/br/com/ernanilima/jinventario/repository/orm/*dao*.java

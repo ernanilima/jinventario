@@ -10,6 +10,7 @@ object WaitingTime {
     const val TEN: Int = 10
 
     /**
+     * Verificar diferenca de minutos
      * @param date Date - data/hora para comparar
      * @param minutes Int - minutos para esperar (10 por padrao)
      * @return String - minutos que deve esperar
