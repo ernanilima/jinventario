@@ -1,10 +1,8 @@
 package br.com.ernanilima.jinventario.data.network.firebase
 
-import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import br.com.ernanilima.jinventario.data.result.IResult
 import javax.inject.Inject
-import br.com.ernanilima.jinventario.data.network.firebase.validation.ValidarFirebase
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
@@ -44,41 +42,41 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     /**
      * Cadastra um usuario
      */
-    override fun registerUser(context: Context, userEmail: String, userPassword: String) {
+    override fun registerUser(userEmail: String, userPassword: String) {
         auth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 iResult.setResult(ResultTypeFirebase.REGISTRATION_DONE)
             }
         }.addOnFailureListener { error ->
             iResult.setResult(ResultTypeFirebase.REGISTRATION_NOT_DONE)
-            ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
+            iResult.setResultFirebaseError((error as FirebaseAuthException).errorCode)
         }
     }
 
     /**
      * Envia e-mail de verificacao para o usuario
      */
-    override fun sendEmailVerification(context: Context) {
+    override fun sendEmailVerification() {
         auth.currentUser!!.sendEmailVerification().addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 iResult.setResult(ResultTypeFirebase.VERIFICATION_EMAIL_SENT)
             }
         }.addOnFailureListener { error ->
-            ValidarFirebase.erroFirebase(context, error.javaClass.simpleName)
+            iResult.setResultFirebaseError(error.javaClass.simpleName)
         }
     }
 
     /**
      * Envia e-mail para o usuario redefinir a senha
      */
-    override fun sendEmailForgotPassword(context: Context, userEmail: String) {
+    override fun sendEmailForgotPassword(userEmail: String) {
         auth.sendPasswordResetEmail(userEmail).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 iResult.setResult(ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT)
             }
         }.addOnFailureListener { error ->
             iResult.setResult(ResultTypeFirebase.NEW_PASSWORD_EMAIL_NOT_SENT)
-            ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
+            iResult.setResultFirebaseError((error as FirebaseAuthException).errorCode)
         }
     }
 
@@ -97,7 +95,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
     /**
      * Realiza login do usuario que ja confirmou e-mail de verificacao
      */
-    override fun loginUser(context: Context, userEmail: String, userPassword: String) {
+    override fun loginUser(userEmail: String, userPassword: String) {
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 val resultTypeFirebase = if (result.result.user!!.isEmailVerified) ResultTypeFirebase.LOGIN_DONE else ResultTypeFirebase.EMAIL_NOT_VERIFIED
@@ -106,7 +104,7 @@ class FirebaseAuth @Inject constructor(): IFirebaseAuth {
         }.addOnFailureListener { error ->
             // criar validacao para a classe FirebaseTooManyRequestsException
             iResult.setResult(ResultTypeFirebase.UNAUTHENTICATED_USER)
-            ValidarFirebase.erroFirebase(context, (error as FirebaseAuthException).errorCode)
+            iResult.setResultFirebaseError((error as FirebaseAuthException).errorCode)
         }
     }
 }

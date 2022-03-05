@@ -64,5 +64,9 @@ class SplashFragment : Fragment() {
                 }
             }
         })
+
+        splashViewModel.automaticLoginResultFirebaseError.observe(viewLifecycleOwner, { result ->
+            println(result)
+        })
     }
 }

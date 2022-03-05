@@ -37,6 +37,9 @@ class ForgotPasswordViewModel @Inject constructor(
     private val _forgotPasswordResult = MutableLiveData<IResultType>()
     val forgotPasswordResult: LiveData<IResultType> = _forgotPasswordResult
 
+    private val _forgotPasswordResultFirebaseError = MutableLiveData<String>()
+    val forgotPasswordResultFirebaseError: LiveData<String> = _forgotPasswordResultFirebaseError
+
     private var _waitingTime: String? = null
     val waitingTime get() = _waitingTime!!
 
@@ -55,7 +58,7 @@ class ForgotPasswordViewModel @Inject constructor(
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
         if (user.dateSendingPassword == null || WaitingTime.get(user.dateSendingPassword) <= 0) {
-            iFirebaseAuth.sendEmailForgotPassword(weakReference.get()!!, user.email) // envia um e-mail
+            iFirebaseAuth.sendEmailForgotPassword(user.email) // envia um e-mail
         } else {
             // se o e-mail nao puder ser enviado
             _waitingTime = WaitingTime.get(user.dateSendingPassword).toString()
@@ -72,5 +75,9 @@ class ForgotPasswordViewModel @Inject constructor(
         else -> {
             _forgotPasswordResult.postValue(iResult)
         }
+    }
+
+    override fun setResultFirebaseError(error: String) {
+        _forgotPasswordResultFirebaseError.postValue(error)
     }
 }

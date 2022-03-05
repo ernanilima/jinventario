@@ -35,6 +35,9 @@ class RegisterViewModel @Inject constructor(
     private val _registerResult = MutableLiveData<IResultType>()
     val registerResult: LiveData<IResultType> = _registerResult
 
+    private val _registerResultFirebaseError = MutableLiveData<String>()
+    val registerResultFirebaseError: LiveData<String> = _registerResultFirebaseError
+
     init {
         // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAuth = FirebaseAuth(this)
@@ -44,7 +47,7 @@ class RegisterViewModel @Inject constructor(
     override fun register() {
         if (!geIsInternet) { _isInternet.postValue(false); return }
 
-        iFirebaseAuth.registerUser(weakReference.get()!!, user.email, user.password)
+        iFirebaseAuth.registerUser(user.email, user.password)
     }
 
     /**
@@ -64,7 +67,7 @@ class RegisterViewModel @Inject constructor(
     override fun setResult(iResult: IResultType) = when (iResult) {
         REGISTRATION_DONE -> {
             // cadastro realizado, envia o e-mail de verificacao
-            iFirebaseAuth.sendEmailVerification(weakReference.get()!!)
+            iFirebaseAuth.sendEmailVerification()
         }
         VERIFICATION_EMAIL_SENT -> {
             // e-mail enviado
@@ -74,5 +77,9 @@ class RegisterViewModel @Inject constructor(
         else -> {
             _registerResult.postValue(iResult)
         }
+    }
+
+    override fun setResultFirebaseError(error: String) {
+        _registerResultFirebaseError.postValue(error)
     }
 }

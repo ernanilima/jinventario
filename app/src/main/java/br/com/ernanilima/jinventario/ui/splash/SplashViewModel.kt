@@ -35,6 +35,9 @@ class SplashViewModel @Inject constructor(
     private val _automaticLoginResult = MutableLiveData<IResultType>()
     val automaticLoginResult: LiveData<IResultType> = _automaticLoginResult
 
+    private val _automaticLoginResultFirebaseError = MutableLiveData<String>()
+    val automaticLoginResultFirebaseError: LiveData<String> = _automaticLoginResultFirebaseError
+
     init {
         // EXECUTA AO INICIAR A CLASSE
         this.iFirebaseAuth = FirebaseAuth(this)
@@ -70,5 +73,9 @@ class SplashViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun setResultFirebaseError(error: String) {
+        _automaticLoginResultFirebaseError.postValue(error)
     }
 }

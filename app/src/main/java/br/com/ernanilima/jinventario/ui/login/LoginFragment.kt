@@ -110,6 +110,10 @@ class LoginFragment: Fragment() {
             }
             loadingDialog.dismiss()
         })
+
+        loginViewModel.loginResultFirebaseError.observe(viewLifecycleOwner, { result ->
+            println(result)
+        })
     }
 
     /**

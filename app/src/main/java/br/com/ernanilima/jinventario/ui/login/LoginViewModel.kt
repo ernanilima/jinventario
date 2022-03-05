@@ -41,6 +41,9 @@ class LoginViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<IResultType>()
     val loginResult: LiveData<IResultType> = _loginResult
 
+    private val _loginResultFirebaseError = MutableLiveData<String>()
+    val loginResultFirebaseError: LiveData<String> = _loginResultFirebaseError
+
     private var _waitingTime: String? = null
     val waitingTime get() = _waitingTime!!
 
@@ -53,7 +56,7 @@ class LoginViewModel @Inject constructor(
     override fun login() {
         if (!geIsInternet) { _isInternet.postValue(false); return }
 
-        iFirebaseAuth.loginUser(weakReference.get()!!, user.email, user.password)
+        iFirebaseAuth.loginUser(user.email, user.password)
     }
 
     /* Verifica se tem internet e realiza login com o gmail */
@@ -72,7 +75,7 @@ class LoginViewModel @Inject constructor(
         // se data de envio for null, realiza envio do e-mail
         // se ja existir envio, verifica se pode enviar novamente
         if (user.dateSendingVerification == null || WaitingTime.get(user.dateSendingVerification) <= 0) {
-            iFirebaseAuth.sendEmailVerification(weakReference.get()!!) // envia e-mail
+            iFirebaseAuth.sendEmailVerification() // envia e-mail
             user.dateSendingVerification = Date(System.currentTimeMillis()) // envio com data/hora atual
             userDao.update(user)
         } else {
@@ -94,5 +97,9 @@ class LoginViewModel @Inject constructor(
         else -> {
             _loginResult.postValue(iResult)
         }
+    }
+
+    override fun setResultFirebaseError(error: String) {
+        _loginResultFirebaseError.postValue(error)
     }
 }

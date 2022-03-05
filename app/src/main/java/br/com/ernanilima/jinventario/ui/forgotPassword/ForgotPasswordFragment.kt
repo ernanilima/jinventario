@@ -83,6 +83,10 @@ class ForgotPasswordFragment : Fragment() {
             }
             loadingDialog.close()
         })
+
+        forgotPasswordViewModel.forgotPasswordResultFirebaseError.observe(viewLifecycleOwner, { result ->
+            println(result)
+        })
     }
 
     /**

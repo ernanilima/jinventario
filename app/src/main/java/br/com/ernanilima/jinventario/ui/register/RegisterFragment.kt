@@ -94,6 +94,10 @@ class RegisterFragment : Fragment() {
             }
             loadingDialog.close()
         })
+
+        registerViewModel.registerResultFirebaseError.observe(viewLifecycleOwner, { result ->
+            println(result)
+        })
     }
 
     /**
