@@ -356,7 +356,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
 
         // exibe um snackbar quando nao tem a permissao
         val context = requireParentFragment().requireContext()
-        warning(context, getString(R.string.msg_without_camera_permission))
+        warning(context, binding.root, getString(R.string.msg_without_camera_permission))
         return false
     }
 
@@ -376,7 +376,7 @@ class StockCountFragment : Fragment(), IStockCount.IFragment {
         if (item.itemId == R.id.share) {
             if (stockCountViewModel.listStockCountItem.isEmpty()) {
                 val context = requireParentFragment().requireContext()
-                warning(context, getString(R.string.msg_empty_share))
+                warning(context, binding.root, getString(R.string.msg_empty_share))
             } else {
                 ShareCount.csv(requireParentFragment(), idStockCount.value!!, stockCountViewModel.listStockCountItem)
             }

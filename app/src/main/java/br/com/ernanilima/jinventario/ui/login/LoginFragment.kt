@@ -77,7 +77,7 @@ class LoginFragment: Fragment() {
         loginViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
-                warning(context, getString(R.string.msg_without_internet))
+                warning(context, binding.root, getString(R.string.msg_without_internet))
                 loadingDialog.close()
             }
         })
@@ -101,11 +101,11 @@ class LoginFragment: Fragment() {
                 }
                 VERIFICATION_EMAIL_SENT -> {
                     val context = requireParentFragment().requireContext()
-                    success(context, getString(R.string.msg_email_verification_sent))
+                    success(context, binding.root, getString(R.string.msg_email_verification_sent))
                 }
                 WAIT_SEND_VERIFICATION -> {
                     val context = requireParentFragment().requireContext()
-                    warning(context, getString(R.string.msg_waiting_time, loginViewModel.waitingTime))
+                    warning(context, binding.root, getString(R.string.msg_waiting_time, loginViewModel.waitingTime))
                 }
             }
             loadingDialog.dismiss()

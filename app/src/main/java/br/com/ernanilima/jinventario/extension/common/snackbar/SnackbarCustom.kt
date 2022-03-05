@@ -17,71 +17,75 @@ object SnackbarCustom {
 
     /**
      * @param context Context - onde sera exibido
+     * @param view View - onde sera exibido
      * @param message String - mensagem para exibir
      */
-    fun success(context: Context, message: String) {
-        base(context, R.drawable.background_success, message)
+    fun success(context: Context, view: View, message: String) {
+        base(context, view, R.drawable.background_success, message)
     }
 
     /**
      * @param context Context - onde sera exibido
+     * @param view View - onde sera exibido
      * @param message String - mensagem para exibir
      */
-    fun warning(context: Context, message: String) {
-        base(context, R.drawable.background_warning, message)
+    fun warning(context: Context, view: View, message: String) {
+        base(context, view, R.drawable.background_warning, message)
     }
 
-    //fun error(context: Context, message: String) {
-    //    base(context, R.drawable.toast_error, message)
+    //fun error(context: Context, view: View, message: String) {
+    //    base(context, view, R.drawable.toast_error, message)
     //}
 
     /**
      * @param context Context - onde sera exibido
+     * @param view View - onde sera exibido
      * @param type Int - background
      * @param message String - mensagem para exibir
      */
-    private fun base(context: Context, type: Int, message: String) {
+    private fun base(context: Context, view: View, type: Int, message: String) {
         // busca e atribui os valores no layout personalizado
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        val binding: SnackbarCustomBinding = SnackbarCustomBinding.inflate(layoutInflater)
-        binding.toastRoot.background = ContextCompat.getDrawable(context, type)
-        binding.txtMessage.text = message
+        val bindingSnackbar: SnackbarCustomBinding = SnackbarCustomBinding.inflate(layoutInflater)
+        bindingSnackbar.toastRoot.background = ContextCompat.getDrawable(context, type)
+        bindingSnackbar.txtMessage.text = message
 
         if (context is Activity) {
-            baseSnackbar(context, binding.root)
+            baseSnackbar(context, view, bindingSnackbar.root)
         } else {
-            baseToast(context, binding.root)
+            baseToast(context, bindingSnackbar.root)
         }
     }
 
     /**
      * Usado como padrao, oculta o teclado e exibe um snackbar
      * @param context Context - onde sera exibido
-     * @param bindingView View - layout personalizado
+     * @param view View - onde sera exibido
+     * @param bindingSnackbar View - layout personalizado
      */
-    private fun baseSnackbar(context: Context, bindingView: View) {
+    private fun baseSnackbar(context: Context, view: View, bindingSnackbar: View) {
         // oculta o teclado
         DeviceHelper.hideKeyboard(context)
 
         // constroi o snackbar
-        val snackbar: Snackbar = Snackbar.make((context as Activity).window.decorView.rootView, "", Snackbar.LENGTH_LONG)
+        val snackbar: Snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG)
         snackbar.view.setBackgroundColor(Color.TRANSPARENT)
 
         // constroi o layout do snackbar, adiciona o snackbar personalizado e exibe
         val snackbarLayout: Snackbar.SnackbarLayout = snackbar.view as Snackbar.SnackbarLayout
-        snackbarLayout.addView(bindingView)
+        snackbarLayout.addView(bindingSnackbar)
         snackbar.show()
     }
 
     /**
      * Usado quando o snackbar nao pode ser exibido
      * @param context Context - onde sera exibido
-     * @param bindingView View - layout personalizado
+     * @param bindingSnackbar View - layout personalizado
      */
-    private fun baseToast(context: Context, bindingView: View) {
+    private fun baseToast(context: Context, bindingSnackbar: View) {
         // constroi e exibe o toast
         val toast = Toast(context)
-        toast.view = bindingView
+        toast.view = bindingSnackbar
         toast.duration = Toast.LENGTH_LONG
         toast.show()
     }

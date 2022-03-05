@@ -63,7 +63,7 @@ class ForgotPasswordFragment : Fragment() {
         forgotPasswordViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
-                warning(context, getString(R.string.msg_without_internet))
+                warning(context, binding.root, getString(R.string.msg_without_internet))
                 loadingDialog.close()
             }
         })
@@ -72,12 +72,12 @@ class ForgotPasswordFragment : Fragment() {
             when (result) {
                 NEW_PASSWORD_EMAIL_SENT -> {
                     val context = requireParentFragment().requireContext()
-                    success(context, getString(R.string.msg_email_update_password_sent))
+                    success(context, binding.root, getString(R.string.msg_email_update_password_sent))
                     toLoginFragment(this)
                 }
                 WAIT_SEND_PASSWORD -> {
                     val context = requireParentFragment().requireContext()
-                    warning(context, getString(R.string.msg_waiting_time, forgotPasswordViewModel.waitingTime))
+                    warning(context, binding.root, getString(R.string.msg_waiting_time, forgotPasswordViewModel.waitingTime))
                 }
                 // NEW_PASSWORD_EMAIL_NOT_SENT -> { RESULTADO EH EXIBO NO TRATAMENTO DE ERROS }
             }

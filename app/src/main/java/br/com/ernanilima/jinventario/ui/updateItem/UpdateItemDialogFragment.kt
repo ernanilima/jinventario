@@ -71,7 +71,7 @@ class UpdateItemDialogFragment constructor(
         // botao neutro e confirmar sao implementados em outro metodo
         // dessa forma o botao nao fecha o dialog sem validar os campos
 
-        return alertDialog.create();
+        return alertDialog.create()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -263,10 +263,7 @@ class UpdateItemDialogFragment constructor(
 
         // exibe um snackbar quando nao tem a permissao
         val context = requireParentFragment().requireContext()
-        SnackbarCustom.warning(context, getString(R.string.msg_without_camera_permission))
-        //Snackbar
-        //    .make(binding.root, getString(R.string.msg_without_camera_permission), Snackbar.LENGTH_LONG)
-        //    .show()
+        SnackbarCustom.warning(context, binding.root, getString(R.string.msg_without_camera_permission))
         return false
     }
 

@@ -81,7 +81,7 @@ class RegisterFragment : Fragment() {
         registerViewModel.isInternet.observe(viewLifecycleOwner, { result ->
             result.ifFalse {
                 val context = requireParentFragment().requireContext()
-                warning(context, getString(R.string.msg_without_internet))
+                warning(context, binding.root, getString(R.string.msg_without_internet))
                 loadingDialog.close()
             }
         })
@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
         registerViewModel.registerResult.observe(viewLifecycleOwner, { result ->
             if (result == REGISTRATION_DONE) {
                 val context = requireParentFragment().requireContext()
-                success(context, getString(R.string.msg_registered_user))
+                success(context, binding.root, getString(R.string.msg_registered_user))
                 toLoginFragment(this)
             }
             loadingDialog.close()
@@ -158,7 +158,7 @@ class RegisterFragment : Fragment() {
             // politica de privacidade
             binding.chbxPrivacyPolicy.isChecked.ifFalse {
                 val context = requireParentFragment().requireContext()
-                warning(context, getString(R.string.msg_privacy_policy))
+                warning(context, binding.root, getString(R.string.msg_privacy_policy))
                 isValid = it
             }
         }
