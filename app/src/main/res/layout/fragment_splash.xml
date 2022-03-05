@@ -7,7 +7,7 @@
     android:padding="30dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background_splash"
+    style="@style/Theme.JInventario.Splash"
     tools:context=".ui.splash.SplashFragment">
 
     <ImageView

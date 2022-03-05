@@ -20,6 +20,14 @@
         <item name="colorNavigationItemSelected">@color/primaryTextColorItemSelected</item>
     </style>
 
+    <style name="Theme.JInventario.Splash" parent="@style/Theme.JInventario">
+        <item name="android:background">@drawable/background_splash_day</item>
+    </style>
+
+    <style name="Theme.JInventario.Logo" parent="@style/Theme.JInventario">
+        <item name="android:background">@drawable/background_logo_day</item>
+    </style>
+
     <style name="Theme.JInventario.ProgressBarWhite" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@android:color/white</item>
     </style>

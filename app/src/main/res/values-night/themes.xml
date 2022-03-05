@@ -24,6 +24,14 @@
         <item name="colorNavigationItemSelected">@color/primaryLightColorNigth</item>
     </style>
 
+    <style name="Theme.JInventario.Splash" parent="@style/Theme.JInventario">
+        <item name="android:background">@drawable/background_splash_night</item>
+    </style>
+
+    <style name="Theme.JInventario.Logo" parent="@style/Theme.JInventario">
+        <item name="android:background">@drawable/background_logo_night</item>
+    </style>
+
     <style name="Theme.JInventario.Fields">
         <item name="hintTextColor">@color/primaryLightColorNigth</item>
         <item name="boxStrokeColor">@color/primaryLightColorNigth</item>
