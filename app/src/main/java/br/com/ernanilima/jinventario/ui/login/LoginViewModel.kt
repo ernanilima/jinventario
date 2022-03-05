@@ -99,7 +99,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun setResultFirebaseError(error: String) {
-        _loginResultFirebaseError.postValue(error)
+    override fun setResultFirebaseError(errorCode: String) {
+        _loginResultFirebaseError.postValue(errorCode)
     }
 }

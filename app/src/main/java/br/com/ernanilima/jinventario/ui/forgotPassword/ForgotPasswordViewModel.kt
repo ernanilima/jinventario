@@ -77,7 +77,7 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
-    override fun setResultFirebaseError(error: String) {
-        _forgotPasswordResultFirebaseError.postValue(error)
+    override fun setResultFirebaseError(errorCode: String) {
+        _forgotPasswordResultFirebaseError.postValue(errorCode)
     }
 }

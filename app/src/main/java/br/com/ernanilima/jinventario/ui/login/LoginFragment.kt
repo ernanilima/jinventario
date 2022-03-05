@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
+import br.com.ernanilima.jinventario.data.network.firebase.validation.FirebaseError
 import br.com.ernanilima.jinventario.databinding.FragmentLoginBinding
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toForgotPasswordFragment
 import br.com.ernanilima.jinventario.service.navcontroller.Navigation.Login.Companion.toRegisterFragment
@@ -112,7 +113,8 @@ class LoginFragment: Fragment() {
         })
 
         loginViewModel.loginResultFirebaseError.observe(viewLifecycleOwner, { result ->
-            println(result)
+            val context = requireParentFragment().requireContext()
+            warning(context, binding.root, FirebaseError.getMessage(result, context))
         })
     }
 

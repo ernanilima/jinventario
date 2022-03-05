@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
+import br.com.ernanilima.jinventario.data.network.firebase.validation.FirebaseError
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.NEW_PASSWORD_EMAIL_SENT
 import br.com.ernanilima.jinventario.data.result.ResultTypeLocal.WAIT_SEND_PASSWORD
 import br.com.ernanilima.jinventario.databinding.FragmentLoginForgotPasswordBinding
@@ -85,7 +86,8 @@ class ForgotPasswordFragment : Fragment() {
         })
 
         forgotPasswordViewModel.forgotPasswordResultFirebaseError.observe(viewLifecycleOwner, { result ->
-            println(result)
+            val context = requireParentFragment().requireContext()
+            warning(context, binding.root, FirebaseError.getMessage(result, context))
         })
     }
 

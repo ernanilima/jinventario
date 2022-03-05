@@ -5,5 +5,5 @@ package br.com.ernanilima.jinventario.data.result;
  */
 interface IResult {
     fun setResult(iResult: IResultType)
-    fun setResultFirebaseError(error: String)
+    fun setResultFirebaseError(errorCode: String)
 }

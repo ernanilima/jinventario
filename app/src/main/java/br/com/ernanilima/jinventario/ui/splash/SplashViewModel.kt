@@ -75,7 +75,7 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    override fun setResultFirebaseError(error: String) {
-        _automaticLoginResultFirebaseError.postValue(error)
+    override fun setResultFirebaseError(errorCode: String) {
+        _automaticLoginResultFirebaseError.postValue(errorCode)
     }
 }

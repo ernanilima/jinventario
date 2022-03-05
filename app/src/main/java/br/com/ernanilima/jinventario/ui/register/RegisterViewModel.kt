@@ -79,7 +79,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    override fun setResultFirebaseError(error: String) {
-        _registerResultFirebaseError.postValue(error)
+    override fun setResultFirebaseError(errorCode: String) {
+        _registerResultFirebaseError.postValue(errorCode)
     }
 }

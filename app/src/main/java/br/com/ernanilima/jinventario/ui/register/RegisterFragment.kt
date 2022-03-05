@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import br.com.ernanilima.jinventario.R
+import br.com.ernanilima.jinventario.data.network.firebase.validation.FirebaseError
 import br.com.ernanilima.jinventario.data.result.ResultTypeFirebase.REGISTRATION_DONE
 import br.com.ernanilima.jinventario.databinding.FragmentLoginRegisterBinding
 import br.com.ernanilima.jinventario.extension.common.InputHelper
@@ -96,7 +97,8 @@ class RegisterFragment : Fragment() {
         })
 
         registerViewModel.registerResultFirebaseError.observe(viewLifecycleOwner, { result ->
-            println(result)
+            val context = requireParentFragment().requireContext()
+            warning(context, binding.root, FirebaseError.getMessage(result, context))
         })
     }
 
